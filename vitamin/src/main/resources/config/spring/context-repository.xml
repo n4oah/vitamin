@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="euc-kr"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"	    
+    xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"	    	    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd    
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    
+	<context:component-scan base-package="kr.co.vitamin" />
+	
+	<context:property-placeholder location="classpath:config/db/mybatis/db.properties" />
+
+	<bean
+		id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"
+      	p:driverClassName="${jdbc.mysql.driver}"
+        p:url="${jdbc.mysql.url}"
+        p:username="${jdbc.mysql.username}" 
+        p:password="${jdbc.mysql.password}" />
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />	
+		<property name="typeAliasesPackage" value="com.dreamlec.repository.vo" />
+		<property name="mapperLocations" value="classpath:config/db/mapper/*.xml" />
+	</bean>
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="kr.co.vitamin.repository.mapper" />
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+ 
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="bit.dream.team@gmail.com" />
+		<property name="password" value="bitdream" />
+		<!-- 	
+		<property name="host" value="mx1.hostinger.kr" />
+		<property name="port" value="587" />
+		<property name="username" value="bit-dreamteam@n4oah.kr" />
+		<property name="password" value="123456" />
+		-->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.debug">false</prop>
+			</props>
+		</property>
+	</bean>
+</beans>
