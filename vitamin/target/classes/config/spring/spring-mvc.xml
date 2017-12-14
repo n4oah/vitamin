@@ -17,6 +17,9 @@
 	<mvc:view-resolvers>
 		<mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp" />
 	</mvc:view-resolvers>
+	
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+	<mvc:resources mapping="/resources/**" location="/WEB-INF/views/" />
 
 	<mvc:annotation-driven>
 		<mvc:message-converters>
@@ -43,7 +46,7 @@
 	</bean>
 	
 	<!-- <mvc:view-controller path="/index.jsp" view-name="main.do" /> -->
-	<!-- <mvc:view-controller path="/main.do" view-name="index" /> -->
+	<mvc:view-controller path="/member/signupForm.do" view-name="member/signupForm" />
 </beans>
 
     
