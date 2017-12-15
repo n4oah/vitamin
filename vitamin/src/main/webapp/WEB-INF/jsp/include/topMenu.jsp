@@ -4,7 +4,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/topMenu.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/topMenu.css">
 
 <div class="jain_container">
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -12,11 +12,9 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span> <i class="icon-menu"></i>
-					Menu
+					<span class="sr-only">Toggle navigation</span>
+					<i class="icon-menu"></i>Menu
 				</button>
-				<!-- <a class="navbar-brand" href="#"> <img
-					src="http://mogulsdemo.com/html/pride-home/images/logo.png" /></a> -->
 			</div>
 			<div class="outer">
 				<div class="col-md-8">

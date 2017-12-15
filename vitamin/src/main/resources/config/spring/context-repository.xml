@@ -29,8 +29,9 @@
 	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />	
-		<property name="typeAliasesPackage" value="com.dreamlec.repository.vo" />
+		<property name="typeAliasesPackage" value="kr.co.vitamin.repository.vo" />
 		<property name="mapperLocations" value="classpath:config/db/mapper/*.xml" />
+		<property name="configLocation" value="classpath:config/db/mybatis/sqlMapConfig.xml" />
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
