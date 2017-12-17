@@ -1,14 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/topMenu.css">
-
-<div class="jain_container">
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container1 container-fluid">
+<header class="jain_container">
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container1 container-fluid"> <!-- container-fluid -->
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#bs-example-navbar-collapse-1">
@@ -22,6 +19,7 @@
 						id="bs-example-navbar-collapse-1">
 						<div class="col-md-12">
 							<ul class="nav navbar-nav">
+								<li><a href="${pageContext.request.contextPath}/main.do">MAIN</a></li>
 								<li class="dropdown mega-dropdown"><a href="#"
 									class="dropdown-toggle" data-toggle="dropdown">FIND YORU HOTEL <span class="caret"></span>
 								</a>
@@ -66,9 +64,7 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<div class="col-sm-4">
-											<select name="hotel" id="hotel" required=""
-												class="form-control"
-												onchange="changeFormaction2(this.value);">
+											<select name="hotel" id="hotel" required="" class="form-control" onchange="changeFormaction2(this.value);">
 												<option value="" selected="">Select Hotel</option>
 												<option value="67961">Pride Plaza Hotel Ahmedabad</option>
 												<option value="67964">The Pride Hotel Bengaluru</option>
@@ -104,4 +100,4 @@
 			</div>
 		</div>
 	</nav>
-</div>
+</header>

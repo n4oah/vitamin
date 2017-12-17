@@ -2395,22 +2395,18 @@ src: url('../fonts/radikal_font_family/OPENSANS-SEMIBOLD.TTF');
 }
 
 .clear{    clear: both;}
-.jain_container{ margin:0px; padding:0px;}
+/* .jain_container{ margin:0px; padding:0px;}
 .jain_container .medias ul{ padding:0px; margin:0px; }
 .jain_container .medias ul li{  display:inline;  padding:7px 0px;}
-/* .jain_container .medias i {    font-size: 18px;} */
 .jain_container  .navbar-brand{ height:inherit;}
 .jain_container .form-control{border-radius: 0px;border: 2px solid #adadad;}
 .jain_container  .form-horizontal_x{
     margin-top: 10px;
 }
-.form-horizontal_x .col-sm-4 {    padding: 3px;}
-.form-horizontal_x .col-sm-3 {    padding: 3px;}
-.form-horizontal_x .col-sm-2 {    padding: 3px;}
 .jain_container .navbar-default{position: absolute;    background-color: rgba(255, 255, 255, 0.72);}
 
 .jain_container .nav>li>a{padding: 15px 10px;color:#4c1f1e;font-family: RadikalW01_Black_bold;}
-
+*/
 .jain_container .btn-default {
     color: #fff;
     background-color: #ff523f;
@@ -2420,7 +2416,14 @@ src: url('../fonts/radikal_font_family/OPENSANS-SEMIBOLD.TTF');
     font-size: 16px;
 
 }
-.jain_container .btn-default:hover{ background:#000; border-color:#000;}
+/* .jain_container .btn-default:hover{ background:#000; border-color:#000;}
+.jain_container .tagline h3	{font-family: RadikalW01-Light;font-size: 42px;text-transform: uppercase;text-shadow: 0px 0px 2px #c29c78;}
+.jain_container .tagline h3  span{    font-family: RadikalW01-Bold; font-size:60px; letter-spacing:3px;}
+.jain_container .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{    color: #f45541;    background-color: rgba(231, 231, 231, 0);} */
+.form-horizontal_x .col-sm-4 {    padding: 3px;}
+.form-horizontal_x .col-sm-3 {    padding: 3px;}
+.form-horizontal_x .col-sm-2 {    padding: 3px;}
+
 .medias ul li a {
     height: 30px;
     width: 30px;
@@ -2436,9 +2439,6 @@ src: url('../fonts/radikal_font_family/OPENSANS-SEMIBOLD.TTF');
 .classus p{color:#4c1f1e;padding-top: 10px;}
 .why_bookonline p{color:#4c1f1e;   font-family: RadikalW01-Medium; font-size:18px;}
 .medias ul li a:hover {    background: #000;}
-
-.jain_container .tagline h3	{font-family: RadikalW01-Light;font-size: 42px;text-transform: uppercase;text-shadow: 0px 0px 2px #c29c78;}
-.jain_container .tagline h3  span{    font-family: RadikalW01-Bold; font-size:60px; letter-spacing:3px;}
 
 .new_years {
     border: 1px solid #fff;
@@ -2746,8 +2746,8 @@ a.offers_link{
   text-align: center;
 }
 .col-md-8 { 
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%);
+	width: 100%;
+	/* left: 50%; */
+	/* top: 50%; */
+	/* transform: translate(-50%); */
 }
-.jain_container .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover{    color: #f45541;    background-color: rgba(231, 231, 231, 0);}
