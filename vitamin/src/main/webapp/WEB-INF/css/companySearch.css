@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+
+body {
+  	font-family: 'Helvetica Neue', Helvetica, Arial,sans-serif;
+ 	max-width: 850px;
+}
+
+.showSelect {
+    display: inline-block;
+    cursor: pointer;
+    margin: 4px 10px 15px 0 !important;
+    font-size: 14px;
+    vertical-align: top;
+    transition: all .3s ease-in-out;
+}
+
+
+.showSelect:hover {
+    background-color: #dadada;
+    transition: all .3s ease-in-out;
+}
+.showSelect .arrow {
+    display: block;
+    transition:All .2s ease;
+    font-size: 15px;
+    float: right;
+    margin: -1px -6px -3px 9px;
+    background-image: url('https://raw.githubusercontent.com/stevenoone/Checkbox-Menus/master/arrowDown.png');
+    background-repeat: no-repeat;
+    width: 23px;
+    height: 19px;
+}
+
+@supports (overflow:-webkit-marquee) and (justify-content:inherit) { 
+    .showSelect .arrow {
+        margin: -1px -2px -3px 10px;
+    }
+}
+
+.showSelect.open {
+    background-color: #dadada;
+}
+
+/* .showSelect.open .arrow {
+    transform: rotate(180deg);
+    margin: -1px -6px -3px 9px;
+} */
+
+@supports (overflow:-webkit-marquee) and (justify-content:inherit) { 
+    .showSelect.open .arrow {
+        transform: rotate(180deg);
+        margin: -1px -2px -3px 10px;
+    }
+}
+.optContainer {
+    background-color: #f2f2f2;
+    padding: 15px;
+}
+
+.optContainer h5{
+    clear: both;
+    margin: 15px 0 10px 0;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+    display:inline-block;
+    width: 100%;
+}
+
+.optContainer h5 a{
+    font-weight: normal;
+    color: #0c6cc4;
+}
+
+.optContainer label {
+    display: inline-block;
+    width: 32%;
+    color: #808080;
+    font-size: 13px;
+    cursor: pointer;
+    height: 20px;
+    overflow: hidden;
+    margin-right: 5px;
+}
+
+@media (max-width: 640px) {
+    .optContainer label {
+        width: 48%;
+    }
+}
+.optContainer label.checked {
+    color: #000;
+}
+
+.optContainer input {
+    margin-right: 10px;
+}
+
+.changes {
+    margin: 10px -15px -15px -15px;
+    background-color: #e5e5e5;
+    padding: 15px;
+    border-bottom: 1px solid #d0d0d0 !important;
+}
+
+
+.btn-primary {
+    margin-top: 4px;
+    border-radius: 3px;
+    padding: 4px 12px;
+    background-color: #ff8300;
+    color: #fff;
+    border: 1px solid #da7205;
+    border-radius: 0px;
+    padding: 10px 15px;
+    font-family: 'Helvetica Neue', Helvetica, Arial,sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
+
+
+
+.btn-primary:hover {
+    background-color: #da7205;
+    transition: all .3s ease-in-out;
+}
+
+.btn-secondary {
+    margin-top: 4px;
+    margin-left: 10px;
+    border-radius: 3px;
+    padding: 4px 12px;
+    background-color: #f7f7f7;
+    color: #444;
+    border: 1px solid #999;
+    border-radius: 0px;
+    padding: 10px 15px;
+    font-family: 'Helvetica Neue', Helvetica, Arial,sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+@-moz-document url-prefix() { 
+    .btn-primary, .changes .btn-secondary {
+        padding: 9px 15px;
+    }
+}

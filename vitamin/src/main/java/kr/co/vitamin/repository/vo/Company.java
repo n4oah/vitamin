@@ -1,5 +1,5 @@
 package kr.co.vitamin.repository.vo;
 
-public class Temp {
+public class Company {
 
 }

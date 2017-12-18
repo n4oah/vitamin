@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.SearchMapper">
+	
+	<resultMap id="cityMap" type="city">
+		<result column="city_code" property="cityCode" />
+		<result column="name" property="name" />
+		<result column="sub_name" property="subName" />
+	</resultMap>
+	
+	<select id="selectCity" resultMap="cityMap">
+		select * 
+		from vi_city_code
+	</select>
+</mapper>
