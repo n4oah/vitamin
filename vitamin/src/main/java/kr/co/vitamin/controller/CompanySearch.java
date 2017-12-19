@@ -1,5 +1,6 @@
 package kr.co.vitamin.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class CompanySearch {
 	public void companySearch(Model model) throws Exception {
 		List<City> cityList = searchService.selectCity();
 		List<Area> areaList = searchService.selectArea();
+		
+		
 		model.addAttribute("cityList",cityList);
 		model.addAttribute("areaList",areaList);
 	}
