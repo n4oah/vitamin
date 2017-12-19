@@ -2745,9 +2745,13 @@ a.offers_link{
 .navbar .navbar-collapse {
   text-align: center;
 }
-.col-md-8 { 
+.container-fluid { 
 	width: 100%;
+	padding: 0px;
 	/* left: 50%; */
 	/* top: 50%; */
 	/* transform: translate(-50%); */
+}
+.container-fluid, #bs-example-navbar-collapse-1, #bs-example-navbar-collapse-1 > div.col-md-12 {
+	padding: 0px;
 }

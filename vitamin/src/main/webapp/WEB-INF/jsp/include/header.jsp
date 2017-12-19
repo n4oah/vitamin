@@ -5,7 +5,7 @@
 
 <header class="jain_container">
 	<nav class="navbar navbar-default" role="navigation">
-		<div class="container1 container-fluid"> <!-- container-fluid -->
+		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#bs-example-navbar-collapse-1">
@@ -14,15 +14,16 @@
 				</button>
 			</div>
 			<div class="outer">
-				<div class="col-md-8">
 					<div class="collapse navbar-collapse"
 						id="bs-example-navbar-collapse-1">
 						<div class="col-md-12">
 							<ul class="nav navbar-nav">
 								<li><a href="${pageContext.request.contextPath}/main.do">MAIN</a></li>
-								<li class="dropdown mega-dropdown"><a href="#"
-									class="dropdown-toggle" data-toggle="dropdown">FIND YORU HOTEL <span class="caret"></span>
-								</a>
+								<li class="dropdown mega-dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">FIND YORU HOTEL
+										<span class="caret">
+										</span>
+									</a>
 									<ul class="dropdown-menu mega-dropdown-menu">
 										<li class="col-sm-4">
 											<ul>
@@ -98,6 +99,5 @@
 					</div>
 				</div>
 			</div>
-		</div>
 	</nav>
 </header>

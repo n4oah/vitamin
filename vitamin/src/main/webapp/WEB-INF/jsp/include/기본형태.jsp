@@ -11,7 +11,11 @@
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
-	
+	<div id="wrapper" style="margin-top: 0px;">
+		<section class="container">
+			
+		</section>
+	</div>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
 </body>
 </html>
