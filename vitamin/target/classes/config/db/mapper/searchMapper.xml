@@ -4,7 +4,7 @@
 <!-- 매퍼 연결 -->
 <mapper namespace="kr.co.vitamin.repository.mapper.SearchMapper">
 	
-	<resultMap id="cityMap" type="city">
+	<resultMap type="city" id="cityMap">
 		<result column="city_code" property="cityCode" />
 		<result column="name" property="name" />
 		<result column="sub_name" property="subName" />
@@ -13,5 +13,17 @@
 	<select id="selectCity" resultMap="cityMap">
 		select * 
 		from vi_city_code
+	</select>
+	
+	
+	<resultMap type="area" id="areaMap">
+		<result column="area_code" property="areaCode" />
+		<result column="city_code" property="cityCode" />
+		<result column="name" property="name" />
+	</resultMap>
+	
+	<select id="selectArea" resultMap="areaMap">
+		select *
+		from vi_area_code
 	</select>
 </mapper>
