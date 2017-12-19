@@ -8,6 +8,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Insert title here</title>
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
