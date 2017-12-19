@@ -40,7 +40,7 @@
 					<div class="detail_wrapper">
 						<div class="career">
 							<Strong class="career_title">경력</Strong>
-								<span><input type="checkbox" value = 0>신입</span>
+								<span><input type="checkbox" value = 0> 신입</span>
 								<span><input type="checkbox" value = 1>경력</span>
 				
 							<span class="dropdown">
@@ -51,6 +51,7 @@
 				        		
 				        		<input type="hidden" name="careerStart">
 				        			<ul class="dropdown-menu">
+				        			<li>기간 시작</li>
 				        			<c:forEach begin="1" end="20" var="i">
 				          				<li>${i }년 이상</li>
 				          			</c:forEach>
@@ -69,6 +70,7 @@
 				        		
 				        		<input type="hidden" name="careerEnd">
 				        			<ul class="dropdown-menu">
+				        				<li>기간 종료</li>
 				          				<c:forEach begin="1" end="20" var="i">
 				          				<li>${i }년 이하</li>
 				          				</c:forEach>
@@ -76,16 +78,74 @@
 							</span>
 							
 							<span>
-								<input type="checkbox" value = 2>경력무관						
+								<input type="checkbox" value = 2 class="career_none"> 경력무관						
 							</span>
 						</div>
 						
 						<div class="education">
+							<Strong class="education_title">학력</Strong>
+							
+							<span class="dropdown">
+								 <span class="select">
+	        						 <span>전체</span>
+				         			 <i class="fa fa-chevron-down"></i>
+				        		</span>
+				        		
+				        		<input type="hidden" name="careerStart">
+				        			<ul class="dropdown-menu">
+				        			<li>전체</li>
+				        			<c:forEach begin="1" end="20" var="i">
+				          				<li>${i }년 이상</li>
+				          			</c:forEach>
+				        			</ul>
+							</span>
+							
+							<span>
+								<Strong>~</Strong>
+							</span>
+							
+							<span class="dropdown">
+								 <span class="select">
+	        						 <span>전체</span>
+				         			 <i class="fa fa-chevron-down"></i>
+				        		</span>
+				        		
+				        		<input type="hidden" name="careerEnd">
+				        			<ul class="dropdown-menu">
+				        				<li>전체</li>
+				          				<c:forEach begin="1" end="20" var="i">
+				          				<li>${i }년 이하</li>
+				          				</c:forEach>
+				        			</ul>
+							</span>
+							
+							<span>
+								<input type="checkbox" value = 2 class="education_none"> 학력무관						
+							</span>
 							
 						</div>
 						
 						<div class="salary">
+							<Strong class="salary_title">연봉</Strong>
 							
+							<span class="dropdown">
+								 <span class="select">
+	        						 <span>전체</span>
+				         			 <i class="fa fa-chevron-down"></i>
+				        		</span>
+				        		
+				        		<input type="hidden" name="salaryAmount">
+				        			<ul class="dropdown-menu">
+				        				<li>전체</li>
+				          				<c:forEach begin="1" end="20" var="i">
+				          				<li>${i }년 이하</li>
+				          				</c:forEach>
+				        			</ul>
+							</span>
+							
+							<span>
+								<input type="checkbox" value = 2 class="education_none"> 회사내규에 따름 포함						
+							</span>
 						</div>
 					</div>
 				</div>
@@ -106,6 +166,11 @@
 					$(".checked").prop({"checked": true});
 			}
 		});
+		
+		$(".career_none").on('click', function () {
+			$(".career").css({"pointer-events": "none"});
+			
+		});
 	
 		$(".showSelect").click(function () {
 			$(this).toggleClass("open").siblings("span").removeClass("open");
@@ -124,24 +189,24 @@
 		
 		
 		/*Dropdown Menu*/
-		$('.dropdown').click(function () {
+		$('span.dropdown').click(function () {
 		        $(this).attr('tabindex', 1).focus();
 		        $(this).toggleClass('active');
 		        $(this).find('.dropdown-menu').slideToggle(300);
 		    });
-		    $('.dropdown').focusout(function () {
+		    $('span.dropdown').focusout(function () {
 		        $(this).removeClass('active');
 		        $(this).find('.dropdown-menu').slideUp(300);
 		    });
-		    $('.dropdown .dropdown-menu li').click(function () {
-		        $(this).parents('.dropdown').find('span').text($(this).text());
-		        $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
+		    $('span.dropdown .dropdown-menu li').click(function () {
+		        $(this).parents('span.dropdown').find('span').text($(this).text());
+		        $(this).parents('span.dropdown').find('input').attr('value', $(this).attr('id'));
 		    });
 		/*End Dropdown Menu*/
 
 
 		$('.dropdown-menu li').click(function () {
-		  var input = '<strong>' + $(this).parents('.dropdown').find('input').val() + '</strong>',
+		  var input = '<strong>' + $(this).parents('span.dropdown').find('input').val() + '</strong>',
 		      msg = '<span class="msg">Hidden input value: ';
 		  $('.msg').html(msg + input + '</span>');
 		}); 
