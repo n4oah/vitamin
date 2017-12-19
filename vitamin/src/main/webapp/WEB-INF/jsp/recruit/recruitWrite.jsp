@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/jsp/include/topMenu.jsp"%>
+	<%-- <%@ include file="/WEB-INF/jsp/include/topMenu.jsp"%> --%>
 </body>
 </html>

@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 public class Test {
 	public static void main(String[] args) {
-		asdfsdf();
+		
 		
 		Connection connection = null;
 		Statement st = null;
