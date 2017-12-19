@@ -82,12 +82,13 @@
 					</div>
 					<div class="col-md-6">
 						<h3 class="title">약관동의</h3>
-						<div class="scrollbar panel">
-							<span>
-								aa
-								af
-								f
-							</span>
+						<div class="scrollbar scrollbar-white">
+						    <div class="force-overflow">
+						    	<p>[약관동의]</p>
+						    	<p>앨한ㅇ래ㅏㄴ애란ㅁㄴ<br/>
+						    	내애내ㅏㄴㅇㄹ
+						    	</p>
+						    </div>
 						</div>
 					</div>
 				</div>
