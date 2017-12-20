@@ -49,6 +49,7 @@
 	<!-- <mvc:view-controller path="/index.jsp" view-name="main.do" /> -->
 	<mvc:view-controller path="/main.do" view-name="main/main" />
 	<mvc:view-controller path="/member/signupForm.do" view-name="member/signupForm" />
+	<mvc:view-controller path="/asdgsdag.do" view-name="mypage/fullcalendartest" />
 </beans>
 
     
