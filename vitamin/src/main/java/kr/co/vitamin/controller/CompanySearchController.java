@@ -14,7 +14,7 @@ import kr.co.vitamin.service.SearchService;
 
 @Controller
 @RequestMapping("/search")
-public class CompanySearch {
+public class CompanySearchController {
 	
 	@Autowired
 	private SearchService searchService;
