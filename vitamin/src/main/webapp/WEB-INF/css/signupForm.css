@@ -1,18 +1,18 @@
-.panel-login {
+.panel-signup {
 	border-color: #ccc;
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
 	-moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
 	box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.2);
 }
 
-.panel-login>.panel-heading {
+.panel-signup>.panel-heading {
 	color: #00415d;
 	background-color: #fff;
 	border-color: #fff;
 	text-align: center;
 }
 
-.panel-login>.panel-heading a {
+.panel-signup>.panel-heading a {
 	text-decoration: none;
 	color: #666;
 	font-weight: bold;
@@ -22,12 +22,12 @@
 	transition: all 0.1s linear;
 }
 
-.panel-login>.panel-heading a.active {
+.panel-signup>.panel-heading a.active {
 	color: #029f5b;
 	font-size: 18px;
 }
 
-.panel-login>.panel-heading hr {
+.panel-signup>.panel-heading hr {
 	margin-top: 10px;
 	margin-bottom: 0px;
 	clear: both;
@@ -43,8 +43,8 @@
 		rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
 }
 
-.panel-login input[type="text"], .panel-login input[type="email"],
-	.panel-login input[type="password"] {
+.panel-signup input[type="text"], .panel-signup input[type="email"],
+	.panel-signup input[type="password"] {
 	height: 45px;
 	border: 1px solid #ddd;
 	font-size: 16px;
@@ -53,7 +53,7 @@
 	transition: all 0.1s linear;
 }
 
-.panel-login input:hover, .panel-login input:focus {
+.panel-signup input:hover, .panel-signup input:focus {
 	outline: none;
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
@@ -119,11 +119,9 @@ div.col-md-12 h3.title {
 .scrollbar {
 	background-color: white;
 	overflow: auto;
-}
-
-.scrollbar {
+	
 	float: left;
-	height: 300px;
+	height: 314px;
 	width: 100%;
 	background: #fff;
 	overflow-y: scroll;
@@ -250,4 +248,7 @@ div.col-md-12 h3.title {
 	border-radius: 10px;
 	-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
 	background-color: #aa66cc;
+}
+div.btn-group.bootstrap-select {
+	width: 100% !important;
 }

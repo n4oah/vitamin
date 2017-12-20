@@ -10,6 +10,7 @@
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/signupForm.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="${pageContext.request.contextPath}/js/signupForm.js"></script>
 	</head>
 <body>
@@ -20,7 +21,7 @@
 				<div class="col-md-12">
 					<div class="col-md-6">
 						<h3 class="title">회원가입</h3>
-						<div class="panel panel-login">
+						<div class="panel panel-signup">
 							<div class="panel-heading">
 								<div class="row">
 									<div class="col-xs-6">
@@ -37,19 +38,45 @@
 									<div class="col-lg-12">
 										<form id="private-form" action="https://phpoll.com/login/process" method="post" role="form" style="display: block;">
 											<div class="form-group">
-												<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+												<input type="text" name="id" id="signup_id" class="form-control" placeholder="아이디">
 											</div>
 											<div class="form-group">
-												<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+												<input type="password" name="pwd" id="signup_pwd" class="form-control" placeholder="비밀번호">
 											</div>
-											<div class="form-group text-center">
-												<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-												<label for="remember"> Remember Me</label>
+											<div class="form-group">
+												<input type="text" id="signup_pwd_chk" class="form-control" placeholder="비밀번호 확인">
+											</div>
+											<div class="form-group">
+												<input type="text" name="name" id="signup_name" class="form-control" placeholder="이름">
+											</div>
+											<div class="form-group">
+												<select class="selectpicker">
+													<option value="m" class="fa fa-mars">남성</option>
+													<option value="w" class="fa fa-venus">여성</option>
+												</select>
+											</div>
+											<div class="form-group">
+												<div class="row">
+													<div class="form-group col-md-6" style="padding-right: 0px;">
+														<input class="form-control" name="email1" id="signup_email1" type="text" placeholder="이메일"/>
+													</div>
+													<div class="form-group col-md-1" style="top:50%">@</div>
+													<div class="form-group col-md-5" style="padding-left: 0px;">
+														<input class="form-control" name="email2" id="signup_email2" type="text" placeholder="도메인 주소" />
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
+												<input type="text" name="phoneNumber" id="signup_phoneNumber" class="form-control" placeholder="휴대폰 번호">
+											</div>
+											<!-- 학력 SELECT BOX -->
+											<div class="form-group">
+												<input type="text" name="address" id="signup_address" class="form-control" placeholder="주소">
 											</div>
 											<div class="form-group">
 												<div class="row">
 													<div class="col-sm-6 col-sm-offset-3">
-														<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+														<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="회원가입">
 													</div>
 												</div>
 											</div>
@@ -92,8 +119,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="row">
 			</div>
 		</section>
 	</div>
