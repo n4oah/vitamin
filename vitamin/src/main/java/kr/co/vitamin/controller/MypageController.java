@@ -36,5 +36,9 @@ public class MypageController {
 	
 	@RequestMapping("/myInfo.do")
 	public void myInfo() throws Exception{}
+	
+	@RequestMapping("/fullcalendartest.do")
+	public void fullcalendarTest() throws Exception{}
+	
 
 }
