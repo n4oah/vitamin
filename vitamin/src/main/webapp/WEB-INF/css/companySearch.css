@@ -64,7 +64,7 @@ favorite-star[hover] {
 	float: right;
 	width:100px;
 	height:50px;
-	margin-top: -10px;
+	margin-top: -50px;
 }
 
 .search_button > input {
@@ -94,6 +94,10 @@ favorite-star[hover] {
 	border: 1px solid #cccccc;
 	border-top: 0px;
 }
+input[type="radio"] {
+	margin-left: 2px;
+	margin-right: 2px;
+}
 
 .career > span {
 	margin-right: 2%
@@ -108,6 +112,11 @@ favorite-star[hover] {
 	margin-right: 2%
 }
 
+.age {
+	margin-top:10px
+}
+
+
 .career > .career_title {
 	margin-right: 5%
 }
@@ -117,6 +126,9 @@ favorite-star[hover] {
 }
 
 .salary > .salary_title {
+	margin-right: 5%
+}
+.age > .age_title {
 	margin-right: 5%
 }
 
@@ -133,7 +145,9 @@ favorite-star[hover] {
     vertical-align: top;
     transition: all .3s ease-in-out;
 }
-
+.salary_title {
+	margin-right: 2%
+}
 
 .showSelect:hover {
     background-color: #dadada;
