@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -5,6 +7,10 @@
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
 <style type="text/css">
+html, body, #waha{
+   	height:100%;
+   	margin:0;
+}
 body > div {margin-bottom: 1vh}
 div.top {width: 50vw; border-bottom: 0.3vh solid black}
 div.top > .logo {width: 7.2vh}
@@ -14,7 +20,7 @@ div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.pn
 .summary {background-color: pink; width: 65vw; height: 6.8vh 6.8vw;}
 .vr {width: 0.2vw; height: 100%; background-color: gray; display: inline-block; position: absolute}
 .sumtitle {display: inline-block; overflow: hidden; margin-top: -0.3vh}
-.sumtitle > div:first-child {border-bottom: 0.2vh solid black; width: 100%}
+.sumtitle > div:first-child {border-bottom: 0.2vh solid black; width: 100%; padding-bottom: 0.5vw; padding-to: 0.5vw}
 .sumtitle > div:last-child {top: -0.3vh}
 .sumtitle > * {margin: 0.4vw; text-align: center; color: black; font-size: 100%; font-weight: bold}
 .chart, .graphTop {height: 18vh; width: 50vw}
@@ -50,10 +56,13 @@ div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.pn
 	border: 0.2vw solid black;
 	z-index: 1000;
 }
+#header {
+    padding: 5px 8px;
+}
 </style>
 </head>
 <body>
-<div class="top">
+<div class="top" id="header">
 	<img alt="NHN" src="http://file.gamedonga.co.kr/files/2014/01/21/nhnent.jpg" class="logo">
 	<!--<img alt="${company.name}" src="${company.logo}" class="logo">-->
 	
@@ -114,12 +123,23 @@ div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.pn
 		var chk = false;
 		if ($(window).width() < $(window).height()) {
 			$(".summary").width($(window).width());
+			$(".top").css({"width": "95%", "margin": "2.5%"});
+			var c = $(".top").children();
+			for (var i = 0; i < c.length; i++) {
+				$(c[i]).width($(c[i]).width()*1.1);
+			}
+			$(".bookmark").css({"background-size": $(".bookmark").width()});
+			$(".sumtitle > *").css({"font-size": "200%"});
 			chk = true;
 		} else {
 			chk = false;
+			$(".top").css({"width": "50vw", "margin": ""});
+			$(".top").css({"margin-left": ($(window).width()-$(".top").width())/2+'px'});
+			$(".logo").width("");
+			$(".bookmark").width("");
+			$(".sumtitle > *").css({"font-size": "100%"});
 			$(".summary").width("");
 		}
-		$(".top").css({"margin-left": ($(window).width()-$(".top").width())/2+'px'});
 		$(".chart").css({"margin-left": ($(window).width()-$(".chart").width())/2+'px'});
 		$(".graphText").css({"margin-top": ($(".graphTop").height()-$(".graphText").height())/2+'px'});
 		for (var i = 0; i < $(".graphTop > div[name='graph']").length; i++) {
@@ -148,7 +168,7 @@ div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.pn
 	});
 
 	var d;
-
+	
 	$("div[name='graph']").hover(function (e) {
 		d = $("<div>").css({"top": e.clientY, "left": e.clientX}).text(($(this).height()/$(this).parent().height()*100).toPrecision(3)+"%").addClass("hover");
 		$(this).after(d);
