@@ -1,6 +1,5 @@
 package kr.co.vitamin.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,19 +10,31 @@ public class MypageController {
 	/*@Autowired
 	private ResumeService resumeService;*/
 	
-	@RequestMapping("/resumelist.do")
-	public void ResumeList() throws Exception{}
+	@RequestMapping("/resumeList.do")
+	public void resumeList() throws Exception{
+		System.out.println("asokdsfpokasdfpoksadfpok");
+		
+	}
 	
-	@RequestMapping("/resumeinfo.do")
-	public void ResumeInfo() throws Exception{}
+	@RequestMapping("/resumeInfo.do")
+	public void resumeInfo() throws Exception{
+		System.out.println("resumeInfo 들어옴");
+	}
 	
-	@RequestMapping("/introductionlist.do")
-	public void IntroductionList() throws Exception{}
+	@RequestMapping("/introductionList.do")
+	public void introductionList() throws Exception{
+		System.out.println("introductionList 들어옴");
+	}
 	
-	@RequestMapping("/introductiondetail.do")
-	public void IntroductionDetail() throws Exception{}
+	@RequestMapping("/introductionDetail.do")
+	public void introductionDetail() throws Exception{
+		System.out.println("introductionDetail 들어옴");
+	}
 	
 	@RequestMapping("/calendar.do")
-	public void Calendar() throws Exception{}
+	public void calendar() throws Exception{}
+	
+	@RequestMapping("/myInfo.do")
+	public void myInfo() throws Exception{}
 
 }

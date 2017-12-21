@@ -14,9 +14,10 @@
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container">
-			
+			<div class="row">
+				<h1>자기소개서 내용</h1>
+			</div>
 		</section>
-		<h1>이력서 리스트</h1>
 	</div>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
 </body>

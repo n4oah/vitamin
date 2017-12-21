@@ -42,7 +42,7 @@
 							<Strong class="career_title">경력</Strong>
 								<span><input type="checkbox" value = 0> 신입</span>
 								<span><input type="checkbox" value = 1>경력</span>
-				
+					
 							<span class="dropdown">
 								 <span class="select">
 	        						 <span>기간 시작</span>

@@ -11,7 +11,39 @@
 <script src='${pageContext.request.contextPath}/lib/moment.min.js'></script>
 <script src='${pageContext.request.contextPath}/lib/jquery.min.js'></script>
 <script src='${pageContext.request.contextPath}/js/fullcalendar.min.js'></script>
-<script>
+
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}
+
+</style>
+		<title>Insert title here</title>
+		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
+	</head>
+<body>
+	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
+	<div id="wrapper" style="margin-top: 0px;">
+		<section class="container">
+			<div class="row">
+				<div id='calendar'></div>
+			</div>
+		</section>
+	</div>
+	
+	
+	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
+	<script>
 
 	$(document).ready(function() {
 		
@@ -86,34 +118,5 @@
 	});
 
 </script>
-<style>
-
-	body {
-		margin: 40px 10px;
-		padding: 0;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		font-size: 14px;
-	}
-
-	#calendar {
-		max-width: 900px;
-		margin: 0 auto;
-	}
-
-</style>
-		<title>Insert title here</title>
-		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
-	</head>
-<body>
-	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
-	<div id="wrapper" style="margin-top: 0px;">
-		<section class="container">
-			
-		</section>
-	</div>
-	
-	<div id='calendar'></div>
-	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
 </body>
 </html>
