@@ -137,7 +137,7 @@
 				         			 <i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="salaryAmount">
+				        		<input type="hidden" name="year_salary">
 				        			<ul class="dropdown-menu">
 				        				<li>전체</li>
 				          				<c:forEach begin="1" end="20" var="i">
@@ -150,6 +150,34 @@
 								<input type="checkbox" value = 2 class="education_none"> 회사내규에 따름 포함						
 							</span>
 						</div>
+						
+						<div class="age">
+							<Strong class="age_title">나이</Strong>
+							
+							<span class="dropdown " >
+								 <span class="select">
+	        						 <span>전체</span>
+				         			 <i class="fa fa-chevron-down"></i>
+				        		</span>
+				        		
+				        		<input type="hidden" name="age_count">
+				        			<ul class="dropdown-menu">
+				        				<li>전체</li>
+				          				<c:forEach begin="1" end="20" var="i">
+				          				<li>${i }년 이하</li>
+				          				</c:forEach>
+				        			</ul>
+							</span>
+							
+							<span class="col-md-offset-3">
+								<Strong class="salary_title">성별 </Strong>
+						
+								<input type="radio" value="1" name="gender"> 남자
+								<input type="radio" value="2" name="gender"> 여자
+								<input type="radio" value="3" name="gender"> 성별무관
+							</span>
+						</div>
+						
 						
 						<div class="search_button">
 							<input type="button" value="검색">
@@ -236,8 +264,6 @@
 							</tbody>
 						
 						</c:forEach>
-						
-						
 					</table>
 				</div>
 			</div>
