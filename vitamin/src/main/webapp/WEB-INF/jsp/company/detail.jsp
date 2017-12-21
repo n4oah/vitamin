@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Insert title here</title>
+		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/companySearch.css">
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+		 
+		<script src="https://use.fontawesome.com/942e94bfdb.js"></script>
+		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 <style type="text/css">
 html, body, #waha{
    	height:100%;
@@ -17,7 +25,7 @@ div.top > .logo {width: 7.2vh}
 div.top > .title {font-size: 3.5vh; color: #5566ff; font-weight: bold}
 div.top > .bookmark {float: right; width: 3vh;}
 div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.png"); background-size: 3vh}
-.summary {background-color: pink; width: 65vw; height: 6.8vh 6.8vw;}
+.summary {background-color: pink; width: 65vw; height: 6.8vh 6.8vw; border-radius: 1vw}
 .vr {width: 0.2vw; height: 100%; background-color: gray; display: inline-block; position: absolute}
 .sumtitle {display: inline-block; overflow: hidden; margin-top: -0.3vh}
 .sumtitle > div:first-child {border-bottom: 0.2vh solid black; width: 100%; padding-bottom: 0.5vw; padding-to: 0.5vw}
@@ -42,10 +50,10 @@ div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.pn
     position: absolute;
 	height: auto;
 	margin-left: 0.3vw;
-	font-size: 2vw;
+	font-size: 2vh;
 	font-weight: bold;
 }
-.graphName > span {font-size: 1.5vh}
+.graphName > span {font-size: 2vh}
 .hover {
 	position: absolute;
 	font-weight: bold;
@@ -124,11 +132,8 @@ div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.pn
 		if ($(window).width() < $(window).height()) {
 			$(".summary").width($(window).width());
 			$(".top").css({"width": "95%", "margin": "2.5%"});
-			var c = $(".top").children();
-			for (var i = 0; i < c.length; i++) {
-				$(c[i]).width($(c[i]).width()*1.1);
-			}
-			$(".bookmark").css({"background-size": $(".bookmark").width()});
+			$(".logo").width("8.0vh");
+			$(".bookmark").css({"width": "3.3vh", "background-size": $(".bookmark").width()});
 			$(".sumtitle > *").css({"font-size": "200%"});
 			chk = true;
 		} else {
