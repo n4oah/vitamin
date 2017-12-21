@@ -1,6 +1,7 @@
 package kr.co.vitamin.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,19 +10,16 @@ import java.sql.Statement;
 
 
 public class Test {
+	static Connection connection = null;
+	static Statement st = null;
+	
 	public static void main(String[] args) {
-		
-		
-		Connection connection = null;
-		Statement st = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection("jdbc:mysql://35.187.220.189:3306/vitamin", "vitamin", "vita1234");
 			st = connection.createStatement();
-
-			String url = "http://server/path/xml";
 			
-			String[] fieldNames ={"id", "title", "userName", "recommendId", "recommendName", "recommendDate", "url"};
+			asdfsdf();
 			
 			
 			/*String sql;
@@ -32,10 +30,6 @@ public class Test {
 			while (rs.next()) {
 				String sqlRecipeProcess = rs.getString("column명");
 			}*/
-
-//			rs.close();
-			st.close();
-			connection.close();
 		} catch (SQLException se1) {
 			se1.printStackTrace();
 		} catch (Exception ex) {
@@ -54,7 +48,18 @@ public class Test {
 			}
 		}
 	}
-	public void asdfsdf() {
+	public static void asdfsdf() throws Exception {
 		
+		File file = new File("C:/Users/n4oah/Desktop/asdg.txt");
+		FileInputStream fis = new FileInputStream(file);
+		int i = 0;
+		StringBuffer strBuffer = new StringBuffer();
+		while((i = fis.read()) != -1) {
+			strBuffer.append((char)i);
+        }
+        System.out.println(strBuffer.toString());
+        
+		st.close();
+		connection.close();
 	}
 }

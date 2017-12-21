@@ -9,7 +9,10 @@
 		<title>Insert title here</title>
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/companySearch.css">
-		<script src="https://use.fontawesome.com/ea0f14e7b5.js"></script>
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+		 
+		<script src="https://use.fontawesome.com/942e94bfdb.js"></script>
+		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
@@ -147,9 +150,108 @@
 								<input type="checkbox" value = 2 class="education_none"> 회사내규에 따름 포함						
 							</span>
 						</div>
+						
+						<div class="search_button">
+							<input type="button" value="검색">
+						</div>
 					</div>
 				</div>
+				
+				<div class="recruit_list">
+					<table class="recruit_table table" >
+						<colgroup>
+							<col width="34px">       
+							<col width="18%">
+							<col width="*">
+							<col width="9%">
+							<col width="10%">
+							<col width="12%">
+							<col width="7.6%">
+				    	</colgroup>
+						
+						<thead>
+					    	<tr>
+					          <!--  <th scope="col" class="check_list">
+					           <label class="sri_check" for="chk_all">
+					           <input type="checkbox" name="check_all" id="check_all" value="" class="inp_check" data-pass-onload-refresh="y">
+					           <span class="txt_check blank"></span></label></th> -->
+				                <th class="col-md-1"></th>
+				                <th class="col-md-2">기업명</th>
+						        <th class="col-md-4">제목</th>
+						        <th class="col-md-1">지원자격</th>
+						        <th class="col-md-1">근무조건</th>
+						        <th class="col-md-1">마감일·등록일</th>
+						        <th align="center" class="col-md-1">즉시지원</th>
+					    	</tr>
+				   		 </thead>
+				   		 
+				   		 
+				   		<c:forEach begin="1" end="10" var="i">
+					    	<tbody>
+								<tr class="outstand_point point_line">
+	           						<td>
+	           							<img src="https://i.imgur.com/Z4wlC9v.png" class="star">
+	           							<!-- 즐겨 찾기 한 회사면 class가 star_checked -->
+	        						</td>
+	        						
+	        						<td class="company_nm">
+	        							<a class="str_tit" onclick="s_trackApply(this, 'area_recruit', 'general');" title="(주)에즈금융서비스" href="/zf_user/jobs/view?rec_idx=32503885"><span>(주)에즈금융서비스</span></a>                         
+	        							<div class="icon"></div>
+	    							</td>
+	    							
+	    							<td class="notification_info">
+		        						<div class="job_tit">
+									        <span class="prd_icon_02"></span>            
+									        <a class="str_tit" id="rec_link_32503885" onclick="s_trackApply(this, 'area_recruit', 'general');" title="2017 AZ금융서비스 하반기 신입사원(FC) 채용" href="/zf_user/jobs/view?rec_idx=32503885&amp;adsCategoryItem=effect_bold,icon&amp;" onmousedown="Saramin.clickAds(32503885, 'ads_category=highlight_effect&amp;ads_item=effect_bold,icon')"><span>2017 AZ금융서비스 하반기 신입사원(FC) 채용</span></a>             
+									        
+		        						</div>
+		        						
+		        						<p class="job_sector">
+		            					<span>일반영업</span><span>금융·보험영업</span> 외        </p>
+	                    			</td>
+								    
+								    <td class="recruit_condition">
+								        <p class="career">신입 · 경력</p>
+								        <p class="education">학력무관</p>
+								    </td>
+								    
+								    <td class="company_info">
+	                    				<p class="employment_type">계약직 · 위촉직</p>
+	                            		<p class="work_place">서울전체</p>
+	                    			</td>
+	    							<td class="support_info">
+	       								<p class="deadlines">~ 12/21(목)
+	       									<span class="reg_date">(19일 전 등록)</span>
+	       								</p>
+	    							</td>
+	    							
+	    							<td class="support_submit">
+	    								<p class="support_type">
+	        								<button class="sri_btn_xs" title="클릭하면 입사지원할 수 있는 창이 뜹니다." onclick="try{quickApplyForm('32503885','','t_category=area_recruit&amp;t_content=general', ''); return false;} catch (e) {}; return false;" onmousedown="try{n_trackEvent('apply','list','quick_apply');}catch(e){}">
+	        									<span class="sri_btn_immediately">즉시지원</span>
+	        								</button>
+	        							</p>   
+	    							</td>
+								</tr>    
+							</tbody>
+						
+						</c:forEach>
+						
+						
+					</table>
+				</div>
 			</div>
+			
+			<div class="center-block">
+				<ul class="pagination">
+				  <li><a href="#">1</a></li>
+				  <li><a href="#">2</a></li>
+				  <li><a href="#">3</a></li>
+				  <li><a href="#">4</a></li>
+				  <li><a href="#">5</a></li>
+				</ul>
+			</div>
+			
 		</section>
 	</div>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
@@ -204,12 +306,41 @@
 		    });
 		/*End Dropdown Menu*/
 
-
 		$('.dropdown-menu li').click(function () {
 		  var input = '<strong>' + $(this).parents('span.dropdown').find('input').val() + '</strong>',
 		      msg = '<span class="msg">Hidden input value: ';
 		  $('.msg').html(msg + input + '</span>');
 		}); 
+		
+		let star = document.querySelector('.star');
+
+		var proto = Object.create(HTMLElement.prototype);
+
+		proto.createdCallback = function() {
+		  this.innerHTML = '★';
+		  
+		  this.addEventListener('click', function() {
+		  	if (this.hasAttribute('active')) {
+		      this.removeAttribute('active');
+		      this.removeAttribute('hover');
+		    }
+		    else {
+		      this.setAttribute('active', '');
+		    }
+		  });
+		  
+		  this.addEventListener('mouseout', function() {
+		    this.removeAttribute('hover');
+		  });
+		  
+		  this.addEventListener('mouseover', function() {
+		    if (!this.hasAttribute('active')) {
+		      this.setAttribute('hover', '');
+		    }
+		  });
+		};
+
+		document.registerElement('favorite-star', {prototype: proto});
 	</script>
 </body>
 </html>
