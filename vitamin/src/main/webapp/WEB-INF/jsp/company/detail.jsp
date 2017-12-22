@@ -19,7 +19,7 @@ html, body, #waha{
    	height:100%;
    	margin:0;
 }
-body > div {margin-bottom: 1vh}
+body > div {margin-bottom: 4vh}
 div.top {width: 50vw; border-bottom: 0.3vh solid black}
 div.top > .logo {width: 7.2vh}
 div.top > .title {font-size: 3.5vh; color: #5566ff; font-weight: bold}
@@ -66,6 +66,40 @@ div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.pn
 }
 #header {
     padding: 5px 8px;
+}
+.recruitList {
+	height: 10vw;
+	text-align: center;
+}
+.recruitList > div {
+	display: inline-block;
+}
+.recruitList img {
+	width: 50%;
+}
+.recruit {
+	width: 15%;
+	height: 100%;
+	border: 1px solid black;
+	vertical-align: middle;
+    line-height: 2vw;
+}
+h6 {
+	display: inline-block;
+}
+.recTitle {
+	font-weight: bold;
+}
+.recTitle, .recContent {
+	border-bottom: 1px solid gray;
+}
+.recContent > div {
+	text-align: left;
+	display: inline-block;
+	width: 45%;
+	overflow: hidden; 
+	text-overflow: ellipsis;
+	white-space: nowrap; 
 }
 </style>
 </head>
@@ -125,6 +159,29 @@ div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.pn
 	</div>
 </div>
 
+
+<div class="recruitList">
+	<div class="prev"><img src="https://i.imgur.com/oLfh9Tj.png"></div>
+	<div class="recruit">
+		<div class="recTitle">2018년 신입 및 경력사원 모집</div>
+		<div class="recContent">
+			<div>연봉 | 1만원</div>
+			<div>지역 | 서울 외</div>
+		</div>
+		<div class="recContent">
+			<div>필요 | JSP 외</div>
+			<div>업종 | 기술</div>
+		</div>
+		<div class="recDate">
+			<div>12/19~12/22</div>
+		</div>
+	</div>
+	<div class="recruit">
+	</div>
+	<div class="recruit">
+	</div>
+	<div class="next"><img src="https://i.imgur.com/XQJb8Kq.png"></div>
+</div>
 
 <script type="text/javascript">
 	function resize() {
