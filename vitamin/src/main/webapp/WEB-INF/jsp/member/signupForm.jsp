@@ -57,12 +57,14 @@
 											</div>
 											<div class="form-group">
 												<div class="row">
-													<div class="form-group col-md-6" style="padding-right: 0px;">
-														<input class="form-control" name="email1" id="signup_email1" type="text" placeholder="이메일"/>
-													</div>
-													<div class="form-group col-md-1" style="top:50%">@</div>
-													<div class="form-group col-md-5" style="padding-left: 0px;">
-														<input class="form-control" name="email2" id="signup_email2" type="text" placeholder="도메인 주소" />
+													<div class="col-md-12">
+														<div class="form-group col-md-6" style="padding-right: 0px;">
+															<input class="form-control" name="email1" id="signup_email1" type="text" placeholder="이메일"/>
+														</div>
+														<div class="form-group col-md-1" style="top:50%">@</div>
+														<div class="form-group col-md-5" style="padding-left: 0px;">
+															<input class="form-control" name="email2" id="signup_email2" type="text" placeholder="도메인 주소" />
+														</div>
 													</div>
 												</div>
 											</div>

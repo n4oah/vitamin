@@ -20,12 +20,13 @@
 		<section class="container">
 			<div class="row">
 				<div class="search_wrapper">
-					<div class="city_wrapper">
-						<c:forEach items="${cityList }" var="city">
-							<span class="showSelect btn-secondary" data-target="#ddCity${city.cityCode }" id="ddCityBtn">${city.subName }</span>
-						</c:forEach>
+					<div class="row" style="margin: 0px">
+						<div class="city_wrapper">
+							<c:forEach items="${cityList }" var="city">
+								<span class="showSelect btn-secondary" style="float:left;" data-target="#ddCity${city.cityCode}" id="ddCityBtn">${city.subName}</span>
+							</c:forEach>
+						</div>
 					</div>
-					
 					<c:forEach items="${cityList }" var="city">
 							<div class="optContainer" id="ddCity${city.cityCode }">
 							    <label><input type="checkbox" class="checked"><b>${city.subName }전체</b></label>
@@ -284,6 +285,21 @@
 	
 	
 	<script>
+		$(function() {
+			let anim = $('.showSelect').css('transition');
+			
+			let length = $('.showSelect').length;
+			let ss = $('.city_wrapper > span.showSelect');
+			ss.css('transition', 'none');
+			console.log(typeof(ss.parent().width()));
+			console.log(typeof(length));
+			
+			console.log(ss.parent().width() / length);
+			ss.width((ss.parent().width() / length) - 24 - 2);
+	
+			//ss.css('transition', anim);
+		});
+	
 		$(":checkbox").on('click', function(){
 			$(this).parent().toggleClass("checked");
 			
