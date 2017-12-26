@@ -19,8 +19,7 @@ html, body, #waha{
    	height:100%;
    	margin:0;
 }
-@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
-* {font-family: 'Hanna';}
+* {font-family: 'Nanum Gothic', sans-serif, serif;}
 body > div {margin-bottom: 4vh}
 div.top {width: 50vw; border-bottom: 0.3vh solid black}
 div.top > .logo {width: 7.2vh}
@@ -103,12 +102,29 @@ h6 {
 	text-overflow: ellipsis;
 	white-space: nowrap; 
 }
+.detail, .comment {
+	border: 1px solid #e4e4e4;
+	margin-left: auto;
+    margin-right: auto;
+}
+.detail {width: 30vw;}
+.comment {width: 50vw;}
 .detail span {text-align: left;}
-.detail > div {}
+.detail > div {border-left: 3px solid blue; padding-left: 3px; border-bottom: 1px solid black;}
+.detail > div:first-child {font-weight: bold; background: #e0e0e0;}
 .detail > div > span:first-child {
 	display: inline-block;
     width: 100px;
 }
+.input-group-addon {padding-top: 0px; padding-bottom: 0px;}
+.heart:hover, .selected {
+	background-image: url("https://i.imgur.com/ZttVr5D.png");
+	background-size: 15px;
+}
+.col-lg-6 {width: 100%}
+.commentTitle {font-weight: bold; font-size: 2vw; border-left: 5px solid blue; padding-left: 5px;}
+.regDate {width: 100px; display: inline-block;}
+.input-group {border-bottom: 1px solid #e4e4e4;}
 </style>
 </head>
 <body>
@@ -195,7 +211,7 @@ h6 {
 
 <div class="detail">
 	<div>
-		<span class="detailTitle">기엽명</span>
+		<span class="detailTitle">기업명</span>
 		<span>NHN</span>
 	</div>
 	
@@ -218,6 +234,32 @@ h6 {
 		<span class="detailTitle">설립일</span>
 		<span>2006년</span>
 	</div>
+</div>
+
+<div class="comment">
+	<div class="commentTitle">회사 후기</div>
+	<div class="row">
+	  <div class="col-lg-6">
+	    <div class="input-group">
+	      <span class="input-group-addon">
+	      	<img src="https://i.imgur.com/5MJKaCv.png" width="15" class="heart">
+	      </span>
+	      <input type="text" class="form-control" aria-label="...">
+	    </div><!-- /input-group -->
+	  </div><!-- /.col-lg-6 -->
+  	</div>
+  	<div class="row">
+	  <div class="col-lg-6">
+	    <div class="input-group">
+	      <span class="regDate">
+	      	17/12/27
+	      </span>
+	      <span class="content">
+	      	blah blah blah blah blah blah blah blah blah blah
+	      </span>
+	    </div><!-- /input-group -->
+	  </div><!-- /.col-lg-6 -->
+  	</div>
 </div>
 
 <script type="text/javascript">
@@ -292,6 +334,10 @@ h6 {
 		$(".recruit:eq("+(reIndex+3)+")").css({"display": ""});
 		$(".recruit:eq("+reIndex+")").css({"display": "none"});
 		reIndex++;
+	});
+	
+	$(".heart").click(function () {
+		$(this).toggleClass("selected");
 	});
 </script>
 </body>
