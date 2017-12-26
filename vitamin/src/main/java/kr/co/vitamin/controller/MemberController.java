@@ -20,11 +20,7 @@ public class MemberController {
 	public void signupForm(Model model) throws Exception {
 		List<SchoolLevel> list = schoolService.getSchoolLevels();
 		
-		for(int i = 0; i < list.size(); i ++) {
-			System.out.println(list.get(i).toString());
-		}
-		
-		//model.addAttribute("", );
+		model.addAttribute("slList", list);
 	}
 	
 	@RequestMapping("/signup.do")
