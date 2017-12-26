@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.SchoolLevelMapper">
+	
+	<resultMap type="schoolLevel" id="schoolLevelMap">
+		<result column="school_level_no" property="schoolLevelNo" />
+		<result column="graduate_state" property="graduateState" />
+		<result column="level" property="level" />
+	</resultMap>
+	
+	<select id="selectSchoolLevelAll" resultMap="schoolLevelMap">
+		SELECT *
+			FROM vi_school_level
+		ORDER BY level ASC
+	</select>
+</mapper>

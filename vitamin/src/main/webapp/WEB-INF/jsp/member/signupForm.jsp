@@ -57,12 +57,12 @@
 											</div>
 											<div class="form-group">
 												<div class="row">
-													<div class="col-md-12">
-														<div class="form-group col-md-6" style="padding-right: 0px;">
+													<div class="col-md-12"">
+														<div class="form-group col-md-5" style="padding: 0px; margin: 0px;">
 															<input class="form-control" name="email1" id="signup_email1" type="text" placeholder="이메일"/>
 														</div>
-														<div class="form-group col-md-1" style="top:50%">@</div>
-														<div class="form-group col-md-5" style="padding-left: 0px;">
+														<div class="form-group col-md-1" style="top: 10px">@</div>
+														<div class="form-group col-md-6" style="padding: 0px; margin: 0px;">
 															<input class="form-control" name="email2" id="signup_email2" type="text" placeholder="도메인 주소" />
 														</div>
 													</div>
@@ -78,28 +78,28 @@
 											<div class="form-group">
 												<div class="row">
 													<div class="col-sm-6 col-sm-offset-3">
-														<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="회원가입">
+														<input type="submit" name="login-submit" id="login-submit" class="form-control btn btn-login" value="회원가입">
 													</div>
 												</div>
 											</div>
 										</form>
 										<form id="company-form" action="https://phpoll.com/register/process" method="post" role="form" style="display: none;">
 											<div class="form-group">
-												<input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+												<input type="text" name="username" id="username" class="form-control" placeholder="Username" value="">
 											</div>
 											<div class="form-group">
-												<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+												<input type="email" name="email" id="email" class="form-control" placeholder="Email Address" value="">
 											</div>
 											<div class="form-group">
-												<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+												<input type="password" name="password" id="password" class="form-control" placeholder="Password">
 											</div>
 											<div class="form-group">
-												<input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+												<input type="password" name="confirm-password" id="confirm-password" class="form-control" placeholder="Confirm Password">
 											</div>
 											<div class="form-group">
 												<div class="row">
 													<div class="col-sm-6 col-sm-offset-3">
-														<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+														<input type="submit" name="register-submit" id="register-submit" class="form-control btn btn-register" value="Register Now">
 													</div>
 												</div>
 											</div>
