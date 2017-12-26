@@ -12,7 +12,8 @@
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/fullcalendar/fullcalendar.min.css" />
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/fullcalendar/fullcalendar.print.min.css" media="print" />
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/fullcalendar/moment.min.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/fullcalendar/fullcalendar.min.js"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/fullcalendar/fullcalendar.min.js" charset="utf-8"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/fullcalendar/locale-all.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 			    $('#calendar').fullCalendar({
@@ -22,6 +23,7 @@
 			        right: 'month,agendaWeek,agendaDay,listWeek'
 			      },
 			      defaultDate: '2017-12-12',
+			      locale:"ko",
 			      navLinks: true, // can click day/week names to navigate views
 			      editable: true,
 			      eventLimit: true, // allow "more" link when too many events
