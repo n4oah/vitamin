@@ -29,4 +29,5 @@ public class CompanySearchController {
 		model.addAttribute("areaList",areaList);
 	}
 	
+	
 }

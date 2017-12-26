@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/recruit")
 public class RecuritController {
 	
-	@RequestMapping("/recruitWrite")
+	@RequestMapping("/recruitWrite.do")
 	public void recruitWrite() {
 		
 	}
