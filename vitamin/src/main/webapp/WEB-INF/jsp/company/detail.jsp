@@ -19,6 +19,8 @@ html, body, #waha{
    	height:100%;
    	margin:0;
 }
+@import url(http://fonts.googleapis.com/earlyaccess/hanna.css);
+* {font-family: 'Hanna';}
 body > div {margin-bottom: 4vh}
 div.top {width: 50vw; border-bottom: 0.3vh solid black}
 div.top > .logo {width: 7.2vh}
@@ -101,6 +103,12 @@ h6 {
 	text-overflow: ellipsis;
 	white-space: nowrap; 
 }
+.detail span {text-align: left;}
+.detail > div {}
+.detail > div > span:first-child {
+	display: inline-block;
+    width: 100px;
+}
 </style>
 </head>
 <body>
@@ -162,25 +170,54 @@ h6 {
 
 <div class="recruitList">
 	<div class="prev"><img src="https://i.imgur.com/oLfh9Tj.png"></div>
-	<div class="recruit">
-		<div class="recTitle">2018년 신입 및 경력사원 모집</div>
-		<div class="recContent">
-			<div>연봉 | 1만원</div>
-			<div>지역 | 서울 외</div>
+	<c:forEach begin="0" end="5" var="i">
+		<div class="recruit" 
+		<c:if test="${i >= 3 }">
+			style="display: none;"
+		</c:if>
+		>
+			<div class="recTitle">${i }년 신입 및 경력사원 모집</div>
+			<div class="recContent">
+				<div>연봉 | 1만원</div>
+				<div>지역 | 서울 외</div>
+			</div>
+			<div class="recContent">
+				<div>필요 | JSP 외</div>
+				<div>업종 | 기술</div>
+			</div>
+			<div class="recDate">
+				<div>12/19~12/22</div>
+			</div>
 		</div>
-		<div class="recContent">
-			<div>필요 | JSP 외</div>
-			<div>업종 | 기술</div>
-		</div>
-		<div class="recDate">
-			<div>12/19~12/22</div>
-		</div>
-	</div>
-	<div class="recruit">
-	</div>
-	<div class="recruit">
-	</div>
+	</c:forEach>
 	<div class="next"><img src="https://i.imgur.com/XQJb8Kq.png"></div>
+</div>
+
+<div class="detail">
+	<div>
+		<span class="detailTitle">기엽명</span>
+		<span>NHN</span>
+	</div>
+	
+	<div>
+		<span class="detailTitle">대표자명</span>
+		<span>아무개</span>
+	</div>
+	
+	<div>
+		<span class="detailTitle">업종</span>
+		<span>IT</span>
+	</div>
+	
+	<div>
+		<span class="detailTitle">사업형태</span>
+		<span>광고</span>
+	</div>
+	
+	<div>
+		<span class="detailTitle">설립일</span>
+		<span>2006년</span>
+	</div>
 </div>
 
 <script type="text/javascript">
@@ -238,6 +275,23 @@ h6 {
 		$(".hover").animate({"opacity": 0}, 700, function () {
 			$(this).remove();
 		});
+	});
+	
+	var reIndex = 0;
+	var reMaxIndex = $(".recruit").length-3;
+	
+	$(".prev").click(function () {
+		if (reIndex <= 0) return;
+		reIndex--;
+		$(".recruit:eq("+reIndex+")").css({"display": ""});
+		$(".recruit:eq("+(reIndex+3)+")").css({"display": "none"});
+	});
+	
+	$(".next").click(function () {
+		if (reIndex >= reMaxIndex) return;
+		$(".recruit:eq("+(reIndex+3)+")").css({"display": ""});
+		$(".recruit:eq("+reIndex+")").css({"display": "none"});
+		reIndex++;
 	});
 </script>
 </body>

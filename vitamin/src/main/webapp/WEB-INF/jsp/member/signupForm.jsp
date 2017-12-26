@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/signupForm.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="${pageContext.request.contextPath}/js/signupForm.js"></script>
+		<script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script>
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
@@ -71,9 +72,26 @@
 											<div class="form-group">
 												<input type="text" name="phoneNumber" id="signup_phoneNumber" class="form-control" placeholder="휴대폰 번호">
 											</div>
-											<!-- 학력 SELECT BOX -->
 											<div class="form-group">
-												<input type="text" name="address" id="signup_address" class="form-control" placeholder="주소">
+												<select class="selectpicker">
+													<c:forEach var="i" items="${slList}">
+														<option value="${i.schoolLevelNo}">${i.graduateState}</option>
+													</c:forEach>
+												</select>
+											</div>
+											<div class="form-group">
+												<div class="input-group">
+													<input name="postCode" type="text" class="form-control" id="sample6_postcode" placeholder="우편번호">
+													<span class="input-group-btn">
+														<button class="btn btn-secondary" type="button" onclick="sample6_execDaumPostcode()" style="padding-top: 10%; padding-bottom: 10%;">우편번호 찾기</button>
+													</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<input name="address1" type="text" class="form-control" id="sample6_address" placeholder="주소">
+											</div>
+											<div class="form-group">
+												<input name="address2" type="text" class="form-control" id="sample6_address2" placeholder="상세주소">
 											</div>
 											<div class="form-group">
 												<div class="row">
