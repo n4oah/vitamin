@@ -488,12 +488,13 @@
     var chk = true;
     
     /*Dropdown Menu*/
-	$('span.dropdown').click(function () {
+	$('span.dropdown').click(function (e) {
 			if (chk) {
 				$(this).attr('tabindex', 1).focus();
 		        $(this).toggleClass('active');
 		        $(this).find('.dropdown-menu').slideToggle(300);
 			} else $(this).removeClass('active');
+			//e.preventDefault();
 	    });
 	    $('span.dropdown').focusout(function () {
 	        $(this).removeClass('active');
@@ -532,7 +533,7 @@
 
 				if(bool && end != -1 && start != -1) {
 					chk = false;
-					if ($.inArray(this, efg.find('span.dropdown:eq(0) > .dropdown-menu li')) > -1) find(".startDefault").trigger("click")
+					if ($.inArray(this, efg.find('span.dropdown:eq(0) > .dropdown-menu li')) > -1) efg.find(".startDefault").trigger("click")
 					else efg.find(".endDefault").trigger("click");
 					alert(str+" 확인해주세요.");
 					
