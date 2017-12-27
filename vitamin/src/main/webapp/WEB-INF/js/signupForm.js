@@ -210,7 +210,6 @@
     };
 
     return ResizeSensor;
-
 }));
 
 
@@ -229,7 +228,4 @@ $(function() {
 		$(this).addClass('active');
 		e.preventDefault();
 	});
-	/*new ResizeSensor($('div.panel.panel-signup'), function() {
-		$('div.scrollbar').height($('div.panel.panel-signup').height());
-	});*/
 });

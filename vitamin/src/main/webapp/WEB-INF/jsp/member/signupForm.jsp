@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -16,6 +17,8 @@
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
+	
+	<c:set var="actionUrl" value="${pageContext.request.contextPath}/member/signup.do" />
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container">
 			<div class="row title-box">
@@ -37,7 +40,7 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-lg-12">
-										<form id="private-form" action="https://phpoll.com/login/process" method="post" role="form" style="display: block;">
+										<form id="private-form" action="${actionUrl}?memberType=1" method="post" role="form" style="display: block;">
 											<div class="form-group">
 												<input type="text" name="id" id="signup_id" class="form-control" placeholder="아이디">
 											</div>
@@ -51,14 +54,16 @@
 												<input type="text" name="name" id="signup_name" class="form-control" placeholder="이름">
 											</div>
 											<div class="form-group">
-												<select class="selectpicker">
-													<option value="m" class="fa fa-mars">남성</option>
-													<option value="w" class="fa fa-venus">여성</option>
+												<select class="selectpicker" name="gender">
+													<optgroup label="성별을 선택해주세요.">
+														<option value="m" class="fa fa-mars">남성</option>
+														<option value="w" class="fa fa-venus">여성</option>
+													</optgroup>
 												</select>
 											</div>
 											<div class="form-group">
 												<div class="row">
-													<div class="col-md-12"">
+													<div class="col-md-12">
 														<div class="form-group col-md-5" style="padding: 0px; margin: 0px;">
 															<input class="form-control" name="email1" id="signup_email1" type="text" placeholder="이메일"/>
 														</div>
@@ -70,15 +75,17 @@
 												</div>
 											</div>
 											<div class="form-group">
-												<input type="text" name="phoneNumber" id="signup_phoneNumber" class="form-control" placeholder="휴대폰 번호">
+												<input type="tel" name="phoneNumber" id="signup_phoneNumber" class="form-control" placeholder="휴대폰 번호">
 											</div>
-											<div class="form-group">
-												<select class="selectpicker">
-													<c:forEach var="i" items="${slList}">
-														<option value="${i.schoolLevelNo}">${i.graduateState}</option>
-													</c:forEach>
+											<%-- <div class="form-group">
+												<select class="selectpicker" name="schoolLevel">
+													<optgroup label="최종 학력을 선택해주세요.">
+														<c:forEach var="i" items="${slList}">
+															<option value="${i.schoolLevelNo}">${i.graduateState}</option>
+														</c:forEach>
+													</optgroup>
 												</select>
-											</div>
+											</div> --%>
 											<div class="form-group">
 												<div class="input-group">
 													<input name="postCode" type="text" class="form-control" id="sample6_postcode" placeholder="우편번호">
@@ -86,6 +93,9 @@
 														<button class="btn btn-secondary" type="button" onclick="sample6_execDaumPostcode()" style="padding-top: 10%; padding-bottom: 10%;">우편번호 찾기</button>
 													</span>
 												</div>
+											</div>
+											<div class="form-group">
+						                        <input type="date" id="birthDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
 											</div>
 											<div class="form-group">
 												<input name="address1" type="text" class="form-control" id="sample6_address" placeholder="주소">
@@ -101,26 +111,8 @@
 												</div>
 											</div>
 										</form>
-										<form id="company-form" action="https://phpoll.com/register/process" method="post" role="form" style="display: none;">
-											<div class="form-group">
-												<input type="text" name="username" id="username" class="form-control" placeholder="Username" value="">
-											</div>
-											<div class="form-group">
-												<input type="email" name="email" id="email" class="form-control" placeholder="Email Address" value="">
-											</div>
-											<div class="form-group">
-												<input type="password" name="password" id="password" class="form-control" placeholder="Password">
-											</div>
-											<div class="form-group">
-												<input type="password" name="confirm-password" id="confirm-password" class="form-control" placeholder="Confirm Password">
-											</div>
-											<div class="form-group">
-												<div class="row">
-													<div class="col-sm-6 col-sm-offset-3">
-														<input type="submit" name="register-submit" id="register-submit" class="form-control btn btn-register" value="Register Now">
-													</div>
-												</div>
-											</div>
+										<form id="company-form" action="${actionUrl}?memberType=2" method="post" role="form" style="display: none;">
+											
 										</form>
 									</div>
 								</div>

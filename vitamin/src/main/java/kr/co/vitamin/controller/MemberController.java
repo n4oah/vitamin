@@ -1,7 +1,9 @@
 package kr.co.vitamin.controller;
 
+import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.javassist.compiler.ast.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,10 +23,12 @@ public class MemberController {
 		List<SchoolLevel> list = schoolService.getSchoolLevels();
 		
 		model.addAttribute("slList", list);
+		model.addAttribute("todayDate", new Date());
 	}
 	
 	@RequestMapping("/signup.do")
-	public String signup() throws Exception {
+	public String signup(Member memberVO) throws Exception {
+		
 		return "";
 	}
 }
