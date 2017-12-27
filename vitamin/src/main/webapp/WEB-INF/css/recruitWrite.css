@@ -1,12 +1,50 @@
 @charset "UTF-8";
 
+.form_inline {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 34px;
+    padding: 7px;
+    width:5%;
+}
+
+
+.file_label:hover {
+	background:#ADADAD;
+} 
+
+[type=file]{
+  display:none;
+}
+
+.file_label {
+	margin:0;
+  padding:10px;
+  width:auto;
+  max-width:300px;
+  height:auto;
+  background-color:#929292;
+  border:none;
+  color:#fff;
+  cursor:pointer;
+  text-align:center;
+  border-radius:5px;
+  -webkit-border-radius:5px;
+  -webkit-transition:0.2s ease all;
+     -moz-transition:0.2s ease all;
+      -ms-transition:0.2s ease all;
+       -o-transition:0.2s ease all;
+          transition:0.2s ease all;
+}
+
+
 .edit_content {
 	margin-top:40px;
 }
 
-label.title {
+span.title {
 	width: 100px;
-	margin-right: 3.5%;
+	margin-right: 2%;
 	text-align:left;
 }
 .file {
@@ -21,7 +59,7 @@ label.title {
     padding-bottom: 10px;
 }
 
-.logo_file > span , .logo_file > label{
+.logo_file > span {
 	float:left;
 }
 
@@ -36,6 +74,11 @@ label.title {
 
 .top_title {
 	text-align: center;
+	font-weight: bold;
+}
+
+.top_title > h2 {
+	font-weight: bold;
 }
 
 .table_wrap {
@@ -217,17 +260,6 @@ input[type="radio"] {
 	margin-right: 2px;
 }
 
-.career > span {
-	margin-right: 2%
-}
-.education > span {
-	margin-right: 2%;
-
-}
-.salary > span {
-	margin-right: 2%
-}
-
 .age {
 	margin-top:10px
 }
@@ -327,7 +359,7 @@ input[type="radio"] {
     color: #0c6cc4;
 }
 
-.optContainer label {
+.optContainer l {
     display: inline-block;
     width: 32%;
     color: #808080;
@@ -339,7 +371,7 @@ input[type="radio"] {
 }
 
 @media (max-width: 640px) {
-    .optContainer label {
+    .optContainer span {
         width: 48%;
     }
 }
@@ -496,8 +528,8 @@ span.dropdown .dropdown-menu li:active {
 	padding: 0px;
 }
 
-.detail_wrapper > div > label {
-	margin-right: 4%;
+.detail_wrapper > div > span {
+	margin-right: 2%;
 	text-align: left;
 	
 }
@@ -570,3 +602,18 @@ span.dropdown .dropdown-menu li:active {
   background: #2AD705;
   color: #ffffff;
 }
+
+.ex_label {
+	margin-right: 2%;
+    text-align: left;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.abcd {margin-right: 0px;}
+
+label {font-weight: normal;}
+
+.col-md-10 {padding-left: 0px;}

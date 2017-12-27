@@ -17,7 +17,7 @@
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
-<form class="form-horizontal">
+<form class="form-horizontal" method="post" enctype="multipart/form-data">
 	
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container" style="margin-bottom: 100px;">
@@ -30,65 +30,63 @@
 			 
 			 <div class="edit_title">
 			 	<div class="write_title  form-group">
-					<label class="col-md-1 title">제목</label>
+					<span class="ex_label col-md-1 title">제목</span>
 					<div class="col-md-10">
 						<input type="text" class="form-control" >
 					</div>
-			 	</div>
-			 	
-			 	<div class="logo_file form-group">
-			 		<label class="file col-md-1">로고</label>
-			 		<span><input type="file" style="display:inline"></span>
 			 	</div>
 			 </div>
 			 
 			 <div class="detail_wrapper form-group">
 						<div class="career">
-							<label class="col-md-1">경력</label>
-								<span><input type="checkbox" value = 0> 신입</span>
-								<span><input type="checkbox" value = 1>경력</span>
+							<span class="ex_label col-md-1">경력</span>
+								<span><label><input type="checkbox" value = 0 class="newcomer">신입</label></span>
+								<span><label><input type="checkbox" value = 1" class="career_level">경력</label></span>
 					
-							<span class="dropdown">
-								 <span class="select">
-	        						 <span>기간 시작</span>
-				         			 <i class="fa fa-chevron-down"></i>
-				        		</span>
-				        		
-				        		<input type="hidden" name="careerStart">
-				        			<ul class="dropdown-menu">
-				        			<li>기간 시작</li>
-				        			<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이상</li>
-				          			</c:forEach>
-				        			</ul>
+							<span class="career_period" style="display:none">
+								<span class="dropdown">
+									 <span class="select">
+		        						 <span>기간 시작</span>
+					         			 <i class="fa fa-chevron-down"></i>
+					        		</span>
+					        		
+					        		<input type="hidden" name="careerStart">
+					        			<ul class="dropdown-menu career_start">
+					        			<li>기간 시작</li>
+					        			<c:forEach begin="1" end="20" var="i">
+					          				<li>${i }년 이상</li>
+					          			</c:forEach>
+					        			</ul>
+								</span>
+								
+								<span>
+									<span class="ex_label abcd">~</span>
+								</span>
+								
+								<span class="dropdown">
+									 <span class="select">
+		        						 <span>기간 종료</span>
+					         			 <i class="fa fa-chevron-down"></i>
+					        		</span>
+					        		
+					        		<input type="hidden" name="careerEnd">
+					        			<ul class="dropdown-menu career_end">
+					        				<li>기간 종료</li>
+					          				<c:forEach begin="1" end="20" var="i">
+					          				<li>${i }년 이하</li>
+					          				</c:forEach>
+					        			</ul>
+								</span>
 							</span>
+							
 							
 							<span>
-								<label>~</label>
-							</span>
-							
-							<span class="dropdown">
-								 <span class="select">
-	        						 <span>기간 종료</span>
-				         			 <i class="fa fa-chevron-down"></i>
-				        		</span>
-				        		
-				        		<input type="hidden" name="careerEnd">
-				        			<ul class="dropdown-menu">
-				        				<li>기간 종료</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이하</li>
-				          				</c:forEach>
-				        			</ul>
-							</span>
-							
-							<span>
-								<input type="checkbox" value = 2 class="career_none"> 경력무관						
+								<label><input type="checkbox" value = 2 class="career_none"> 경력무관</label>						
 							</span>
 						</div>
 						
 						<div class="education">
-							<label class="col-md-1">학력</label>
+							<span class="ex_label col-md-1">학력</span>
 							
 							<span class="dropdown">
 								 <span class="select">
@@ -106,32 +104,13 @@
 							</span>
 							
 							<span>
-								<label>~</label>
-							</span>
-							
-							<span class="dropdown">
-								 <span class="select">
-	        						 <span>전체</span>
-				         			 <i class="fa fa-chevron-down"></i>
-				        		</span>
-				        		
-				        		<input type="hidden" name="careerEnd">
-				        			<ul class="dropdown-menu">
-				        				<li>전체</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이하</li>
-				          				</c:forEach>
-				        			</ul>
-							</span>
-							
-							<span>
 								<input type="checkbox" value = 2 class="education_none"> 학력무관						
 							</span>
 							
 						</div>
 						
 						<div class="salary">
-							<label class="col-md-1">연봉</label>
+							<span class="ex_label col-md-1">연봉</span>
 							
 							<span class="dropdown">
 								 <span class="select">
@@ -142,14 +121,15 @@
 				        		<input type="hidden" name="year_salary">
 				        			<ul class="dropdown-menu">
 				        				<li>전체</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이하</li>
+				          				<c:forEach begin="14" end="90" var="i" step="2">
+				          				<li>${i }00만원</li>
 				          				</c:forEach>
+				          				<li>1억원</li>
 				        			</ul>
 							</span>
 							
 							<span>
-								<label>~</label>
+								<span class="ex_label abcd">~</span>
 							</span>
 							
 							<span class="dropdown">
@@ -158,11 +138,11 @@
 				         			 <i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="careerEnd">
+				        		<input type="hidden" name="year_salary">
 				        			<ul class="dropdown-menu">
-				        				<li>기간 종료</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이하</li>
+				        				<li>전체</li>
+				          				<c:forEach begin="14" end="90" var="i" step="2">
+				          				<li>${i }00만원</li>
 				          				</c:forEach>
 				        			</ul>
 							</span>
@@ -173,7 +153,7 @@
 						</div>
 						
 						<div class="age">
-							<label class="col-md-1">나이</label>
+							<span class="ex_label col-md-1">나이</span>
 							
 							<span class="dropdown " >
 								 <span class="select">
@@ -262,7 +242,7 @@
 					</div>
 					
 					<div class="horizontal_table table_wrap">
-						<h4 class="table_title">접수기간 및 방법</h4>
+						<h4 class="table_title">접수기간 및 양식</h4>
 						<table class="table">
 							<tbody>
 								<tr>
@@ -275,9 +255,27 @@
 								</tr>
 								
 								<tr>
-									<th>접수방법</th>
+									<th>접수양식</th>
 									<td>
-										<input type="text" class="form-control" >
+										<span class="dropdown">
+												 <span class="select">
+					        						 <span>비타민 이력서 양식</span>
+								         			 <i class="fa fa-chevron-down"></i>
+								        		</span>
+								        		
+								        		<input type="hidden" name="age_count">
+								        			<ul class="dropdown-menu">
+								        				<li>전체</li>
+								          				<c:forEach begin="1" end="20" var="i">
+								          				<li>${i }년 이하</li>
+								          				</c:forEach>
+								        			</ul>
+											</span>
+											
+											<span>
+												<label for="file" class="file_label">첨부파일</label>
+  												<input type="file" name="file" id="file" style="display:none;"/>	
+											</span>
 									</td>
 								</tr>
 							</tbody>
@@ -359,8 +357,8 @@
 												<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 											</div>
 											<div>
-												<input type="text" id="address" class="form-control" placeholder="주소 " style="width:50%;">
-												<input type="text" id="detail_address"  class="form-control" placeholder="상세주소">
+												<input type="text" id="sample6_address" class="form-control" placeholder="주소 " style="width:50%;">
+												<input type="text" id="sample6_address2"  class="form-control" placeholder="상세주소">
 											</div>
 										</div>
 									</td>
@@ -445,6 +443,77 @@
 			}
 			}).open();
 	}
+    
+
+    $("[type=file]").on("change", function(){
+    var file = this.files[0];
+    var formdata = new FormData();
+    formdata.append("file", file);
+      $('#info').slideDown();
+      if(file.name.length >= 30){
+        $('#name span').empty().append(file.name.substr(0,30) + '..');
+      }else {
+        $('#name span').empty().append(file.name);
+      }
+      if(file.size >= 1073741824){
+  			$('#size span').empty().append(Math.round(file.size/1073741824) + "GB");
+  		}else if(file.size >= 1048576){
+  			$('#size span').empty().append(Math.round(file.size/1048576) + "MB");
+  		}else if(file.size >= 1024){
+  			$('#size span').empty().append(Math.round(file.size/1024) + "KB");
+  		}else {
+  			$('#size span').empty().append(Math.round(file.size) + "B");
+  		}
+      $('#type span').empty().append (file.type);
+    if(file.name.length >= 30){
+      $('.file_label').text(file.name.substr(0,30) + '..');
+    }else {
+      $('.file_label').text(file.name);
+    }
+    
+    var ext = $('#file').val().split('.').pop().toLowerCase();
+    if($.inArray(ext, ['html','xlsx','docx','pptx','pdf','hwp','zip']) == -1) {
+      $('#info').hide();
+      $('.file_label').text('첨부파일');
+      $('#file').val('');
+      alert('허용되지 않는 확장자 입니다.');
+    }
+      
+    });
+    
+    /*Dropdown Menu*/
+	$('span.dropdown').click(function () {
+	        $(this).attr('tabindex', 1).focus();
+	        $(this).toggleClass('active');
+	        $(this).find('.dropdown-menu').slideToggle(300);
+	    });
+	    $('span.dropdown').focusout(function () {
+	        $(this).removeClass('active');
+	        $(this).find('.dropdown-menu').slideUp(300);
+	    });
+	    $('span.dropdown .dropdown-menu li').click(function () {
+	        $(this).parents('span.dropdown').find('span').text($(this).text());
+	        $(this).parents('span.dropdown').find('input').attr('value', $(this).attr('id'));
+	    });
+	/*End Dropdown Menu*/
+
+	$('.dropdown-menu li').click(function () {
+	  var input = '<strong>' + $(this).parents('span.dropdown').find('input').val() + '</strong>',
+	      msg = '<span class="msg">Hidden input value: ';
+	  $('.msg').html(msg + input + '</span>');
+	}); 
+	
+	$('.career_level').click(function () {
+		$(".career_period").toggle();
+	});
+	
+	$('.career_none').click(function () {
+		$(".career_period").hide();
+		$(this).parent().parent().siblings().find("input").prop({"checked": false, "disabled": $(this).prop("checked")});
+	});
+	
+	
+
 </script>
 </body>
 </html>
