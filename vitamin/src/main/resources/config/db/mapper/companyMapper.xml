@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.CompanyMapper">
+	
+	<resultMap type="company" id="companyMap">
+		<result column="company_no" property="companyNo" />
+		<result column="member_no" property="memberNo" />
+		<result column="license_number" property="licenseNumber" />
+		<result column="company_name" property="companyName" />
+		<result column="boss_name" property="bossName" />
+		<result column="company_type" property="companyType" />
+		<result column="buildup_date" property="buildupDate" />
+		<result column="business_content" property="businessContent" />
+		<result column="business_no" property="businessNo" />
+		<result column="tel_number" property="telNumber" />
+		<result column="homepage" property="homepage" />
+		<result column="employee_count" property="employeeCount" />
+		<result column="logo_no" property="logoNo" />
+	</resultMap>
+	
+	<resultMap type="review" id="reviewMap">
+		<result column="review_no" property="reviewNo" />
+		<result column="company_no" property="companyNo" />
+		<result column="member_no" property="memberNo" />
+		<result column="score" property="score" />
+		<result column="content" property="content" />
+		<result column="reg_date" property="regDate" />
+	</resultMap>
+	
+	<resultMap type="file" id="fileMap">
+		<result column="file_no" property="fileNo" />
+		<result column="original_name" property="originalName" />
+		<result column="system_name" property="systemName" />
+		<result column="file_size" property="fileSize" />
+		<result column="file_path" property="filePath" />
+	</resultMap>
+	
+	<resultMap type="recruit" id="recruitMap">
+		<result column="recruit_no" property="recruitNo" />
+		<result column="title" property="title" />
+		<result column="career_state" property="careerState" />
+		<result column="career_start" property="careerStart" />
+		<result column="career_end" property="careerEnd" />
+		<result column="school_level" property="schoolLevel" />
+		<result column="year_pay" property="yearPay" />
+		<result column="age" property="age" />
+		<result column="gender" property="gender" />
+		<result column="assigned_task" property="assignedTask" />
+		<result column="form_service" property="formService" />
+		<result column="recuruit_count" property="recuruitCount" />
+		<result column="major" property="major" />
+		<result column="recruit_date_start" property="recruitDateStart" />
+		<result column="recruit_date_end" property="recruitDateEnd" />
+		<result column="recruit_form" property="recruitForm" />
+		<result column="recruit_form_file_no" property="recruitFormFileNo" />
+		<result column="address_no" property="addressNo" />
+		<result column="day_of_week" property="dayOfWeek" />
+		<result column="master" property="master" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="recruiting_state" property="recruitingState" />
+		<result column="recruiting_state" property="recruitingState" />
+	</resultMap>
+	
+	<insert id="commentWrite" parameterType="review">
+		insert into vi_review (company_no, member_no, score, content, reg_date)
+		values (#{companyNo}, #{memberNo}, #{score}, #{content})
+	</insert>
+	
+	<select id="commentDetail" resultMap="reviewMap" parameterType="int">
+		select member_no, score, content, reg_date from vi_review
+		where company_no = #{no} order by review_no desc
+	</select>
+	
+	<update id="commentModify" parameterType="review">
+		update vi_review set
+		score = #{score}, content = #{content}
+		where member_no = #{member_no} and review_no = #{review_no}
+	</update>
+	
+	<delete id="commentDelete" parameterType="review">
+		delete from vi_review
+		where member_no = #{member_no} and review_no = #{review_no}
+	</delete>
+	
+	<select id="companyDetail" parameterType="int" resultMap="companyMap">
+		select
+		company_name, boss_name, company_type, buildup_date, business_content, tel_number, homepage, employee_count, logo_no
+		from vi_company where company_no = #{no}
+	</select>
+	
+	<select id="fileDetail" parameterType="int" resultType="String">
+		select system_name from vi_file where file_no = #{no}
+	</select>
+	
+	<select id="recruitList" parameterType="int" resultMap="recruitMap">
+		select
+		recruit_no, title, recruit_date_start, recruit_date_end, year_pay
+		from vi_recruit_write where 
+	</select>
+</mapper>

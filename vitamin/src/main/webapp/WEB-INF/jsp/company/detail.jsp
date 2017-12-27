@@ -29,9 +29,9 @@ div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.pn
 .summary {background-color: pink; width: 65vw; height: 6.8vh 6.8vw; border-radius: 1vw}
 .vr {width: 0.2vw; height: 100%; background-color: gray; display: inline-block; position: absolute}
 .sumtitle {display: inline-block; overflow: hidden; margin-top: -0.3vh}
-.sumtitle > div:first-child {border-bottom: 0.2vh solid black; width: 100%; padding-bottom: 0.5vw; padding-to: 0.5vw}
+//.sumtitle > div:first-child {border-bottom: 0.2vh solid black; width: 100%; padding-bottom: 0.5vw; padding-to: 0.5vw}
 .sumtitle > div:last-child {top: -0.3vh}
-.sumtitle > * {margin: 0.4vw; text-align: center; color: black; font-size: 100%; font-weight: bold}
+.sumtitle > * {text-align: center; color: black; font-size: 100%; font-weight: bold}
 .chart, .graphTop {height: 18vh; width: 50vw}
 .chart div[name='graph'] {width: 3.5vh; display: inline-block}
 .graph1 {
@@ -125,46 +125,59 @@ h6 {
 .commentTitle {font-weight: bold; font-size: 2vw; border-left: 5px solid blue; padding-left: 5px;}
 .regDate {width: 100px; display: inline-block;}
 .input-group {border-bottom: 1px solid #e4e4e4;}
+hr {
+	width: 100%;
+    border: 0;
+    background: black;
+    height: 0.2vw;
+    margin: 0.5vw;
+}
+.sumtitle > div:first-child {
+	margin-top: 0.2vw;
+}
 </style>
 </head>
 <body>
 <div class="top" id="header">
-	<img alt="NHN" src="http://file.gamedonga.co.kr/files/2014/01/21/nhnent.jpg" class="logo">
-	<!--<img alt="${company.name}" src="${company.logo}" class="logo">-->
+	<img alt="${com.companyName}" src="../images/${logo }" class="logo">
 	
-	<span class="title">NHN</span>
-	<!--<span class="title">${company.name}</span>-->
+	<span class="title">${com.companyName}</span>
 	
 	<img class="bookmark" alt="즐겨찾기" src="https://png.icons8.com/small/540/bookmark.png">
 </div>
 
 <div class="summary">
 	<div class="sumtitle">
-		<div>회사 규모</div>
-		<div>대기업</div>
+		<div>회사 유형</div>
+		<hr>
+		<div>${com.companyType}</div>
+	</div>
+	<div class="vr"></div>
+
+	<div class="sumtitle">
+		<div>사업 내용</div>
+		<hr>
+		<div>${com.businessContent }</div>
+	</div>
+	<div class="vr"></div>
+
+	<div class="sumtitle">
+		<div>사원 수</div>
+		<hr>
+		<div>${com.employeeCount}</div>
+	</div>
+	<div class="vr"></div>
+
+	<div class="sumtitle">
+		<div>전화번호</div>
+		<hr>
+		<div>${com.telNumber }</div>
 	</div>
 	<div class="vr"></div>
 
 	<div class="sumtitle">
 		<div>회사 규모</div>
-		<div>대기업</div>
-	</div>
-	<div class="vr"></div>
-
-	<div class="sumtitle">
-		<div>회사 규모</div>
-		<div>대기업</div>
-	</div>
-	<div class="vr"></div>
-
-	<div class="sumtitle">
-		<div>회사 규모</div>
-		<div>대기업</div>
-	</div>
-	<div class="vr"></div>
-
-	<div class="sumtitle">
-		<div>회사 규모</div>
+		<hr>
 		<div>대기업</div>
 	</div>
 </div>
@@ -245,6 +258,9 @@ h6 {
 	      	<img src="https://i.imgur.com/5MJKaCv.png" width="15" class="heart">
 	      </span>
 	      <input type="text" class="form-control" aria-label="...">
+	      <span class="input-group-addon">
+    		<a>제출</a>
+	      </span>
 	    </div><!-- /input-group -->
 	  </div><!-- /.col-lg-6 -->
   	</div>
@@ -311,7 +327,7 @@ h6 {
 	var d;
 	
 	$("div[name='graph']").hover(function (e) {
-		d = $("<div>").css({"top": e.clientY, "left": e.clientX}).text(($(this).height()/$(this).parent().height()*100).toPrecision(3)+"%").addClass("hover");
+		d = $("<div>").css({"top": e.pageY, "left": e.clientX}).text(($(this).height()/$(this).parent().height()*100).toPrecision(3)+"%").addClass("hover");
 		$(this).after(d);
 	}, function () {
 		$(".hover").animate({"opacity": 0}, 700, function () {
