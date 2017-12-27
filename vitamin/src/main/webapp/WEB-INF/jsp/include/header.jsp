@@ -1,103 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/header.css">
 
-<header class="jain_container">
-	<nav class="navbar navbar-default" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle navigation</span>
-					<i class="icon-menu"></i>Menu
-				</button>
+<header>
+	<nav class="navbar navbar-default navbar-trans">
+		<nav class="navbar navbar-top">
+			<div class="container">
+				<ul class="nav navbar-nav pull-left">
+					<li><a href="#"><span class="glyphicon glyphicon glyphicon-bold text-white"></span></a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-globe text-white"></span></a></li>
+					<li><a href="#"><span class="glyphicon glyphicon-pushpin text-white"></span></a></li>
+				</ul>
+				<ul class="nav navbar-nav pull-right account" style="padding: 9px;">
+					<li><input type="text" name="id" placeholder="아이디를 입력해주세요." /></li>
+					<li><input type="password" name="pwd" placeholder="비밀번호를 입력해주세요." /></li>
+					<li>
+						<a href="#" class="btn btn-sm btn-success">
+							<span class="glyphicon glyphicon-user"></span> Sign In
+						</a>
+					</li>
+					<li>
+						<a href="#" class="btn btn-sm btn-primary">
+							<span class="glyphicon glyphicon-certificate"></span> Register
+						</a>
+					</li>
+				</ul>
 			</div>
-			<div class="outer">
-					<div class="collapse navbar-collapse"
-						id="bs-example-navbar-collapse-1">
-						<div class="col-md-12">
-							<ul class="nav navbar-nav">
-								<li><a href="${pageContext.request.contextPath}/main.do">MAIN</a></li>
-								<li class="dropdown mega-dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown">FIND YORU HOTEL
-										<span class="caret">
-										</span>
-									</a>
-									<ul class="dropdown-menu mega-dropdown-menu">
-										<li class="col-sm-4">
-											<ul>
-												<li class="dropdown-header">Features</li>
-												<li><a href="#">Auto Carousel</a></li>
-												<li><a href="#">Carousel Control</a></li>
-												<li><a href="#">Left & Right Navigation</a></li>
-												<li><a href="#">Four Columns Grid</a></li>
-											</ul>
-										</li>
-										<li class="col-sm-4">
-											<ul>
-												<li class="dropdown-header">Plus</li>
-												<li><a href="#">Navbar Inverse</a></li>
-												<li><a href="#">Pull Right Elements</a></li>
-												<li><a href="#">Coloured Headers</a></li>
-												<li><a href="#">Primary Buttons & Default</a></li>
-											</ul>
-										</li>
-										<li class="col-sm-4">
-											<ul>
-												<li class="dropdown-header">Much more</li>
-												<li><a href="#">Easy to Customize</a></li>
-												<li><a href="#">Calls to action</a></li>
-												<li><a href="#">Custom Fonts</a></li>
-												<li><a href="#">Slide down on Hover</a></li>
-											</ul>
-										</li>
-									</ul></li>
-								<li><a href="#">SPECIAL OFFERS</a></li>
-								<li><a href="#">PLAN YOUR EVENTS</a></li>
-								<li><a href="#">OUR BRANDS</a></li>
-								<li><a href="#">LOYALTY</a></li>
-								<li><a href="#">CONTACT US</a></li>
-							</ul>
-						</div>
-						<div class="col-md-12">
-							<form class="form-horizontal form-horizontal_x">
-								<div class="col-md-12">
-									<div class="form-group">
-										<div class="col-sm-4">
-											<select name="hotel" id="hotel" required="" class="form-control" onchange="changeFormaction2(this.value);">
-												<option value="" selected="">Select Hotel</option>
-												<option value="67961">Pride Plaza Hotel Ahmedabad</option>
-												<option value="67964">The Pride Hotel Bengaluru</option>
-												<option value="29191">The Pride Hotel Nagpur</option>
-												<option value="67963">The Pride Hotel Chennai</option>
-												<option value="29190">The Pride Hotel, Pune</option>
-												<option value="67962">Pride Plaza Hotel Kolkata</option>
-												<option value="67580">Pride Plaza Hotel Delhi</option>
-												<option value="8">Pride Amber Vilas Jaipur</option>
-												<option value="65728">Pride Surya Mountain Resort Mcleodganj</option>
-												<option value="60533">Pride Sun Village Resort SPA,Goa</option>
-												<option value="138227">The Pride Biznotel,Vadodara</option>
-											</select>
-										</div>
-										<div class="col-sm-3">
-											<input type="text" class="form-control" id="pwd"
-												placeholder="Check In">
-										</div>
-										<div class="col-sm-3">
-											<input type="text" class="form-control" id="pwd"
-												placeholder="Check Out">
-										</div>
-										<div class="col-sm-2">
-											<button type="submit" class="btn btn-default">Book
-												Now</button>
-										</div>
-									</div>
-								</div>
-							</form>
-						</div>
+		</nav>
+		<nav class="navbar navbar-down">
+			<div class="container">
+				<div class="flex-container">
+					<div class="navbar-header flex-item">
+						<div class="navbar-brand" href="#">Geek Connect</div>
 					</div>
+					<ul class="nav navbar-nav flex-item hidden-xs">
+						<li><a href="#">Home</a></li>
+						<li><a href="#">About</a></li>
+						<li><a href="#">Forum</a></li>
+						<li><a href="#">Contact</a></li>
+						<li><a href="#">FAQ</a></li>
+					</ul>
+					<ul class="nav navbar-nav flex-item hidden-xs pull-right">
+						<li><a href="#" class=""></a></li>
+					</ul>
 				</div>
 			</div>
+		</nav>
 	</nav>
 </header>

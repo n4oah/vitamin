@@ -236,15 +236,15 @@ $(function() {
 	});
 
 	$("#private-form").submit((e) => {
-		var ptn = [];
+		let ptn = [];
 		ptn.push(new Pattern($("#signup_id"), /^[a-z0-9]{4,12}$/, "아이디는 4~12자 소문자 영문과 숫자를 조합해서만 사용 가능합니다."));
 		ptn.push(new Pattern($("#signup_pwd"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", 1));
 		ptn.push(new Pattern($("#signup_pwd_chk"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", 1));
 		ptn.push(new Pattern($("#signup_name"), /^[a-z0-9가-힣]{1,10}$/, "이름은 1~10자 까지 가능합니다."));
 		ptn.push(new Pattern($("#signup_email1"), /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/i, "이메일 주소를 확인하세요."));
 		ptn.push(new Pattern($("#signup_email2"), /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i, "도메인 주소를 확인하세요."));
-		//birthDate
-		ptn.push(new Pattern($("#signup_phoneNumber"), /^().+$/, "상세 주소를 확인하세요."));
+		
+		ptn.push(new Pattern($("#birthDate"), /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/i, "이메일 주소를 확인하세요."));
 		ptn.push(new Pattern($("#sample6_postcode"), /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/i, "이메일 주소를 확인하세요."));
 		ptn.push(new Pattern($("#sample6_address"), /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/i, "이메일 주소를 확인하세요."));
 		ptn.push(new Pattern($("#sample6_address2"), /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i, "이메일 주소를 확인하세요."));
@@ -257,7 +257,6 @@ $(function() {
 				return;
 			}
 		}
-		
 	});
 });
 

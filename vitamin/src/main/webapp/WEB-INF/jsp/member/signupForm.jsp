@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -124,9 +124,7 @@
 						<h3 class="title">약관동의</h3>
 						<div class="scrollbar scrollbar-white">
 						    <div class="force-overflow">
-						    	<p>
-
-								</p>
+						    	${fn:replace(terms, newLine, "<br/>")}
 						    </div>
 						</div>
 					</div>
