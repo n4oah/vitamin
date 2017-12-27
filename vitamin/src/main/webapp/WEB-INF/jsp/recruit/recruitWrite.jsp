@@ -40,23 +40,23 @@
 			 <div class="detail_wrapper form-group">
 						<div class="career">
 							<span class="ex_label col-md-1">경력</span>
-								<span><label><input type="checkbox" value = 0 class="newcomer">신입</label></span>
-								<span><label><input type="checkbox" value = 1" class="career_level">경력</label></span>
+								<span><label><input type="checkbox" value = "1" name="careerState" class="newcomer">신입</label></span>
+								<span><label><input type="checkbox" value = "-1" name="careerState" class="career_level">경력</label></span>
 					
 							<span class="career_period" style="display:none">
 								<span class="dropdown">
 									 <span class="select">
+									 	<input type="hidden" name="careerStart" value="-1">
 		        						 <span>기간 시작</span>
 					         			 <i class="fa fa-chevron-down"></i>
 					        		</span>
 					        		
-					        		<input type="hidden" name="careerStart">
-					        			<ul class="dropdown-menu career_start">
-					        			<li>기간 시작</li>
+					        		<ul class="dropdown-menu">
+					        			<li id="-1" class="startDefault">기간 시작</li>
 					        			<c:forEach begin="1" end="20" var="i">
-					          				<li>${i }년 이상</li>
+					          				<li id="${i }">${i }년 이상</li>
 					          			</c:forEach>
-					        			</ul>
+					        		</ul>
 								</span>
 								
 								<span>
@@ -64,24 +64,23 @@
 								</span>
 								
 								<span class="dropdown">
-									 <span class="select">
-		        						 <span>기간 종료</span>
-					         			 <i class="fa fa-chevron-down"></i>
+				        			 <span class="select">
+									 	<input type="hidden" name="careerEnd" value="-1">
+		        						<span>기간 종료</span>
+					         			<i class="fa fa-chevron-down"></i>
 					        		</span>
 					        		
-					        		<input type="hidden" name="careerEnd">
-					        			<ul class="dropdown-menu career_end">
-					        				<li>기간 종료</li>
-					          				<c:forEach begin="1" end="20" var="i">
-					          				<li>${i }년 이하</li>
-					          				</c:forEach>
-					        			</ul>
+					        		<ul class="dropdown-menu">
+					        			<li id="-1" class="endDefault">기간 종료</li>
+					        			<c:forEach begin="1" end="20" var="i">
+					          				<li id="${i }">${i }년 이하</li>
+					          			</c:forEach>
+					        		</ul>
 								</span>
 							</span>
 							
-							
 							<span>
-								<label><input type="checkbox" value = 2 class="career_none"> 경력무관</label>						
+								<label><input type="checkbox" value ="-1" name="careerState" class="career_none"> 경력무관</label>						
 							</span>
 						</div>
 						
@@ -90,21 +89,23 @@
 							
 							<span class="dropdown">
 								 <span class="select">
-	        						 <span>전체</span>
-				         			 <i class="fa fa-chevron-down"></i>
+								 	<input type="hidden" name="schoolLevel" value="-1">
+	        						<span>전체</span>
+				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="careerStart">
-				        			<ul class="dropdown-menu">
-				        			<li>전체</li>
-				        			<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이상</li>
-				          			</c:forEach>
+				        		<ul class="dropdown-menu">
+				        			<li id="-1">전체</li>
+					        			<c:forEach var="sl" items="${schoolLevelList }">
+					        				<c:if test="${sl.level.toString() ne '0'}">
+					          					<li id="${sl.level}">${sl.graduateState} 이상</li>
+					          				</c:if>
+					          			</c:forEach>
 				        			</ul>
 							</span>
 							
 							<span>
-								<input type="checkbox" value = 2 class="education_none"> 학력무관						
+								<input type="checkbox" value = "-1" class="education_none"> 학력무관						
 							</span>
 							
 						</div>
@@ -114,18 +115,20 @@
 							
 							<span class="dropdown">
 								 <span class="select">
-	        						 <span>전체</span>
-				         			 <i class="fa fa-chevron-down"></i>
+								 	<input type="hidden" name="year_pay_start" value="-1">
+	        						<span>전체</span>
+				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="year_salary">
-				        			<ul class="dropdown-menu">
-				        				<li>전체</li>
-				          				<c:forEach begin="14" end="90" var="i" step="2">
-				          				<li>${i }00만원</li>
-				          				</c:forEach>
-				          				<li>1억원</li>
-				        			</ul>
+			        			<ul class="dropdown-menu">
+			        				<li id="-1" class="startDefault">전체</li>
+			          				
+			          				<c:forEach begin="14" end="90" var="i" step="2">
+			          					<li id="${i }">${i }00만원 이상</li>
+			          				</c:forEach>
+
+			          				<li id="100">1억원 이상</li>
+			        			</ul>
 							</span>
 							
 							<span>
@@ -134,21 +137,22 @@
 							
 							<span class="dropdown">
 								 <span class="select">
-	        						 <span>전체</span>
-				         			 <i class="fa fa-chevron-down"></i>
+								 	<input type="hidden" name="year_pay_end" value="-1">
+	        						<span>전체</span>
+				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
 				        		<input type="hidden" name="year_salary">
 				        			<ul class="dropdown-menu">
-				        				<li>전체</li>
+				        				<li id="-1" class="endDefault">전체</li>
 				          				<c:forEach begin="14" end="90" var="i" step="2">
-				          				<li>${i }00만원</li>
+				          				<li id="${i }">${i }00만원 이하</li>
 				          				</c:forEach>
 				        			</ul>
 							</span>
 							
 							<span>
-								<input type="checkbox" value = 2 class="education_none"> 회사내규에 따름 포함						
+								<input type="checkbox" value = 2 class="education_none"> 회사내규에 따름					
 							</span>
 						</div>
 						
@@ -481,39 +485,83 @@
       
     });
     
+    var chk = true;
+    
     /*Dropdown Menu*/
 	$('span.dropdown').click(function () {
-	        $(this).attr('tabindex', 1).focus();
-	        $(this).toggleClass('active');
-	        $(this).find('.dropdown-menu').slideToggle(300);
+			if (chk) {
+				$(this).attr('tabindex', 1).focus();
+		        $(this).toggleClass('active');
+		        $(this).find('.dropdown-menu').slideToggle(300);
+			} else $(this).removeClass('active');
 	    });
 	    $('span.dropdown').focusout(function () {
 	        $(this).removeClass('active');
 	        $(this).find('.dropdown-menu').slideUp(300);
 	    });
 	    $('span.dropdown .dropdown-menu li').click(function () {
-	        $(this).parents('span.dropdown').find('span').text($(this).text());
+	        $(this).parents('span.dropdown').find('span > span').text($(this).text());
 	        $(this).parents('span.dropdown').find('input').attr('value', $(this).attr('id'));
 	    });
-	/*End Dropdown Menu*/
-
-	$('.dropdown-menu li').click(function () {
-	  var input = '<strong>' + $(this).parents('span.dropdown').find('input').val() + '</strong>',
-	      msg = '<span class="msg">Hidden input value: ';
-	  $('.msg').html(msg + input + '</span>');
-	}); 
 	
 	$('.career_level').click(function () {
 		$(".career_period").toggle();
+		$(".career_period").find('span.select > span:eq(0)').text('기간 시작');
+		$(".career_period").find('span.select > span:eq(1)').text('기간 종료');
+		$(".career_period").find("input[name='careerStart']").attr('value', '-1');
+		$(".career_period").find("input[name='careerEnd']").attr('value', '-1');
 	});
+	
+	
+	function abcd(efg, str) {
+		for (var i = 0; i <= 1; i++) {
+			efg.find('span.dropdown:eq('+i+') > .dropdown-menu li').click(function () {
+				var start = -1;
+				var end = -1;
+				
+				
+				if (str == "경력을") {
+					start = parseInt(efg.find("input[name='careerStart']").val());
+					end = parseInt(efg.find("input[name='careerEnd']").val());
+				} else {
+					start = parseInt(efg.find("input[name='year_pay_start']").val());
+					end = parseInt(efg.find("input[name='year_pay_end']").val());					
+				}
+				
+				var bool = start > end;
+
+				if(bool && end != -1 && start != -1) {
+					chk = false;
+					if ($.inArray(this, efg.find('span.dropdown:eq(0) > .dropdown-menu li')) > -1) find(".startDefault").trigger("click")
+					else efg.find(".endDefault").trigger("click");
+					alert(str+" 확인해주세요.");
+					
+					chk = true;
+				}
+			});
+		}
+	}
+	
+	abcd($('.career_period'), "경력을");
+	abcd($('.salary'), "연봉을");
 	
 	$('.career_none').click(function () {
 		$(".career_period").hide();
 		$(this).parent().parent().siblings().find("input").prop({"checked": false, "disabled": $(this).prop("checked")});
+		
+		$(".career_period").find('span.select > span:eq(0)').text('기간 시작');
+		$(".career_period").find('span.select > span:eq(1)').text('기간 종료');
+		$(".career_period").find("input[name='careerStart']").attr('value', '-1');
+		$(".career_period").find("input[name='careerEnd']").attr('value', '-1');
 	});
 	
+	$('.education_none').click(function () {
+		$("div.education > span.dropdown").toggle();
+		var select = $("div.education > span.dropdown > span.select");
+		select.find("span").text('전체');
+		select.find("input").attr('value', '-1');
+	})
 	
-
 </script>
 </body>
 </html>

@@ -44,20 +44,21 @@
 					<div class="detail_wrapper">
 						<div class="career">
 							<Strong class="career_title">경력</Strong>
-								<span><input type="checkbox" value = 0> 신입</span>
-								<span><input type="checkbox" value = 1>경력</span>
+								<span><input type="checkbox" name="careerState" value = 0>신입</span>
+								<span><input type="checkbox" name="careerState" value = 1>경력</span>
 					
 							<span class="dropdown">
 								 <span class="select">
-	        						 <span>기간 시작</span>
-				         			 <i class="fa fa-chevron-down"></i>
+								 	<input type="hidden" name="careerStart">
+	        						<span>기간 시작</span>
+				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="careerStart">
+				        		<input type="hidden">
 				        			<ul class="dropdown-menu">
 				        			<li>기간 시작</li>
 				        			<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이상</li>
+				          				<li id="${i}">${i }년 이상</li>
 				          			</c:forEach>
 				        			</ul>
 							</span>
@@ -68,11 +69,12 @@
 							
 							<span class="dropdown">
 								 <span class="select">
-	        						 <span>기간 종료</span>
-				         			 <i class="fa fa-chevron-down"></i>
+								 	<input type="hidden" name="careerEnd">
+	        						<span>기간 종료</span>
+				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="careerEnd">
+				        		<input type="hidden">
 				        			<ul class="dropdown-menu">
 				        				<li>기간 종료</li>
 				          				<c:forEach begin="1" end="20" var="i">
@@ -118,7 +120,7 @@
 				        			<ul class="dropdown-menu">
 				        				<li>전체</li>
 				          				<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이하</li>
+				          				<li id="${i }">${i }년 이하</li>
 				          				</c:forEach>
 				        			</ul>
 							</span>
@@ -343,16 +345,16 @@
 		        $(this).find('.dropdown-menu').slideUp(300);
 		    });
 		    $('span.dropdown .dropdown-menu li').click(function () {
-		        $(this).parents('span.dropdown').find('span').text($(this).text());
+		        $(this).parents('span.dropdown').find('span > span').text($(this).text());
 		        $(this).parents('span.dropdown').find('input').attr('value', $(this).attr('id'));
 		    });
 		/*End Dropdown Menu*/
 
-		$('.dropdown-menu li').click(function () {
+		/* $('.dropdown-menu li').click(function () {
 		  var input = '<strong>' + $(this).parents('span.dropdown').find('input').val() + '</strong>',
 		      msg = '<span class="msg">Hidden input value: ';
 		  $('.msg').html(msg + input + '</span>');
-		}); 
+		});  */
 		
 		let star = document.querySelector('.star');
 
