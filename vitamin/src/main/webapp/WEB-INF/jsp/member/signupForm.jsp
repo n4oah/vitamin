@@ -75,7 +75,8 @@
 												</div>
 											</div>
 											<div class="form-group">
-												<input type="tel" name="phoneNumber" id="signup_phoneNumber" class="form-control" placeholder="휴대폰 번호">
+												<input type="text" name="phoneNumber" id="signup_phoneNumber" class="form-control bfh-phone" data-format="+82 (ddd) dddd-dddd">
+												<!-- <input type="tel" class="form-control" placeholder="휴대폰 번호"> -->
 											</div>
 											<%-- <div class="form-group">
 												<select class="selectpicker" name="schoolLevel">
@@ -91,14 +92,14 @@
 											</div>
 											<div class="form-group">
 												<div class="input-group">
-													<input name="postCode" type="text" class="form-control" id="sample6_postcode" placeholder="우편번호">
+													<input name="postCode" type="text" class="form-control" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
 													<span class="input-group-btn">
 														<button class="btn btn-secondary" type="button" onclick="sample6_execDaumPostcode()" style="padding-top: 10%; padding-bottom: 10%;">우편번호 찾기</button>
 													</span>
 												</div>
 											</div>
 											<div class="form-group">
-												<input name="address1" type="text" class="form-control" id="sample6_address" placeholder="주소">
+												<input name="address1" type="text" class="form-control" id="sample6_address" placeholder="주소" readonly="readonly">
 											</div>
 											<div class="form-group">
 												<input name="address2" type="text" class="form-control" id="sample6_address2" placeholder="상세주소">
@@ -106,7 +107,7 @@
 											<div class="form-group">
 												<div class="row">
 													<div class="col-sm-6 col-sm-offset-3">
-														<input type="submit" name="login-submit" id="login-submit" class="form-control btn btn-login" value="회원가입">
+														<input type="button" id="private-signup" class="form-control btn btn-login" value="회원가입">
 													</div>
 												</div>
 											</div>
@@ -125,7 +126,7 @@
 						    <div class="force-overflow">
 						    	<p>
 
-</p>
+								</p>
 						    </div>
 						</div>
 					</div>
