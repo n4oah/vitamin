@@ -87,15 +87,15 @@
 												</select>
 											</div> --%>
 											<div class="form-group">
+						                        <input type="date" id="birthDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
+											</div>
+											<div class="form-group">
 												<div class="input-group">
 													<input name="postCode" type="text" class="form-control" id="sample6_postcode" placeholder="우편번호">
 													<span class="input-group-btn">
 														<button class="btn btn-secondary" type="button" onclick="sample6_execDaumPostcode()" style="padding-top: 10%; padding-bottom: 10%;">우편번호 찾기</button>
 													</span>
 												</div>
-											</div>
-											<div class="form-group">
-						                        <input type="date" id="birthDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
 											</div>
 											<div class="form-group">
 												<input name="address1" type="text" class="form-control" id="sample6_address" placeholder="주소">
@@ -123,10 +123,9 @@
 						<h3 class="title">약관동의</h3>
 						<div class="scrollbar scrollbar-white">
 						    <div class="force-overflow">
-						    	<p>[약관동의]</p>
-						    	<p>앨한ㅇ래ㅏㄴ애란ㅁㄴ<br/>
-						    	내애내ㅏㄴㅇㄹ
-						    	</p>
+						    	<p>
+
+</p>
 						    </div>
 						</div>
 					</div>
