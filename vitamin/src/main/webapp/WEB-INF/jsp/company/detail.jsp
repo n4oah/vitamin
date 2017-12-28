@@ -12,6 +12,7 @@
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 		 
 		<script src="https://use.fontawesome.com/942e94bfdb.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 <style type="text/css">
@@ -20,7 +21,6 @@ html, body, #waha{
    	margin:0;
 }
 * {font-family: 'Nanum Gothic', sans-serif, serif;}
-body > div {margin-bottom: 4vh}
 div.top {width: 50vw; border-bottom: 0.3vh solid black}
 div.top > .logo {width: 7.2vh}
 div.top > .title {font-size: 3.5vh; color: #5566ff; font-weight: bold}
@@ -117,9 +117,15 @@ h6 {
     width: 100px;
 }
 .input-group-addon {padding-top: 0px; padding-bottom: 0px;}
+.heart {
+	background-image: url("https://i.imgur.com/ZttVr5D.png");
+	background-repeat: no-repeat;
+	background-position: -15px;
+	background-size: 15px;
+}
 .heart:hover, .selected {
 	background-image: url("https://i.imgur.com/ZttVr5D.png");
-	background-size: 15px;
+	background-position: 0px;
 }
 .col-lg-6 {width: 100%}
 .commentTitle {font-weight: bold; font-size: 2vw; border-left: 5px solid blue; padding-left: 5px;}
@@ -130,11 +136,12 @@ hr {
     border: 0;
     background: black;
     height: 0.2vw;
-    margin: 0.5vw;
+    margin: 0.2vw;
 }
 .sumtitle > div:first-child {
 	margin-top: 0.2vw;
 }
+body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 </style>
 </head>
 <body>
@@ -297,17 +304,17 @@ hr {
 			$(".sumtitle > *").css({"font-size": "100%"});
 			$(".summary").width("");
 		}
-		$(".chart").css({"margin-left": ($(window).width()-$(".chart").width())/2+'px'});
+		//$(".chart").css({"margin-left": ($(window).width()-$(".chart").width())/2+'px'});
 		$(".graphText").css({"margin-top": ($(".graphTop").height()-$(".graphText").height())/2+'px'});
-		for (var i = 0; i < $(".graphTop > div[name='graph']").length; i++) {
+		for (var i = 0; i < $('.graphTop > div[name="graph"]').length; i++) {
 			var margin = ($(".graphName > span:eq("+i+")").width()-$(".graphTop > div:eq("+i+")").width())/2+"px";
 			$(".graphTop > div:eq("+i+")").css({"margin-left": margin, "margin-right": margin});
 		}
 		$(".top > .title").css({"margin-left": ($(".top").width()-$(".top > .title").width())/2-$(".top > .logo").width()+'px'});
 		$(".sumtitle").width($(".summary").width()/$(".sumtitle").length-$(".sumtitle").length);
 		$(".vr").height($(".summary").height()+"px");
-		if (!chk) $(".summary").css({"margin-left": ($(window).width()-$(".summary").width())/2+'px'});
-		else $(".summary").css({"margin-left": ""});
+		//if (!chk) $(".summary").css({"margin-left": ($(window).width()-$(".summary").width())/2+'px'});
+		//else $(".summary").css({"margin-left": ""});
 	}
 
 	resize();
@@ -341,8 +348,8 @@ hr {
 	$(".prev").click(function () {
 		if (reIndex <= 0) return;
 		reIndex--;
-		$(".recruit:eq("+reIndex+")").css({"display": ""});
-		$(".recruit:eq("+(reIndex+3)+")").css({"display": "none"});
+		$(".recruit:eq("+reIndex+")").css({"display": ""}, 200);
+		$(".recruit:eq("+(reIndex+3)+")").css({"display": "none"}, 200);
 	});
 	
 	$(".next").click(function () {
@@ -353,7 +360,8 @@ hr {
 	});
 	
 	$(".heart").click(function () {
-		$(this).toggleClass("selected");
+		console.log("sasada")
+		$(this).toggleClass("selected"/* , 500, "linear" */);
 	});
 </script>
 </body>
