@@ -19,7 +19,7 @@ public class CompanyController {
 	public void companyDetail(@RequestParam(defaultValue="0") int no, Model model) throws Exception {
 		Company com = companyService.companyDetail(no);
 		model.addAttribute("com", com);
-		model.addAttribute("logo", companyService.fileDetail(com.getLogoNo()));
+		if (com != null) model.addAttribute("logo", companyService.fileDetail(com.getLogoNo()));
 		model.addAttribute("comment", companyService.commentDetail(no));
 	}
 }
