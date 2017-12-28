@@ -42,7 +42,9 @@ public class MypageController {
 	public void fullcalendarTest() throws Exception{}
 	
 	@RequestMapping("/saveResumeInfo.do")
-	public void saveResumeInfo() throws Exception{}
+	public void saveResumeInfo() throws Exception{
+		
+	}
 	
 	@RequestMapping("/intermediateSave.do")
 	@ResponseBody
