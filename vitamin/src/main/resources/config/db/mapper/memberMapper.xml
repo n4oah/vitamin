@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.MemberMapper">
+	
+	<resultMap type="member" id="memberMap">
+		<result column="member_no" property="memberNo" />
+		<result column="id" property="id" />
+		<result column="pwd" property="pwd" />
+		<result column="name" property="name" />
+		<result column="email" property="email" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="address_no" property="addressNo" />
+		<result column="birth_date" property="birthDate" />
+		<result column="gender" property="gender" />
+		<result column="email_token_no" property="emailTokenNo" />
+		<result column="member_type" property="memberType" />
+		<result column="reg_date" property="regDate" />
+	</resultMap>
+	
+	<select id="selectOverlapIdCheck" resultMap="memberMap" parameterType="member">
+		SELECT id FROM member
+		WHERE id=#{id} LIMIT 1
+	</select>
+</mapper>

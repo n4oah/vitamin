@@ -14,11 +14,32 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="${pageContext.request.contextPath}/js/signupForm.js"></script>
 		<script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script>
+		<script>
+			$(function() {
+				$('#signup_id').blur(function() {
+					$.ajax({
+						url: "${pageContext.request.contextPath}/member/idOverlapChk.do",
+						dataType: "json",
+						data: {id: $('#signup_id').val()},
+						success: function(chk) {
+							var $idInput = $('#signup_id')[0];
+							
+							if(chk == true) {
+								createLabel($idInput, '이미 등록된 아이디 입니다.', {'color': 'red'});
+							} else {
+								createLabel($idInput, '사용 가능한 아이디 입니다.', {'color': 'blue'});
+							}
+						}
+					});
+				});
+			});
+		</script>
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 	
 	<c:set var="actionUrl" value="${pageContext.request.contextPath}/member/signup.do" />
+	
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container">
 			<div class="row title-box">
@@ -40,7 +61,7 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-lg-12">
-										<form id="private-form" action="${actionUrl}?memberType=1" method="post" role="form" style="display: block;">
+										<form id="private-form" class="sign-form" action="${actionUrl}?memberType=1" method="post" role="form" style="display: block;">
 											<div class="form-group">
 												<input type="text" name="id" id="signup_id" class="form-control" placeholder="아이디">
 											</div>
@@ -48,7 +69,7 @@
 												<input type="password" name="pwd" id="signup_pwd" class="form-control" placeholder="비밀번호">
 											</div>
 											<div class="form-group">
-												<input type="text" id="signup_pwd_chk" class="form-control" placeholder="비밀번호 확인">
+												<input type="password" id="signup_pwd_chk" class="form-control" placeholder="비밀번호 확인">
 											</div>
 											<div class="form-group">
 												<input type="text" name="name" id="signup_name" class="form-control" placeholder="이름">
@@ -76,17 +97,7 @@
 											</div>
 											<div class="form-group">
 												<input type="text" name="phoneNumber" id="signup_phoneNumber" class="form-control bfh-phone" data-format="+82 (ddd) dddd-dddd">
-												<!-- <input type="tel" class="form-control" placeholder="휴대폰 번호"> -->
 											</div>
-											<%-- <div class="form-group">
-												<select class="selectpicker" name="schoolLevel">
-													<optgroup label="최종 학력을 선택해주세요.">
-														<c:forEach var="i" items="${slList}">
-															<option value="${i.schoolLevelNo}">${i.graduateState}</option>
-														</c:forEach>
-													</optgroup>
-												</select>
-											</div> --%>
 											<div class="form-group">
 						                        <input type="date" id="birthDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
 											</div>
@@ -107,13 +118,19 @@
 											<div class="form-group">
 												<div class="row">
 													<div class="col-sm-6 col-sm-offset-3">
-														<input type="button" id="private-signup" class="form-control btn btn-login" value="회원가입">
+														<input type="button" id="private-signup" class="form-control btn submit" value="회원가입">
 													</div>
 												</div>
 											</div>
 										</form>
-										<form id="company-form" action="${actionUrl}?memberType=2" method="post" role="form" style="display: none;">
-											
+										<form id="company-form" class="sign-form" action="${actionUrl}?memberType=2" method="post" role="form" style="display: none;">
+											<div class="form-group">
+												<div class="row">
+													<div class="col-sm-6 col-sm-offset-3">
+														<input type="button" id="private-signup" class="form-control btn submit" value="회원가입">
+													</div>
+												</div>
+											</div>
 										</form>
 									</div>
 								</div>
@@ -126,6 +143,12 @@
 						    <div class="force-overflow">
 						    	${fn:replace(terms, newLine, "<br/>")}
 						    </div>
+						</div>
+						<div class="form-check">
+							<label class="form-check-label">
+								<input class="form-check-input" id="terms-check" type="checkbox" value="terms">
+								약관동의 (개인 정보 수집 동의)
+							</label>
 						</div>
 					</div>
 				</div>

@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8" />
 <title>메인페이지</title>
+<script>
+	location.href = "${pageContext.request.contextPath}/main.do";
+</script>
 </head>
 <body>
 	<h1>메인페이지 입니다.</h1>
