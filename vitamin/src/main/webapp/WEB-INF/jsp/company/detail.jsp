@@ -29,7 +29,7 @@ div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.pn
 .summary {background-color: pink; width: 65vw; height: 6.8vh 6.8vw; border-radius: 1vw}
 .vr {width: 0.2vw; height: 100%; background-color: gray; display: inline-block; position: absolute}
 .sumtitle {display: inline-block; overflow: hidden; margin-top: -0.3vh}
-//.sumtitle > div:first-child {border-bottom: 0.2vh solid black; width: 100%; padding-bottom: 0.5vw; padding-to: 0.5vw}
+/* .sumtitle > div:first-child {border-bottom: 0.2vh solid black; width: 100%; padding-bottom: 0.5vw; padding-to: 0.5vw} */
 .sumtitle > div:last-child {top: -0.3vh}
 .sumtitle > * {text-align: center; color: black; font-size: 100%; font-weight: bold}
 .chart, .graphTop {height: 18vh; width: 50vw}
@@ -136,15 +136,48 @@ hr {
     border: 0;
     background: black;
     height: 0.2vw;
-    margin: 0.2vw;
+    margin-top: 0.2vw;
+    margin-bottom: 0.2vw;
 }
 .sumtitle > div:first-child {
 	margin-top: 0.2vw;
 }
 body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
+.sumtitle:not(:last-child) {
+	border-right: 0.2vw solid gray;
+}
+.sum {display: flex; width: 65vh; background-cl}
+.sumtitle {margin-left: auto; margin-right: auto; flex: 1 1;}
+
+@keyframes snow {
+0% {
+    -webkit-box-shadow: 0 0 0 transparent, 34vw -121vh 4px 1px #fff, -26vw -67vh 5px 1px #fff, 66vw -114vh 1px 3px #fff, -53vw -131vh 5px 2px #fff, 13vw -59vh 8px 2px #fff, -75vw -145vh 2px 5px #fff, 59vw -94vh 8px 1px #fff, -95vw -79vh 8px 1px #fff, 19vw -90vh 4px 2px #fff, -60vw -93vh 2px 2px #fff, 76vw -147vh 6px 1px #fff, -92vw -134vh 4px 5px #fff, 48vw -112vh 3px 1px #fff, -63vw -119vh 3px 4px #fff, 94vw -147vh 1px 2px #fff, -27vw -87vh 5px 2px #fff, 31vw -89vh 6px 3px #fff, -10vw -132vh 4px 2px #fff, 6vw -116vh 6px 3px #fff, -12vw -52vh 6px 4px #fff, 90vw -138vh 2px 4px #fff, -10vw -106vh 2px 1px #fff, 17vw -80vh 3px 3px #fff, -96vw -134vh 2px 3px #fff, 17vw -123vh 7px 3px #fff, -19vw -59vh 2px 3px #fff, 58vw -136vh 7px 4px #fff, -82vw -114vh 7px 4px #fff, 20vw -95vh 5px 2px #fff, -34vw -79vh 8px 2px #fff, 12vw -75vh 8px 5px #fff, -76vw -71vh 5px 2px #fff, 46vw -115vh 4px 3px #fff, -69vw -56vh 3px 3px #fff, 93vw -113vh 7px 1px #fff, -63vw -92vh 3px 5px #fff, 86vw -99vh 8px 3px #fff, -34vw -138vh 1px 4px #fff, 46vw -117vh 6px 5px #fff, -28vw -107vh 5px 4px #fff, 77vw -72vh 3px 1px #fff, -37vw -108vh 6px 5px #fff, 47vw -127vh 5px 2px #fff, -58vw -68vh 6px 3px #fff, 1vw -82vh 4px 2px #fff, -50vw -100vh 3px 1px #fff, 62vw -83vh 1px 3px #fff, -73vw -113vh 8px 4px #fff, 62vw -135vh 7px 1px #fff, -12vw -81vh 7px 4px #fff, 71vw -133vh 5px 4px #fff, -92vw -116vh 1px 5px #fff, 19vw -84vh 7px 4px #fff, -64vw -87vh 7px 4px #fff, 18vw -77vh 3px 3px #fff, -65vw -100vh 7px 2px #fff, 15vw -72vh 7px 4px #fff, -33vw -142vh 7px 4px #fff, 34vw -149vh 1px 3px #fff, -24vw -59vh 2px 5px #fff, 33vw -62vh 8px 2px #fff, -54vw -125vh 6px 1px #fff, 94vw -61vh 3px 1px #fff, -46vw -144vh 6px 4px #fff, 33vw -123vh 7px 3px #fff, -16vw -102vh 4px 5px #fff, 95vw -88vh 2px 1px #fff, -2vw -73vh 7px 2px #fff, 64vw -55vh 7px 3px #fff, -59vw -76vh 3px 4px #fff, 47vw -97vh 1px 4px #fff, -65vw -76vh 5px 4px #fff, 98vw -62vh 2px 3px #fff, -72vw -104vh 1px 5px #fff, 84vw -121vh 5px 3px #fff, -41vw -75vh 2px 1px #fff, 70vw -144vh 6px 5px #fff, -92vw -111vh 8px 2px #fff, 67vw -137vh 3px 5px #fff, -6vw -106vh 6px 4px #fff, 52vw -107vh 8px 1px #fff, -59vw -89vh 6px 2px #fff, 93vw -118vh 6px 4px #fff, -17vw -83vh 4px 1px #fff, 34vw -63vh 5px 5px #fff, -63vw -82vh 8px 1px #fff, 42vw -126vh 2px 5px #fff, -26vw -139vh 1px 5px #fff, 79vw -73vh 4px 2px #fff, -38vw -108vh 6px 4px #fff, 8vw -100vh 7px 2px #fff, -97vw -85vh 5px 3px #fff, 67vw -92vh 1px 1px #fff, -14vw -86vh 7px 1px #fff, 89vw -50vh 1px 2px #fff, -64vw -102vh 4px 2px #fff, 59vw -50vh 7px 2px #fff, -6vw -82vh 4px 5px #fff, 1vw -108vh 5px 1px #fff, -78vw -106vh 7px 1px #fff;
+    box-shadow: 0 0 0 transparent, 34vw -121vh 4px 1px #fff, -26vw -67vh 5px 1px #fff, 66vw -114vh 1px 3px #fff, -53vw -131vh 5px 2px #fff, 13vw -59vh 8px 2px #fff, -75vw -145vh 2px 5px #fff, 59vw -94vh 8px 1px #fff, -95vw -79vh 8px 1px #fff, 19vw -90vh 4px 2px #fff, -60vw -93vh 2px 2px #fff, 76vw -147vh 6px 1px #fff, -92vw -134vh 4px 5px #fff, 48vw -112vh 3px 1px #fff, -63vw -119vh 3px 4px #fff, 94vw -147vh 1px 2px #fff, -27vw -87vh 5px 2px #fff, 31vw -89vh 6px 3px #fff, -10vw -132vh 4px 2px #fff, 6vw -116vh 6px 3px #fff, -12vw -52vh 6px 4px #fff, 90vw -138vh 2px 4px #fff, -10vw -106vh 2px 1px #fff, 17vw -80vh 3px 3px #fff, -96vw -134vh 2px 3px #fff, 17vw -123vh 7px 3px #fff, -19vw -59vh 2px 3px #fff, 58vw -136vh 7px 4px #fff, -82vw -114vh 7px 4px #fff, 20vw -95vh 5px 2px #fff, -34vw -79vh 8px 2px #fff, 12vw -75vh 8px 5px #fff, -76vw -71vh 5px 2px #fff, 46vw -115vh 4px 3px #fff, -69vw -56vh 3px 3px #fff, 93vw -113vh 7px 1px #fff, -63vw -92vh 3px 5px #fff, 86vw -99vh 8px 3px #fff, -34vw -138vh 1px 4px #fff, 46vw -117vh 6px 5px #fff, -28vw -107vh 5px 4px #fff, 77vw -72vh 3px 1px #fff, -37vw -108vh 6px 5px #fff, 47vw -127vh 5px 2px #fff, -58vw -68vh 6px 3px #fff, 1vw -82vh 4px 2px #fff, -50vw -100vh 3px 1px #fff, 62vw -83vh 1px 3px #fff, -73vw -113vh 8px 4px #fff, 62vw -135vh 7px 1px #fff, -12vw -81vh 7px 4px #fff, 71vw -133vh 5px 4px #fff, -92vw -116vh 1px 5px #fff, 19vw -84vh 7px 4px #fff, -64vw -87vh 7px 4px #fff, 18vw -77vh 3px 3px #fff, -65vw -100vh 7px 2px #fff, 15vw -72vh 7px 4px #fff, -33vw -142vh 7px 4px #fff, 34vw -149vh 1px 3px #fff, -24vw -59vh 2px 5px #fff, 33vw -62vh 8px 2px #fff, -54vw -125vh 6px 1px #fff, 94vw -61vh 3px 1px #fff, -46vw -144vh 6px 4px #fff, 33vw -123vh 7px 3px #fff, -16vw -102vh 4px 5px #fff, 95vw -88vh 2px 1px #fff, -2vw -73vh 7px 2px #fff, 64vw -55vh 7px 3px #fff, -59vw -76vh 3px 4px #fff, 47vw -97vh 1px 4px #fff, -65vw -76vh 5px 4px #fff, 98vw -62vh 2px 3px #fff, -72vw -104vh 1px 5px #fff, 84vw -121vh 5px 3px #fff, -41vw -75vh 2px 1px #fff, 70vw -144vh 6px 5px #fff, -92vw -111vh 8px 2px #fff, 67vw -137vh 3px 5px #fff, -6vw -106vh 6px 4px #fff, 52vw -107vh 8px 1px #fff, -59vw -89vh 6px 2px #fff, 93vw -118vh 6px 4px #fff, -17vw -83vh 4px 1px #fff, 34vw -63vh 5px 5px #fff, -63vw -82vh 8px 1px #fff, 42vw -126vh 2px 5px #fff, -26vw -139vh 1px 5px #fff, 79vw -73vh 4px 2px #fff, -38vw -108vh 6px 4px #fff, 8vw -100vh 7px 2px #fff, -97vw -85vh 5px 3px #fff, 67vw -92vh 1px 1px #fff, -14vw -86vh 7px 1px #fff, 89vw -50vh 1px 2px #fff, -64vw -102vh 4px 2px #fff, 59vw -50vh 7px 2px #fff, -6vw -82vh 4px 5px #fff, 1vw -108vh 5px 1px #fff, -78vw -106vh 7px 1px #fff;
+}
+index.html?limi…ge=2&q=snow:48
+100% {
+    -webkit-box-shadow: 0 0 0 transparent, 99vw 95vh 8px 5px #fff, -71vw 106vh 1px 3px #fff, 55vw 98vh 4px 1px #fff, -77vw 141vh 4px 5px #fff, 17vw 67vh 5px 1px #fff, -64vw 126vh 8px 1px #fff, 71vw 62vh 5px 3px #fff, -31vw 74vh 8px 5px #fff, 80vw 73vh 1px 1px #fff, -28vw 76vh 7px 5px #fff, 83vw 101vh 8px 3px #fff, -83vw 105vh 4px 4px #fff, 58vw 102vh 7px 2px #fff, -42vw 54vh 2px 5px #fff, 60vw 108vh 3px 3px #fff, -43vw 61vh 8px 2px #fff, 98vw 124vh 6px 4px #fff, -93vw 101vh 2px 3px #fff, 72vw 57vh 4px 4px #fff, -93vw 112vh 1px 4px #fff, 39vw 110vh 4px 1px #fff, -49vw 55vh 2px 5px #fff, 9vw 65vh 2px 3px #fff, -46vw 58vh 8px 2px #fff, 38vw 65vh 8px 3px #fff, -80vw 109vh 3px 1px #fff, 26vw 135vh 4px 2px #fff, -56vw 102vh 5px 3px #fff, 76vw 71vh 1px 3px #fff, -69vw 134vh 7px 1px #fff, 26vw 58vh 3px 5px #fff, -17vw 53vh 6px 4px #fff, 32vw 60vh 3px 2px #fff, -61vw 94vh 2px 1px #fff, 78vw 78vh 8px 5px #fff, -96vw 125vh 2px 2px #fff, 40vw 103vh 6px 1px #fff, -18vw 123vh 6px 4px #fff, 9vw 68vh 6px 2px #fff, -35vw 109vh 8px 4px #fff, 33vw 100vh 8px 1px #fff, -81vw 110vh 7px 5px #fff, 40vw 145vh 5px 4px #fff, -37vw 74vh 1px 1px #fff, 20vw 64vh 4px 1px #fff, -89vw 145vh 3px 3px #fff, 90vw 133vh 4px 1px #fff, -54vw 107vh 6px 1px #fff, 93vw 90vh 4px 4px #fff, -97vw 65vh 7px 5px #fff, 24vw 117vh 3px 4px #fff, -8vw 60vh 2px 4px #fff, 35vw 145vh 3px 1px #fff, -90vw 120vh 3px 2px #fff, 17vw 60vh 7px 4px #fff, -31vw 127vh 6px 4px #fff, 76vw 106vh 5px 2px #fff, -3vw 76vh 5px 3px #fff, 85vw 54vh 4px 1px #fff, -4vw 109vh 3px 3px #fff, 30vw 94vh 4px 5px #fff, -30vw 149vh 6px 3px #fff, 97vw 81vh 2px 4px #fff, -78vw 146vh 2px 1px #fff, 46vw 98vh 8px 4px #fff, -60vw 140vh 8px 1px #fff, 20vw 101vh 3px 2px #fff, -56vw 129vh 5px 2px #fff, 31vw 95vh 4px 3px #fff, -12vw 57vh 3px 2px #fff, 18vw 124vh 3px 2px #fff, -10vw 135vh 6px 4px #fff, 74vw 128vh 1px 3px #fff, -67vw 60vh 7px 2px #fff, 68vw 97vh 3px 3px #fff, -64vw 119vh 1px 1px #fff, 64vw 63vh 4px 5px #fff, -7vw 115vh 5px 1px #fff, 65vw 77vh 8px 3px #fff, -35vw 83vh 6px 4px #fff, 41vw 126vh 8px 3px #fff, -93vw 138vh 7px 4px #fff, 97vw 137vh 8px 1px #fff, -36vw 81vh 8px 5px #fff, 3vw 67vh 2px 3px #fff, -5vw 51vh 2px 1px #fff, 60vw 128vh 2px 4px #fff, -20vw 90vh 8px 5px #fff, 69vw 89vh 6px 1px #fff, -18vw 87vh 5px 5px #fff, 98vw 123vh 8px 5px #fff, -95vw 62vh 6px 1px #fff, 76vw 52vh 5px 3px #fff, -29vw 136vh 6px 5px #fff, 36vw 69vh 3px 2px #fff, -67vw 126vh 5px 3px #fff, 81vw 89vh 6px 2px #fff, -10vw 126vh 1px 2px #fff, 61vw 108vh 2px 2px #fff, -20vw 99vh 1px 1px #fff;
+    box-shadow: 0 0 0 transparent, 99vw 95vh 8px 5px #fff, -71vw 106vh 1px 3px #fff, 55vw 98vh 4px 1px #fff, -77vw 141vh 4px 5px #fff, 17vw 67vh 5px 1px #fff, -64vw 126vh 8px 1px #fff, 71vw 62vh 5px 3px #fff, -31vw 74vh 8px 5px #fff, 80vw 73vh 1px 1px #fff, -28vw 76vh 7px 5px #fff, 83vw 101vh 8px 3px #fff, -83vw 105vh 4px 4px #fff, 58vw 102vh 7px 2px #fff, -42vw 54vh 2px 5px #fff, 60vw 108vh 3px 3px #fff, -43vw 61vh 8px 2px #fff, 98vw 124vh 6px 4px #fff, -93vw 101vh 2px 3px #fff, 72vw 57vh 4px 4px #fff, -93vw 112vh 1px 4px #fff, 39vw 110vh 4px 1px #fff, -49vw 55vh 2px 5px #fff, 9vw 65vh 2px 3px #fff, -46vw 58vh 8px 2px #fff, 38vw 65vh 8px 3px #fff, -80vw 109vh 3px 1px #fff, 26vw 135vh 4px 2px #fff, -56vw 102vh 5px 3px #fff, 76vw 71vh 1px 3px #fff, -69vw 134vh 7px 1px #fff, 26vw 58vh 3px 5px #fff, -17vw 53vh 6px 4px #fff, 32vw 60vh 3px 2px #fff, -61vw 94vh 2px 1px #fff, 78vw 78vh 8px 5px #fff, -96vw 125vh 2px 2px #fff, 40vw 103vh 6px 1px #fff, -18vw 123vh 6px 4px #fff, 9vw 68vh 6px 2px #fff, -35vw 109vh 8px 4px #fff, 33vw 100vh 8px 1px #fff, -81vw 110vh 7px 5px #fff, 40vw 145vh 5px 4px #fff, -37vw 74vh 1px 1px #fff, 20vw 64vh 4px 1px #fff, -89vw 145vh 3px 3px #fff, 90vw 133vh 4px 1px #fff, -54vw 107vh 6px 1px #fff, 93vw 90vh 4px 4px #fff, -97vw 65vh 7px 5px #fff, 24vw 117vh 3px 4px #fff, -8vw 60vh 2px 4px #fff, 35vw 145vh 3px 1px #fff, -90vw 120vh 3px 2px #fff, 17vw 60vh 7px 4px #fff, -31vw 127vh 6px 4px #fff, 76vw 106vh 5px 2px #fff, -3vw 76vh 5px 3px #fff, 85vw 54vh 4px 1px #fff, -4vw 109vh 3px 3px #fff, 30vw 94vh 4px 5px #fff, -30vw 149vh 6px 3px #fff, 97vw 81vh 2px 4px #fff, -78vw 146vh 2px 1px #fff, 46vw 98vh 8px 4px #fff, -60vw 140vh 8px 1px #fff, 20vw 101vh 3px 2px #fff, -56vw 129vh 5px 2px #fff, 31vw 95vh 4px 3px #fff, -12vw 57vh 3px 2px #fff, 18vw 124vh 3px 2px #fff, -10vw 135vh 6px 4px #fff, 74vw 128vh 1px 3px #fff, -67vw 60vh 7px 2px #fff, 68vw 97vh 3px 3px #fff, -64vw 119vh 1px 1px #fff, 64vw 63vh 4px 5px #fff, -7vw 115vh 5px 1px #fff, 65vw 77vh 8px 3px #fff, -35vw 83vh 6px 4px #fff, 41vw 126vh 8px 3px #fff, -93vw 138vh 7px 4px #fff, 97vw 137vh 8px 1px #fff, -36vw 81vh 8px 5px #fff, 3vw 67vh 2px 3px #fff, -5vw 51vh 2px 1px #fff, 60vw 128vh 2px 4px #fff, -20vw 90vh 8px 5px #fff, 69vw 89vh 6px 1px #fff, -18vw 87vh 5px 5px #fff, 98vw 123vh 8px 5px #fff, -95vw 62vh 6px 1px #fff, 76vw 52vh 5px 3px #fff, -29vw 136vh 6px 5px #fff, 36vw 69vh 3px 2px #fff, -67vw 126vh 5px 3px #fff, 81vw 89vh 6px 2px #fff, -10vw 126vh 1px 2px #fff, 61vw 108vh 2px 2px #fff, -20vw 99vh 1px 1px #fff;
+}
+}
+
+.snow__item {
+  position: absolute;
+    width: 5px;
+    height: 5px;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+    -webkit-animation: snow 10000ms linear infinite;
+    animation: snow 10000ms linear infinite;
+}
 </style>
 </head>
 <body>
+<div class="snow__item"></div>
 <div class="top" id="header">
 	<img alt="${com.companyName}" src="../images/${logo }" class="logo">
 	
@@ -153,7 +186,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 	<img class="bookmark" alt="즐겨찾기" src="https://png.icons8.com/small/540/bookmark.png">
 </div>
 
-<div class="summary">
+<%-- <div class="summary">
 	<div class="sumtitle">
 		<div>회사 유형</div>
 		<hr>
@@ -182,6 +215,34 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 	</div>
 	<div class="vr"></div>
 
+	<div class="sumtitle">
+		<div>회사 규모</div>
+		<hr>
+		<div>대기업</div>
+	</div>
+</div> --%>
+
+<div class="sum">
+	<div class="sumtitle">
+		<div>회사 유형</div>
+		<hr>
+		<div>${com.companyType}</div>
+	</div>
+	<div class="sumtitle">
+		<div>사업 내용</div>
+		<hr>
+		<div>${com.businessContent }</div>
+	</div>
+	<div class="sumtitle">
+		<div>사원 수</div>
+		<hr>
+		<div>${com.employeeCount}</div>
+	</div>
+	<div class="sumtitle">
+		<div>전화번호</div>
+		<hr>
+		<div>${com.telNumber }</div>
+	</div>
 	<div class="sumtitle">
 		<div>회사 규모</div>
 		<hr>
@@ -311,7 +372,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 			$(".graphTop > div:eq("+i+")").css({"margin-left": margin, "margin-right": margin});
 		}
 		$(".top > .title").css({"margin-left": ($(".top").width()-$(".top > .title").width())/2-$(".top > .logo").width()+'px'});
-		$(".sumtitle").width($(".summary").width()/$(".sumtitle").length-$(".sumtitle").length);
+		//$(".sumtitle").width($(".summary").width()/$(".sumtitle").length-$(".sumtitle").length);
 		$(".vr").height($(".summary").height()+"px");
 		//if (!chk) $(".summary").css({"margin-left": ($(window).width()-$(".summary").width())/2+'px'});
 		//else $(".summary").css({"margin-left": ""});
@@ -363,6 +424,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 		console.log("sasada")
 		$(this).toggleClass("selected"/* , 500, "linear" */);
 	});
+
 </script>
 </body>
 </html>
