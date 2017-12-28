@@ -61,7 +61,7 @@
 	border-color: #ccc;
 }
 
-.btn-login {
+form.sign-form .submit {
 	background-color: #59B2E0;
 	outline: none;
 	color: #fff;
@@ -73,7 +73,7 @@
 	border-color: #59B2E6;
 }
 
-.btn-login:hover, .btn-login:focus {
+form.sign-form .submit:hover, form.sign-form .submit:focus {
 	color: #fff;
 	background-color: #53A3CD;
 	border-color: #53A3CD;
@@ -251,4 +251,8 @@ div.col-md-12 h3.title {
 }
 div.btn-group.bootstrap-select {
 	width: 100% !important;
+}
+
+form.sign-form label.hint {
+	padding-left: 5px;
 }

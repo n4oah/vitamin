@@ -1,9 +1,158 @@
-/**
- * Copyright Marc J. Schmidt. See the LICENSE file at the top-level
- * directory of this distribution and at
- * https://github.com/marcj/css-element-queries/blob/master/LICENSE.
- */
-;
+$(function() {
+	var ptn = [];
+	
+	let privatePtn = [];
+	privatePtn.push(new Pattern($("#signup_id"), /^[a-z0-9]{4,12}$/, "아이디는 4~12자 소문자 영문과 숫자를 조합해서만 사용 가능합니다."));
+	privatePtn.push(new Pattern($("#signup_pwd"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", 1));
+	privatePtn.push(new Pattern($("#signup_pwd_chk"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", 1));
+	privatePtn.push(new Pattern($("#signup_name"), /^[a-z0-9가-힣]{1,10}$/, "이름은 1~10자 까지 가능합니다."));
+	privatePtn.push(new Pattern($("#signup_email1"), /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/i, "이메일 주소를 확인하세요."));
+	privatePtn.push(new Pattern($("#signup_email2"), /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i, "도메인 주소를 확인하세요."));
+	privatePtn.push(new Pattern($("#signup_phoneNumber"), /^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/, "핸드폰 번호를 입력해주세요."));
+	privatePtn.push(new Pattern($("#birthDate"), /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, "생일을 입력해주세요."));
+	privatePtn.push(new Pattern($("#sample6_postcode"), /^[0-9]{1,}$/, "우편 번호를 확인해주세요."));
+	privatePtn.push(new Pattern($("#sample6_address"), /^().+$/, "주소를 확인해주세요."));
+	privatePtn.push(new Pattern($("#sample6_address2"),  /^().+$/, "상세주소를 확인해주세요."));
+	
+	let companyPtn = [];
+	// companyPtn.push();
+	
+	ptn = privatePtn;
+	
+    $('#private-form-link').click(function(e) {
+		$("#private-form").delay(100).fadeIn(100);
+ 		$("#company-form").fadeOut(100);
+		$('#company-form-link').removeClass('active');
+		$(this).addClass('active');
+		ptn = privatePtn;
+		e.preventDefault();
+	});
+	$('#company-form-link').click(function(e) {
+		$("#company-form").delay(100).fadeIn(100);
+ 		$("#private-form").fadeOut(100);
+		$('#private-form-link').removeClass('active');
+		$(this).addClass('active');
+		ptn = companyPtn;
+		e.preventDefault();
+	});
+	
+	let $signForm = $('form.sign-form .submit');
+	for(let i = 0; i < $signForm.length; i++) {
+		$($signForm[i]).click({form: $signForm.closest('form')}, signClick);
+	}
+	
+	$("company-form").submit((e) => {
+		let ptn = [];
+		
+		
+		try {
+			bool = matches(ptn);
+		} catch (err) {
+			e.preventDefault();
+			return;
+		}
+		
+		
+	});
+
+	$("#private-form").submit((e) => {
+		try {
+			bool = matches(ptn);
+		} catch (err) {
+			err['ptn'].id.focus();
+			alert(err['msg']);
+			e.preventDefault();
+			return;
+		}
+		
+		if($('#terms-check').is(':checked') == false) {
+			alert('약관을 동의해주세요.');
+			e.preventDefault();
+		}
+	});
+	
+	$('input.form-control').on('input', function() {
+		for(let i = 0; i < ptn.length; i++) {
+			if(ptn[i].id[0] == $(this)[0]) {
+				if(ptn[i].matches() == false) {
+					createLabel(ptn[i].id, ptn[i].msg, {'color': 'red'});
+				} else {
+					deleteLabel(ptn[i].id);
+				}
+				break;
+			}
+		}
+	});
+});
+
+function createLabel(formInput, str, css) {
+	let $label = $(formInput).parent().find('label.hint');
+	
+	if($label.length > 0) {
+		$($label).text(str);
+		$($label).css(css);
+	} else {
+		$(formInput).after('<label for=\'id\' class=\'hint\'>' + str + '</label>');
+		$(formInput).next().css(css);
+	}
+}
+
+function deleteLabel(formInput) {
+	let $label = $(formInput).parent().find('label.hint');
+	
+	if($label.length > 0) {
+		$label.remove();
+	}
+}
+
+function signClick(e) {
+	let url = $(e.data.form).attr('action');
+	parm = url.split('?', 2);
+	switch(parm[1]) {
+		case 'memberType=1': {
+			$("#private-form").submit();
+			break;
+		}
+		case 'memberType=2': {
+			$("#company-form").submit();
+			break;
+		}
+	}
+}
+
+function matches(ptn) {
+	let overlap = new Set();
+	
+	for(let i = 0; i < ptn.length; i ++) {
+		if(ptn[i].matches() == false) {
+			throw {'ptn':ptn[i], 'code': 1, 'msg': ptn[i].msg};
+		}
+	}
+	for(let i = 0; i < ptn.length; i ++) {
+		if(ptn[i].sameNo != -1) {
+			if(overlap.has(ptn[i].sameNo) == false) {
+				for(let l = 0; l < ptn.length; l++) {
+					if(ptn[i].sameNo == ptn[l].sameNo) {
+						ptn[l].id.focus();
+						throw {'ptn':ptn[l], 'code': 2, 'msg': '비밀번호가 서로 같지 않습니다.'};
+					}
+				}
+			}
+		}
+	}
+}
+
+function Pattern(id, pettern, msg, sameNo = -1) {
+	this.id = id;
+	this.pettern = pettern;
+	this.msg = msg;
+	this.sameNo = sameNo;
+	
+	this.matches = function() {
+		return this.pettern.test(this.id.val());
+	};
+};
+
 (function (root, factory) {
     if (typeof define === "function" && define.amd) {
         define(factory);
@@ -211,63 +360,3 @@
 
     return ResizeSensor;
 }));
-
-$(function() {
-    $('#private-form-link').click(function(e) {
-		$("#private-form").delay(100).fadeIn(100);
- 		$("#company-form").fadeOut(100);
-		$('#company-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-	$('#company-form-link').click(function(e) {
-		$("#company-form").delay(100).fadeIn(100);
- 		$("#private-form").fadeOut(100);
-		$('#private-form-link').removeClass('active');
-		$(this).addClass('active');
-		e.preventDefault();
-	});
-	
-	
-
-	$("#private-signup").click(() => {
-		console.log($('#sample6_address').val());
-		$("#private-form").submit();
-	});
-
-	$("#private-form").submit((e) => {
-		let ptn = [];
-		ptn.push(new Pattern($("#signup_id"), /^[a-z0-9]{4,12}$/, "아이디는 4~12자 소문자 영문과 숫자를 조합해서만 사용 가능합니다."));
-		ptn.push(new Pattern($("#signup_pwd"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", 1));
-		ptn.push(new Pattern($("#signup_pwd_chk"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", 1));
-		ptn.push(new Pattern($("#signup_name"), /^[a-z0-9가-힣]{1,10}$/, "이름은 1~10자 까지 가능합니다."));
-		ptn.push(new Pattern($("#signup_email1"), /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/i, "이메일 주소를 확인하세요."));
-		ptn.push(new Pattern($("#signup_email2"), /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i, "도메인 주소를 확인하세요."));
-		ptn.push(new Pattern($("#signup_phoneNumber"), /^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/, "핸드폰 번호를 입력해주세요."));
-		ptn.push(new Pattern($("#birthDate"), /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, "생일을 입력해주세요."));
-		ptn.push(new Pattern($("#sample6_postcode"), /^[0-9]{1,}$/, "우편 번호를 확인해주세요."));
-		ptn.push(new Pattern($("#sample6_address"), /^().+$/, "주소를 확인해주세요."));
-		ptn.push(new Pattern($("#sample6_address2"),  /^().+$/, "상세주소를 확인해주세요."));
-		
-		for(let i = 0; i < ptn.length; i ++) {
-			if(ptn[i].matches() == false) {
-				alert(ptn[i].msg + ", " + ptn[i].id.val());
-				ptn[i].id.focus();
-				e.preventDefault();
-				return;
-			}
-		}
-		e.preventDefault();
-	});
-});
-
-function Pattern(id, pettern, msg, sameNo = -1) {
-	this.id = id;
-	this.pettern = pettern;
-	this.msg = msg;
-	this.sameNo = sameNo;
-	
-	this.matches = function() {
-		return this.pettern.test(this.id.val());
-	};
-};

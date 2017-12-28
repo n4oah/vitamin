@@ -1,29 +1,27 @@
 package kr.co.vitamin.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.ibatis.javassist.compiler.ast.Member;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import kr.co.vitamin.repository.vo.SchoolLevel;
+import kr.co.vitamin.service.MemberService;
 import kr.co.vitamin.service.SchoolLevelService;
 
 @Controller
@@ -31,6 +29,8 @@ import kr.co.vitamin.service.SchoolLevelService;
 public class MemberController {
 	@Autowired
 	private SchoolLevelService schoolService;
+	@Autowired
+	private MemberService memberService;
 	
 	@RequestMapping("/signupForm.do")
 	public void signupForm(Model model) throws Exception {
@@ -58,9 +58,6 @@ public class MemberController {
 		    String id = bookElement.getAttribute("id");
 		
 			if(id.equals("private-collect")) {
-				/*System.out.println(bookElement.getElementsByTagName("title").item(0).getTextContent());
-				System.out.println(bookElement.getElementsByTagName("content").item(0).getTextContent());*/
-				
 				String str = bookElement.getElementsByTagName("content").item(0).getTextContent().trim();
 				String tmp[] = str.split("\n");
 				for(int zz = 0; zz < tmp.length; zz ++) {
@@ -78,5 +75,12 @@ public class MemberController {
 	public String signup(Member memberVO) throws Exception {
 		
 		return "";
+	}
+	
+	@RequestMapping("/idOverlapChk.do")
+	@ResponseBody
+	public boolean idOverlapCheck(String id) throws Exception {
+		
+		return false;
 	}
 }
