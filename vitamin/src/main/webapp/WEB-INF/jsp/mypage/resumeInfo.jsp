@@ -97,8 +97,6 @@ div {
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">이력서제목</h4>
 						
-							<!-- <b class="col-md-10 title">이력서제목</b> -->
-							
 								<input type="text" class="form-control" name="re_title"
 									placeholder="이력서 제목을 입력하세요">
 					</div>
@@ -163,65 +161,72 @@ div {
 									</tr>
 									<tr>
 										<th>구직상태</th>
-										<td><select class="selectpicker">
-												<option class="fa">구직상태 선택</option>
-												<option value="1" class="fa">구직준비중(재학생)</option>
-												<option value="2" class="fa">구직중</option>
-												<option value="3" class="fa">재직중</option>
+										<td><select class="selectpicker" id="jobState">
+												<option value="" class="fa">구직상태 선택</option>
+												<option value="0" class="fa">구직준비중(재학생)</option>
+												<option value="1" class="fa">구직중</option>
+												<option value="2" class="fa">재직중</option>
 										</select></td>
 									</tr>
 									<tr>
 										<th>결혼여부</th>
-										<td><select class="selectpicker">
-												<option class="fa">결혼 여부</option>
-												<option value="1" class="fa">미혼</option>
-												<option value="2" class="fa">기혼</option>
+										<td><select class="selectpicker" id="marryState">
+												<option value="" class="fa">결혼여부 선택</option>
+												<option value="0" class="fa">미혼</option>
+												<option value="1" class="fa">기혼</option>
 										</select></td>
 									</tr>
 									<tr>
 										<th>보훈대상</th>
-										<td><select class="selectpicker">
-												<option class="fa">보훈대상</option>
+										<td><select class="selectpicker" id="bohonState">
+												<option value="" class="fa">보훈대상 선택</option>
+												<option value="0" class="fa">비대상</option>
 												<option value="1" class="fa">대상</option>
-												<option value="2" class="fa">비대상</option>
 										</select></td>
 									</tr>
 									<tr>
-										<th>고용지원금 대상</th>
-										<td><select class="selectpicker">
-												<option class="fa">고용지원금 대상</option>
+										<th>고용지원금대상</th>
+										<td><select class="selectpicker" id="supportState">
+												<option value="" class="fa">고용지원금대상 선택</option>
+												<option value="0" class="fa">비대상</option>
 												<option value="1" class="fa">대상</option>
-												<option value="2" class="fa">비대상</option>
 												<option value="2" class="fa">재직중</option>
 										</select></td>
 									</tr>
 									<tr>
 										<th>병역대상</th>
-										<td><select class="selectpicker" style="width: 10%">
-												<option class="fa">병역대상</option>
-												<option value="1" class="fa">비대상</option>
-												<option value="2" class="fa">군필</option>
-												<option value="2" class="fa">미필</option>
-												<option value="2" class="fa">면제</option>
-												<option value="2" class="fa">복무중</option>
-										</select></td>
+										<td>
+											<select class="selectpicker" id="armyServiceState" style="width: 10%">
+													<option value="" class="fa">병역대상 선택</option>
+													<option value="0" class="fa">비대상</option>
+													<option value="1" class="fa">군필</option>
+													<option value="2" class="fa">미필</option>
+													<option value="3" class="fa">면제</option>
+													<option value="4" class="fa">복무중</option>
+											</select>
+											<span>면제사유</span>
+											<input type="text" class="float-control" id="armyServiceReason"style="width:60%">
+										</td>
 									</tr>
 								</tbody>
 							</table>
 							<!--/.table-->
+							<div>
+								<input style="float: right" type="button" class="intermediate_save btn-primary" value="중간저장">
+							</div>
 						</div>
 						</div>
-						<input type="button">
+						
 
 						<div class="horizontal_table table_wrap">
 							<div>
 								<h4 class="table_title">학력사항</h4>
 								<span style="float: right">대학교이상</span> <input type="checkbox"
-									id="ch_schoolevel" style="float: right"> <span
+									id="ch_schoolevel1" style="float: right"> <span
 									style="float: right">고등학교&nbsp</span> <input type="checkbox"
-									id="ch_schoolevel" style="float: right"> <span
+									id="ch_schoolevel2" style="float: right"> <span
 									style="float: right">고등학교 미만 졸업/중퇴인 경우 선택&nbsp</span> <input
-									type="checkbox" id="ch_schoolevel" style="float: right">
+									type="checkbox" id="ch_schoolevel3" style="float: right">
 							</div>
 							<div class="highschool">
 								<table class="table">
@@ -232,16 +237,17 @@ div {
 												id="highenter" placeholder="입학" readonly="readonly">
 												<strong> ~ </strong> <input type="text"
 												class="float-control" id="highgraduate" placeholder="졸업"
-												readonly="readonly"></td>
+												readonly="readonly">
+												</td>
 										</tr>
 										<tr>
 											<th>학교명</th>
 											<td><input type="text" class="float-control"
-												id="schoolname" placeholder="학교이름"></td>
+												id="highname" placeholder="학교이름"></td>
 										</tr>
 										<tr>
 											<th>전공</th>
-											<td><input type="text" class="float-control" id="major"
+											<td><input type="text" class="float-control"
 												placeholder="전공"></td>
 										</tr>
 										<tr>
@@ -267,7 +273,7 @@ div {
 										<tr>
 											<th>학교명</th>
 											<td><input type="text" class="float-control"
-												id="schoolname" placeholder="학교이름"></td>
+												id="univname" placeholder="학교이름"></td>
 										</tr>
 										<tr>
 											<th>전공</th>
@@ -285,8 +291,11 @@ div {
 									</tbody>
 								</table>
 								<!--/.table-->
+								<div>
+									<input style="float: right" type="button" class="intermediate_save" value="중간저장">
+								</div>
 							</div>
-							<div></div>
+							
 
 						</div>
 						<div class="career">
@@ -328,8 +337,9 @@ div {
 										<tr>
 											<th>근무기간</th>
 											<td><select class="float-control">
-													<option class="fa" value="1">퇴사</option>
-													<option class="fa" value="2">재직중</option>
+													<option class="fa" value="">근무여부</option>
+													<option class="fa" value="0">퇴사</option>
+													<option class="fa" value="1">재직중</option>
 											</select> <input class="float-control" type="text" id="work_start"
 												style="width: 100px" placeholder="입사일"> <span>~</span>
 												<input class="float-control" type="text" id="work_end"
@@ -348,11 +358,24 @@ div {
 										<tr>
 											<th>근무지역</th>
 											<td><select class="float-control">
-													<option class="fa" value="1">서울</option>
-													<option class="fa" value="2">강원</option>
-													<option class="fa" value="2">경기</option>
-													<option class="fa" value="2">경상</option>
-													<option class="fa" value="2">전라</option>
+													<option class="fa" value="">지역선택</option>
+													<option class="fa" value="11">서울</option>
+													<option class="fa" value="21">부산</option>
+													<option class="fa" value="22">대구</option>
+													<option class="fa" value="23">인천</option>
+													<option class="fa" value="24">광주</option>
+													<option class="fa" value="25">대전</option>
+													<option class="fa" value="26">울산</option>
+													<option class="fa" value="29">세종</option>
+													<option class="fa" value="31">경기</option>
+													<option class="fa" value="32">강원</option>
+													<option class="fa" value="33">충북</option>
+													<option class="fa" value="34">충남</option>
+													<option class="fa" value="35">전북</option>
+													<option class="fa" value="36">전남</option>
+													<option class="fa" value="37">경북</option>
+													<option class="fa" value="38">경남</option>
+													<option class="fa" value="39">제주</option>
 											</select></td>
 										</tr>
 										<tr>
@@ -372,17 +395,17 @@ div {
 										<tr>
 											<th>직종</th>
 											<td><input class="float-control" type="text"
-												id="work_end" style="width: 100px"></td>
+												id="work_type" style="width: 100px"></td>
 										</tr>
 										<tr>
 											<th>담당업무</th>
-											<td><textarea class="textarea-control" rows="10"
-													cols="80"></textarea></td>
+											<td style="padding:0px"><textarea class="textarea-control" rows="10"
+													cols="80%"></textarea></td>
 										</tr>
 										<tr>
 											<th>퇴사사유</th>
 											<td><select class="float-control">
-													<option class="fa">퇴사사유</option>
+													<option class="fa" value="">퇴사사유</option>
 													<option class="fa" value="1">업직종 전환</option>
 													<option class="fa" value="2">근무조건</option>
 													<option class="fa" value="3">경영악화</option>
@@ -405,11 +428,14 @@ div {
 									<tbody>
 										<tr>
 											<th>경력기술서</th>
-											<td><textarea class="textarea-control" rows="10"
-													cols="80"></textarea></td>
+											<td style="padding:0px" ><textarea class="textarea-control" rows="10"
+													cols="80%"></textarea></td>
 										</tr>
 									</tbody>
 								</table>
+								<div>
+									<input style="float: right" type="button" class="intermediate_save" value="중간저장">
+								</div>
 							</div>
 						</div>
 						<div class="certification">
@@ -421,6 +447,7 @@ div {
 										<tr>
 											<th>항목선택</th>
 											<td><select class="selectpicker">
+													<option class="fa" value="">항목선택</option>
 													<option class="fa" value="1">자격증/면허증</option>
 													<option class="fa" value="2">어학자격증</option>
 													<option class="fa" value="3">수상내역/공모전</option>
@@ -440,16 +467,19 @@ div {
 										<tr>
 											<th>합격구분</th>
 											<td><select class="selectpicker">
-													<option class="fa">합격구분</option>
-													<option class="fa" value="1">1차합격</option>
-													<option class="fa" value="2">2차합격</option>
-													<option class="fa" value="3">필기합격</option>
-													<option class="fa" value="4">실기합격</option>
-													<option class="fa" value="5">최종합격</option>
+													<option class="fa" value="">합격구분</option>
+													<option class="fa" value="0">1차합격</option>
+													<option class="fa" value="1">2차합격</option>
+													<option class="fa" value="2">필기합격</option>
+													<option class="fa" value="3">실기합격</option>
+													<option class="fa" value="4">최종합격</option>
 											</select></td>
 										</tr>
 									</tbody>
 								</table>
+								<div>
+									<input style="float: right" type="button" class="intermediate_save" value="중간저장">
+								</div>
 							</div>
 						</div>
 
@@ -461,42 +491,49 @@ div {
 										<tr>
 											<th>근무형태</th>
 											<td><select class="selectpicker">
-													<option class="fa">근무형태</option>
-													<option class="fa">정규직</option>
-													<option class="fa">교육생</option>
-													<option class="fa">별정직</option>
-													<option class="fa">파트</option>
-													<option class="fa">전임</option>
-													<option class="fa">계약직</option>
-													<option class="fa">병역특례</option>
-													<option class="fa">인턴직</option>
-													<option class="fa">아르바이트</option>
-													<option class="fa">파견직</option>
-													<option class="fa">해외취업</option>
-													<option class="fa">위촉직</option>
-													<option class="fa">프리랜서</option>
+													<option class="fa" value="">근무형태</option>
+													<option class="fa" value="0">정규직</option>
+													<option class="fa" value="1">교육생</option>
+													<option class="fa" value="2">별정직</option>
+													<option class="fa" value="3">파트</option>
+													<option class="fa" value="4">전임</option>
+													<option class="fa" value="5">계약직</option>
+													<option class="fa" value="6">병역특례</option>
+													<option class="fa" value="7">인턴직</option>
+													<option class="fa" value="8">아르바이트</option>
+													<option class="fa" value="9">파견직</option>
+													<option class="fa" value="10">해외취업</option>
+													<option class="fa" value="11">위촉직</option>
+													<option class="fa" value="12">프리랜서</option>
 											</select></td>
 										</tr>
 										<tr>
 											<th>희망연봉</th>
-											<td><select class="selectpicker">
+											<td>
+												<select class="selectpicker">
 													<option class="fa">회사내규에 따름</option>
-													<option class="fa">1800만원이하</option>
-													<option class="fa">1800~2200만원</option>
-													<option class="fa">2200~2600만원</option>
-													<option class="fa">2600~3000만원</option>
-													<option class="fa">3000~3400만원</option>
-													<option class="fa">3400~3800만원</option>
-													<option class="fa">3800~4000만원</option>
-													<option class="fa">4000~5000만원</option>
-													<option class="fa">5000~6000만원</option>
-													<option class="fa">6000~7000만원</option>
-													<option class="fa">7000~8000만원</option>
-													<option class="fa">8000~9000만원</option>
-													<option class="fa">9000~1억원</option>
+													<option class="fa">1800</option>
+													<option class="fa">2000</option>
+													<option class="fa">2200</option>
+													<option class="fa">2400</option>
+													<option class="fa">2600</option>
+													<option class="fa">2800</option>
+													<option class="fa">3000</option>
+													<option class="fa">3200</option>
+													<option class="fa">3400</option>
+													<option class="fa">3600</option>
+													<option class="fa">3800</option>
+													<option class="fa">4000</option>
+													<option class="fa">5000</option>
+													<option class="fa">6000</option>
+													<option class="fa">7000</option>
+													<option class="fa">8000</option>
+													<option class="fa">9000</option>
+													<option class="fa">1억원</option>
 													<option class="fa">1억원이상</option>
 													<option class="fa">면접후 결정</option>
-											</select></td>
+											</select>
+											</td>
 										</tr>
 										<tr>
 											<th>희망 근무지역</th>
@@ -517,7 +554,7 @@ div {
 					</div>
 					
 					<div class="btn_panel">
-						<a href="#" class="disabled_btn apply_btn">등록</a>
+						<a href="${pageContext.request.contextPath}/mypage/saveResumeInfo.do" class="disabled_btn apply_btn"  onclick="validation()">등록</a>
 					</div>
 
 					<div>
@@ -615,7 +652,57 @@ div {
 			  });
 			
 			
+			function validation(){
+				
+				var jobstate = $('#jobState').val()
+				var marrystate= $('#marryState').val()
+				var bohonstate= $('#bohonState').val()
+				var supportstate= $('#supportState').val()
+				var armyservicestate= $('#armyServiceState').val()
+				var armyservicereason= $('#armyServiceReason').val()
+				
+				if(jobstate.length<1){
+					alert("구직상태를 설정해주세요")
+				}else if(marrystate.length<1){
+					alert("결혼여부를 설정해주세요")
+				}else if(bohonstate.length<1){
+					alert("보훈대상여부를 설정해주세요")
+				}else if(supportstate.length<1){
+					alert("고용지원금대상여부를 설정해주세요")
+				}else if(armyservicestate.length<1){
+					alert("군대 여부를 설정해주세요")
+				}else if(armyservicestate=="3"){
+					if(armyservicereason.length<1){
+						alert("면제사유를 적어주세요")
+					}
+				}
+				
+				/* var enterDate = new Date($('#highenter').val())
+				var endDate = new Date($('#highgraduate').val())
+				var endYear = endDate.getYear()
+				var endMonth = endDate.getMonth()
+				var enterYear= enterDate.getYear()
+				var enterMonth = enterDate.getMonth()
+				
+				
+				if(endYear-enterYear<2){
+					alert("졸업기간이 2년이내입니다.")
+				}
+				else if(endYear-enterYear==2 && endMonth-enterMonth!=0){
+					alert("졸업기간이 2년이내입니다.")
+					
+				}*/
+				
+			} 
 			
+			/* $(document).ready(function(){
+				$('#highenter').click(function(){
+					$('#highgraduate').val()=""
+				});
+			}); */
+			
+			
+				
 			
 		</script>
 </body>
