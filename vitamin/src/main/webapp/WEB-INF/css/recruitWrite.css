@@ -265,6 +265,15 @@ input[type="radio"] {
 }
 
 
+.gender {
+	margin-left:5%;
+}
+
+.gender > .gender_title {
+	margin-right:2%;
+	font-weight:700;
+}
+
 .career > .career_title {
 	margin-right: 5%
 }
@@ -276,6 +285,7 @@ input[type="radio"] {
 .salary > .salary_title {
 	margin-right: 5%
 }
+
 .age > .age_title {
 	margin-right: 5%
 }
