@@ -48,7 +48,7 @@
 												<input type="password" name="pwd" id="signup_pwd" class="form-control" placeholder="비밀번호">
 											</div>
 											<div class="form-group">
-												<input type="text" id="signup_pwd_chk" class="form-control" placeholder="비밀번호 확인">
+												<input type="password" id="signup_pwd_chk" class="form-control" placeholder="비밀번호 확인">
 											</div>
 											<div class="form-group">
 												<input type="text" name="name" id="signup_name" class="form-control" placeholder="이름">
@@ -76,7 +76,6 @@
 											</div>
 											<div class="form-group">
 												<input type="text" name="phoneNumber" id="signup_phoneNumber" class="form-control bfh-phone" data-format="+82 (ddd) dddd-dddd">
-												<!-- <input type="tel" class="form-control" placeholder="휴대폰 번호"> -->
 											</div>
 											<%-- <div class="form-group">
 												<select class="selectpicker" name="schoolLevel">
