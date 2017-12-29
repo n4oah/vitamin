@@ -58,6 +58,27 @@ $(function() {
 			}
 		}
 	});
+	
+	function signupSubmit(e) {
+		try {
+			matches(ptn);
+			
+			let $terms = $('.terms-check');
+			for(let i = 0; i < $terms.length; i++) {
+				if($($terms[i]).is(':checked') == false) {
+					alert('약관을 동의해주세요.');
+					e.preventDefault();
+					break;
+				}
+			}
+		} catch (err) {
+			console.log(err);
+			err['ptn'].id.focus();
+			alert(err['msg']);
+			e.preventDefault();
+			return;
+		}
+	}
 });
 
 function matches(ptn, tPtn) {
@@ -128,27 +149,6 @@ class Pattern {
 		}
 	};
 };
-
-function signupSubmit(e) {
-	try {
-		matches(ptn);
-		
-		let $terms = $('.terms-check');
-		for(let i = 0; i < $terms.length; i++) {
-			if($($terms[i]).is(':checked') == false) {
-				alert('약관을 동의해주세요.');
-				e.preventDefault();
-				break;
-			}
-		}
-	} catch (err) {
-		console.log(err);
-		err['ptn'].id.focus();
-		alert(err['msg']);
-		e.preventDefault();
-		return;
-	}
-}
 
 function createLabel(formInput, str, css) {
 	let $label = $(formInput).parent().find('label.hint');
