@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>이력서 정보</title>
+<title>이력서 등록</title>
 <%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/basic.css">
@@ -22,28 +22,27 @@
 	href="path/to/font-awesome/css/font-awesome.min.css">
 <script src="https://use.fontawesome.com/942e94bfdb.js"></script>
 <script src="${pageContext.request.contextPath}/js/resumeInfo.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=316e409a59e29fd51e1dcbf1e4769f1c&libraries=services"></script>
 
-<script>
-	$('input')
-</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp"%>
-	<form class="form-horizontal">
+	<!-- <form class="form-horizontal"> -->
 
 		<div id="wrapper" style="margin-top: 0px;">
 			<section class="container" style="margin-bottom: 100px;">
 				<div class="row">
 					<div class="top">
 						<div class="top_title">
-							<h2>이력서 관리</h2>
+							<h2>이력서 작성</h2>
 						</div>
 					</div>
-
+					<form action="${pageContext.request.contextPath}/mypage/intermediateSave.do" class="form-horizontal">
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">이력서제목</h4>
-						
-								<input type="text" class="form-control" name="re_title"
+								<input type="text" class="form-control" name="resumeTitle"
 									placeholder="이력서 제목을 입력하세요">
 					</div>
 
@@ -67,21 +66,21 @@
 									<tr>
 										<th>주소</th>
 										<td><input type="text" class="float-control" id="postcode"
-											style="width: 20%" placeholder="우편번호" readonly="readonly"
-											onclick="sample6_execDaumPostcode()"> <input
+											style="width: 20%" placeholder="우편번호"
+											onclick="sample6_execDaumPostcode()" readonly="readonly"> <input
 											type="text" class="float-control" id="address1"
 											style="width: 80%" placeholder="주소" readonly="readonly">
 											<input type="text" class="float-control" id="address2"
-											style="width: 80%" placeholder="상세주소" readonly="readonly"></td>
+											style="width: 80%" placeholder="상세주소"></td>
 									</tr>
 									<tr>
 										<th>휴대전화</th>
 										<td><input type="text" class="float-control"
-											maxlength="3" style="width: 60px" readonly="readonly"> <span>-</span> <input
+											maxlength="3" style="width: 60px" > <span>-</span> <input
 											type="text" class="float-control" maxlength="4"
-											style="width: 60px" readonly="readonly"> <span>-</span> <input
+											style="width: 60px"> <span>-</span> <input
 											type="text" class="float-control" maxlength="4"
-											style="width: 60px" readonly="readonly"></td>
+											style="width: 60px"></td>
 
 									</tr>
 									<tr>
@@ -107,7 +106,7 @@
 									</tr>
 									<tr>
 										<th>구직상태</th>
-										<td><select class="selectpicker" id="jobState">
+										<td><select class="selectpicker" id="jobState" name="jobState">
 												<option value="" class="fa">구직상태 선택</option>
 												<option value="0" class="fa">구직준비중(재학생)</option>
 												<option value="1" class="fa">구직중</option>
@@ -116,7 +115,7 @@
 									</tr>
 									<tr>
 										<th>결혼여부</th>
-										<td><select class="selectpicker" id="marryState">
+										<td><select class="selectpicker" id="marryState" name="marryState">
 												<option value="" class="fa">결혼여부 선택</option>
 												<option value="0" class="fa">미혼</option>
 												<option value="1" class="fa">기혼</option>
@@ -124,7 +123,7 @@
 									</tr>
 									<tr>
 										<th>보훈대상</th>
-										<td><select class="selectpicker" id="bohonState">
+										<td><select class="selectpicker" id="bohonState" name="bohoonState">
 												<option value="" class="fa">보훈대상 선택</option>
 												<option value="0" class="fa">비대상</option>
 												<option value="1" class="fa">대상</option>
@@ -132,7 +131,7 @@
 									</tr>
 									<tr>
 										<th>고용지원금대상</th>
-										<td><select class="selectpicker" id="supportState">
+										<td><select class="selectpicker" id="supportState" name="supportState">
 												<option value="" class="fa">고용지원금대상 선택</option>
 												<option value="0" class="fa">비대상</option>
 												<option value="1" class="fa">대상</option>
@@ -142,7 +141,7 @@
 									<tr>
 										<th>병역대상</th>
 										<td>
-											<select class="selectpicker" id="armyServiceState" style="width: 10%">
+											<select class="selectpicker" id="armyServiceState" name="armyServiceState"style="width: 10%">
 													<option value="" class="fa">병역대상 선택</option>
 													<option value="0" class="fa">비대상</option>
 													<option value="1" class="fa">군필</option>
@@ -151,19 +150,23 @@
 													<option value="4" class="fa">복무중</option>
 											</select>
 											<span>면제사유</span>
-											<input type="text" class="float-control" id="armyServiceReason"style="width:60%">
+											<input type="text" class="float-control" id="armyServiceReason" name="armyServiceReason" style="width:60%">
 										</td>
 									</tr>
 								</tbody>
 							</table>
 							<!--/.table-->
 							<div>
-								<input style="float: right" type="button" class="intermediate_save btn-primary" value="중간저장">
+								<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
 							</div>
+					</form>
+							
+							
 						</div>
 						</div>
-						
 
+		
+						
 						<div class="horizontal_table table_wrap">
 							<div>
 								<h4 class="table_title">학력사항</h4>
@@ -497,6 +500,7 @@
 								</table>
 							</div>
 						</div>
+						
 					</div>
 					
 					<div class="btn_panel">
@@ -510,8 +514,65 @@
 			</section>
 		</div>
 
-	</form>
+	<!-- </form> -->
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp"%>
+<script>
+function sample6_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var fullAddr = ''; // 최종 주소 변수
+            var extraAddr = ''; // 조합형 주소 변수
+
+            // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                fullAddr = data.roadAddress;
+
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                fullAddr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+            if(data.userSelectedType === 'R'){
+                //법정동명이 있을 경우 추가한다.
+                if(data.bname !== ''){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있을 경우 추가한다.
+                if(data.buildingName !== ''){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('postcode').value = data.zonecode; //5자리 새우편번호 사용
+            document.getElementById('address1').value = fullAddr;
+
+            // 커서를 상세주소 필드로 이동한다.
+            document.getElementById('address2').focus();
+            
+            var geocoder = new daum.maps.services.Geocoder();
+			geocoder.addressSearch(data.roadAddress, function(result, status) {
+				if (status === daum.maps.services.Status.OK) {
+					var places = new daum.maps.services.Places();
+					places.categorySearch('BUS', function(result) {
+						console.log(result[0])
+					}, {
+						location: new daum.maps.LatLng(result[0].y, result[0].x)
+					});
+				}
+			});
+			console.log("시/도", data.sido);
+			var sigungu = data.sigungu.split(" ");
+			console.log("시/군/구", sigungu[sigungu.length - 1]);
+		}
+		}).open();
+}
+</script>
 </body>
 </html>
