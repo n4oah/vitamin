@@ -1,6 +1,7 @@
 package kr.co.vitamin.controller;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import kr.co.vitamin.repository.vo.SchoolLevel;
+import kr.co.vitamin.repository.vo.Terms;
 import kr.co.vitamin.service.MemberService;
 import kr.co.vitamin.service.SchoolLevelService;
 
@@ -35,10 +37,9 @@ public class MemberController {
 	@RequestMapping("/signupForm.do")
 	public void signupForm(Model model) throws Exception {
 		List<SchoolLevel> list = schoolService.getSchoolLevels();
+		List<Terms> termsList = new ArrayList<Terms>();
 		
 		String newLine = "\n";
-		
-		StringBuffer terms = new StringBuffer();
 		
 		DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
 		DocumentBuilder parser = f.newDocumentBuilder();
@@ -55,18 +56,22 @@ public class MemberController {
 		    Node bookNode = n1.item(i);
 		    Element bookElement = (Element)bookNode;
 		    
-		    String id = bookElement.getAttribute("id");
+		    Terms terms = new Terms();
 		
-			if(id.equals("private-collect")) {
-				String str = bookElement.getElementsByTagName("content").item(0).getTextContent().trim();
-				String tmp[] = str.split("\n");
-				for(int zz = 0; zz < tmp.length; zz ++) {
-					terms.append(tmp[zz].trim() + newLine);
-				}
-		    }
+		    String title = bookElement.getElementsByTagName("title").item(0).getTextContent().trim();
+			String content = bookElement.getElementsByTagName("content").item(0).getTextContent().trim();
+			String tmp[] = content.split("\n");
+			
+			StringBuffer str = new StringBuffer();
+			for(int zz = 0; zz < tmp.length; zz ++) {
+				str.append(tmp[zz].trim() + newLine);
+			}
+			terms.setTitle(title);
+			terms.setContent(str.toString());
+			termsList.add(terms);
 		}
 		model.addAttribute("newLine", newLine);
-		model.addAttribute("terms", terms.toString());
+		model.addAttribute("termsList", termsList);
 		model.addAttribute("slList", list);
 		model.addAttribute("todayDate", new Date());
 	}

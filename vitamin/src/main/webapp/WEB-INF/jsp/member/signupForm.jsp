@@ -138,18 +138,21 @@
 						</div>
 					</div>
 					<div class="col-md-6">
+						<!-- termsList -->
 						<h3 class="title">약관동의</h3>
-						<div class="scrollbar scrollbar-white">
-						    <div class="force-overflow">
-						    	${fn:replace(terms, newLine, "<br/>")}
-						    </div>
-						</div>
-						<div class="form-check">
-							<label class="form-check-label">
-								<input class="form-check-input" id="terms-check" type="checkbox" value="terms">
-								약관동의 (개인 정보 수집 동의)
-							</label>
-						</div>
+						<c:forEach var="terms" items="${termsList}">
+							<div class="scrollbar scrollbar-white">
+							    <div class="force-overflow">
+							    	${fn:replace(terms.content, newLine, "<br/>")}
+							    </div>
+							</div>
+							<div class="form-check">
+								<label class="form-check-label">
+									<input class="form-check-input terms-check" type="checkbox" value="terms">
+									${terms.title}
+								</label>
+							</div>
+						</c:forEach>
 					</div>
 				</div>
 			</div>
