@@ -20,7 +20,7 @@
 	</resultMap>
 	
 	<select id="selectOverlapIdCheck" resultMap="memberMap" parameterType="member">
-		SELECT id FROM member
+		SELECT id FROM vi_member
 		WHERE id=#{id} LIMIT 1
 	</select>
 </mapper>

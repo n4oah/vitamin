@@ -99,7 +99,7 @@
 												<input type="text" name="phoneNumber" id="signup_phoneNumber" class="form-control bfh-phone" data-format="+82 (ddd) dddd-dddd">
 											</div>
 											<div class="form-group">
-						                        <input type="date" id="birthDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
+						                        <input type="date" name="birthDate2" id="birthDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
 											</div>
 											<div class="form-group">
 												<div class="input-group">

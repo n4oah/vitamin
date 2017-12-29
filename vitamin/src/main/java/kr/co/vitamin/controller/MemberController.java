@@ -8,7 +8,6 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.ibatis.javassist.compiler.ast.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -21,6 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import kr.co.vitamin.repository.vo.Member;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.Terms;
 import kr.co.vitamin.service.MemberService;
@@ -77,15 +77,15 @@ public class MemberController {
 	}
 
 	@RequestMapping("/signup.do")
-	public String signup(Member memberVO) throws Exception {
-		
+	public String signup(Member member/*, @RequestParam Map<String,Object> map*/) throws Exception {
+		System.out.println(member.getEmail());
+		/*System.out.println(map.size());*/
 		return "";
 	}
 	
 	@RequestMapping("/idOverlapChk.do")
 	@ResponseBody
-	public boolean idOverlapCheck(String id) throws Exception {
-		
-		return false;
+	public boolean idOverlapCheck(Member memberVO) throws Exception {
+		return memberService.getOverlapIdCheck(memberVO);
 	}
 }
