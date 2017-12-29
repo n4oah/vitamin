@@ -3,8 +3,8 @@ $(function() {
 	
 	let privatePtn = [];
 	privatePtn.push(new Pattern($("#signup_id"), /^[a-z0-9]{4,12}$/, "아이디는 4~12자 소문자 영문과 숫자를 조합해서만 사용 가능합니다."));
-	privatePtn.push(new Pattern($("#signup_pwd"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", 1));
-	privatePtn.push(new Pattern($("#signup_pwd_chk"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", 1));
+	privatePtn.push(new Pattern($("#signup_pwd"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", {'code':1, 'target':true, 'msg': '비밀번호가 서로 같지 않습니다.'}));
+	privatePtn.push(new Pattern($("#signup_pwd_chk"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", {"code":1, "target":false}));
 	privatePtn.push(new Pattern($("#signup_name"), /^[a-z0-9가-힣]{1,10}$/, "이름은 1~10자 까지 가능합니다."));
 	privatePtn.push(new Pattern($("#signup_email1"), /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/i, "이메일 주소를 확인하세요."));
 	privatePtn.push(new Pattern($("#signup_email2"), /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i, "도메인 주소를 확인하세요."));
@@ -15,7 +15,6 @@ $(function() {
 	privatePtn.push(new Pattern($("#sample6_address2"),  /^().+$/, "상세주소를 확인해주세요."));
 	
 	let companyPtn = [];
-	// companyPtn.push();
 	
 	ptn = privatePtn;
 	
@@ -41,49 +40,115 @@ $(function() {
 		$($signForm[i]).click({form: $signForm.closest('form')}, signClick);
 	}
 	
-	$("company-form").submit((e) => {
-		let ptn = [];
-		
-		
-		try {
-			bool = matches(ptn);
-		} catch (err) {
-			e.preventDefault();
-			return;
-		}
-		
-		
-	});
-
-	$("#private-form").submit((e) => {
-		try {
-			bool = matches(ptn);
-		} catch (err) {
-			err['ptn'].id.focus();
-			alert(err['msg']);
-			e.preventDefault();
-			return;
-		}
-		
-		if($('#terms-check').is(':checked') == false) {
-			alert('약관을 동의해주세요.');
-			e.preventDefault();
-		}
-	});
+	$("company-form").submit(signupSubmit);
+	$("#private-form").submit(signupSubmit);
 	
-	$('input.form-control').on('input', function() {
+	$('input.form-control').on('input', function(e) {
 		for(let i = 0; i < ptn.length; i++) {
 			if(ptn[i].id[0] == $(this)[0]) {
-				if(ptn[i].matches() == false) {
-					createLabel(ptn[i].id, ptn[i].msg, {'color': 'red'});
-				} else {
+				try {
+					matches(ptn, ptn[i]);
 					deleteLabel(ptn[i].id);
+				} catch (err) {
+					err['ptn'].id.focus();
+					createLabel(err.ptn.id, err.msg, {'color': 'red'});
+					e.preventDefault();
 				}
 				break;
 			}
 		}
 	});
+	
+	function signupSubmit(e) {
+		try {
+			matches(ptn);
+			
+			let $terms = $('.terms-check');
+			for(let i = 0; i < $terms.length; i++) {
+				if($($terms[i]).is(':checked') == false) {
+					alert('약관을 동의해주세요.');
+					e.preventDefault();
+					break;
+				}
+			}
+		} catch (err) {
+			console.log(err);
+			err['ptn'].id.focus();
+			alert(err['msg']);
+			e.preventDefault();
+			return;
+		}
+	}
 });
+
+function matches(ptn, tPtn) {
+	let overlap = new Set();
+	let tempPtn = ptn;
+	if(tPtn != undefined) {
+		ptn = new Array(tPtn);
+	}
+	
+	for(let i = 0; i < ptn.length; i ++) {
+		if(ptn[i].matches() == false) {
+			throw {'ptn':ptn[i], 'code': 1, 'msg': ptn[i].msg};
+		}
+	}
+	
+	try {
+		Pattern.searchTarget(tempPtn, tPtn);
+	} catch (e) {
+		console.log('asdgasdg');
+		throw e;
+	}
+}
+
+class Pattern {
+	constructor(id, pettern, msg, sameCheck = -1)
+	{
+		this.id = id;
+		this.pettern = pettern;
+		this.msg = msg;
+		this.sameCheck = sameCheck;
+	}
+	
+	matches() {
+		return this.pettern.test(this.id.val());
+	};
+	
+	static searchTarget(ptns, iPtn) {
+		console.log('asfg');
+		
+		let ptnEx = new Array();
+		let cPtnEx = new Array();
+		
+		if(iPtn != undefined) {
+			cPtnEx.push(iPtn);
+		}
+		
+		for(let i = 0; i < ptns.length; i++) {
+			if(ptns[i].sameCheck != -1) {
+				ptnEx.push(ptns[i]);
+			}
+		}
+		if(cPtnEx.length == 0) { cPtnEx = ptnEx; }
+		
+		for(let tPtn of ptnEx) {
+			if(tPtn.sameCheck.target == true) {
+				let code = tPtn.sameCheck.code;
+				
+				for(let cPtn of cPtnEx) {
+					if(cPtn.sameCheck.code == tPtn.sameCheck.code) {
+						if(cPtn.sameCheck.target == false) {
+							if(cPtn.id.val() != tPtn.id.val()) {
+								throw {'ptn':cPtn, 'code': 2, 'msg': tPtn.sameCheck.msg};
+							}
+						}
+					}
+				}
+			}
+		}
+	};
+};
 
 function createLabel(formInput, str, css) {
 	let $label = $(formInput).parent().find('label.hint');
@@ -119,39 +184,6 @@ function signClick(e) {
 		}
 	}
 }
-
-function matches(ptn) {
-	let overlap = new Set();
-	
-	for(let i = 0; i < ptn.length; i ++) {
-		if(ptn[i].matches() == false) {
-			throw {'ptn':ptn[i], 'code': 1, 'msg': ptn[i].msg};
-		}
-	}
-	for(let i = 0; i < ptn.length; i ++) {
-		if(ptn[i].sameNo != -1) {
-			if(overlap.has(ptn[i].sameNo) == false) {
-				for(let l = 0; l < ptn.length; l++) {
-					if(ptn[i].sameNo == ptn[l].sameNo) {
-						ptn[l].id.focus();
-						throw {'ptn':ptn[l], 'code': 2, 'msg': '비밀번호가 서로 같지 않습니다.'};
-					}
-				}
-			}
-		}
-	}
-}
-
-function Pattern(id, pettern, msg, sameNo = -1) {
-	this.id = id;
-	this.pettern = pettern;
-	this.msg = msg;
-	this.sameNo = sameNo;
-	
-	this.matches = function() {
-		return this.pettern.test(this.id.val());
-	};
-};
 
 (function (root, factory) {
     if (typeof define === "function" && define.amd) {
