@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="kr.co.vitamin.repository.mapper.ResumeMapper">
+	<resultMap type="resumeBaseInfo" id="resumeMap">
+		<result column="resume_no" property="resumeNo"/>
+		<result column="member_no" property="memeberNo"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="title" property="resumeTitle"/>
+		<result column="open_state" property="openState"/>
+		<result column="name" property="name"/>
+		<result column="birth" property="birth"/>
+		<result column="address_no" property="postCode"/>
+		<result column="address" property="address"/>
+		<result column="phone_number" property="phoneNumber"/>
+		<result column="email" property="email"/>
+		<result column="gender" property="gender"/>
+		<result column="job_state" property="jobState"/>
+		<result column="marry_state" property="marryState"/>
+		<result column="bohoon_state" property="bohoonState"/>
+		<result column="support_state" property="supportState"/>
+		<result column="army_service_state" property="armyServiceState"/>
+		<result column="army_service_reason" property="armyServiceReason"/>
+	</resultMap>
+	
+	<insert id="insertResume" parameterType="resumeBaseInfo">
+		insert into vi_resume (reg_date,title,open_state, job_state, marry_state,bohoon_state,support_state) 
+				values(sysdate(),#{resumeTitle},#{openState},#{jobState},#{marryState},#{bohoonState},#{supportState})
+	</insert>
+	
+	<insert id="insertArmyService" parameterType="resumeBaseInfo">
+		insert into vi_army_service(resume_no,army_service_state,army_service_reason)
+			values((select max(resume_no) from vi_resume),#{armyServiceState},#{armyServiceReason})
+	</insert>
+	
+	<select id="selectResume" resultMap="resumeMap">
+		select * from vi_resume
+	</select>
+	
+</mapper>
