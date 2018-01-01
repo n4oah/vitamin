@@ -1,3 +1,5 @@
+var idOverlapChk = false;
+
 $(function() {
 	var ptn = [];
 	
@@ -13,6 +15,7 @@ $(function() {
 	privatePtn.push(new Pattern($("#sample6_postcode"), /^[0-9]{1,}$/, "우편 번호를 확인해주세요."));
 	privatePtn.push(new Pattern($("#sample6_address"), /^().+$/, "주소를 확인해주세요."));
 	privatePtn.push(new Pattern($("#sample6_address2"),  /^().+$/, "상세주소를 확인해주세요."));
+	privatePtn.push(new Pattern($("#sample6_sigunguCode"),  /^().+$/, "주소를 확인해주세요."));
 	
 	let companyPtn = [];
 	
@@ -61,6 +64,9 @@ $(function() {
 	
 	function signupSubmit(e) {
 		try {
+			if(idOverlapChk == true)
+				return;
+			
 			matches(ptn);
 			
 			let $terms = $('.terms-check');
@@ -97,7 +103,6 @@ function matches(ptn, tPtn) {
 	try {
 		Pattern.searchTarget(tempPtn, tPtn);
 	} catch (e) {
-		console.log('asdgasdg');
 		throw e;
 	}
 }
@@ -116,8 +121,6 @@ class Pattern {
 	};
 	
 	static searchTarget(ptns, iPtn) {
-		console.log('asfg');
-		
 		let ptnEx = new Array();
 		let cPtnEx = new Array();
 		

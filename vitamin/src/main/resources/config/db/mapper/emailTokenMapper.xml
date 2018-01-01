@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.EmailTokenMapper">
+	<resultMap type="emailToken" id="emailTokenMap">
+		<result column="email_token_no" property="emailTokenNo" />
+		<result column="token" property="token" />
+		<result column="delete_date" property="deleteDate" />
+	</resultMap>
+
+	<insert id="insertEmailToken" parameterType="emailToken">
+		INSERT INTO vi_email_token
+		(email_token_no, token, delete_date)
+		VALUES
+		(#{emailTokenNo}, #{token}, #{deleteDate})
+	</insert>
+	
+	<select id="selectEmailToken" parameterType="emailToken" resultMap="emailTokenMap">
+		SELECT * FROM vi_email_token
+		WHERE email_token_no=#{emailTokenNo}
+	</select>
+	
+	<select id="selectNextAutoIncrement" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_email_token"/>
+		</include>
+	</select>
+</mapper>
