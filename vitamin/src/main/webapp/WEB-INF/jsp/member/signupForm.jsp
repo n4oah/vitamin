@@ -26,6 +26,7 @@
 						success: function(chk) {
 							var $idInput = $('#signup_id')[0];
 							
+							console.log(idOverlapChk);
 							idOverlapChk = chk;
 							
 							if(chk == true) {
