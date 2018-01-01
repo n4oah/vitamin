@@ -149,8 +149,8 @@
 													<option value="3" class="fa">면제</option>
 													<option value="4" class="fa">복무중</option>
 											</select>
-											<span>면제사유</span>
-											<input type="text" class="float-control" id="armyServiceReason" name="armyServiceReason" style="width:60%">
+												<span>면제사유</span>
+												<input type="text" class="float-control" id="armyServiceReason" name="armyServiceReason" style="width:60%">
 										</td>
 									</tr>
 								</tbody>
@@ -573,6 +573,8 @@ function sample6_execDaumPostcode() {
 		}
 		}).open();
 }
+
+
 </script>
 </body>
 </html>

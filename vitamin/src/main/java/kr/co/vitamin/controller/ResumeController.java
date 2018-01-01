@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.vitamin.repository.vo.ArmyService;
+import kr.co.vitamin.repository.vo.ConditionSelection;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.service.ResumeService;
 
@@ -34,8 +36,27 @@ public class ResumeController {
 	}
 	
 	@RequestMapping("/resumeInfo.do")
-	public void resumeInfo(int resumeNo) throws Exception{
+	public ModelAndView resumeInfo(int resumeNo) throws Exception{
 		System.out.println("resumeInfo 들어옴");
+		ModelAndView mav = new ModelAndView();
+		ResumeBaseInfo resumeInfo =	resumeService.resumeInfo(resumeNo);
+		/*ConditionSelection Cs*/
+		String jobState = resumeService.resumeJobState(resumeInfo.getJobState());
+		String marryState = resumeService.resumeMarryState(resumeInfo.getMarryState());
+		String bohoonState = resumeService.resumeBohoonState(resumeInfo.getBohoonState());
+		String supportState = resumeService.resumeSupportState(resumeInfo.getSupportState());
+		ArmyService armyService = resumeService.armyInfo(resumeNo);
+		
+		mav.addObject("resumeInfo", resumeInfo);
+		mav.addObject("jobState", jobState);
+		mav.addObject("marryState", marryState);
+		mav.addObject("bohoonState", bohoonState);
+		mav.addObject("supportState", supportState);
+		mav.addObject("armyService", armyService);
+		
+		return mav;
+		
+		
 	}
 	
 	@RequestMapping("/introductionList.do")
@@ -84,6 +105,8 @@ public class ResumeController {
 		
 		return "redirect:/mypage/resumeList.do";
 	}
+	
+	
 	
 
 }

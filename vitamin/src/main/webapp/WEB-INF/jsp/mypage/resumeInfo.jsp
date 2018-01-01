@@ -23,9 +23,6 @@
 <script src="https://use.fontawesome.com/942e94bfdb.js"></script>
 <script src="${pageContext.request.contextPath}/js/resumeInfo.js"></script>
 
-<script>
-	$('input')
-</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp"%>
@@ -107,48 +104,41 @@
 									</tr>
 									<tr>
 										<th>구직상태</th>
-										<td><select class="selectpicker" id="jobState">
-												<option value="" class="fa">구직상태 선택</option>
-												<option value="0" class="fa">구직준비중(재학생)</option>
-												<option value="1" class="fa">구직중</option>
-												<option value="2" class="fa">재직중</option>
-										</select></td>
+										<td>
+											<select class="selectpicker" id="jobState">
+													<option class="fa">구직상태 선택</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<th>결혼여부</th>
-										<td><select class="selectpicker" id="marryState">
-												<option value="" class="fa">결혼여부 선택</option>
-												<option value="0" class="fa">미혼</option>
-												<option value="1" class="fa">기혼</option>
-										</select></td>
+										<td>
+											<select class="selectpicker" id="marryState">
+													<option class="fa">결혼여부 선택</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<th>보훈대상</th>
-										<td><select class="selectpicker" id="bohonState">
-												<option value="" class="fa">보훈대상 선택</option>
-												<option value="0" class="fa">비대상</option>
-												<option value="1" class="fa">대상</option>
-										</select></td>
+										<td>
+											<select class="selectpicker" id="bohonState">
+													<option class="fa">보훈대상 선택</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<th>고용지원금대상</th>
-										<td><select class="selectpicker" id="supportState">
-												<option value="" class="fa">고용지원금대상 선택</option>
-												<option value="0" class="fa">비대상</option>
-												<option value="1" class="fa">대상</option>
-												<option value="2" class="fa">재직중</option>
-										</select></td>
+										<td>
+											<select class="selectpicker" id="supportState">
+													<option class="fa">고용지원금대상 선택</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<th>병역대상</th>
 										<td>
 											<select class="selectpicker" id="armyServiceState" style="width: 10%">
-													<option value="" class="fa">병역대상 선택</option>
-													<option value="0" class="fa">비대상</option>
-													<option value="1" class="fa">군필</option>
-													<option value="2" class="fa">미필</option>
-													<option value="3" class="fa">면제</option>
-													<option value="4" class="fa">복무중</option>
+													<option class="fa">병역대상 선택</option>
 											</select>
 											<span>면제사유</span>
 											<input type="text" class="float-control" id="armyServiceReason"style="width:60%">
@@ -512,6 +502,19 @@
 
 	</form>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp"%>
-
+<script>
+	$(document).ready(function(){
+		$.ajax({
+			url:"religion.json",
+			success:function(data){
+				var html="";
+				for(var i = 0; i<data.length;i++){
+					html += "<option value="+data[i].religionName+">"+data[i].religionName+"</option>";
+				}
+				$("#religion").html(html);
+			}
+		});
+	});
+</script>
 </body>
 </html>

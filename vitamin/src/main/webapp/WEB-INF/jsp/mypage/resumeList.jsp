@@ -29,7 +29,7 @@
 				      </tr>
 				      <c:forEach var="resume" items="${rlist}">
 				       <tr>
-				        <td><a href="${pageContext.request.contextPath}/mypage/resumeInfo.do">${resume.resumeTitle}</a></td>
+				        <td><a href="${pageContext.request.contextPath}/mypage/resumeInfo.do?resumeNo=${resume.resumeNo}">${resume.resumeTitle}</a></td>
 				        <td>
 				        	
 				        <input name="openstate" type="checkbox" <c:if test="${resume.openState eq 1}">checked="checked"</c:if>>

@@ -20,9 +20,19 @@
 		<result column="marry_state" property="marryState"/>
 		<result column="bohoon_state" property="bohoonState"/>
 		<result column="support_state" property="supportState"/>
+		<result column="army_service_no" property="armyServiceNo"/>
+	</resultMap>
+	
+	
+	<resultMap type="armyService" id="armyServiceMap">
+		<result column="army_service_no" property="armyServiceNo"/>
+		<result column="resume_no" property="resumeNo"/>
 		<result column="army_service_state" property="armyServiceState"/>
 		<result column="army_service_reason" property="armyServiceReason"/>
 	</resultMap>
+	
+	
+	
 	
 	<insert id="insertResume" parameterType="resumeBaseInfo">
 		insert into vi_resume (reg_date,title,open_state, job_state, marry_state,bohoon_state,support_state) 
@@ -36,6 +46,30 @@
 	
 	<select id="selectResume" resultMap="resumeMap">
 		select * from vi_resume
+	</select>
+	
+	<select id="selectResumeInfo" parameterType="int" resultMap="resuemeMap">
+		select * from vi_resume where resume_no = #{resumeNo}
+	</select>
+	
+	<select id="selectArmyServiceInfo" parameterType="int" resultMap="armyServiceMap">
+		select * from vi_army_service where resume_no = #{resumeNo}
+	</select>
+	
+	<select id="selectJobState" parameterType="string" resultType="string">
+		select condition_section_name from vi_condtion_selection where condtion_type='0' and condition_section=#{jobState}
+	</select>
+	
+	<select id="selectMarryState" parameterType="string" resultType="string">
+		select condition_section_name from vi_condtion_selection where condtion_type='1' and condition_section=#{marryState}
+	</select>
+	
+	<select id="selectBohoonState" parameterType="string" resultType="string">
+		select condition_section_name from vi_condtion_selection where condtion_type='2' and condition_section=#{bohoonState}
+	</select>
+	
+	<select id="selectMarryState" parameterType="string" resultType="string">
+		select condition_section_name from vi_condtion_selection where condtion_type='3' and condition_section=#{supportState}
 	</select>
 	
 </mapper>
