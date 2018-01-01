@@ -8,7 +8,8 @@ import kr.co.vitamin.repository.vo.Review;
 
 public interface CompanyService {
 	public void commentWrite(Review review) throws Exception;
-	public List<Review> commentDetail(int no) throws Exception;
+	public List<Review> commentDetail(Review review) throws Exception;
+	public List<Review> newCommentDetail(Review review) throws Exception;
 	public void commentModify(Review review) throws Exception;
 	public void commentDelete(Review review) throws Exception;
 	
@@ -16,4 +17,6 @@ public interface CompanyService {
 	public String fileDetail(int no) throws Exception;
 	
 	public List<Recruit> recruitList(int no) throws Exception;
+	
+	public int lastAi() throws Exception;
 }

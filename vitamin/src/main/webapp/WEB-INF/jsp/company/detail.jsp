@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -16,6 +17,7 @@
 		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 	<script src="../js/snow.js"></script>
+	<script src="../js/simpledateformat.js"></script>
 <style type="text/css">
 html, body, #waha{
    	height:100%;
@@ -130,7 +132,7 @@ h6 {
 }
 .col-lg-6 {width: 100%}
 .commentTitle {font-weight: bold; font-size: 2vw; border-left: 5px solid blue; padding-left: 5px;}
-.regDate {width: 100px; display: inline-block;}
+.regDate {width: 100px; display: inline-block; border-right: 1px solid #e4e4e4}
 .input-group {border-bottom: 1px solid #e4e4e4;}
 hr {
 	width: 100%;
@@ -145,10 +147,12 @@ hr {
 }
 body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 .sumtitle:not(:last-child) {
-	border-right: 0.2vw solid gray;
+	border-right: 0.21vw solid gray;
 }
 .sum {display: flex; width: 65vw; background-cl}
 .sumtitle {margin-left: auto; margin-right: auto; flex: 1 1;}
+.input-group {width: 100%}
+.plus {text-align: center; background: #e0e0e0; margin: 0;}
 </style>
 </head>
 <body>
@@ -263,28 +267,34 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 	      <span class="input-group-addon">
 	      	<img src="https://i.imgur.com/5MJKaCv.png" width="15" class="heart">
 	      </span>
-	      <input type="text" class="form-control" aria-label="...">
+	      <input type="text" class="form-control commentContent" aria-label="...">
 	      <span class="input-group-addon">
-    		<a>제출</a>
+    		<a class="commentWrite">제출</a>
 	      </span>
 	    </div><!-- /input-group -->
 	  </div><!-- /.col-lg-6 -->
   	</div>
   	<div class="row">
-	  <div class="col-lg-6">
-	    <div class="input-group">
+	  <div class="col-lg-6 commentList">
+	  <c:forEach items="${commentList }" var="comment">
+	    <div class="input-group comment">
 	      <span class="regDate">
-	      	17/12/27
+	      	<fmt:formatDate value="${comment.regDate }" pattern="yyyy-MM-dd"/>
 	      </span>
 	      <span class="content">
-	      	blah blah blah blah blah blah blah blah blah blah
+	      	${comment.content }
 	      </span>
 	    </div><!-- /input-group -->
+	   </c:forEach>
 	  </div><!-- /.col-lg-6 -->
+  	</div>
+  	<div class="row plus">
+  		<a>더보기</a>
   	</div>
 </div>
 
 <script type="text/javascript">
+	var path = "${pageContext.request.contextPath}";
 	/* $(document).ready(function () {
 		var maxTop = $(document).height();
 		console.log(maxTop)
@@ -374,6 +384,39 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 		/* $(this).animate({
 			"background-position": "0px"
 		}, 500); */
+	});
+	
+	$(".commentWrite").click(function () {
+		var data = "score=";
+		
+		if ($(".selected").length) data += "1";
+		else data += "0";
+		
+		data += "&content="+$(".commentContent").val();
+		
+		data += "&companyNo=${param.no}";
+		
+		$.ajax({
+			type: "post",
+			url: path+"/company/reviewWrite.do",
+			data: data,
+			success: function (data) {
+				$(".heart").removeClass("selected");
+				$(".commentContent").val("");
+				var div = $("<div>").addClass("input-group comment");
+				var regDate = $("<span>").addClass("regDate");
+				var content = $("<span>").addClass("content");
+				
+				data = JSON.parse(data);
+				
+				data.forEach(function (comment) {
+					var date = new Date(comment.regDate);
+					var sdf = new simpleDateFormat("yyyy-MM-dd");
+					comment.regDate = sdf.format(date);
+					$(".commentList").prepend(div.append(regDate.text(comment.regDate)).append(content.text(comment.content)));			
+				})
+			}
+		});
 	});
 
 </script>
