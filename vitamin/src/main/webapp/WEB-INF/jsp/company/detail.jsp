@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 	<script src="../js/snow.js"></script>
+	<script src="../js/simpledateformat.js"></script>
 <style type="text/css">
 html, body, #waha{
    	height:100%;
@@ -146,11 +147,12 @@ hr {
 }
 body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 .sumtitle:not(:last-child) {
-	border-right: 0.2vw solid gray;
+	border-right: 0.21vw solid gray;
 }
 .sum {display: flex; width: 65vw; background-cl}
 .sumtitle {margin-left: auto; margin-right: auto; flex: 1 1;}
 .input-group {width: 100%}
+.plus {text-align: center; background: #e0e0e0; margin: 0;}
 </style>
 </head>
 <body>
@@ -286,6 +288,9 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 	   </c:forEach>
 	  </div><!-- /.col-lg-6 -->
   	</div>
+  	<div class="row plus">
+  		<a>더보기</a>
+  	</div>
 </div>
 
 <script type="text/javascript">
@@ -398,7 +403,18 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 			success: function (data) {
 				$(".heart").removeClass("selected");
 				$(".commentContent").val("");
-				console.log($(".comment:first-child").clone())
+				var div = $("<div>").addClass("input-group comment");
+				var regDate = $("<span>").addClass("regDate");
+				var content = $("<span>").addClass("content");
+				
+				data = JSON.parse(data);
+				
+				data.forEach(function (comment) {
+					var date = new Date(comment.regDate);
+					var sdf = new simpleDateFormat("yyyy-MM-dd");
+					comment.regDate = sdf.format(date);
+					$(".commentList").prepend(div.append(regDate.text(comment.regDate)).append(content.text(comment.content)));			
+				})
 			}
 		});
 	});
