@@ -21,8 +21,12 @@ public class CompanyServiceImpl implements CompanyService {
 		companyMapper.commentWrite(review);
 	};
 	@Override
-	public List<Review> commentDetail(int no) throws Exception {
-		return companyMapper.commentDetail(no);
+	public List<Review> commentDetail(Review review) throws Exception {
+		return companyMapper.commentDetail(review);
+	};
+	@Override
+	public List<Review> newCommentDetail(Review review) throws Exception {
+		return companyMapper.newCommentDetail(review);
 	};
 	@Override
 	public void commentModify(Review review) throws Exception {
@@ -48,4 +52,9 @@ public class CompanyServiceImpl implements CompanyService {
 	public List<Recruit> recruitList(int no) throws Exception {
 		return companyMapper.recruitList(no);
 	}
+	
+	@Override
+	public int lastAi() throws Exception {
+		return companyMapper.lastAi();
+	};
 }

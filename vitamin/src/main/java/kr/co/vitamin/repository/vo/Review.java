@@ -10,6 +10,8 @@ public class Review {
     private Integer companyNo;
 
     private Integer memberNo;
+    
+    private Integer page = 0;
 
     //  점수
     private Integer score;
@@ -20,7 +22,15 @@ public class Review {
     //  작성 날짜
     private Date regDate;
 
-    public Integer getReviewNo() {
+    public Integer getPage() {
+		return page;
+	}
+
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+
+	public Integer getReviewNo() {
         return reviewNo;
     }
 
@@ -77,5 +87,10 @@ public class Review {
         this.score = param.getScore();
         this.content = param.getContent();
         this.regDate = param.getRegDate();
+    }
+    
+    @Override
+    public String toString() {
+    	return companyNo+" "+score+" "+content;
     }
 }
