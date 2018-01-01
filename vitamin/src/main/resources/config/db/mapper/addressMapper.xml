@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.AddressMapper">
+	
+	<resultMap type="address" id="addressMap">
+		<result column="address_no" property="addressNo" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="address" property="address" />
+		<result column="post_code" property="postCode" />
+	</resultMap>
+	
+	<insert id="insertAddress" parameterType="address">
+		INSERT INTO vi_address
+		(address_no, city_code, area_code, address, post_code)
+		VALUES
+		(#{addressNo}, #{cityCode}, #{areaCode}, #{address}, #{postCode})
+	</insert>
+	
+	<select id="selectAddress" parameterType="address" resultMap="addressMap">
+		SELECT * FROM vi_address
+		WHERE address_no=#{addressNo}
+	</select>
+	
+	<select id="selectNextAutoIncrement" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_address"/>
+		</include>
+	</select>
+</mapper>

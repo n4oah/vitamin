@@ -3,7 +3,6 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 매퍼 연결 -->
 <mapper namespace="kr.co.vitamin.repository.mapper.MemberMapper">
-	
 	<resultMap type="member" id="memberMap">
 		<result column="member_no" property="memberNo" />
 		<result column="id" property="id" />
@@ -23,4 +22,11 @@
 		SELECT id FROM vi_member
 		WHERE id=#{id} LIMIT 1
 	</select>
+	
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO vi_member
+		(id, pwd, name, email, phone_number, address_no, birth_date, gender, email_token_no, member_type)
+		VALUES
+		(#{id}, #{pwd}, #{name}, #{email}, #{phoneNumber}, #{addressNo}, #{birthDate}, #{gender}, #{emailTokenNo}, #{memberType})
+	</insert>
 </mapper>

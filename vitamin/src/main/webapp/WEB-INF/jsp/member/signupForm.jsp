@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -13,6 +14,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/signupForm.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="${pageContext.request.contextPath}/js/signupForm.js"></script>
+		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script>
 		<script>
 			$(function() {
@@ -23,6 +25,9 @@
 						data: {id: $('#signup_id').val()},
 						success: function(chk) {
 							var $idInput = $('#signup_id')[0];
+							
+							console.log(idOverlapChk);
+							idOverlapChk = chk;
 							
 							if(chk == true) {
 								createLabel($idInput, '이미 등록된 아이디 입니다.', {'color': 'red'});
@@ -99,21 +104,21 @@
 												<input type="text" name="phoneNumber" id="signup_phoneNumber" class="form-control bfh-phone" data-format="+82 (ddd) dddd-dddd">
 											</div>
 											<div class="form-group">
-						                        <input type="date" name="birthDate2" id="birthDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
+						                        <input type="date" name="birthDate" id="birthDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
 											</div>
 											<div class="form-group">
 												<div class="input-group">
-													<input name="postCode" type="text" class="form-control" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
+													<input name="address.postCode" type="text" class="form-control" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
 													<span class="input-group-btn">
 														<button class="btn btn-secondary" type="button" onclick="sample6_execDaumPostcode()" style="padding-top: 10%; padding-bottom: 10%;">우편번호 찾기</button>
 													</span>
 												</div>
 											</div>
 											<div class="form-group">
-												<input name="address1" type="text" class="form-control" id="sample6_address" placeholder="주소" readonly="readonly">
+												<input name="address.address1" type="text" class="form-control" id="sample6_address" placeholder="주소" readonly="readonly">
 											</div>
 											<div class="form-group">
-												<input name="address2" type="text" class="form-control" id="sample6_address2" placeholder="상세주소">
+												<input name="address.address2" type="text" class="form-control" id="sample6_address2" placeholder="상세주소">
 											</div>
 											<div class="form-group">
 												<div class="row">
@@ -122,6 +127,7 @@
 													</div>
 												</div>
 											</div>
+											<input type="text" name="address.sigunguCode" class="hide" id="sample6_sigunguCode"/>
 										</form>
 										<form id="company-form" class="sign-form" action="${actionUrl}?memberType=2" method="post" role="form" style="display: none;">
 											<div class="form-group">
@@ -132,6 +138,7 @@
 												</div>
 											</div>
 										</form>
+										
 									</div>
 								</div>
 							</div>

@@ -3,7 +3,7 @@ package kr.co.vitamin.repository.vo;
 public class SchoolLevel {
 	Integer schoolLevelNo;
 	String graduateState;
-	Character level;
+	Integer level;
 
 	public Integer getSchoolLevelNo() {
 		return schoolLevelNo;
@@ -21,11 +21,11 @@ public class SchoolLevel {
 		this.graduateState = graduateState;
 	}
 
-	public Character getLevel() {
+	public Integer getLevel() {
 		return level;
 	}
 
-	public void setLevel(Character level) {
+	public void setLevel(Integer level) {
 		this.level = level;
 	}
 

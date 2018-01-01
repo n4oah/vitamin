@@ -64,13 +64,18 @@
 	</resultMap>
 	
 	<insert id="commentWrite" parameterType="review">
-		insert into vi_review (company_no, member_no, score, content, reg_date)
+		insert into vi_review (company_no, member_no, score, content)
 		values (#{companyNo}, #{memberNo}, #{score}, #{content})
 	</insert>
 	
-	<select id="commentDetail" resultMap="reviewMap" parameterType="int">
+	<select id="commentDetail" resultMap="reviewMap" parameterType="review">
 		select member_no, score, content, reg_date from vi_review
-		where company_no = #{no} order by review_no desc
+		where company_no = #{companyNo} and review_no > #{page}*5 order by review_no desc limit 5
+	</select>
+	
+	<select id="newCommentDetail" resultMap="reviewMap" parameterType="review">
+		select member_no, score, content, reg_date from vi_review
+		where review_no >= #{reviewNo} and company_no = #{companyNo} order by review_no desc
 	</select>
 	
 	<update id="commentModify" parameterType="review">
@@ -99,4 +104,9 @@
 		recruit_no, title, recruit_date_start, recruit_date_end, year_pay
 		from vi_recruit_write where 
 	</select>
+	
+	<select id="lastAi" resultType="int">
+		select LAST_INSERT_ID()
+	</select>
+	
 </mapper>

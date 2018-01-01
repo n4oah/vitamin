@@ -1,13 +1,15 @@
-package kr.co.vitamin.repository.vo;
+package kr.co.vitamin.repository.vo.member;
 
 import java.util.Date;
+
+import org.springframework.security.core.token.Sha512DigestUtils;
 
 public class Member {
 	private Integer memberNo, addressNo, emailTokenNo;
 	private String id, pwd, name, email, phoneNumber;
 	private Date regDate, birthDate;
 	private Character gender, memberType;
-
+	
 	public Integer getMemberNo() {
 		return memberNo;
 	}
@@ -45,7 +47,7 @@ public class Member {
 	}
 
 	public void setPwd(String pwd) {
-		this.pwd = pwd;
+		this.pwd = Sha512DigestUtils.shaHex(pwd);
 	}
 
 	public String getName() {
