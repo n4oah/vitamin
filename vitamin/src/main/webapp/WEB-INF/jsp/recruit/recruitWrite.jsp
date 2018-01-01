@@ -97,7 +97,7 @@
 				        		<ul class="dropdown-menu">
 				        			<li id="-1">전체</li>
 					        			<c:forEach var="sl" items="${schoolLevelList }">
-					        				<c:if test="${sl.level.toString() ne '0'}">
+					        				<c:if test="${sl.level ne 0}">
 					          					<li id="${sl.level}">${sl.graduateState} 이상</li>
 					          				</c:if>
 					          			</c:forEach>
