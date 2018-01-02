@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.FileMapper">
+	
+	<insert id="insertFile" parameterType="file">
+		insert into vi_file(original_name, system_name, file_size, file_path)
+		values(#{originalName}, #{systemName}, #{fileSize}, #{filePath})
+	</insert>
+	
+	<select id="selectLastNo" resultType="int">
+		select LAST_INSERT_ID()
+	</select>
+</mapper>
