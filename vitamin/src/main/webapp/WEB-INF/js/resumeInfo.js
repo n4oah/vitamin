@@ -2,7 +2,7 @@ $( function() {
 			    
 			    $( "#highenter" ).datepicker({
 			    	changeYear: true,
-			    	yearRange:"1917:2017",
+			    	yearRange:"1918:2018",
 			    	changeMonth: true,
 			    	monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"],
 			    	dayNamesMin: ['일','월','화','수','목','금','토'],
@@ -12,7 +12,7 @@ $( function() {
 			    
 			    $( "#highgraduate" ).datepicker({
 			    	changeYear: true,
-			    	yearRange:"1917:2017",
+			    	yearRange:"1918:2018",
 			    	changeMonth: true,
 			    	monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"],
 			    	dayNamesMin: ['일','월','화','수','목','금','토'],
@@ -22,7 +22,7 @@ $( function() {
 			    
 			    $("#military_start").datepicker({
 			    	changeYear: true,
-			    	yearRange:"1917:2017",
+			    	yearRange:"1918:2018",
 			    	changeMonth: true,
 			    	monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"],
 			    	dayNamesMin: ['일','월','화','수','목','금','토'],
@@ -32,7 +32,7 @@ $( function() {
 			    
 			    $("#military_end").datepicker({
 			    	changeYear: true,
-			    	yearRange:"1917:2017",
+			    	yearRange:"1918:2018",
 			    	changeMonth: true,
 			    	monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"],
 			    	dayNamesMin: ['일','월','화','수','목','금','토'],
@@ -52,7 +52,7 @@ $( function() {
 			    
 			    $("#univgraduate").datepicker({
 			    	changeYear: true,
-			    	yearRange:"1917:2017",
+			    	yearRange:"1918:2018",
 			    	changeMonth: true,
 			    	monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"],
 			    	dayNamesMin: ['일','월','화','수','목','금','토'],
@@ -72,16 +72,13 @@ $( function() {
 			    
 			    $("#work_end").datepicker({
 			    	changeYear: true,
-			    	yearRange:"1917:2017",
+			    	yearRange:"1918:2018",
 			    	changeMonth: true,
 			    	monthNamesShort: ["1","2","3","4","5","6","7","8","9","10","11","12"],
 			    	dayNamesMin: ['일','월','화','수','목','금','토'],
 			    	dateFormat: "yy-mm-dd",
 			    	maxDate: 0
 			    	});
-			    
-			 
-			    
 			    
 			  });
 			
@@ -121,6 +118,7 @@ function validation(){
 			alert("면제사유를 적어주세요")
 		}
 	}
+	
 				
 				/* var enterDate = new Date($('#highenter').val())
 				var endDate = new Date($('#highgraduate').val())
@@ -138,7 +136,7 @@ function validation(){
 					
 				}*/
 				
-			} 
+} 
 			
 			/* $(document).ready(function(){
 				$('#highenter').click(function(){

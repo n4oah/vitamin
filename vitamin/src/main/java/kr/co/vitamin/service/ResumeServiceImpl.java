@@ -18,9 +18,9 @@ public class ResumeServiceImpl implements ResumeService{
 	
 	@Override
 	@Transactional(rollbackFor=Exception.class)
-	public void resumeInsert(ResumeBaseInfo resumeBaseInfo) throws Exception {
+	public void resumeInsert(ResumeBaseInfo resumeBaseInfo, ArmyService armyService) throws Exception {
 		mapper.insertResume(resumeBaseInfo);
-		mapper.insertArmyService(resumeBaseInfo);
+		mapper.insertArmyService(armyService);
 		mapper.updateArmyService(resumeBaseInfo);
 	}
 
@@ -58,6 +58,11 @@ public class ResumeServiceImpl implements ResumeService{
 	@Override
 	public String resumeSupportState(String supportState) throws Exception {
 		return mapper.selectSupportState(supportState);
+	}
+
+	@Override
+	public String resumeArmyState(int armyServiceState) throws Exception {
+		return mapper.selectArmyState(armyServiceState);
 	}
 
 	

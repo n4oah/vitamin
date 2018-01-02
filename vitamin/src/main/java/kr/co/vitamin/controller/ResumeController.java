@@ -40,19 +40,21 @@ public class ResumeController {
 		System.out.println("resumeInfo 들어옴");
 		ModelAndView mav = new ModelAndView();
 		ResumeBaseInfo resumeInfo =	resumeService.resumeInfo(resumeNo);
-		/*ConditionSelection Cs*/
+		
 		String jobState = resumeService.resumeJobState(resumeInfo.getJobState());
 		String marryState = resumeService.resumeMarryState(resumeInfo.getMarryState());
 		String bohoonState = resumeService.resumeBohoonState(resumeInfo.getBohoonState());
 		String supportState = resumeService.resumeSupportState(resumeInfo.getSupportState());
 		ArmyService armyService = resumeService.armyInfo(resumeNo);
-		
+		String armyState = resumeService.resumeArmyState(armyService.getArmyServiceState());
+			
 		
 		mav.addObject("resumeInfo", resumeInfo);
 		mav.addObject("jobState", jobState);
 		mav.addObject("marryState", marryState);
 		mav.addObject("bohoonState", bohoonState);
 		mav.addObject("supportState", supportState);
+		mav.addObject("armyState", armyState);
 		mav.addObject("armyService", armyService);
 		
 		return mav;
@@ -100,9 +102,9 @@ public class ResumeController {
 	
 	
 	@RequestMapping("/intermediateSave.do")
-	public String intermediateSave(ResumeBaseInfo resumeBaseInfo) throws Exception{
+	public String intermediateSave(ResumeBaseInfo resumeBaseInfo, ArmyService armyService) throws Exception{
 		System.out.println("중간저장 들어옴");
-		resumeService.resumeInsert(resumeBaseInfo);
+		resumeService.resumeInsert(resumeBaseInfo, armyService);
 		
 		return "redirect:/mypage/resumeList.do";
 	}

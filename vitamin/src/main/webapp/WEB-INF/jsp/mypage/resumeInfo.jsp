@@ -41,7 +41,7 @@
 						<h4 class="table_title">이력서제목</h4>
 						
 								<input type="text" class="form-control" name="re_title"
-									placeholder="이력서 제목을 입력하세요">
+									placeholder="이력서 제목을 입력하세요" readonly="readonly" value="${resumeInfo.resumeTitle}">
 					</div>
 
 					<div class="edit_content">
@@ -63,13 +63,14 @@
 									</tr>
 									<tr>
 										<th>주소</th>
-										<td><input type="text" class="float-control" id="postcode"
-											style="width: 20%" placeholder="우편번호" readonly="readonly"
-											onclick="sample6_execDaumPostcode()"> <input
-											type="text" class="float-control" id="address1"
-											style="width: 80%" placeholder="주소" readonly="readonly">
+										<td>
+											<input type="text" class="float-control" id="postcode"
+												style="width: 20%" placeholder="우편번호" readonly="readonly"
+												onclick="sample6_execDaumPostcode()"> 
+											<input type="text" class="float-control" id="address1"
+												style="width: 80%" placeholder="주소" readonly="readonly">
 											<input type="text" class="float-control" id="address2"
-											style="width: 80%" placeholder="상세주소" readonly="readonly"></td>
+												style="width: 80%" placeholder="상세주소" readonly="readonly"></td>
 									</tr>
 									<tr>
 										<th>휴대전화</th>
@@ -79,15 +80,17 @@
 											style="width: 60px" readonly="readonly"> <span>-</span> <input
 											type="text" class="float-control" maxlength="4"
 											style="width: 60px" readonly="readonly"></td>
-
 									</tr>
 									<tr>
 										<th>이메일</th>
-										<td><input class="float-control" name="email1"
-											id="signup_email1" type="text" placeholder="이메일"
-											style="width: 23%" readonly="readonly"/> <span>@</span> <input
-											class="float-control" name="email2" id="signup_email2"
-											type="text" placeholder="도메인 주소" style="width: 55%" readonly="readonly"/></td>
+										<td>
+											<input class="float-control" name="email1"
+												id="signup_email1" type="text" placeholder="이메일"
+												style="width: 23%" readonly="readonly"/> 
+											<span>@</span> 
+											<input class="float-control" name="email2" id="signup_email2"
+												type="text" placeholder="도메인 주소" style="width: 55%" readonly="readonly"/>
+										</td>
 									</tr>
 									<tr>
 										<th>성별</th>
@@ -138,18 +141,19 @@
 										<th>병역대상</th>
 										<td>
 											<select class="selectpicker" id="armyServiceState" style="width: 10%">
-													<option class="fa">${armyService}</option>
+													<option class="fa">${armyState}</option>
 											</select>
-											<span>면제사유</span>
-											<input type="text" class="float-control" id="armyServiceReason"style="width:60%">
+											<c:if test="${armyState eq '면제'}">
+												<span>면제사유</span>
+												<input type="text" class="float-control" id="armyServiceReason" style="width:60%" 
+												value="${armyService.armyServiceReason}">
+											</c:if>
 										</td>
 									</tr>
 								</tbody>
 							</table>
 							<!--/.table-->
-							<div>
-								<input style="float: right" type="button" class="intermediate_save btn-primary" value="중간저장">
-							</div>
+							
 						</div>
 						</div>
 						
@@ -157,34 +161,38 @@
 						<div class="horizontal_table table_wrap">
 							<div>
 								<h4 class="table_title">학력사항</h4>
-								<span style="float: right">대학교이상</span> <input type="checkbox"
-									id="ch_schoolevel1" style="float: right"> <span
-									style="float: right">고등학교&nbsp</span> <input type="checkbox"
-									id="ch_schoolevel2" style="float: right"> <span
-									style="float: right">고등학교 미만 졸업/중퇴인 경우 선택&nbsp</span> <input
-									type="checkbox" id="ch_schoolevel3" style="float: right">
+								<span style="float: right">대학교이상</span> 
+								<input type="checkbox" id="ch_schoolevel1" style="float: right"> 
+								<span style="float: right">고등학교&nbsp</span> 
+								<input type="checkbox" id="ch_schoolevel2" style="float: right"> 
+								<span style="float: right">고등학교 미만 졸업/중퇴인 경우 선택&nbsp</span> 
+								<input type="checkbox" id="ch_schoolevel3" style="float: right">
 							</div>
+							
 							<div class="highschool">
 								<table class="table">
 									<tbody>
 										<tr>
 											<th>재학기간</th>
-											<td><input type="text" class="float-control"
-												id="highenter" placeholder="입학" readonly="readonly">
-												<strong> ~ </strong> <input type="text"
-												class="float-control" id="highgraduate" placeholder="졸업"
-												readonly="readonly">
-												</td>
+											<td>
+												<input type="text" class="float-control"
+													id="highenter" placeholder="입학" readonly="readonly">
+												<strong> ~ </strong> 
+												<input type="text" class="float-control" id="highgraduate" placeholder="졸업"
+													readonly="readonly">
+											</td>
 										</tr>
 										<tr>
 											<th>학교명</th>
-											<td><input type="text" class="float-control"
-												id="highname" placeholder="학교이름"></td>
+											<td>
+												<input type="text" class="float-control" id="highname" placeholder="학교이름">
+											</td>
 										</tr>
 										<tr>
 											<th>전공</th>
-											<td><input type="text" class="float-control"
-												placeholder="전공"></td>
+											<td>
+												<input type="text" class="float-control" placeholder="전공">
+											</td>
 										</tr>
 										<tr>
 											<th>학점</th>
@@ -200,38 +208,38 @@
 									<tbody>
 										<tr>
 											<th>재학기간</th>
-											<td><input type="text" class="float-control"
-												id="univenter" placeholder="입학" readonly="readonly">
-												<strong> ~ </strong> <input type="text"
-												class="float-control" id="univgraduate" placeholder="졸업"
-												readonly="readonly"></td>
+											<td>
+												<input type="text" class="float-control" id="univenter" placeholder="입학" readonly="readonly">
+												<strong> ~ </strong> 
+												<input type="text" class="float-control" id="univgraduate" placeholder="졸업"
+													readonly="readonly">
+											</td>
 										</tr>
 										<tr>
 											<th>학교명</th>
-											<td><input type="text" class="float-control"
-												id="univname" placeholder="학교이름"></td>
+											<td>
+												<input type="text" class="float-control" id="univname" placeholder="학교이름">
+											</td>
 										</tr>
 										<tr>
 											<th>전공</th>
-											<td><input type="text" class="float-control" id="major"
-												placeholder="전공"></td>
+											<td>
+												<input type="text" class="float-control" id="major" placeholder="전공">
+											</td>
 										</tr>
 										<tr>
 											<th>학점</th>
-											<td><input type="text" class="float-control"
-												id="myscore" maxlength="3" style="width: 50px"> <span>/</span>
+											<td>
+												<input type="text" class="float-control" id="myscore" maxlength="3" style="width: 50px"> <span>/</span>
 												<select class="float-control" id="basescore">
 													<option>기준점수</option>
-											</select></td>
+												</select>
+											</td>
 										</tr>
 									</tbody>
 								</table>
 								<!--/.table-->
-								<div>
-									<input style="float: right" type="button" class="intermediate_save" value="중간저장">
-								</div>
 							</div>
-							
 
 						</div>
 						<div class="career">
@@ -369,9 +377,7 @@
 										</tr>
 									</tbody>
 								</table>
-								<div>
-									<input style="float: right" type="button" class="intermediate_save" value="중간저장">
-								</div>
+								
 							</div>
 						</div>
 						<div class="certification">
@@ -413,9 +419,7 @@
 										</tr>
 									</tbody>
 								</table>
-								<div>
-									<input style="float: right" type="button" class="intermediate_save" value="중간저장">
-								</div>
+								
 							</div>
 						</div>
 
@@ -503,18 +507,7 @@
 	</form>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp"%>
 <script>
-	$(document).ready(function(){
-		$.ajax({
-			url:"religion.json",
-			success:function(data){
-				var html="";
-				for(var i = 0; i<data.length;i++){
-					html += "<option value="+data[i].religionName+">"+data[i].religionName+"</option>";
-				}
-				$("#religion").html(html);
-			}
-		});
-	});
+	
 </script>
 </body>
 </html>

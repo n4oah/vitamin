@@ -7,7 +7,7 @@ import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 
 public interface ResumeService {
 	
-	public void resumeInsert(ResumeBaseInfo resumeBaseInfo) throws Exception;
+	public void resumeInsert(ResumeBaseInfo resumeBaseInfo, ArmyService armyService) throws Exception;
 	public List<ResumeBaseInfo> resumeList() throws Exception;
 	public ResumeBaseInfo resumeInfo(int resumeNo) throws Exception;
 	public ArmyService armyInfo(int resumeNo) throws Exception;
@@ -15,5 +15,6 @@ public interface ResumeService {
 	public String resumeMarryState(String marryState) throws Exception;
 	public String resumeBohoonState(String bohoonState) throws Exception;
 	public String resumeSupportState(String supportState) throws Exception;
+	public String resumeArmyState(int armyServiceState) throws Exception;
 	
 }
