@@ -101,7 +101,9 @@ public class Address {
 	@Override
 	public String toString() {
 		return "Address [addressNo=" + addressNo + ", cityCode=" + cityCode + ", areaCode=" + areaCode + ", address="
-				+ address + ", postCode=" + postCode + ", address1=" + address1 + ", address2=" + address2
-				+ ", sigunguCode=" + sigunguCode + "]";
+				+ address + ", postCode=" + postCode + ", cityName=" + cityName + ", areaName=" + areaName
+				+ ", address1=" + address1 + ", address2=" + address2 + ", sigunguCode=" + sigunguCode + "]";
 	}
+
+	
 }

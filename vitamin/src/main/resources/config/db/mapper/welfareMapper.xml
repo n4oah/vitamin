@@ -19,7 +19,7 @@
 	
 	<insert id="insertWelfare" parameterType="welfare">
 		insert into vi_welfare(recruit_no, welfare_title, welfare_content)
-		values(${recruitNo}, ${welfareTitle}, ${welfareContent} )
+		values(#{recruitNo}, #{welfareTitle}, #{welfareContent} )
 	</insert>
 	
 </mapper>

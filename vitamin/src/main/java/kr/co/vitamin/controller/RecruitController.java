@@ -19,6 +19,7 @@ import kr.co.vitamin.repository.vo.File;
 import kr.co.vitamin.service.AddressService;
 import kr.co.vitamin.service.FileService;
 import kr.co.vitamin.service.FormServiceService;
+import kr.co.vitamin.service.RecruitService;
 import kr.co.vitamin.service.SchoolLevelService;
 import kr.co.vitamin.service.WelfareService;
 
@@ -40,6 +41,9 @@ public class RecruitController {
 	@Autowired
 	private WelfareService welfareService;  
 	
+	@Autowired
+	private RecruitService recruitService;
+	
 	@RequestMapping("/recruit/recruitWriteForm.do")
 	public void recruitWriteForm(Model model) throws Exception{
 		List<SchoolLevel> schoolLevelList = schoolLevelService.getSchoolLevels();
@@ -52,8 +56,7 @@ public class RecruitController {
 	
 	@RequestMapping("/recruit/recruitWrite.do")
 	public String recruitWrtie(Recruit recruit, Welfare welfare, Address address) throws Exception {
-		System.out.println(address);
-		String filePath = "C:\\project\\VItamin\\vitamin\\src\\main\\webapp\\WEB-INF\\resumeFile";
+		String filePath = "C:\\kang\\project\\vitamin\\src\\main\\webapp\\WEB-INF\\resumeFile";
 		int fileNo = -1;
 		
 		java.io.File fileDir = new java.io.File(filePath);
@@ -82,17 +85,26 @@ public class RecruitController {
 			System.out.println("FileNo : " + fileNo);
 		}
 		
+		
+		// 파일 번호 추출
 		if (fileNo > -1)
 			recruit.setRecruitFormFileNo(fileNo);
 		
-		if (address.getCityCode() != null) {
+		int addressNo = -1;
+		
+		if (address.getCityName() != null) {
 			Address addrCode = addressService.selectCode(address);
 			
 			address.setCityCode(addrCode.getCityCode());
 			address.setAreaCode(addrCode.getAreaCode());
 			
-			addressService.insertAddress(address);
+			addressService.insertAddress2(address);
+			
+			addressNo = addressService.selectNextAutoIncrement();
 		}
+		
+		if (addressNo > -1)
+			recruit.setAddressNo(addressNo);
 
 		int recruitNo = 1;
 		
@@ -100,8 +112,18 @@ public class RecruitController {
 			welfareService.insertWelfare(new Welfare(recruitNo, welfare.getWelfareTitleList()[i], welfare.getWelfareContentList()[i]));
 		}
 		
+		recruit.setMemberNo(1);
+		
+		recruitService.insertRecruit(recruit);
+
+		System.out.println(recruit);
+		System.out.println(welfare);
+		System.out.println(address);
+		
 		return "redirect:../search/companySearch.do";
 	}
+	
+	
 	
 	@RequestMapping("/recruit/recruitDetail.do")
 	public void recruitDetail() {
