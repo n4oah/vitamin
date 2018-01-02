@@ -29,6 +29,10 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyMapper.newCommentDetail(review);
 	};
 	@Override
+	public List<Review> commentDetailPlus(Review review) throws Exception {
+		return companyMapper.commentDetailPlus(review);
+	};
+	@Override
 	public void commentModify(Review review) throws Exception {
 		companyMapper.commentModify(review);
 	};
