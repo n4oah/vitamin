@@ -26,7 +26,7 @@ public class CompanyController {
 		if (com != null) model.addAttribute("logo", companyService.fileDetail(com.getLogoNo()));
 		Review review = new Review();
 		review.setCompanyNo(no);
-		System.out.println(review.getPage());
+		//System.out.println(review.getPage());
 		model.addAttribute("commentList", companyService.commentDetail(review));
 	}
 	
@@ -36,6 +36,12 @@ public class CompanyController {
 		review.setMemberNo(0);
 		companyService.commentWrite(review);
 		review.setReviewNo(companyService.lastAi());
+		return companyService.newCommentDetail(review);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/reviewPlus.do")
+	public List<Review> reviewPlus(Review review) throws Exception {
 		return companyService.newCommentDetail(review);
 	}
 }

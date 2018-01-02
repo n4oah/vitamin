@@ -277,7 +277,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
   	<div class="row">
 	  <div class="col-lg-6 commentList">
 	  <c:forEach items="${commentList }" var="comment">
-	    <div class="input-group comment">
+	    <div class="input-group comment" data-no="${comment.reviewNo }">
 	      <span class="regDate">
 	      	<fmt:formatDate value="${comment.regDate }" pattern="yyyy-MM-dd"/>
 	      </span>
@@ -386,6 +386,33 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 		}, 500); */
 	});
 	
+	function abcd(data) {
+		var div = $("<div>").addClass("input-group comment");
+		var regDate = $("<span>").addClass("regDate");
+		var content = $("<span>").addClass("content");
+		
+		data = JSON.parse(data);
+		
+		data.forEach(function (comment) {
+			var date = new Date(comment.regDate);
+			var sdf = new simpleDateFormat("yyyy-MM-dd");
+			comment.regDate = sdf.format(date);
+			$(".commentList").prepend(div.append(regDate.text(comment.regDate)).append(content.text(comment.content)));			
+		})
+	}
+	
+	$(".plus").click(function () {
+		$.ajax({
+			type: "post",
+			url: path+"/company/reviewPlus.do",
+			data: "reviewNo="+$(".comment:first-child").attr("data-no")+"&companyNo=${param.no}",
+			success: function (data) {
+				abcd(data);
+			}
+		});
+		
+	});
+	
 	$(".commentWrite").click(function () {
 		var data = "score=";
 		
@@ -403,18 +430,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 			success: function (data) {
 				$(".heart").removeClass("selected");
 				$(".commentContent").val("");
-				var div = $("<div>").addClass("input-group comment");
-				var regDate = $("<span>").addClass("regDate");
-				var content = $("<span>").addClass("content");
-				
-				data = JSON.parse(data);
-				
-				data.forEach(function (comment) {
-					var date = new Date(comment.regDate);
-					var sdf = new simpleDateFormat("yyyy-MM-dd");
-					comment.regDate = sdf.format(date);
-					$(".commentList").prepend(div.append(regDate.text(comment.regDate)).append(content.text(comment.content)));			
-				})
+				abcd(data);
 			}
 		});
 	});
