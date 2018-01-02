@@ -43,7 +43,7 @@
 		INSERT INTO vi_recruit_write
 		(
 			title,
-			member_no
+			member_no,
 			career_state, 
 			career_start, 
 			career_end, 

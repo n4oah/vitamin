@@ -31,9 +31,9 @@
 			 
 			 <div class="edit_title">
 			 	<div class="write_title  form-group">
-					<span class="ex_label col-md-1 title" value="테스트제목">제목</span>
+					<span class="ex_label col-md-1 title">제목</span>
 					<div class="col-md-10">
-						<input type="text" class="form-control" name="title">
+						<input type="text" class="form-control" name="title"  value="테스트제목">
 					</div>
 			 	</div>
 			 </div>
@@ -90,8 +90,8 @@
 							
 							<span class="dropdown">
 								 <span class="select">
-								 	<input type="hidden" name="schoolLevel" value="2">
-	        						<span>대학교 졸업 이상</span>
+								 	<input type="hidden" name="schoolLevel" value="-1">
+	        						<span>전체</span>
 				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
@@ -231,7 +231,7 @@
 							<tbody>
 								<tr>
 									<th>주요업무</th>
-									<td><input type="text" name="assignedTask" class="form-control" ></td>
+									<td><input type="text" name="assignedTask" class="form-control" value="주요업무"></td>
 								</tr>
 								
 								<tr>
@@ -260,7 +260,7 @@
 								<tr>
 									<th>모집인원</th>
 									<td>
-										<input type="text" maxlength="3" name="recruitCount" class="form-control" style="width:5%; display:inline; margin-right:0.5%;">
+										<input type="text" value="3" maxlength="3" name="recruitCount" class="form-control" style="width:5%; display:inline; margin-right:0.5%;">
 										<strong>명</strong>
 									</td>
 								</tr> 
@@ -279,6 +279,8 @@
 										<input type="date" name="recruitDateStart" class="dateofbirth">
 										<strong> ~ </strong>
 										<input type="date" name="recruitDateEnd" class="dateofbirth">
+									
+										<input type="hidden" name="recruitingState" value="1">									
 									</td>
 								</tr>
 								
@@ -343,9 +345,9 @@
 									<td>
 										<div class="welfare">
 											<div class="welfare_content">
-												<input type="text" name="welfareTitleList" placeholder="제목" class="dateofbirth" style="width:17.6%; margin-bottom:1%">
+												<input type="text" value="복리제목" name="welfareTitleList" placeholder="제목" class="dateofbirth" style="width:17.6%; margin-bottom:1%">
 												<strong>:</strong>
-												<input type="text" name="welfareContentList" placeholder="내용" class="dateofbirth" style="width:80%; margin-left:10px" >
+												<input type="text" value="복리내용" name="welfareContentList" placeholder="내용" class="dateofbirth" style="width:80%; margin-left:10px" >
 											</div>
 										</div>
 										
@@ -367,7 +369,7 @@
 								<tr>
 									<th>담당자</th>
 									<td>
-										<input type="text"  name="master">
+										<input type="text" value="담당자이름" name="master">
 									</td>
 								</tr>
 								
@@ -400,7 +402,7 @@
 											</div>
 											<div>
 												<input type="text" id="sample6_address" placeholder="주소 " style="width:50%;" readonly="readonly">
-												<input type="text" id="sample6_address2"   placeholder="상세주소">
+												<input type="text" id="sample6_address2"  value="상세주소" placeholder="상세주소">
 											
 												<input type="hidden" name="postCode">
 												<input type="hidden" name="cityName">
@@ -719,6 +721,7 @@
 	
 	$("form").on("submit", function () {
 		$(this).attr("action", path+"/recruit/recruitWrite.do");
+		$(this).attr("method", "post");
 		
 		/* if (!regExp.test($("input[name='phoneNumber']").val())) {
 			 alert("잘못된 휴대폰 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.");

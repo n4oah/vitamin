@@ -59,6 +59,14 @@ public class RecruitController {
 		String filePath = "C:\\kang\\project\\vitamin\\src\\main\\webapp\\WEB-INF\\resumeFile";
 		int fileNo = -1;
 		
+
+		System.out.println(recruit);
+		System.out.println(welfare);
+		System.out.println(address);
+		
+		
+		
+		
 		java.io.File fileDir = new java.io.File(filePath);
 		if(!fileDir.exists()) fileDir.mkdirs();
 		

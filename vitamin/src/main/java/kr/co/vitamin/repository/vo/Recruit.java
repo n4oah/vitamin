@@ -2,14 +2,46 @@ package kr.co.vitamin.repository.vo;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Recruit {
 	
-	   private Integer recruitNo;
+	private MultipartFile attachFile;
+	
+	
+	
+	   public Integer getRecruitCount() {
+		return recruitCount;
+	}
+
+	public void setRecruitCount(Integer recruitCount) {
+		this.recruitCount = recruitCount;
+	}
+
+	public MultipartFile getAttachFile() {
+		return attachFile;
+	}
+
+	public void setAttachFile(MultipartFile attachFile) {
+		this.attachFile = attachFile;
+	}
+
+	private Integer recruitCount;
+	private Integer gender;
+	private Integer recruitNo;
 
 	    //  기업회원번호
 	    private Integer memberNo;
 
-	    //  제목
+	    public Integer getGender() {
+			return gender;
+		}
+
+		public void setGender(Integer gender) {
+			this.gender = gender;
+		}
+
+		//  제목
 	    private String title;
 
 	    //  1이면 신입 다른것들은 -1
@@ -34,8 +66,6 @@ public class Recruit {
 	    //  나이 끝
 	    private Integer ageCountEnd;
 
-	    //  m이면 남성 w면 여성 a면 무관
-	    private String gender;
 
 	    //  담당업무
 	    private String assignedTask;
@@ -43,8 +73,6 @@ public class Recruit {
 	    //  근무형태 (비정규직, 정규직)
 	    private String formService;
 
-	    //  모집인원
-	    private String recuruitCount;
 
 	    //  전공
 	    private String major;
@@ -53,10 +81,10 @@ public class Recruit {
 	    private String 우대조건;
 
 	    //  접수기간 시작
-	    private Date recruitDateStart;
+	    private String recruitDateStart;
 
 	    //  접구기간 끝
-	    private Date recruitDateEnd;
+	    private String recruitDateEnd;
 
 	    //  1이면 비타민 양식 2이면 회사 이력서 방식
 	    private Integer recruitForm;
@@ -167,13 +195,6 @@ public class Recruit {
 	        this.ageCountEnd = ageCountEnd;
 	    }
 
-	    public String getGender() {
-	        return gender;
-	    }
-
-	    public void setGender(String gender) {
-	        this.gender = gender;
-	    }
 
 	    public String getAssignedTask() {
 	        return assignedTask;
@@ -191,13 +212,6 @@ public class Recruit {
 	        this.formService = formService;
 	    }
 
-	    public String getRecuruitCount() {
-	        return recuruitCount;
-	    }
-
-	    public void setRecuruitCount(String recuruitCount) {
-	        this.recuruitCount = recuruitCount;
-	    }
 
 	    public String getMajor() {
 	        return major;
@@ -215,23 +229,24 @@ public class Recruit {
 	        this.우대조건 = 우대조건;
 	    }
 
-	    public Date getRecruitDateStart() {
-	        return recruitDateStart;
-	    }
+	 
+	    public String getRecruitDateStart() {
+			return recruitDateStart;
+		}
 
-	    public void setRecruitDateStart(Date recruitDateStart) {
-	        this.recruitDateStart = recruitDateStart;
-	    }
+		public void setRecruitDateStart(String recruitDateStart) {
+			this.recruitDateStart = recruitDateStart;
+		}
 
-	    public Date getRecruitDateEnd() {
-	        return recruitDateEnd;
-	    }
+		public String getRecruitDateEnd() {
+			return recruitDateEnd;
+		}
 
-	    public void setRecruitDateEnd(Date recruitDateEnd) {
-	        this.recruitDateEnd = recruitDateEnd;
-	    }
+		public void setRecruitDateEnd(String recruitDateEnd) {
+			this.recruitDateEnd = recruitDateEnd;
+		}
 
-	    public Integer getRecruitForm() {
+		public Integer getRecruitForm() {
 	        return recruitForm;
 	    }
 
@@ -301,10 +316,8 @@ public class Recruit {
 	        this.yearPayEnd = param.getYearPayEnd();
 	        this.ageCountStart = param.getAgeCountStart();
 	        this.ageCountEnd = param.getAgeCountEnd();
-	        this.gender = param.getGender();
 	        this.assignedTask = param.getAssignedTask();
 	        this.formService = param.getFormService();
-	        this.recuruitCount = param.getRecuruitCount();
 	        this.major = param.getMajor();
 	        this.우대조건 = param.get우대조건();
 	        this.recruitDateStart = param.getRecruitDateStart();
