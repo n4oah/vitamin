@@ -11,6 +11,7 @@ public interface CompanyMapper {
 	public void commentWrite(Review review) throws Exception;
 	public List<Review> commentDetail(Review review) throws Exception;
 	public List<Review> newCommentDetail(Review review) throws Exception;
+	public List<Review> commentDetailPlus(Review review) throws Exception;
 	public void commentModify(Review review) throws Exception;
 	public void commentDelete(Review review) throws Exception;
 	
