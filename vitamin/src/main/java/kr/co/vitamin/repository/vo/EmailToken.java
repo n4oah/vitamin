@@ -22,6 +22,10 @@ public class EmailToken {
 	}
 
 	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	public void setShaToken(String token) {
 		this.token = Sha512DigestUtils.shaHex(token);
 	}
 
