@@ -5,11 +5,11 @@ import java.util.Date;
 import org.springframework.security.core.token.Sha512DigestUtils;
 
 public class Member {
-	private Integer memberNo, addressNo, emailTokenNo;
+	private Integer memberNo, addressNo, emailTokenNo, memberType, emailTokenStatus;
 	private String id, pwd, name, email, phoneNumber;
 	private Date regDate, birthDate;
-	private Character gender, memberType;
-	
+	private Character gender;
+
 	public Integer getMemberNo() {
 		return memberNo;
 	}
@@ -47,6 +47,10 @@ public class Member {
 	}
 
 	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+	
+	public void setShaPwd(String pwd) {
 		this.pwd = Sha512DigestUtils.shaHex(pwd);
 	}
 
@@ -98,19 +102,27 @@ public class Member {
 		this.gender = gender;
 	}
 
-	public Character getMemberType() {
+	public Integer getMemberType() {
 		return memberType;
 	}
 
-	public void setMemberType(Character memberType) {
+	public void setMemberType(Integer memberType) {
 		this.memberType = memberType;
+	}
+
+	public Integer getEmailTokenStatus() {
+		return emailTokenStatus;
+	}
+
+	public void setEmailTokenStatus(Integer emailTokenStatus) {
+		this.emailTokenStatus = emailTokenStatus;
 	}
 
 	@Override
 	public String toString() {
-		return "Member [memberNo=" + memberNo + ", addressNo=" + addressNo + ", emailTokenNo=" + emailTokenNo + ", id="
-				+ id + ", pwd=" + pwd + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber
-				+ ", regDate=" + regDate + ", birthDate=" + birthDate + ", gender=" + gender + ", memberType="
-				+ memberType + "]";
+		return "Member [memberNo=" + memberNo + ", addressNo=" + addressNo + ", emailTokenNo=" + emailTokenNo
+				+ ", memberType=" + memberType + ", emailTokenStatus=" + emailTokenStatus + ", id=" + id + ", pwd="
+				+ pwd + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", regDate=" + regDate
+				+ ", birthDate=" + birthDate + ", gender=" + gender + "]";
 	}
 }

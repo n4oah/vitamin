@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+
+<mapper namespace="kr.co.vitamin.repository.mapper.RecruitMapper">
+	
+	<resultMap type="recruit" id="selectRecruitMap">
+		<result column="title"  property="title" />
+		<result column="member_no" property="memberNo" />
+		<result column="career_state"  property="careerState" />
+		<result column="career_end"  property="careerEnd" />
+		<result column="career_start"  property="careerStart" />
+		<result column="school_level"  property="schoolLevel" />
+		<result column="year_pay_start"  property="yearPayStart" />
+		<result column="year_pay_end"  property="yearPayEnd" />
+		<result column="age_count_start"  property="ageCountStart" />
+		<result column="age_count_end"  property="ageCountEnd" />
+		<result column="gender"  property="gender" />
+		<result column="assigned_task"  property="assignedTask" />
+		<result column="form_service"  property="formService" />
+		<result column="recruit_count"  property="recruitCount" />
+		<result column="recruit_date_start"  property="recruitDateStart" />
+		<result column="recruit_date_end"  property="recruitDateEnd" />
+		<result column="recruit_form"  property="recruitForm" />
+		<result column="recruit_form_file_no"  property="recruitFormFileNo" />
+		<result column="address_no"  property="addressNo" />
+		<result column="day_of_week"  property="dayOfWeek" />
+		<result column="master"  property="master" />
+		<result column="phone_number"  property="phoneNumber" />
+		<result column="recruiting_state"  property="recruitingState" />
+	
+	</resultMap>
+	
+	<select id="selectRecruit" resultMap="selectRecruitMap">
+		select *
+		 from vi_recruit_write
+	</select>
+	
+	
+	
+	<insert id="insertRecruit" parameterType="recruit">
+		INSERT INTO vi_recruit_write
+		(
+			title,
+			member_no
+			career_state, 
+			career_start, 
+			career_end, 
+			school_level, 
+			year_pay_start,
+			year_pay_end, 
+			age_count_start, 
+			age_count_end, 
+			gender, 
+			assigned_task, 
+			form_service,
+			recruit_count,  
+			recruit_date_start, 
+			recruit_date_end,
+			recruit_form, 
+			recruit_form_file_no,
+			address_no, 
+			day_of_week, 
+			master, 
+			phone_number, 
+			recruiting_state
+		)
+		VALUES
+		(
+			#{title},
+			#{memberNo},
+			#{careerState},
+			#{careerStart},
+			#{careerEnd},
+			#{schoolLevel},
+			#{yearPayStart},
+			#{yearPayEnd},
+			#{ageCountStart},
+			#{ageCountEnd},
+			#{gender},
+			#{assignedTask},
+			#{formService},
+			#{recruitCount},
+			#{recruitDateStart},
+			#{recruitDateEnd},
+			#{recruitForm},
+			#{recruitFormFileNo},
+			#{addressNo},
+			#{dayOfWeek},
+			#{master},
+			#{phoneNumber},
+			#{recruitingState}
+		)
+	</insert>
+</mapper>

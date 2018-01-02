@@ -12,6 +12,7 @@
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 		 
 		<script src="https://use.fontawesome.com/942e94bfdb.js"></script>
+		<script src="../js/simpledateformat.js"></script>
 		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
 	</head>
@@ -30,9 +31,9 @@
 			 
 			 <div class="edit_title">
 			 	<div class="write_title  form-group">
-					<span class="ex_label col-md-1 title">제목</span>
+					<span class="ex_label col-md-1 title" value="테스트제목">제목</span>
 					<div class="col-md-10">
-						<input type="text" class="form-control" >
+						<input type="text" class="form-control" name="title">
 					</div>
 			 	</div>
 			 </div>
@@ -40,8 +41,8 @@
 			 <div class="detail_wrapper form-group">
 						<div class="career">
 							<span class="ex_label col-md-1">경력</span>
-								<span><label><input type="checkbox" value = "1" name="careerState" class="newcomer">신입</label></span>
-								<span><label><input type="checkbox" value = "-1" name="careerState" class="career_level">경력</label></span>
+								<span><label><input type="checkbox" value = "1" name="careerState" class="newcomer" checked>신입</label></span>
+								<span><label><input type="checkbox" name="careerState" class="career_level">경력</label></span>
 					
 							<span class="career_period" style="display:none">
 								<span class="dropdown">
@@ -59,7 +60,7 @@
 					        		</ul>
 								</span>
 								
-								<span>
+								<span class="water">
 									<span class="ex_label abcd">~</span>
 								</span>
 								
@@ -89,8 +90,8 @@
 							
 							<span class="dropdown">
 								 <span class="select">
-								 	<input type="hidden" name="schoolLevel" value="-1">
-	        						<span>전체</span>
+								 	<input type="hidden" name="schoolLevel" value="2">
+	        						<span>대학교 졸업 이상</span>
 				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
@@ -105,7 +106,7 @@
 							</span>
 							
 							<span>
-								<input type="checkbox" value = "-1" class="education_none"> 학력무관						
+								<label><input type="checkbox" value = "-1" class="education_none"> 학력무관</label>						
 							</span>
 							
 						</div>
@@ -115,7 +116,7 @@
 							
 							<span class="dropdown">
 								 <span class="select">
-								 	<input type="hidden" name="year_pay_start" value="-1">
+								 	<input type="hidden" name="yearPayStart" value="-1">
 	        						<span>전체</span>
 				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
@@ -131,28 +132,27 @@
 			        			</ul>
 							</span>
 							
-							<span>
+							<span class="water">
 								<span class="ex_label abcd">~</span>
 							</span>
 							
 							<span class="dropdown">
 								 <span class="select">
-								 	<input type="hidden" name="year_pay_end" value="-1">
+								 	<input type="hidden" name="yearPayEnd" value="-1">
 	        						<span>전체</span>
 				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="year_salary">
-				        			<ul class="dropdown-menu">
-				        				<li id="-1" class="endDefault">전체</li>
-				          				<c:forEach begin="14" end="90" var="i" step="2">
-				          				<li id="${i }">${i }00만원 이하</li>
-				          				</c:forEach>
-				        			</ul>
+			        			<ul class="dropdown-menu">
+			        				<li id="-1" class="endDefault">전체</li>
+			          				<c:forEach begin="14" end="90" var="i" step="2">
+			          				<li id="${i }">${i }00만원 이하</li>
+			          				</c:forEach>
+			        			</ul>
 							</span>
 							
 							<span>
-								<input type="checkbox" class="salary_none"> 회사내규에 따름					
+								<label><input type="checkbox" class="salary_none"> 회사내규에 따름</label>
 							</span>
 						</div>
 						
@@ -161,63 +161,61 @@
 							
 							<span class="dropdown">
 								 <span class="select">
-								 	<input type="hidden" name="age" value="-1">
+								 	<input type="hidden" name="ageCountStart" value="-1">
 	        						<span>전체</span>
 				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="age_count_start" value="-1">
-				        			<ul class="dropdown-menu">
-				        				<li id="-1">전체</li>
-				          				
-				          				<c:set var="year" value="2000" />
-					          				<c:forEach begin="18" end="70" var="i">
-					          					<li id="${i }">
-					          						${i }살(<c:out value="${year }" />년생) 이상
-					          					</li>
-					          					
-					          					<c:set var="year" value="${year -1}" />
-					          				</c:forEach>
-				        			</ul>
+			        			<ul class="dropdown-menu">
+			        				<li id="-1" class="startDefault">전체</li>
+			          				
+			          				<c:set var="year" value="2000" />
+				          				<c:forEach begin="18" end="70" var="i">
+				          					<li id="${i }">
+				          						${i }살(<c:out value="${year }" />년생) 이상
+				          					</li>
+				          					
+				          					<c:set var="year" value="${year -1}" />
+				          				</c:forEach>
+			        			</ul>
 							</span>
 							
-							<span>
+							<span class="water">
 								<span class="ex_label abcd">~</span>
 							</span>
 							
 							<span class="dropdown">
 								 <span class="select">
-								 	<input type="hidden" name="age_count_end" value="-1">
+								 	<input type="hidden" name="ageCountEnd" value="-1">
 	        						<span>전체</span>
 				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
-				        		
-				        		<input type="hidden" name="age_count_start" value="-1">
-				        			<ul class="dropdown-menu">
-				        				<li id="-1">전체</li>
-				          				
-				          				<c:set var="year" value="2000" />
-					          				<c:forEach begin="18" end="70" var="i">
-					          					<li id="${i }">
-					          						${i }살(<c:out value="${year }" />년생) 이하
-					          					</li>
-					          					
-					          					<c:set var="year" value="${year -1}" />
-					          				</c:forEach>
-				        			</ul>
+			        		
+			        			<ul class="dropdown-menu">
+			        				<li id="-1" class="endDefault">전체</li>
+			          				
+			          				<c:set var="year" value="2000" />
+				          				<c:forEach begin="18" end="70" var="i">
+				          					<li id="${i }">
+				          						${i }살(<c:out value="${year }" />년생) 이하
+				          					</li>
+				          					
+				          					<c:set var="year" value="${year -1}" />
+				          				</c:forEach>
+			        			</ul>
 							</span>
 							
 							<span>
-								<input type="checkbox" class="age_none"> 나이무관					
+								<label><input type="checkbox" class="age_none"> 나이무관</label>
 							</span>
 							
 							
 							<span class="gender">
 								<label class="gender_title">성별 </label>
 						
-								<input type="radio" value="1" name="gender"> 남자
-								<input type="radio" value="2" name="gender"> 여자
-								<input type="radio" value="-1" name="gender" checked> 성별무관
+								<label><input type="radio" value="1" name="gender"> 남자</label>
+								<label><input type="radio" value="2" name="gender"> 여자</label>
+								<label><input type="radio" value="-1" name="gender" checked> 성별무관</label>
 							</span>
 							
 						</div>
@@ -242,18 +240,18 @@
 										<div class="career_state">
 											<span class="dropdown" >
 												 <span class="select">
-												 	<input type="hidden" name="formService" value="">
-					        						<span>정규직</span>
+												 	<input type="hidden" name="formService" value="-1">
+					        						<span>전체</span>
 								         			<i class="fa fa-chevron-down"></i>
 								        		</span>
 								        		
-								        		<input type="hidden" name="age_count">
-								        			<ul class="dropdown-menu">
-								        				<li>전체</li>
-								          				<c:forEach begin="1" end="20" var="i">
-								          				<li>${i }년 이하</li>
-								          				</c:forEach>
-								        			</ul>
+							        			<ul class="dropdown-menu">
+							        				<li id="-1">전체</li>
+							        				
+							          				<c:forEach var="fsl" items="${formServiceList}">
+							          					<li id="${fsl.formServiceType}">${fsl.formServiceName}</li>
+							          				</c:forEach>
+							        			</ul>
 											</span>
 										</div>
 									</td>
@@ -262,24 +260,10 @@
 								<tr>
 									<th>모집인원</th>
 									<td>
-										<div class="career_state">
-											<span class="dropdown" >
-												 <span class="select">
-					        						 <span>0명</span>
-								         			 <i class="fa fa-chevron-down"></i>
-								        		</span>
-								        		
-								        		<input type="hidden" name="age_count">
-								        			<ul class="dropdown-menu">
-								        				<li>전체</li>
-								          				<c:forEach begin="1" end="20" var="i">
-								          				<li>${i }년 이하</li>
-								          				</c:forEach>
-								        			</ul>
-											</span>
-										</div>
+										<input type="text" maxlength="3" name="recruitCount" class="form-control" style="width:5%; display:inline; margin-right:0.5%;">
+										<strong>명</strong>
 									</td>
-								</tr>
+								</tr> 
 							</tbody>
 						</table>
 						<!--/.table-->
@@ -292,33 +276,32 @@
 								<tr>
 									<th>접수기간</th>
 									<td>
-										<input type="date" name="dateofbirth" id="dateofbirth">
-										<strong> ~ </strong> 
-										<input type="date" name="dateofbirth" id="dateofbirth">
+										<input type="date" name="recruitDateStart" class="dateofbirth">
+										<strong> ~ </strong>
+										<input type="date" name="recruitDateEnd" class="dateofbirth">
 									</td>
 								</tr>
 								
 								<tr>
 									<th>접수양식</th>
 									<td>
-										<span class="dropdown">
-												 <span class="select">
-					        						 <span>비타민 이력서 양식</span>
-								         			 <i class="fa fa-chevron-down"></i>
+										<span class="dropdown" style="margin-right:1%">
+												<span class="select">
+												 	<input type="hidden" name="recruitForm" value="1">
+					        					 	<span>비타민 이력서 양식</span>
+								         		 	<i class="fa fa-chevron-down"></i>
 								        		</span>
 								        		
-								        		<input type="hidden" name="age_count">
-								        			<ul class="dropdown-menu">
-								        				<li>전체</li>
-								          				<c:forEach begin="1" end="20" var="i">
-								          				<li>${i }년 이하</li>
-								          				</c:forEach>
-								        			</ul>
+							        			<ul class="dropdown-menu recruit_form">
+							        				<li id="1">비타민 이력서 양식</li>
+							        				<li id="2">회사 이력서 양식</li>
+							        			</ul>
 											</span>
 											
-											<span>
+											<span class="attach_file" style="display:none;">
 												<label for="file" class="file_label">첨부파일</label>
-  												<input type="file" name="file" id="file" style="display:none;"/>	
+  												<input type="file" name="attachFile" id="file" style="display:none;" accept=".html, .pdf, .xls, .xlsx, .doxc, .hwp, .zip"/>	
+											
 											</span>
 									</td>
 								</tr>
@@ -336,36 +319,39 @@
 									<th>근무요일</th>
 									<td>
 										<div class="weekDays-selector">
-										  <input type="checkbox" id="weekday-mon" class="weekday" />
-										  <label for="weekday-mon">월</label>
-										  <input type="checkbox" id="weekday-tue" class="weekday" />
-										  <label for="weekday-tue">화</label>
-										  <input type="checkbox" id="weekday-wed" class="weekday" />
-										  <label for="weekday-wed">수</label>
-										  <input type="checkbox" id="weekday-thu" class="weekday" />
-										  <label for="weekday-thu">목</label>
-										  <input type="checkbox" id="weekday-fri" class="weekday" />
-										  <label for="weekday-fri">금</label>
-										  <input type="checkbox" id="weekday-sat" class="weekday" />
-										  <label for="weekday-sat">토</label>
-										  <input type="checkbox" id="weekday-sun" class="weekday" />
-										  <label for="weekday-sun">일</label>
+											  <input type="checkbox" id="weekday-mon" class="weekday" value="0"/>
+											  <label for="weekday-mon">월</label>
+											  <input type="checkbox" id="weekday-tue" class="weekday" value="0"/>
+											  <label for="weekday-tue">화</label>
+											  <input type="checkbox" id="weekday-wed" class="weekday" value="0"/>
+											  <label for="weekday-wed">수</label>
+											  <input type="checkbox" id="weekday-thu" class="weekday" value="0"/>
+											  <label for="weekday-thu">목</label>
+											  <input type="checkbox" id="weekday-fri" class="weekday" value="0"/>
+											  <label for="weekday-fri">금</label>
+											  <input type="checkbox" id="weekday-sat" class="weekday" value="0"/>
+											  <label for="weekday-sat">토</label>
+											  <input type="checkbox" id="weekday-sun" class="weekday" value="0"/>
+											  <label for="weekday-sun">일</label>
+											  
+											  <input type="hidden" class="dayOfWeek" name="dayOfWeek" value="0000000"/>
 										</div>
 									</td>
 								</tr>
 								<tr>
 									<th>복리후생</th>
 									<td>
-										<div>
-											<input type="text" placeholder="제목" id="dateofbirth" style="width:17.6%;">
-											<strong>:</strong>
-											<input type="text" placeholder="내용" id="dateofbirth" style="width:80%; margin-left:10px" >
-										</div>
-										<div>
-											<button id="add">추가</button>
+										<div class="welfare">
+											<div class="welfare_content">
+												<input type="text" name="welfareTitleList" placeholder="제목" class="dateofbirth" style="width:17.6%; margin-bottom:1%">
+												<strong>:</strong>
+												<input type="text" name="welfareContentList" placeholder="내용" class="dateofbirth" style="width:80%; margin-left:10px" >
+											</div>
 										</div>
 										
-										
+										<div>
+											<button type="button" class="welfare_add">추가</button>
+										</div>
 									</td>
 								</tr>
 							</tbody>
@@ -376,33 +362,51 @@
 					
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">문의처</h4>
-						<table class="table">
+						<table class="table company">
 							<tbody>
 								<tr>
 									<th>담당자</th>
 									<td>
-										<input type="text" class="form-control">
+										<input type="text"  name="master">
 									</td>
 								</tr>
 								
 								<tr>
-									<th>전화 및 FAX 전화</th>
+									<th>전화번호</th>
 									<td>
-										<input type="text" class="form-control" >
+										<!-- <input type="text" name="phoneNumber" maxlength="13" placeholder="ex)010-1111-1111" style="width:50%; margin-right:1%">
+										 -->
+										 <input type="text" name="phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+dd (ddd) dddd-dddd" style="width:30%; margin-right:1%; float:left;">
+											<input type="checkbox" id="check">
+											<label for="check" class="loadcheck" id="loadcheck">
+											  <span class="entypo-cancel">&#10008;</span>
+											  <span class="load"></span>
+											  <span class="load"></span>
+											  <span class="load"></span>
+											  <span class="load"></span>
+											  <span class="load"></span>
+											  <span class="entypo-check">&#10004;</span>
+											</label>
 									</td>
 								</tr>
 								
 								<tr>
 									<th>회사주소</th>
 									<td>
-										<div class="form-inline">
+										<div class="companyAddress">
 											<div style="margin-bottom:10px">
-												<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control">
-												<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+												<input type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
+												<button type="button" onclick="sample6_execDaumPostcode()" style="height: 34px;">주소 찾기</button>
 											</div>
 											<div>
-												<input type="text" id="sample6_address" class="form-control" placeholder="주소 " style="width:50%;">
-												<input type="text" id="sample6_address2"  class="form-control" placeholder="상세주소">
+												<input type="text" id="sample6_address" placeholder="주소 " style="width:50%;" readonly="readonly">
+												<input type="text" id="sample6_address2"   placeholder="상세주소">
+											
+												<input type="hidden" name="postCode">
+												<input type="hidden" name="cityName">
+												<input type="hidden" name="areaName">
+												<input type="hidden" name="address">
+											
 											</div>
 										</div>
 									</td>
@@ -413,7 +417,7 @@
 					</div>
 			     </div>
 			     <div class="btn_panel">
-				    <a href="#" class="disabled_btn apply_btn">등록</a>
+			     	<button class="disabled_btn apply_btn">등록</button>
 				  </div>
 				  
 				  <div>
@@ -431,6 +435,7 @@
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=316e409a59e29fd51e1dcbf1e4769f1c&libraries=services"></script>
 
 <script>
+	var path = '${pageContext.request.contextPath}';
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
@@ -482,8 +487,14 @@
 					}
 				});
 				console.log("시/도", data.sido);
+				$('input[name="cityName"]').val(data.sido);
+				
 				var sigungu = data.sigungu.split(" ");
 				console.log("시/군/구", sigungu[sigungu.length - 1]);
+				$('input[name="areaName"]').val(sigungu[sigungu.length - 1]);
+				$('input[name="postCode"]').val(data.zonecode);
+				
+				
 			}
 			}).open();
 	}
@@ -516,7 +527,7 @@
     }
     
     var ext = $('#file').val().split('.').pop().toLowerCase();
-    if($.inArray(ext, ['html','xlsx','docx','pptx','pdf','hwp','zip']) == -1) {
+    if($.inArray(ext, ['html','xls','xlsx','docx','pptx','pdf','hwp','zip']) == -1) {
       $('#info').hide();
       $('.file_label').text('첨부파일');
       $('#file').val('');
@@ -555,39 +566,64 @@
 	
 	
 	function compare(efg, str) {
-		for (var i = 0; i <= 1; i++) {
-			efg.find('span.dropdown:eq('+i+') > .dropdown-menu li').click(function () {
-				var start = -1;
-				var end = -1;
-				
-				
-				if (str == "경력을") {
-					start = parseInt(efg.find("input[name='careerStart']").val());
-					end = parseInt(efg.find("input[name='careerEnd']").val());
-				} else {
-					start = parseInt(efg.find("input[name='year_pay_start']").val());
-					end = parseInt(efg.find("input[name='year_pay_end']").val());					
-				}
-				
-				var bool = start > end;
+		efg.find('span.dropdown > .dropdown-menu li').click(function () {
+			var start = -1;
+			var end = -1;
+			
+			if (str == "경력을") {
+				start = parseInt(efg.find("input[name='careerStart']").val());
+				end = parseInt(efg.find("input[name='careerEnd']").val());
+			} else if (str == "연봉을"){
+				start = parseInt(efg.find("input[name='year_pay_start']").val());
+				end = parseInt(efg.find("input[name='year_pay_end']").val());					
+			} else if (str == "나이를") {
+				start = parseInt(efg.find("input[name='age_count_start']").val());
+				end = parseInt(efg.find("input[name='age_count_end']").val());
+			}
+			
+			var bool = start > end;
 
-				if(bool && end != -1 && start != -1) {
-					chk = false;
-					if ($.inArray(this, efg.find('span.dropdown:eq(0) > .dropdown-menu li')) > -1) efg.find(".startDefault").trigger("click")
-					else efg.find(".endDefault").trigger("click");
-					alert(str+" 확인해주세요.");
-					
-					chk = true;
-				}
-			});
-		}
+			if(bool && end != -1 && start != -1) {
+				chk = false;
+				if ($.inArray(this, efg.find('span.dropdown:eq(0) > .dropdown-menu li')) > -1) efg.find(".startDefault").trigger("click")
+				else efg.find(".endDefault").trigger("click");
+				alert(str+" 확인해주세요.");
+				
+				chk = true;
+			}
+		});
 	}
 	
 	compare($('.career_period'), "경력을");
 	compare($('.salary'), "연봉을");
+	compare($('.age'), "나이를");	
+	
+	$("input[type='date']").on("change", function () {
+		var dateValueList = [$("input[name='recruitDateStart']").val(),
+			$("input[name='recruitDateEnd']").val()];
+		
+		var startVal = "";
+		var endVal = "";
+		for (var i = 0; i < 2; i++) {
+			dateValueList[i].split("-").forEach(function (data) {
+				if(i == 0)
+					startVal += data;
+				else
+					endVal += data;
+			});
+		}
+		
+		startVal = parseInt(startVal);
+		endVal = parseInt(endVal);
+		
+		if(startVal > endVal && endVal && startVal) {
+			$(this).removeAttr("value");
+			alert("날짜를 확인해주세요.");
+		}
+	});
 	
 	$('.career_none').click(function () {
-		 $(".career_period").hide();
+		$(".career_period").hide();
 		
 		$(this).parent().parent().siblings().find("input").prop({"checked": false, "disabled": $(this).prop("checked")});
 		
@@ -597,32 +633,123 @@
 		$(".career_period").find("input[name='careerEnd']").attr('value', '-1');
 	});
 	
-	function none(jq) {
-		jq.click(function () {
-			console.log($(this).attr('class'))
-			var select;
-			if($(this).attr('class') == "salary_none") {
-				$("div.salary > span.dropdown").toggle();
-				$("div.salary > span:eq(2)").toggle();
-				select = $("div.salary > span.dropdown > span.select");
-				$("div.salary").find('span.select > span:eq(1)').text('전체');
-				$("div.salary").find('span.select > span:eq(1)').attr('value', '-1');
-			}
-			
-			else {
-				$("div.education > span.dropdown").toggle();
-				select = $("div.education > span.dropdown > span.select");
-			}
-			select.find("span").text('전체');
-			select.find("input").attr('value', '-1');
+	function none(str) {
+		var div = $('div.'+str);
+		
+		$('.'+str+'_none').click(function () {
+			div.find('span.dropdown, span.water').toggle();
+			div.find('span.select > span').text('전체');
+			div.find('span.select > input').val('-1');
 		})
 	}
 	
-	none($('.education_none'));
-	none($('.salary_none'));
-	none($('.age_none'))
+	none('education');
+	none('salary');
+	none('age');
+	
+	$('input[name="recruitCount"]').keyup(function () {
+		var reg1 = /^[0-9]+$/;
+		var reg2 = /^[0-9]/g;
+		
+		if ($(this).val() != "" && !reg1.test($(this).val())) {
+			if (reg2.test($(this).val())) $(this).val(parseInt($(this).val()));
+			else $(this).removeAttr("value");
+		}
+	});
+	
+	var fileChk = false;
+	
+	$('ul.recruit_form > li').click(function () {
+		var file = $("span.attach_file");
+		if ($(this).attr("id") == "1") {
+			file.hide();
+			fileChk = false;
+		} else {
+			file.show();
+			fileChk = true;
+		}
+	});
+	
+	var dayChk = function () {
+		var mon, tue, wed, thu, fri, sat, sun;
+		
+		mon = $('input[id$="mon"]').val();
+		tue = $('input[id$="tue"]').val();
+		wed = $('input[id$="wed"]').val();
+		thu = $('input[id$="thu"]').val();
+		fri = $('input[id$="fri"]').val();
+		sat = $('input[id$="sat"]').val();
+		sun = $('input[id$="sun"]').val();
+		
+		var dayofweek = mon+tue+wed+thu+fri+sat+sun;
+		
+		$('input.dayOfWeek').attr('value',dayofweek);
+	}
+	
+	$('div.weekDays-selector > label').click(function () {
+		var inputId = $(this).attr('for');
+		
+		if(!$("input[id="+inputId+"]").is(':checked')) { 
+			$("input[id="+inputId+"]").attr('value',"1");
+		}
+		else {
+			$("input[id="+inputId+"]").attr('value',"0");
+		}
+		
+		dayChk();
+	})
 	
 	
+	$('.welfare_add').click(function () {
+		$('.welfare').append($(".welfare_content:first-child").clone().find("input").removeAttr("value").end());
+	});
+	
+	$("input[name='phoneNumber']").keyup(function () {
+		if ($("input[name='phoneNumber']").val().length < 14) {
+			$("#check").removeAttr("checked");
+		} else {
+			$("#check").prop("checked", "true");
+		}
+		/* if (!regExp.test($("input[name='phoneNumber']").val())) {
+			$("#check").removeAttr("checked");
+		} else {
+			$("#check").prop("checked", "true");
+		} */
+	});
+	
+	$("form").on("submit", function () {
+		$(this).attr("action", path+"/recruit/recruitWrite.do");
+		
+		/* if (!regExp.test($("input[name='phoneNumber']").val())) {
+			 alert("잘못된 휴대폰 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.");
+		     return false;
+		} */
+		
+		if (fileChk && !$("input[type='file']").val()) {
+			alert("파일을 입력해주세요.");
+			return false;
+		}
+		
+		if ($("input[name='phoneNumber']").val().length != 19) {
+			alert("전화번호를 입력해주세요.");
+			return false;
+		}
+		
+		$("input[name='address']").val($("input#sample6_address").val().trim()+" "+$("input#sample6_address2").val().trim());
+
+		var inputList = $("input:not([name='id'], [name='pwd'], [name='welfareTitleList'], [name='welfareContentList'], [name='attachFile'])");
+		
+		for (var i = 0; i < inputList.length; i++) {
+			var data = $(inputList[i]);
+			if (!data.val() || data.val() == "") {
+				alert("빈 칸이 있습니다.");
+				return false;
+			}
+		}
+		
+		return true;
+	})
+
 	
 </script>
 </body>

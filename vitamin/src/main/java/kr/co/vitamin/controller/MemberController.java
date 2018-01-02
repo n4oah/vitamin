@@ -2,6 +2,8 @@ package kr.co.vitamin.controller;
 
 import java.beans.PropertyEditorSupport;
 import java.io.InputStream;
+import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -21,12 +25,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import kr.co.vitamin.common.EmailSender;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.EmailToken;
 import kr.co.vitamin.repository.vo.SchoolLevel;
@@ -43,6 +50,8 @@ public class MemberController {
 	private SchoolLevelService schoolService;
 	@Autowired
 	private MemberService memberService;
+	@Autowired
+	private EmailSender email;
 	
 	@RequestMapping("/signupForm.do")
 	public void signupForm(Model model) throws Exception {
@@ -86,13 +95,24 @@ public class MemberController {
 		model.addAttribute("todayDate", new Date());
 	}
 
-	@RequestMapping("/signup.do")
-	public String signup(MemberSignup memberSignupVO, Model model) throws Exception {
+	@RequestMapping(value = "/signup.do", method=RequestMethod.POST)
+	public String signup(MemberSignup memberSignupVO, Model model, HttpServletRequest request) throws Exception {
 		Member memberVO = memberSignupVO.getMember();
 		Address address = memberSignupVO.getAddress();
 		EmailToken emailTok = memberSignupVO.getEmailTok();
 		if(idOverlapCheck(memberVO) == false) {
-			emailTok.setToken(UUID.randomUUID().toString());
+			memberVO.setShaPwd(memberVO.getPwd());
+			memberVO.setEmailTokenStatus(1);
+			
+			emailTok.setShaToken(UUID.randomUUID().toString());
+			
+			InetAddress inet = Inet4Address.getLocalHost();
+			String url = "http://" + inet.getHostAddress() + ":" + request.getLocalPort() + request.getContextPath() + "/member/certify.do?token=" + emailTok.getToken();
+			
+			StringBuffer content = new StringBuffer();
+			content.append("<h3>INIT - 이메일 인증 코드</h3>");
+			content.append("<a href='" + url +"'>인증하기</a><br/>");
+			email.sendMail(memberVO.getEmail(), "[INIT] 회원가입 인증 코드", content.toString());
 			
 			Calendar calendar = Calendar.getInstance();
 			calendar.add(Calendar.DATE, 7);
@@ -118,6 +138,43 @@ public class MemberController {
 		return memberService.getOverlapIdCheck(memberVO);
 	}
 	
+	@RequestMapping(value = "/certify.do", method=RequestMethod.GET)
+	public String emailCertify(EmailToken emailTok) throws Exception {
+		memberService.emailCertify(emailTok);
+		return "redirect:/member/signinForm.do";
+	}
+	
+	@RequestMapping("/signinForm.do")
+	public void signinForm() throws Exception {
+		
+	}
+	
+	@RequestMapping(value = "/signin.do", method=RequestMethod.POST)
+	public String signin(HttpSession session, Member memberVO, RedirectAttributes redirectAttributes) throws Exception {
+		String viewUrl = "redirect:/member/signinForm.do";
+		
+		memberVO.setShaPwd(memberVO.getPwd());
+		
+		Member memVo = memberService.login(memberVO);
+		
+		if(memVo == null) {
+			redirectAttributes.addFlashAttribute("errorMsg", "아이디가 존재하지 않거나, 비밀번호가 틀렷습니다.");
+			System.out.println("비번");
+		}
+		else {
+			if(memVo.getEmailTokenStatus() == 2) {
+				session.setAttribute("user", memVo);
+				
+				viewUrl = "redirect:/main.do";
+			} else {				
+				redirectAttributes.addFlashAttribute("errorMsg", "이메일 인증이 완료되지 않았습니다, 7일 이내로 이메일을 확인해주세요.");
+				System.out.println("이메일");
+			}
+		}
+		return viewUrl;
+	}
+	
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) throws Exception {
 	    binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
@@ -131,8 +188,3 @@ public class MemberController {
 	    });
 	}
 }
-/*
-Address [addressNo=null, cityCode=null, areaCode=null, address=null, postCode=06267, address1=서울 강남구 강남대로 238 (도곡동, 스카이쏠라빌딩), address2=gdfgsdfg, sigunguCode=11680]
-0d576c81c36a7aed9979cefa98cbf8c2e46c83ffb69a1d3654ebc9056ca978131559052f6bd8b231e7daf1b90e691b14ffed1b3a7b9bb07d0a1da0074e927fd4
-MemberSignup [address=Address [addressNo=null, cityCode=11, areaCode=680, address=서울 강남구 강남대로 238 (도곡동, 스카이쏠라빌딩)gdfgsdfg, postCode=06267, address1=서울 강남구 강남대로 238 (도곡동, 스카이쏠라빌딩), address2=gdfgsdfg, sigunguCode=11680], email1=sdfhsdf, email2=hsdfhsd.com]
-Address [addressNo=null, cityCode=11, areaCode=680, address=서울 강남구 강남대로 238 (도곡동, 스카이쏠라빌딩)gdfgsdfg, postCode=06267, address1=서울 강남구 강남대로 238 (도곡동, 스카이쏠라빌딩), address2=gdfgsdfg, sigunguCode=11680]*/

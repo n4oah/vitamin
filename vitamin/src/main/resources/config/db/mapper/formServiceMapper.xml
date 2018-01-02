@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.FormServiceMapper">
+	
+	<resultMap type="formService" id="formServiceMap">
+		<result column="form_service_no" property="formServiceNo" />
+		<result column="form_service_name" property="formServiceName" />
+		<result column="form_service_type" property="formServiceType" />
+	</resultMap>
+	
+	<select id="selectFormService" resultMap="formServiceMap">
+		SELECT *
+			FROM vi_form_service
+		ORDER BY form_service_type ASC
+	</select>
+</mapper>

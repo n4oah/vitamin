@@ -16,6 +16,7 @@
 		<result column="email_token_no" property="emailTokenNo" />
 		<result column="member_type" property="memberType" />
 		<result column="reg_date" property="regDate" />
+		<result column="email_token_status" property="emailTokenStatus" />
 	</resultMap>
 	
 	<select id="selectOverlapIdCheck" resultMap="memberMap" parameterType="member">
@@ -25,8 +26,20 @@
 	
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO vi_member
-		(id, pwd, name, email, phone_number, address_no, birth_date, gender, email_token_no, member_type)
+		(id, pwd, name, email, phone_number, address_no, birth_date, gender, email_token_no, member_type, email_token_status)
 		VALUES
-		(#{id}, #{pwd}, #{name}, #{email}, #{phoneNumber}, #{addressNo}, #{birthDate}, #{gender}, #{emailTokenNo}, #{memberType})
+		(#{id}, #{pwd}, #{name}, #{email}, #{phoneNumber}, #{addressNo}, #{birthDate}, #{gender}, #{emailTokenNo}, #{memberType}, #{emailTokenStatus})
 	</insert>
+	
+	<update id="updateEmailToken" parameterType="member">
+		UPDATE vi_member SET
+		email_token_status = #{emailTokenStatus}, email_token_no = null
+		WHERE email_token_no = #{emailTokenNo}
+		LIMIT 1
+	</update>
+	
+	<select id="selectLoginMember" parameterType="member" resultMap="memberMap">
+		SELECT * FROM vi_member
+		WHERE id=#{id} AND pwd=#{pwd}
+	</select>
 </mapper>

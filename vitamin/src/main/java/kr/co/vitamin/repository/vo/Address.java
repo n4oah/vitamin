@@ -3,8 +3,26 @@ package kr.co.vitamin.repository.vo;
 public class Address {
 	private Integer addressNo, cityCode, areaCode;
 	private String address, postCode;
+	private String cityName;
+	private String areaName;
 	
 	private String address1, address2, sigunguCode;
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	public String getAreaName() {
+		return areaName;
+	}
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
 
 	public Integer getAddressNo() {
 		return addressNo;
@@ -83,7 +101,9 @@ public class Address {
 	@Override
 	public String toString() {
 		return "Address [addressNo=" + addressNo + ", cityCode=" + cityCode + ", areaCode=" + areaCode + ", address="
-				+ address + ", postCode=" + postCode + ", address1=" + address1 + ", address2=" + address2
-				+ ", sigunguCode=" + sigunguCode + "]";
+				+ address + ", postCode=" + postCode + ", cityName=" + cityName + ", areaName=" + areaName
+				+ ", address1=" + address1 + ", address2=" + address2 + ", sigunguCode=" + sigunguCode + "]";
 	}
+
+	
 }

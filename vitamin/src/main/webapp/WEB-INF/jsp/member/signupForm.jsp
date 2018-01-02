@@ -54,18 +54,18 @@
 						<div class="panel panel-signup">
 							<div class="panel-heading">
 								<div class="row">
-									<div class="col-xs-6">
-										<a href="#" class="active" id="private-form-link">개인회원</a>
+									<div class="col-md-6">
+										<button class="sign-cha-btn active" id="private-form-link">개인회원</button>
 									</div>
-									<div class="col-xs-6">
-										<a href="#" id="company-form-link">기업회원</a>
+									<div class="col-md-6">
+										<button id="company-form-link" class="sign-cha-btn">기업회원</button>
 									</div>
 								</div>
 								<hr>
 							</div>
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-lg-12">
+									<div class="col-md-12">
 										<form id="private-form" class="sign-form" action="${actionUrl}?memberType=1" method="post" role="form" style="display: block;">
 											<div class="form-group">
 												<input type="text" name="id" id="signup_id" class="form-control" placeholder="아이디">

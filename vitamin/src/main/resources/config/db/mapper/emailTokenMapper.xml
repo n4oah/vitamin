@@ -21,6 +21,17 @@
 		WHERE email_token_no=#{emailTokenNo}
 	</select>
 	
+	<select id="selectEmailToken2" parameterType="emailToken" resultMap="emailTokenMap">
+		SELECT * FROM vi_email_token
+		WHERE token=#{token}
+	</select>
+	
+	<delete id="deleteEmailToken" parameterType="emailToken">
+		DELETE FROM vi_email_token
+		WHERE email_token_no=#{emailTokenNo}
+		LIMIT 1
+	</delete>
+	
 	<select id="selectNextAutoIncrement" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
 			<property name="tableName" value="vi_email_token"/>

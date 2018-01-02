@@ -29,4 +29,16 @@
 			<property name="tableName" value="vi_address"/>
 		</include>
 	</select>
+
+	<select id="selectCode" parameterType="address" resultMap="addressMap">
+		select city.city_code, area.area_code from (select city_code from vi_city_code where sub_name = #{cityName}) as city
+		inner join (select city_code, area_code from vi_area_code where name = #{areaName}) as area
+		on city.city_code = area.city_code
+	</select>
+	
+	<insert id="insertAddress2" parameterType="address">
+		insert into vi_address(city_code, area_code, address, post_code)
+		values (#{cityCode}, #{areaCode}, #{address}, #{postCode})
+	</insert>
+	
 </mapper>

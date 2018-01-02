@@ -69,13 +69,18 @@
 	</insert>
 	
 	<select id="commentDetail" resultMap="reviewMap" parameterType="review">
-		select member_no, score, content, reg_date from vi_review
+		select review_no, member_no, score, content, reg_date from vi_review
 		where company_no = #{companyNo} and review_no > #{page}*5 order by review_no desc limit 5
 	</select>
 	
 	<select id="newCommentDetail" resultMap="reviewMap" parameterType="review">
-		select member_no, score, content, reg_date from vi_review
+		select review_no, member_no, score, content, reg_date from vi_review
 		where review_no >= #{reviewNo} and company_no = #{companyNo} order by review_no desc
+	</select>
+	
+	<select id="commentDetailPlus" resultMap="reviewMap" parameterType="review">
+		select review_no, member_no, score, content, reg_date from vi_review
+		where company_no = #{companyNo} and review_no &lt; #{reviewNo} order by review_no desc limit 5
 	</select>
 	
 	<update id="commentModify" parameterType="review">

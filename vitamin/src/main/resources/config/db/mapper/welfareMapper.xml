@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.WelfareMapper">
+	
+	<resultMap type="welfare" id="welfareMap">
+		<result column="welfare_no" property="welfareNo" />
+		<result column="recruit_no" property="recruitNo" />
+		<result column="welfare_title" property="welfareTitle" />
+		<result column="welfare_content" property="welfareContent" />
+	</resultMap>
+	
+	<select id="selectWelfare" resultMap="welfareMap">
+		SELECT *
+			FROM vi_welfare
+		ORDER BY welfare_no ASC
+	</select>
+	
+	<insert id="insertWelfare" parameterType="welfare">
+		insert into vi_welfare(recruit_no, welfare_title, welfare_content)
+		values(#{recruitNo}, #{welfareTitle}, #{welfareContent} )
+	</insert>
+	
+</mapper>

@@ -39,4 +39,25 @@ public class MemberServiceImpl implements MemberService {
 		emailTokMapper.insertEmailToken(emailTok);
 		memberMapper.insertMember(memberVO);
 	}
+
+	@Override
+	@Transactional(rollbackFor=Exception.class)
+	public void emailCertify(EmailToken emailTok) throws Exception {
+		EmailToken emailToken = emailTokMapper.selectEmailToken2(emailTok);
+		if(emailToken != null) {
+			Member memberVO = new Member();
+			memberVO.setEmailTokenNo(emailToken.getEmailTokenNo());
+			memberVO.setEmailTokenStatus(2);
+			
+			memberMapper.updateEmailToken(memberVO);
+			emailTokMapper.deleteEmailToken(emailToken);
+			return;
+		}
+		throw new Exception();
+	}
+
+	@Override
+	public Member login(Member memberVO) throws Exception {
+		return memberMapper.selectLoginMember(memberVO);
+	}
 }

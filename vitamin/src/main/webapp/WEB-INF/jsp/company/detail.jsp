@@ -277,7 +277,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
   	<div class="row">
 	  <div class="col-lg-6 commentList">
 	  <c:forEach items="${commentList }" var="comment">
-	    <div class="input-group comment">
+	    <div class="input-group comment" data-no="${comment.reviewNo }">
 	      <span class="regDate">
 	      	<fmt:formatDate value="${comment.regDate }" pattern="yyyy-MM-dd"/>
 	      </span>
@@ -295,16 +295,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 
 <script type="text/javascript">
 	var path = "${pageContext.request.contextPath}";
-	/* $(document).ready(function () {
-		var maxTop = $(document).height();
-		console.log(maxTop)
-		$.snowfall(document, {
-			flakePosition: 'absolute',
-			minSize: 5,
-			flakeCount: 250,
-			round: true,
-		}, maxTop);
-	}); */
+
 	function resize() {
 		var chk = false;
 		if ($(window).width() < $(window).height()) {
@@ -386,6 +377,37 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 		}, 500); */
 	});
 	
+	function abcd(data, i) {
+		data = JSON.parse(data);
+		
+		data.forEach(function (comment) {
+			var date = new Date(comment.regDate);
+			var sdf = new simpleDateFormat("yyyy-MM-dd");
+			comment.regDate = sdf.format(date);
+			
+			var div = $("<div>").addClass("input-group comment");
+			div = div.attr("data-no", comment.reviewNo).append($("<span>").addClass("regDate").text(comment.regDate)).append($("<span>").addClass("content").text(comment.content));
+			
+			if (i == 1)
+				$(".commentList").prepend(div);
+			else
+				div.appendTo(".commentList");
+		});
+	}
+	
+	$(".plus").on("click", function () {
+		$.ajax({
+			type: "post",
+			url: path+"/company/reviewPlus.do",
+			data: "reviewNo="+$(".comment:last-child").attr("data-no")+"&companyNo=${param.no}",
+			success: function (data) {
+				console.log(data)
+				abcd(data);
+			}
+		});
+		
+	});
+	
 	$(".commentWrite").click(function () {
 		var data = "score=";
 		
@@ -403,18 +425,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 			success: function (data) {
 				$(".heart").removeClass("selected");
 				$(".commentContent").val("");
-				var div = $("<div>").addClass("input-group comment");
-				var regDate = $("<span>").addClass("regDate");
-				var content = $("<span>").addClass("content");
-				
-				data = JSON.parse(data);
-				
-				data.forEach(function (comment) {
-					var date = new Date(comment.regDate);
-					var sdf = new simpleDateFormat("yyyy-MM-dd");
-					comment.regDate = sdf.format(date);
-					$(".commentList").prepend(div.append(regDate.text(comment.regDate)).append(content.text(comment.content)));			
-				})
+				abcd(data, 1);
 			}
 		});
 	});
