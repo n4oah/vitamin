@@ -21,6 +21,7 @@ public class ResumeServiceImpl implements ResumeService{
 	public void resumeInsert(ResumeBaseInfo resumeBaseInfo) throws Exception {
 		mapper.insertResume(resumeBaseInfo);
 		mapper.insertArmyService(resumeBaseInfo);
+		mapper.updateArmyService(resumeBaseInfo);
 	}
 
 	@Override

@@ -4,9 +4,7 @@ public class ArmyService {
 	private int armyServiceNo;
 	private int resumeNo;
 	private int armyServiceState;
-	private String armySerivceReason;
-	
-	
+	private String armyServiceReason;
 	public int getArmyServiceNo() {
 		return armyServiceNo;
 	}
@@ -25,11 +23,13 @@ public class ArmyService {
 	public void setArmyServiceState(int armyServiceState) {
 		this.armyServiceState = armyServiceState;
 	}
-	public String getArmySerivceReason() {
-		return armySerivceReason;
+	public String getArmyServiceReason() {
+		return armyServiceReason;
 	}
-	public void setArmySerivceReason(String armySerivceReason) {
-		this.armySerivceReason = armySerivceReason;
+	public void setArmyServiceReason(String armyServiceReason) {
+		this.armyServiceReason = armyServiceReason;
 	}
+	
+	
 	
 }

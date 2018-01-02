@@ -47,6 +47,7 @@ public class ResumeController {
 		String supportState = resumeService.resumeSupportState(resumeInfo.getSupportState());
 		ArmyService armyService = resumeService.armyInfo(resumeNo);
 		
+		
 		mav.addObject("resumeInfo", resumeInfo);
 		mav.addObject("jobState", jobState);
 		mav.addObject("marryState", marryState);

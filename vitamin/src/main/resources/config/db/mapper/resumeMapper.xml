@@ -48,7 +48,7 @@
 		select * from vi_resume
 	</select>
 	
-	<select id="selectResumeInfo" parameterType="int" resultMap="resuemeMap">
+	<select id="selectResumeInfo" parameterType="int" resultMap="resumeMap">
 		select * from vi_resume where resume_no = #{resumeNo}
 	</select>
 	
@@ -57,19 +57,23 @@
 	</select>
 	
 	<select id="selectJobState" parameterType="string" resultType="string">
-		select condition_section_name from vi_condtion_selection where condtion_type='0' and condition_section=#{jobState}
+		select condition_section_name from vi_condition_selection where condition_type='0' and condition_section=#{jobState}
 	</select>
 	
 	<select id="selectMarryState" parameterType="string" resultType="string">
-		select condition_section_name from vi_condtion_selection where condtion_type='1' and condition_section=#{marryState}
+		select condition_section_name from vi_condition_selection where condition_type='1' and condition_section=#{marryState}
 	</select>
 	
 	<select id="selectBohoonState" parameterType="string" resultType="string">
-		select condition_section_name from vi_condtion_selection where condtion_type='2' and condition_section=#{bohoonState}
+		select condition_section_name from vi_condition_selection where condition_type='2' and condition_section=#{bohoonState}
 	</select>
 	
-	<select id="selectMarryState" parameterType="string" resultType="string">
-		select condition_section_name from vi_condtion_selection where condtion_type='3' and condition_section=#{supportState}
+	<select id="selectSupportState" parameterType="string" resultType="string">
+		select condition_section_name from vi_condition_selection where condition_type='3' and condition_section=#{supportState}
 	</select>
+	
+	<update id="updateArmyService" parameterType="resumeBaseInfo">
+		update vi_resume set army_service_no = (select army_service_no from vi_army_service where resume_no = #{resumeNo})
+	</update>
 	
 </mapper>

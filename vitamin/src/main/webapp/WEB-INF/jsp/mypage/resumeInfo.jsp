@@ -106,7 +106,7 @@
 										<th>구직상태</th>
 										<td>
 											<select class="selectpicker" id="jobState">
-													<option class="fa">구직상태 선택</option>
+													<option class="fa">${jobState}</option>
 											</select>
 										</td>
 									</tr>
@@ -114,7 +114,7 @@
 										<th>결혼여부</th>
 										<td>
 											<select class="selectpicker" id="marryState">
-													<option class="fa">결혼여부 선택</option>
+													<option class="fa">${marryState}</option>
 											</select>
 										</td>
 									</tr>
@@ -122,7 +122,7 @@
 										<th>보훈대상</th>
 										<td>
 											<select class="selectpicker" id="bohonState">
-													<option class="fa">보훈대상 선택</option>
+													<option class="fa">${bohoonState}</option>
 											</select>
 										</td>
 									</tr>
@@ -130,7 +130,7 @@
 										<th>고용지원금대상</th>
 										<td>
 											<select class="selectpicker" id="supportState">
-													<option class="fa">고용지원금대상 선택</option>
+													<option class="fa">${supportState}</option>
 											</select>
 										</td>
 									</tr>
@@ -138,7 +138,7 @@
 										<th>병역대상</th>
 										<td>
 											<select class="selectpicker" id="armyServiceState" style="width: 10%">
-													<option class="fa">병역대상 선택</option>
+													<option class="fa">${armyService}</option>
 											</select>
 											<span>면제사유</span>
 											<input type="text" class="float-control" id="armyServiceReason"style="width:60%">

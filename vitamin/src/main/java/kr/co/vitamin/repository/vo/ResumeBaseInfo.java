@@ -19,10 +19,7 @@ public class ResumeBaseInfo {
 	private String marryState;
 	private String bohoonState;
 	private String supportState;
-	private String armyServiceState;
-	private String armyServiceReason;
-	
-	
+	private int armyServiceNo;
 	public Integer getResumeNo() {
 		return resumeNo;
 	}
@@ -119,17 +116,11 @@ public class ResumeBaseInfo {
 	public void setSupportState(String supportState) {
 		this.supportState = supportState;
 	}
-	public String getArmyServiceState() {
-		return armyServiceState;
+	public int getArmyServiceNo() {
+		return armyServiceNo;
 	}
-	public void setArmyServiceState(String armyServiceState) {
-		this.armyServiceState = armyServiceState;
-	}
-	public String getArmyServiceReason() {
-		return armyServiceReason;
-	}
-	public void setArmyServiceReason(String armyServiceReason) {
-		this.armyServiceReason = armyServiceReason;
+	public void setArmyServiceNo(int armyServiceNo) {
+		this.armyServiceNo = armyServiceNo;
 	}
 	
 }

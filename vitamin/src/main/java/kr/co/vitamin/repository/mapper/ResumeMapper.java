@@ -16,6 +16,7 @@ public interface ResumeMapper {
 	public String selectMarryState(String marryState) throws Exception;
 	public String selectBohoonState(String bohoonState) throws Exception;
 	public String selectSupportState(String supportState) throws Exception;
+	public void updateArmyService(ResumeBaseInfo resumeBaseInfo) throws Exception;
 	
 	
 }
