@@ -385,8 +385,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 			var sdf = new simpleDateFormat("yyyy-MM-dd");
 			comment.regDate = sdf.format(date);
 			
-			var div = $("<div>").addClass("input-group comment");
-			div = div.attr("data-no", comment.reviewNo).append($("<span>").addClass("regDate").text(comment.regDate)).append($("<span>").addClass("content").text(comment.content));
+			var div = $("<div>").addClass("input-group comment").attr("data-no", comment.reviewNo).append($("<span>").addClass("regDate").text(comment.regDate)).append($("<span>").addClass("content").text(comment.content));
 			
 			if (i == 1)
 				$(".commentList").prepend(div);
