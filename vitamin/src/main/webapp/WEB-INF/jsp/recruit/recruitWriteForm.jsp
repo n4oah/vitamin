@@ -396,17 +396,17 @@
 									<td>
 										<div class="companyAddress">
 											<div style="margin-bottom:10px">
-												<input type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
+												<input type="text" name="address.postCode" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
 												<button type="button" onclick="sample6_execDaumPostcode()" style="height: 34px;">주소 찾기</button>
 											</div>
 											<div>
-												<input type="text" id="sample6_address" placeholder="주소 " style="width:50%;" readonly="readonly">
-												<input type="text" id="sample6_address2"  value="상세주소" placeholder="상세주소">
-											
-												<input type="hidden" name="postCode">
+												<input type="text" name="address.address1" id="sample6_address" placeholder="주소 " style="width:50%;" readonly="readonly">
+												<input type="text" name="address.address2" id="sample6_address2"  value="상세주소" placeholder="상세주소">
+												<input type="text" name="address.sigunguCode" id="sample6_sigunguCode" style="display: none;"/>
+												<!-- <input type="hidden" name="sample6_postcode">
 												<input type="hidden" name="cityName">
 												<input type="hidden" name="areaName">
-												<input type="hidden" name="address">
+												<input type="hidden" name="address"> -->
 											
 											</div>
 										</div>
@@ -431,13 +431,14 @@
 </form>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
 	
+	<!-- <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script type="text/javascript"src="//dapi.kakao.com/v2/maps/sdk.js?appkey=316e409a59e29fd51e1dcbf1e4769f1c&libraries=services"></script> -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=316e409a59e29fd51e1dcbf1e4769f1c&libraries=services"></script>
+	<script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script>
 
 <script>
 	var path = '${pageContext.request.contextPath}';
-    function sample6_execDaumPostcode() {
+    /* function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -498,7 +499,7 @@
 				
 			}
 			}).open();
-	}
+	} */
     
 
     $("[type=file]").on("change", function(){
@@ -743,13 +744,15 @@
 		}
 		
 		$("input[name='address']").val($("input#sample6_address").val().trim()+" "+$("input#sample6_address2").val().trim());
-
-		var inputList = $("input:not([name='id'], [name='pwd'], [name='welfareTitleList'], [name='welfareContentList'], [name='attachFile'])");
+		var inputList = $("input:not([name='id'], [name='pwd'], [name='welfareTitleList'], [name='welfareContentList'], [name='attachFile'], #sample6_sigunguCode)");
 		
 		for (var i = 0; i < inputList.length; i++) {
 			var data = $(inputList[i]);
 			if (!data.val() || data.val() == "") {
 				alert("빈 칸이 있습니다.");
+				console.log(i);
+				console.log(data);
+				
 				return false;
 			}
 		}
