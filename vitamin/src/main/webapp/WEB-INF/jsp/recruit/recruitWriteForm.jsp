@@ -707,7 +707,7 @@
 	});
 	
 	$("input[name='phoneNumber']").keyup(function () {
-		if(/^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/.test($("input[name='phoneNumber']").val())) {
+		if(/^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/.test($(this).val())) {
 			$("#check").prop("checked", "true");
 		} else {
 			$("#check").removeAttr("checked");
