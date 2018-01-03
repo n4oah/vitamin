@@ -80,7 +80,7 @@
 												<input type="text" name="name" id="signup_name" class="form-control" placeholder="이름">
 											</div>
 											<div class="form-group">
-												<select class="selectpicker" name="gender">
+												<select class="selectpicker" name="member.gender">
 													<optgroup label="성별을 선택해주세요.">
 														<option value="m" class="fa fa-mars">남성</option>
 														<option value="w" class="fa fa-venus">여성</option>
@@ -101,10 +101,10 @@
 												</div>
 											</div>
 											<div class="form-group">
-												<input type="text" name="phoneNumber" id="signup_phoneNumber" class="form-control bfh-phone" data-format="+82 (ddd) dddd-dddd">
+												<input type="text" name="member.phoneNumber" id="signup_phoneNumber" class="form-control bfh-phone" data-format="+82 (ddd) dddd-dddd">
 											</div>
 											<div class="form-group">
-						                        <input type="date" name="birthDate" id="birthDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
+						                        <input type="date" name="member.birthDate" id="birthDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
 											</div>
 											<div class="form-group">
 												<div class="input-group">

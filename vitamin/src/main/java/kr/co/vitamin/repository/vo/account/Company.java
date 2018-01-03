@@ -4,7 +4,7 @@ import java.util.Date;
 
 
 public class Company extends Account {
-	private Integer companyNo, employeeCount, logoNo;
+	private Integer companyNo, employeeCount, logoNo, businessNo;
 	private String licenseNumber, companyName, bossName, companyType, businessContent, telNumber, homepage;
 	private Date buildupDate;
 
@@ -96,16 +96,24 @@ public class Company extends Account {
 		this.buildupDate = buildupDate;
 	}
 
+	public Integer getBusinessNo() {
+		return businessNo;
+	}
+
+	public void setBusinessNo(Integer businessNo) {
+		this.businessNo = businessNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Company [companyNo=" + companyNo + ", employeeCount=" + employeeCount + ", logoNo=" + logoNo
-				+ ", licenseNumber=" + licenseNumber + ", companyName=" + companyName + ", bossName=" + bossName
-				+ ", companyType=" + companyType + ", businessContent=" + businessContent + ", telNumber=" + telNumber
-				+ ", homepage=" + homepage + ", buildupDate=" + buildupDate + ", getAccountNo()=" + getAccountNo()
-				+ ", getAddressNo()=" + getAddressNo() + ", getEmailTokenNo()=" + getEmailTokenNo()
-				+ ", getMemberType()=" + getMemberType() + ", getEmailTokenStatus()=" + getEmailTokenStatus()
-				+ ", getId()=" + getId() + ", getPwd()=" + getPwd() + ", getName()=" + getName() + ", getEmail()="
-				+ getEmail() + ", getRegDate()=" + getRegDate() + ", toString()=" + super.toString() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + "]";
+				+ ", businessNo=" + businessNo + ", licenseNumber=" + licenseNumber + ", companyName=" + companyName
+				+ ", bossName=" + bossName + ", companyType=" + companyType + ", businessContent=" + businessContent
+				+ ", telNumber=" + telNumber + ", homepage=" + homepage + ", buildupDate=" + buildupDate
+				+ ", getAccountNo()=" + getAccountNo() + ", getAddressNo()=" + getAddressNo() + ", getEmailTokenNo()="
+				+ getEmailTokenNo() + ", getMemberType()=" + getMemberType() + ", getEmailTokenStatus()="
+				+ getEmailTokenStatus() + ", getId()=" + getId() + ", getPwd()=" + getPwd() + ", getName()=" + getName()
+				+ ", getEmail()=" + getEmail() + ", getRegDate()=" + getRegDate() + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 }

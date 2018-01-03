@@ -3,43 +3,86 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 매퍼 연결 -->
 <mapper namespace="kr.co.vitamin.repository.mapper.AccountMapper">
-	<resultMap type="member" id="memberMap">
-		<result column="member_no" property="memberNo" />
+	<resultMap type="account" id="accountMap">
+		<result column="account_no" property="accountNo" />
 		<result column="id" property="id" />
 		<result column="pwd" property="pwd" />
 		<result column="name" property="name" />
 		<result column="email" property="email" />
-		<result column="phone_number" property="phoneNumber" />
 		<result column="address_no" property="addressNo" />
-		<result column="birth_date" property="birthDate" />
-		<result column="gender" property="gender" />
 		<result column="email_token_no" property="emailTokenNo" />
-		<result column="member_type" property="memberType" />
 		<result column="reg_date" property="regDate" />
+		<result column="member_type" property="memberType" />
 		<result column="email_token_status" property="emailTokenStatus" />
 	</resultMap>
+
+	<resultMap type="member" id="memberMap">
+		<result column="member_no" property="memberNo" />
+		<result column="account_no" property="accountNo" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="birth_date" property="birthDate" />
+		<result column="gender" property="gender" />
+	</resultMap>
 	
-	<select id="selectOverlapIdCheck" resultMap="memberMap" parameterType="member">
-		SELECT id FROM vi_member
+	<resultMap type="company" id="companyMap">
+		<result column="company_no" property="companyNo" />
+		<result column="account_no" property="accountNo" />
+		<result column="license_number" property="licenseNumber" />
+		<result column="company_name" property="companyName" />
+		<result column="boss_name" property="bossName" />
+		<result column="company_type" property="companyType" />
+		<result column="buildup_date" property="buildupDate" />
+		<result column="business_content" property="businessContent" />
+		<result column="business_no" property="businessNo" />
+		<result column="tel_number" property="telNumber" />
+		<result column="homepage" property="homepage" />
+		<result column="employee_count" property="employeeCount" />
+		<result column="logo_no" property="logoNo" />
+	</resultMap>
+	
+	<select id="selectOverlapIdCheck" resultMap="accountMap" parameterType="account">
+		SELECT id FROM vi_account
 		WHERE id=#{id} LIMIT 1
 	</select>
 	
-	<insert id="insertMember" parameterType="member">
-		INSERT INTO vi_member
-		(id, pwd, name, email, phone_number, address_no, birth_date, gender, email_token_no, member_type, email_token_status)
+	<insert id="insertAccount" parameterType="account">
+		INSERT INTO vi_account
+		(account_no, id, pwd, name, email, address_no, email_token_no, email_token_status, member_type)
 		VALUES
-		(#{id}, #{pwd}, #{name}, #{email}, #{phoneNumber}, #{addressNo}, #{birthDate}, #{gender}, #{emailTokenNo}, #{memberType}, #{emailTokenStatus})
+		(#{accountNo}, #{id}, #{pwd}, #{name}, #{email}, #{addressNo}, #{emailTokenNo}, #{emailTokenStatus}, #{memberType})
 	</insert>
 	
-	<update id="updateEmailToken" parameterType="member">
-		UPDATE vi_member SET
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO vi_member
+		(account_no, phone_number, birth_date, gender)
+		VALUES
+		(#{accountNo}, #{phoneNumber}, #{birthDate}, #{gender})
+	</insert>
+	
+	<insert id="insertCompany" parameterType="company">
+		INSERT INTO vi_member
+		(account_no, license_number, company_name, boss_name, company_type, buildup_date, business_content,
+		 business_no, tel_number, homepage, employee_count, logo_no)
+		VALUES
+		(#{account_no}, #{license_number}, #{company_name}, #{boss_name}, #{company_type}, #{buildup_date},
+		 #{business_content}, #{business_no}, #{tel_number}, #{homepage}, #{employee_count}, #{logo_no})
+	</insert>
+	
+	<update id="updateEmailToken" parameterType="account">
+		UPDATE vi_account SET
 		email_token_status = #{emailTokenStatus}, email_token_no = null
 		WHERE email_token_no = #{emailTokenNo}
 		LIMIT 1
 	</update>
 	
-	<select id="selectLoginMember" parameterType="member" resultMap="memberMap">
-		SELECT * FROM vi_member
-		WHERE id=#{id} AND pwd=#{pwd}
+	<select id="selectLoginAccount" parameterType="account" resultMap="accountMap">
+		SELECT * FROM vi_account
+		WHERE id=#{id} AND pwd=#{pwd} LIMIT 1
+	</select>
+	
+	<select id="selectNextAutoIncrement" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_account"/>
+		</include>
 	</select>
 </mapper>

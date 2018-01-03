@@ -9,6 +9,9 @@ import kr.co.vitamin.repository.mapper.EmailTokenMapper;
 import kr.co.vitamin.repository.mapper.AccountMapper;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.EmailToken;
+import kr.co.vitamin.repository.vo.account.Account;
+import kr.co.vitamin.repository.vo.account.AccountSignup;
+import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.repository.vo.account.Member;
 
 @Service
@@ -21,23 +24,33 @@ public class AccountServiceImpl implements AccountService {
 	private EmailTokenMapper emailTokMapper;
 	
 	@Override
-	public boolean getOverlapIdCheck(Member memberVO) throws Exception {
-		return memberMapper.selectOverlapIdCheck(memberVO) == null ? false : true;
+	public boolean getOverlapIdCheck(Account actionVO) throws Exception {
+		return memberMapper.selectOverlapIdCheck(actionVO) == null ? false : true;
 	}
 	
 	@Override
 	@Transactional(rollbackFor=Exception.class)
-	public void signupMember(Member memberVO, Address address, EmailToken emailTok) throws Exception {
+	public void signupMember(AccountSignup actionVO, Address address, EmailToken emailTok) throws Exception {
 		int addressNo = addressMapper.selectNextAutoIncrement();
 		address.setAddressNo(addressNo);
-		memberVO.setAddressNo(addressNo);
+		actionVO.setAddressNo(addressNo);
 		
 		int emailTokenNo = emailTokMapper.selectNextAutoIncrement();
-		memberVO.setEmailTokenNo(emailTokenNo);
+		actionVO.setEmailTokenNo(emailTokenNo);
 		
 		addressMapper.insertAddress(address);
 		emailTokMapper.insertEmailToken(emailTok);
-		memberMapper.insertMember(memberVO);
+		
+		int accountNo = memberMapper.selectNextAutoIncrement();
+		actionVO.setAccountNo(accountNo);
+		
+		memberMapper.insertAccount((Account)actionVO);
+		
+		if(actionVO.getMemberType() == 1) {
+			memberMapper.insertMember(actionVO.getMember());
+		} else if(actionVO.getMemberType() == 2) {
+			memberMapper.insertCompany(actionVO.getCompany());			
+		}
 	}
 
 	@Override
@@ -45,11 +58,11 @@ public class AccountServiceImpl implements AccountService {
 	public void emailCertify(EmailToken emailTok) throws Exception {
 		EmailToken emailToken = emailTokMapper.selectEmailToken2(emailTok);
 		if(emailToken != null) {
-			Member memberVO = new Member();
-			memberVO.setEmailTokenNo(emailToken.getEmailTokenNo());
-			memberVO.setEmailTokenStatus(2);
+			Account accountVO = new Member();
+			accountVO.setEmailTokenNo(emailToken.getEmailTokenNo());
+			accountVO.setEmailTokenStatus(2);
 			
-			memberMapper.updateEmailToken(memberVO);
+			memberMapper.updateEmailToken(accountVO);
 			emailTokMapper.deleteEmailToken(emailToken);
 			return;
 		}
@@ -57,7 +70,7 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Member login(Member memberVO) throws Exception {
-		return memberMapper.selectLoginMember(memberVO);
+	public Account login(Account actionVO) throws Exception {
+		return memberMapper.selectLoginAccount(actionVO);
 	}
 }

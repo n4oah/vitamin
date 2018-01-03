@@ -39,7 +39,8 @@ import kr.co.vitamin.repository.vo.EmailToken;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.Terms;
 import kr.co.vitamin.repository.vo.account.Member;
-import kr.co.vitamin.repository.vo.account.MemberSignup;
+import kr.co.vitamin.repository.vo.account.Account;
+import kr.co.vitamin.repository.vo.account.AccountSignup;
 import kr.co.vitamin.service.AccountService;
 import kr.co.vitamin.service.SchoolLevelService;
 
@@ -96,33 +97,35 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/signup.do", method=RequestMethod.POST)
-	public String signup(MemberSignup memberSignupVO, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
+	public String signup(AccountSignup accountSignupVO, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
 		String resultUrl = null;
+		System.out.println(accountSignupVO);
 		
-		Member memberVO = memberSignupVO.getMember();
-		Address address = memberSignupVO.getAddress();
-		EmailToken emailTok = memberSignupVO.getEmailTok();
+		accountSignupVO.parseData();
 		
-		if(idOverlapCheck(memberVO) == false) {
-			memberVO.setShaPwd(memberVO.getPwd());
-			memberVO.setEmailTokenStatus(1);
+		Address address = accountSignupVO.getAddress();
+		EmailToken emailTok = accountSignupVO.getEmailTok();
+		
+		if(idOverlapCheck(accountSignupVO) == false) {
+			accountSignupVO.setShaPwd(accountSignupVO.getPwd());
+			accountSignupVO.setEmailTokenStatus(1);
 			
 			emailTok.setShaToken(UUID.randomUUID().toString());
 			
 			InetAddress inet = Inet4Address.getLocalHost();
-			String url = "http://" + inet.getHostAddress() + ":" + request.getLocalPort() + request.getContextPath() + "/member/certify.do?token=" + emailTok.getToken();
+			String url = "http://" + inet.getHostAddress() + ":" + request.getLocalPort() + request.getContextPath() + "/account/certify.do?token=" + emailTok.getToken();
 			
 			StringBuffer content = new StringBuffer();
 			content.append("<h3>INIT - 이메일 인증 코드</h3>");
 			content.append("<a href='" + url +"'>인증하기</a><br/>");
-			email.sendMail(memberVO.getEmail(), "[INIT] 회원가입 인증 코드", content.toString());
+			email.sendMail(accountSignupVO.getEmail(), "[INIT] 회원가입 인증 코드", content.toString());
 			
 			Calendar calendar = Calendar.getInstance();
 			calendar.add(Calendar.DATE, 7);
 			Date deleteDate = calendar.getTime();
 			emailTok.setDeleteDate(deleteDate);
 			
-			accountService.signupMember(memberVO, address, emailTok);
+			accountService.signupMember(accountSignupVO, address, emailTok);
 			
 			model.addAttribute("n", "n");
 			resultUrl = "redirect:/account/signupSuccess.do";
@@ -140,7 +143,7 @@ public class AccountController {
 	
 	@RequestMapping("/idOverlapChk.do")
 	@ResponseBody
-	public boolean idOverlapCheck(Member memberVO) throws Exception {
+	public boolean idOverlapCheck(Account memberVO) throws Exception {
 		return accountService.getOverlapIdCheck(memberVO);
 	}
 	
@@ -156,12 +159,12 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/signin.do", method=RequestMethod.POST)
-	public String signin(HttpSession session, Member memberVO, RedirectAttributes redirectAttributes) throws Exception {
+	public String signin(HttpSession session, Account memberVO, RedirectAttributes redirectAttributes) throws Exception {
 		String viewUrl = "redirect:/member/signinForm.do";
 		
 		memberVO.setShaPwd(memberVO.getPwd());
 		
-		Member memVo = accountService.login(memberVO);
+		Account memVo = accountService.login(memberVO);
 		
 		if(memVo == null) {
 			redirectAttributes.addFlashAttribute("errorMsg", "아이디가 존재하지 않거나, 비밀번호가 틀렷습니다.");
