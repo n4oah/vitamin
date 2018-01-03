@@ -70,7 +70,8 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public Account login(Account actionVO) throws Exception {
-		return memberMapper.selectLoginAccount(actionVO);
+	public Account login(Account accountVO) throws Exception {
+		accountVO.setMemberType(memberMapper.selectMemberType(accountVO));
+		return memberMapper.selectLoginAccount(accountVO);
 	}
 }

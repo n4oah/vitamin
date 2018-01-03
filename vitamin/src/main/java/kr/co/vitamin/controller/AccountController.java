@@ -150,7 +150,7 @@ public class AccountController {
 	@RequestMapping(value = "/certify.do", method=RequestMethod.GET)
 	public String emailCertify(EmailToken emailTok) throws Exception {
 		accountService.emailCertify(emailTok);
-		return "redirect:/member/signinForm.do";
+		return "redirect:/account/signinForm.do";
 	}
 	
 	@RequestMapping("/signinForm.do")
@@ -160,7 +160,7 @@ public class AccountController {
 	
 	@RequestMapping(value = "/signin.do", method=RequestMethod.POST)
 	public String signin(HttpSession session, Account memberVO, RedirectAttributes redirectAttributes) throws Exception {
-		String viewUrl = "redirect:/member/signinForm.do";
+		String viewUrl = "redirect:/account/signinForm.do";
 		
 		memberVO.setShaPwd(memberVO.getPwd());
 		

@@ -14,9 +14,14 @@
 		<result column="reg_date" property="regDate" />
 		<result column="member_type" property="memberType" />
 		<result column="email_token_status" property="emailTokenStatus" />
+
+		<discriminator javaType="int" column="member_type">
+			<case value="1" resultMap="memberMap"/>
+			<case value="2" resultMap="companyMap"/>
+		</discriminator>
 	</resultMap>
 
-	<resultMap type="member" id="memberMap">
+	<resultMap type="member" id="memberMap" extends="accountMap">
 		<result column="member_no" property="memberNo" />
 		<result column="account_no" property="accountNo" />
 		<result column="phone_number" property="phoneNumber" />
@@ -24,7 +29,7 @@
 		<result column="gender" property="gender" />
 	</resultMap>
 	
-	<resultMap type="company" id="companyMap">
+	<resultMap type="company" id="companyMap" extends="accountMap">
 		<result column="company_no" property="companyNo" />
 		<result column="account_no" property="accountNo" />
 		<result column="license_number" property="licenseNumber" />
@@ -39,6 +44,7 @@
 		<result column="employee_count" property="employeeCount" />
 		<result column="logo_no" property="logoNo" />
 	</resultMap>
+	
 	
 	<select id="selectOverlapIdCheck" resultMap="accountMap" parameterType="account">
 		SELECT id FROM vi_account
@@ -75,9 +81,15 @@
 		LIMIT 1
 	</update>
 	
+	<select id="selectMemberType" parameterType="account" resultType="int">
+		SELECT member_type FROM vi_account
+		WHERE id=#{id} LIMIT 1
+	</select>
+	
 	<select id="selectLoginAccount" parameterType="account" resultMap="accountMap">
-		SELECT * FROM vi_account
-		WHERE id=#{id} AND pwd=#{pwd} LIMIT 1
+		SELECT account.*, member.* 
+		FROM vi_account AS account JOIN vi_member AS member 
+		WHERE (account.id=#{id} AND account.pwd=#{pwd}) AND account.account_no = member.account_no;
 	</select>
 	
 	<select id="selectNextAutoIncrement" resultType="int">
