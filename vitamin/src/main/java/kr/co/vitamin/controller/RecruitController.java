@@ -111,7 +111,7 @@ public class RecruitController {
 			welfareService.insertWelfare(new Welfare(recruitNo, welfare.getWelfareTitleList()[i], welfare.getWelfareContentList()[i]));
 		}
 		
-		recruit.setMemberNo(1);
+		recruit.setCompanyNo(1);
 		
 		recruitService.insertRecruit(recruit);
 

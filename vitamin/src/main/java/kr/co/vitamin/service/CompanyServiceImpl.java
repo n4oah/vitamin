@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.vitamin.repository.mapper.CompanyMapper;
-import kr.co.vitamin.repository.vo.Company;
 import kr.co.vitamin.repository.vo.File;
 import kr.co.vitamin.repository.vo.Recruit;
 import kr.co.vitamin.repository.vo.Review;
+import kr.co.vitamin.repository.vo.account.Company;
 
 @Service
 public class CompanyServiceImpl implements CompanyService {

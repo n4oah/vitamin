@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.vitamin.repository.vo.Company;
 import kr.co.vitamin.repository.vo.Review;
+import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.service.CompanyService;
 
 @Controller

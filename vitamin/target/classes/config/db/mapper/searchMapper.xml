@@ -49,7 +49,7 @@
 	
 	<resultMap type="recruit" id="selectRecruitMap">
 		<result column="title"  property="title" />
-		<result column="member_no" property="memberNo" />
+		<result column="company_no" property="companyNo" />
 		<result column="career_state"  property="careerState" />
 		<result column="career_end"  property="careerEnd" />
 		<result column="career_start"  property="careerStart" />

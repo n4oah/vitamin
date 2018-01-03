@@ -2,7 +2,7 @@ package kr.co.vitamin.common;
 
 import org.springframework.stereotype.Service;
 
-@Service
+
 public enum ErrorMessage {
 	SIGNUP_(0, "Sgsadg");
 	

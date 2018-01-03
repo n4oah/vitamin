@@ -1,20 +1,20 @@
-package kr.co.vitamin.repository.vo.member;
+package kr.co.vitamin.repository.vo.account;
 
 import java.util.Date;
 
 import org.springframework.security.core.token.Sha512DigestUtils;
 
 public class Account {
-	private Integer memberNo, addressNo, emailTokenNo, memberType, emailTokenStatus;
+	private Integer accountNo, addressNo, emailTokenNo, memberType, emailTokenStatus;
 	private String id, pwd, name, email;
 	private Date regDate;
 
-	public Integer getMemberNo() {
-		return memberNo;
+	public Integer getAccountNo() {
+		return accountNo;
 	}
 
-	public void setMemberNo(Integer memberNo) {
-		this.memberNo = memberNo;
+	public void setAccountNo(Integer accountNo) {
+		this.accountNo = accountNo;
 	}
 
 	public Integer getAddressNo() {
@@ -91,5 +91,12 @@ public class Account {
 
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Account [accountNo=" + accountNo + ", addressNo=" + addressNo + ", emailTokenNo=" + emailTokenNo
+				+ ", memberType=" + memberType + ", emailTokenStatus=" + emailTokenStatus + ", id=" + id + ", pwd="
+				+ pwd + ", name=" + name + ", email=" + email + ", regDate=" + regDate + "]";
 	}
 }

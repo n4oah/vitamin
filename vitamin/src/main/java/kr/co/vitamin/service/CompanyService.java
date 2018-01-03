@@ -2,9 +2,9 @@ package kr.co.vitamin.service;
 
 import java.util.List;
 
-import kr.co.vitamin.repository.vo.Company;
 import kr.co.vitamin.repository.vo.Recruit;
 import kr.co.vitamin.repository.vo.Review;
+import kr.co.vitamin.repository.vo.account.Company;
 
 public interface CompanyService {
 	public void commentWrite(Review review) throws Exception;

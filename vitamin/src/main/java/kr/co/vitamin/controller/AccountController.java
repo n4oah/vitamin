@@ -38,8 +38,8 @@ import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.EmailToken;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.Terms;
-import kr.co.vitamin.repository.vo.member.Member;
-import kr.co.vitamin.repository.vo.member.MemberSignup;
+import kr.co.vitamin.repository.vo.account.Member;
+import kr.co.vitamin.repository.vo.account.MemberSignup;
 import kr.co.vitamin.service.AccountService;
 import kr.co.vitamin.service.SchoolLevelService;
 

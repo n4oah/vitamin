@@ -86,7 +86,7 @@ public class Recruit {
 	private Integer recruitNo;
 
 	    //  기업회원번호
-	    private Integer memberNo;
+	    private Integer companyNo;
 
 	    public Integer getGender() {
 			return gender;
@@ -165,12 +165,12 @@ public class Recruit {
 	        this.recruitNo = recruitNo;
 	    }
 
-	    public Integer getMemberNo() {
-	        return memberNo;
+	    public Integer getCompanyNo() {
+	        return companyNo;
 	    }
 
-	    public void setMemberNo(Integer memberNo) {
-	        this.memberNo = memberNo;
+	    public void setCompanyNo(Integer companyNo) {
+	        this.companyNo = companyNo;
 	    }
 
 	    public String getTitle() {
@@ -341,7 +341,7 @@ public class Recruit {
 	    public void CopyData(Recruit param)
 	    {
 	        this.recruitNo = param.getRecruitNo();
-	        this.memberNo = param.getMemberNo();
+	        this.companyNo = param.getCompanyNo();
 	        this.title = param.getTitle();
 	        this.careerState = param.getCareerState();
 	        this.careerStart = param.getCareerStart();

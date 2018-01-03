@@ -6,7 +6,7 @@
 	
 	<resultMap type="company" id="companyMap">
 		<result column="company_no" property="companyNo" />
-		<result column="member_no" property="memberNo" />
+		<result column="account_no" property="accountNo" />
 		<result column="license_number" property="licenseNumber" />
 		<result column="company_name" property="companyName" />
 		<result column="boss_name" property="bossName" />
@@ -39,6 +39,7 @@
 	
 	<resultMap type="recruit" id="recruitMap">
 		<result column="recruit_no" property="recruitNo" />
+		<result column="company_no" property="companyNo" />
 		<result column="title" property="title" />
 		<result column="career_state" property="careerState" />
 		<result column="career_start" property="careerStart" />

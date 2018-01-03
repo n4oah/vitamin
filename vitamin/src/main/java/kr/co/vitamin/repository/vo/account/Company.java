@@ -1,8 +1,7 @@
-package kr.co.vitamin.repository.vo;
+package kr.co.vitamin.repository.vo.account;
 
 import java.util.Date;
 
-import kr.co.vitamin.repository.vo.member.Account;
 
 public class Company extends Account {
 	private Integer companyNo, employeeCount, logoNo;
@@ -102,11 +101,11 @@ public class Company extends Account {
 		return "Company [companyNo=" + companyNo + ", employeeCount=" + employeeCount + ", logoNo=" + logoNo
 				+ ", licenseNumber=" + licenseNumber + ", companyName=" + companyName + ", bossName=" + bossName
 				+ ", companyType=" + companyType + ", businessContent=" + businessContent + ", telNumber=" + telNumber
-				+ ", homepage=" + homepage + ", buildupDate=" + buildupDate + ", getMemberNo()=" + getMemberNo()
+				+ ", homepage=" + homepage + ", buildupDate=" + buildupDate + ", getAccountNo()=" + getAccountNo()
 				+ ", getAddressNo()=" + getAddressNo() + ", getEmailTokenNo()=" + getEmailTokenNo()
 				+ ", getMemberType()=" + getMemberType() + ", getEmailTokenStatus()=" + getEmailTokenStatus()
 				+ ", getId()=" + getId() + ", getPwd()=" + getPwd() + ", getName()=" + getName() + ", getEmail()="
-				+ getEmail() + ", getRegDate()=" + getRegDate() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + ", toString()=" + super.toString() + "]";
+				+ getEmail() + ", getRegDate()=" + getRegDate() + ", toString()=" + super.toString() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 }

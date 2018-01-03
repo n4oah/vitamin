@@ -9,7 +9,7 @@ import kr.co.vitamin.repository.mapper.EmailTokenMapper;
 import kr.co.vitamin.repository.mapper.AccountMapper;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.EmailToken;
-import kr.co.vitamin.repository.vo.member.Member;
+import kr.co.vitamin.repository.vo.account.Member;
 
 @Service
 public class AccountServiceImpl implements AccountService {

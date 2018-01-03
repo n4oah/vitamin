@@ -1,12 +1,13 @@
-package kr.co.vitamin.repository.vo.member;
+package kr.co.vitamin.repository.vo.account;
 
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.EmailToken;
 
-public class MemberSignup extends Member {
+public class MemberSignup extends Account {
 	private Address address;
 	private EmailToken emailTok;
 	private String email1, email2;
+	private Member member;
 
 	public Address getAddress() {
 		return address;
@@ -40,14 +41,22 @@ public class MemberSignup extends Member {
 		this.emailTok = emailTok;
 	}
 
+	public Member getMember() {
+		return member;
+	}
+
+	public void setMember(Member member) {
+		this.member = member;
+	}
+
 	public void parseData() {
 		this.emailTok = new EmailToken();
 		super.setEmail(this.email1 + "@" + this.email2);
 		address.parseData();
 	}
 	
-	public Member getMember() throws Exception {
+	public Account getAccount() throws Exception {
 		this.parseData();
-		return (Member)this;
+		return (Account)this;
 	}
 }

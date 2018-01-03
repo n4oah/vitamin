@@ -1,6 +1,6 @@
 package kr.co.vitamin.repository.mapper;
 
-import kr.co.vitamin.repository.vo.member.Member;
+import kr.co.vitamin.repository.vo.account.Member;
 
 public interface AccountMapper {
 	public Member selectOverlapIdCheck(Member vo) throws Exception;

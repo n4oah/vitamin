@@ -2,7 +2,7 @@ package kr.co.vitamin.service;
 
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.EmailToken;
-import kr.co.vitamin.repository.vo.member.Member;
+import kr.co.vitamin.repository.vo.account.Member;
 
 public interface AccountService {
 	public boolean getOverlapIdCheck(Member memberVO) throws Exception;
