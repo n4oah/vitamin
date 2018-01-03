@@ -48,8 +48,6 @@ public class RecruitController {
 	public void recruitWriteForm(Model model) throws Exception{
 		List<SchoolLevel> schoolLevelList = schoolLevelService.getSchoolLevels();
 		List<FormService> formServiceList = formServiceService.selectFormService();
-		System.out.println(formServiceList);
-		
 		
 		model.addAttribute("schoolLevelList", schoolLevelList);
 		model.addAttribute("formServiceList", formServiceList);
@@ -119,7 +117,7 @@ public class RecruitController {
 		System.out.println(welfare);
 		System.out.println(address);
 		
-		return "redirect:../search/companySearch.do";
+		return "redirect:../search/searchRecruit.do";
 	}
 	
 	

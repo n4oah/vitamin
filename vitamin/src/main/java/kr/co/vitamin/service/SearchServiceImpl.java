@@ -29,6 +29,7 @@ public class SearchServiceImpl implements SearchService{
 	
 	@Override
 	public List<Recruit> selectRecruit() throws Exception {
+		System.out.println(searchMapper.selectRecruit());
 		return searchMapper.selectRecruit();
 	}
 	

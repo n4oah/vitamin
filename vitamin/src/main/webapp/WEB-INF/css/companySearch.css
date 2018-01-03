@@ -102,7 +102,11 @@ input[type="radio"] {
 	margin-right: 2px;
 }
 
-.career > span {
+
+
+
+/*
+  .career > span {
 	margin-right: 2%
 }
 .education > span {
@@ -117,7 +121,7 @@ input[type="radio"] {
 
 .age {
 	margin-top:10px
-}
+} 
 
 
 .career > .career_title {
@@ -133,7 +137,13 @@ input[type="radio"] {
 }
 .age > .age_title {
 	margin-right: 5%
-}
+} 
+.salary_title {
+	margin-right: 2%
+} */
+
+
+
 
 .sectionContent {
 	font-family: 'Helvetica Neue', Helvetica, Arial,sans-serif;
@@ -147,9 +157,6 @@ input[type="radio"] {
     font-size: 14px;
     vertical-align: top;
     transition: all .3s ease-in-out;
-}
-.salary_title {
-	margin-right: 2%
 }
 
 .showSelect:hover {

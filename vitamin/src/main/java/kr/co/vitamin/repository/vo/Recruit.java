@@ -5,6 +5,10 @@ import java.util.Date;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * @author kang
+ *
+ */
 public class Recruit {
 	
 	private MultipartFile attachFile;
@@ -15,6 +19,21 @@ public class Recruit {
 	private String name;
 	
 	
+	
+	@Override
+	public String toString() {
+		return "Recruit [attachFile=" + attachFile + ", formServiceName=" + formServiceName + ", subName=" + subName
+				+ ", name=" + name + ", recruitDateStart=" + recruitDateStart + ", recruitDateEnd=" + recruitDateEnd
+				+ ", recruitCount=" + recruitCount + ", gender=" + gender + ", recruitNo=" + recruitNo + ", companyNo="
+				+ companyNo + ", title=" + title + ", careerState=" + careerState + ", careerStart=" + careerStart
+				+ ", careerEnd=" + careerEnd + ", schoolLevel=" + schoolLevel + ", yearPayStart=" + yearPayStart
+				+ ", yearPayEnd=" + yearPayEnd + ", ageCountStart=" + ageCountStart + ", ageCountEnd=" + ageCountEnd
+				+ ", assignedTask=" + assignedTask + ", formService=" + formService + ", major=" + major + ", 우대조건="
+				+ 우대조건 + ", recruitForm=" + recruitForm + ", recruitFormFileNo=" + recruitFormFileNo + ", addressNo="
+				+ addressNo + ", dayOfWeek=" + dayOfWeek + ", master=" + master + ", phoneNumber=" + phoneNumber
+				+ ", recruitingState=" + recruitingState + "]";
+	}
+
 	public String getSubName() {
 		return subName;
 	}
@@ -353,8 +372,6 @@ public class Recruit {
 	        this.ageCountEnd = param.getAgeCountEnd();
 	        this.assignedTask = param.getAssignedTask();
 	        this.formService = param.getFormService();
-	        this.major = param.getMajor();
-	        this.우대조건 = param.get우대조건();
 	        this.recruitForm = param.getRecruitForm();
 	        this.recruitFormFileNo = param.getRecruitFormFileNo();
 	        this.addressNo = param.getAddressNo();

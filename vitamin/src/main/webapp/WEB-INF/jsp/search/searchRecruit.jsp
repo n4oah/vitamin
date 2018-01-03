@@ -7,7 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Insert title here</title>
+		<title>searchRecruit</title>
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/companySearch.css">
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
@@ -45,8 +45,8 @@
 					
 					<div class="detail_wrapper">
 						<div class="career">
-							<Strong class="career_title">경력</Strong>
-								<span><input type="checkbox" name="careerState" value = 1>신입</span>
+							<span class="ex_label col-md-1">경력</span>
+								<span><input type="checkbox" name="careerState" value = "1">신입</span>
 								<span><input type="checkbox">경력</span>
 					
 							<span class="career_period">
@@ -93,11 +93,11 @@
 						</div>
 						
 						<div class="education">
-							<Strong class="education_title">학력</Strong>
+							<span class="ex_label col-md-1">학력</span>
 							
 							<span class="dropdown">
 								 <span class="select">
-								 	<input type="hidden" name="schoolLevel" value="-1">
+								 	<input type="hidden" name="schoolLevelStart" value="-1">
 	        						<span>전체</span>
 				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
@@ -116,75 +116,138 @@
 									<span class="ex_label abcd">~</span>
 							</span>
 							
+							
 							<span class="dropdown">
 								 <span class="select">
-	        						 <span>전체</span>
-				         			 <i class="fa fa-chevron-down"></i>
+								 	<input type="hidden" name="schoolLevelEnd" value="-1">
+	        						<span>전체</span>
+				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="careerEnd">
-				        			<ul class="dropdown-menu">
-				        				<li>전체</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li id="${i }">${i }년 이하</li>
-				          				</c:forEach>
+				        		<ul class="dropdown-menu">
+				        			<li id="-1">전체</li>
+					        			<c:forEach var="sl" items="${schoolLevelList }">
+					        				<c:if test="${sl.level ne 0}">
+					          					<li id="${sl.level}">${sl.graduateState} 이하</li>
+					          				</c:if>
+					          			</c:forEach>
 				        			</ul>
 							</span>
 							
-							<span>
-								<input type="checkbox" value = 2 class="education_none"> 학력무관						
-							</span>
+							<!-- <span>
+								<label><input type="checkbox" value = "-1" class="education_none"> 학력무관</label>						
+							</span> -->
+							
 							
 						</div>
 						
 						<div class="salary">
-							<Strong class="salary_title">연봉</Strong>
+							<span class="ex_label col-md-1">연봉</span>
 							
 							<span class="dropdown">
 								 <span class="select">
-	        						 <span>전체</span>
-				         			 <i class="fa fa-chevron-down"></i>
+								 	<input type="hidden" name="yearPayStart" value="-1">
+	        						<span>전체</span>
+				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="year_salary">
-				        			<ul class="dropdown-menu">
-				        				<li>전체</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이하</li>
-				          				</c:forEach>
-				        			</ul>
+			        			<ul class="dropdown-menu">
+			        				<li id="-1" class="startDefault">전체</li>
+			          				
+			          				<c:forEach begin="14" end="90" var="i" step="2">
+			          					<li id="${i }">${i }00만원 이상</li>
+			          				</c:forEach>
+
+			          				<li id="100">1억원 이상</li>
+			        			</ul>
+							</span>
+							
+							<span class="water">
+								<span class="ex_label abcd">~</span>
+							</span>
+							
+							<span class="dropdown">
+								 <span class="select">
+								 	<input type="hidden" name="yearPayEnd" value="-1">
+	        						<span>전체</span>
+				         			<i class="fa fa-chevron-down"></i>
+				        		</span>
+				        		
+			        			<ul class="dropdown-menu">
+			        				<li id="-1" class="endDefault">전체</li>
+			          				<c:forEach begin="14" end="90" var="i" step="2">
+			          				<li id="${i }">${i }00만원 이하</li>
+			          				</c:forEach>
+			        			</ul>
 							</span>
 							
 							<span>
-								<input type="checkbox" value = 2 class="education_none"> 회사내규에 따름 포함						
+								<label><input type="checkbox" class="salary_none"> 회사내규에 따름</label>
 							</span>
 						</div>
 						
 						<div class="age">
-							<Strong class="age_title">나이</Strong>
+							<span class="ex_label col-md-1">나이</span>
 							
-							<span class="dropdown " >
+							<span class="dropdown">
 								 <span class="select">
-	        						 <span>전체</span>
-				         			 <i class="fa fa-chevron-down"></i>
+								 	<input type="hidden" name="ageCountStart" value="-1">
+	        						<span>전체</span>
+				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="age_count">
-				        			<ul class="dropdown-menu">
-				        				<li>전체</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이하</li>
+			        			<ul class="dropdown-menu">
+			        				<li id="-1" class="startDefault">전체</li>
+			          				
+			          				<c:set var="year" value="2000" />
+				          				<c:forEach begin="18" end="70" var="i">
+				          					<li id="${i }">
+				          						${i }살(<c:out value="${year }" />년생) 이상
+				          					</li>
+				          					
+				          					<c:set var="year" value="${year -1}" />
 				          				</c:forEach>
-				        			</ul>
+			        			</ul>
 							</span>
 							
-							<span class="col-md-offset-3">
-								<Strong class="salary_title">성별 </Strong>
-						
-								<input type="radio" value="1" name="gender"> 남자
-								<input type="radio" value="2" name="gender"> 여자
-								<input type="radio" value="3" name="gender"> 성별무관
+							<span class="water">
+								<span class="ex_label abcd">~</span>
 							</span>
+							
+							<span class="dropdown">
+								 <span class="select">
+								 	<input type="hidden" name="ageCountEnd" value="-1">
+	        						<span>전체</span>
+				         			<i class="fa fa-chevron-down"></i>
+				        		</span>
+			        		
+			        			<ul class="dropdown-menu">
+			        				<li id="-1" class="endDefault">전체</li>
+			          				
+			          				<c:set var="year" value="2000" />
+				          				<c:forEach begin="18" end="70" var="i">
+				          					<li id="${i }">
+				          						${i }살(<c:out value="${year }" />년생) 이하
+				          					</li>
+				          					
+				          					<c:set var="year" value="${year -1}" />
+				          				</c:forEach>
+			        			</ul>
+							</span>
+							
+							<span>
+								<label><input type="checkbox" class="age_none"> 나이무관</label>
+							</span>
+							
+							
+							<span class="gender">
+								<label class="gender_title">성별 </label>
+						
+								<label><input type="radio" value="1" name="gender"> 남자</label>
+								<label><input type="radio" value="2" name="gender"> 여자</label>
+								<label><input type="radio" value="-1" name="gender" checked> 성별무관</label>
+							</span>
+							
 						</div>
 						
 						

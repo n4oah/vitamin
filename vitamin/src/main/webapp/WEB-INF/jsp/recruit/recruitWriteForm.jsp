@@ -727,9 +727,10 @@
 			 alert("잘못된 휴대폰 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.");
 		     return false;
 		} */
+		// console.log($("input[type='file']").val());
 		
 		if (fileChk && !$("input[type='file']").val()) {
-			alert("파일을 입력해주세요.");
+			alert("이력서 파일을 넣어 주세요.");
 			return false;
 		}
 		
