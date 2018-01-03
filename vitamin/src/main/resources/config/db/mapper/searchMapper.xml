@@ -4,6 +4,20 @@
 <!-- 매퍼 연결 -->
 <mapper namespace="kr.co.vitamin.repository.mapper.SearchMapper">
 	
+	<resultMap id="cityAndAreaMap" type="cityAndArea">
+		<result column="area_code"  property="areaCode" />
+		<result column="city_code"  property="cityCode" />
+		<result column="area_name"  property="areaName" />
+		<result column="sub_name"  property="subName" />
+	</resultMap>
+	
+	<select id="selectCityAndArea" resultMap="cityAndAreaMap" >
+		SELECT area_code, area.city_code, area.name as area_name, sub_name
+			FROM vitamin.vi_area_code as area
+ 			 join vitamin.vi_city_code as city
+			on area.city_code = city.city_code
+	</select>
+	
 	<resultMap type="city" id="cityMap">
 		<result column="city_code" property="cityCode" />
 		<result column="name" property="name" />
