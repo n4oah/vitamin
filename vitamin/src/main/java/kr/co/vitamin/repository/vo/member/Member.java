@@ -4,71 +4,10 @@ import java.util.Date;
 
 import org.springframework.security.core.token.Sha512DigestUtils;
 
-public class Member {
-	private Integer memberNo, addressNo, emailTokenNo, memberType, emailTokenStatus;
-	private String id, pwd, name, email, phoneNumber;
-	private Date regDate, birthDate;
+public class Member extends Account {
+	private String phoneNumber;
+	private Date birthDate;
 	private Character gender;
-
-	public Integer getMemberNo() {
-		return memberNo;
-	}
-
-	public void setMemberNo(Integer memberNo) {
-		this.memberNo = memberNo;
-	}
-
-	public Integer getAddressNo() {
-		return addressNo;
-	}
-
-	public void setAddressNo(Integer addressNo) {
-		this.addressNo = addressNo;
-	}
-
-	public Integer getEmailTokenNo() {
-		return emailTokenNo;
-	}
-
-	public void setEmailTokenNo(Integer emailTokenNo) {
-		this.emailTokenNo = emailTokenNo;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getPwd() {
-		return pwd;
-	}
-
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-	
-	public void setShaPwd(String pwd) {
-		this.pwd = Sha512DigestUtils.shaHex(pwd);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public String getPhoneNumber() {
 		return phoneNumber;
@@ -76,14 +15,6 @@ public class Member {
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
-	}
-
-	public Date getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(Date regDate) {
-		this.regDate = regDate;
 	}
 
 	public Date getBirthDate() {
@@ -102,27 +33,13 @@ public class Member {
 		this.gender = gender;
 	}
 
-	public Integer getMemberType() {
-		return memberType;
-	}
-
-	public void setMemberType(Integer memberType) {
-		this.memberType = memberType;
-	}
-
-	public Integer getEmailTokenStatus() {
-		return emailTokenStatus;
-	}
-
-	public void setEmailTokenStatus(Integer emailTokenStatus) {
-		this.emailTokenStatus = emailTokenStatus;
-	}
-
 	@Override
 	public String toString() {
-		return "Member [memberNo=" + memberNo + ", addressNo=" + addressNo + ", emailTokenNo=" + emailTokenNo
-				+ ", memberType=" + memberType + ", emailTokenStatus=" + emailTokenStatus + ", id=" + id + ", pwd="
-				+ pwd + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", regDate=" + regDate
-				+ ", birthDate=" + birthDate + ", gender=" + gender + "]";
+		return "Member [phoneNumber=" + phoneNumber + ", birthDate=" + birthDate + ", gender=" + gender
+				+ ", getMemberNo()=" + getMemberNo() + ", getAddressNo()=" + getAddressNo() + ", getEmailTokenNo()="
+				+ getEmailTokenNo() + ", getMemberType()=" + getMemberType() + ", getEmailTokenStatus()="
+				+ getEmailTokenStatus() + ", getId()=" + getId() + ", getPwd()=" + getPwd() + ", getName()=" + getName()
+				+ ", getEmail()=" + getEmail() + ", getRegDate()=" + getRegDate() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
 }

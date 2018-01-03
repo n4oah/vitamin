@@ -20,7 +20,7 @@
 			$(function() {
 				$('#signup_id').blur(function() {
 					$.ajax({
-						url: "${pageContext.request.contextPath}/member/idOverlapChk.do",
+						url: "${pageContext.request.contextPath}/account/idOverlapChk.do",
 						dataType: "json",
 						data: {id: $('#signup_id').val()},
 						success: function(chk) {
@@ -43,7 +43,7 @@
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 	
-	<c:set var="actionUrl" value="${pageContext.request.contextPath}/member/signup.do" />
+	<c:set var="actionUrl" value="${pageContext.request.contextPath}/account/signup.do" />
 	
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container">

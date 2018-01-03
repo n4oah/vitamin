@@ -40,16 +40,16 @@ import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.Terms;
 import kr.co.vitamin.repository.vo.member.Member;
 import kr.co.vitamin.repository.vo.member.MemberSignup;
-import kr.co.vitamin.service.MemberService;
+import kr.co.vitamin.service.AccountService;
 import kr.co.vitamin.service.SchoolLevelService;
 
 @Controller
-@RequestMapping("/member")
-public class MemberController {
+@RequestMapping("/account")
+public class AccountController {
 	@Autowired
 	private SchoolLevelService schoolService;
 	@Autowired
-	private MemberService memberService;
+	private AccountService accountService;
 	@Autowired
 	private EmailSender email;
 	
@@ -119,10 +119,10 @@ public class MemberController {
 			Date deleteDate = calendar.getTime();
 			emailTok.setDeleteDate(deleteDate);
 			
-			memberService.signupMember(memberVO, address, emailTok);
+			accountService.signupMember(memberVO, address, emailTok);
 			
 			model.addAttribute("n", "n");
-			return "redirect:/member/signupSuccess.do";
+			return "redirect:/account/signupSuccess.do";
 		}
 		throw new Exception();
 	}
@@ -135,12 +135,12 @@ public class MemberController {
 	@RequestMapping("/idOverlapChk.do")
 	@ResponseBody
 	public boolean idOverlapCheck(Member memberVO) throws Exception {
-		return memberService.getOverlapIdCheck(memberVO);
+		return accountService.getOverlapIdCheck(memberVO);
 	}
 	
 	@RequestMapping(value = "/certify.do", method=RequestMethod.GET)
 	public String emailCertify(EmailToken emailTok) throws Exception {
-		memberService.emailCertify(emailTok);
+		accountService.emailCertify(emailTok);
 		return "redirect:/member/signinForm.do";
 	}
 	
@@ -155,7 +155,7 @@ public class MemberController {
 		
 		memberVO.setShaPwd(memberVO.getPwd());
 		
-		Member memVo = memberService.login(memberVO);
+		Member memVo = accountService.login(memberVO);
 		
 		if(memVo == null) {
 			redirectAttributes.addFlashAttribute("errorMsg", "아이디가 존재하지 않거나, 비밀번호가 틀렷습니다.");

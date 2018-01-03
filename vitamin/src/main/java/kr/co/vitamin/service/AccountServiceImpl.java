@@ -6,15 +6,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.vitamin.repository.mapper.AddressMapper;
 import kr.co.vitamin.repository.mapper.EmailTokenMapper;
-import kr.co.vitamin.repository.mapper.MemberMapper;
+import kr.co.vitamin.repository.mapper.AccountMapper;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.EmailToken;
 import kr.co.vitamin.repository.vo.member.Member;
 
 @Service
-public class MemberServiceImpl implements MemberService {
+public class AccountServiceImpl implements AccountService {
 	@Autowired
-	private MemberMapper memberMapper;
+	private AccountMapper memberMapper;
 	@Autowired
 	private AddressMapper addressMapper;
 	@Autowired
