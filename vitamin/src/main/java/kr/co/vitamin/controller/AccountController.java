@@ -96,10 +96,13 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/signup.do", method=RequestMethod.POST)
-	public String signup(MemberSignup memberSignupVO, Model model, HttpServletRequest request) throws Exception {
+	public String signup(MemberSignup memberSignupVO, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
+		String resultUrl = null;
+		
 		Member memberVO = memberSignupVO.getMember();
 		Address address = memberSignupVO.getAddress();
 		EmailToken emailTok = memberSignupVO.getEmailTok();
+		
 		if(idOverlapCheck(memberVO) == false) {
 			memberVO.setShaPwd(memberVO.getPwd());
 			memberVO.setEmailTokenStatus(1);
@@ -122,9 +125,12 @@ public class AccountController {
 			accountService.signupMember(memberVO, address, emailTok);
 			
 			model.addAttribute("n", "n");
-			return "redirect:/account/signupSuccess.do";
+			resultUrl = "redirect:/account/signupSuccess.do";
+		} else {
+			redirectAttributes.addFlashAttribute("errorMsg", "");
+			resultUrl = "redirect:/account/signupForm.do";
 		}
-		throw new Exception();
+		return resultUrl;
 	}
 	
 	@RequestMapping("signupSuccess.do")
