@@ -31,6 +31,28 @@
 		<result column="army_service_reason" property="armyServiceReason"/>
 	</resultMap>
 	
+	<resultMap type="city" id="cityMap">
+		<result column="city_code" property="cityCode"/>
+		<result column="name" property="name"/>
+		<result column="sub_name" property="subName"/>
+	</resultMap>
+	
+	<resultMap type="area" id="areaMap">
+		<result column="area_code" property="areaCode"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="name" property="name"/>
+	</resultMap>
+	
+	<resultMap type="certificate" id="certificateMap">
+		<result column="certificate_no" property="certificateNo"/>
+		<result column="name" property="name"/>
+		<result column="licensing_department_no" property="licensingDepartmentNo"/>
+	</resultMap>
+	
+	<resultMap type="licensingDepartment" id="licensingDepartmentMap">
+		<result column="licensing_department_no" property="licensingDepartmentNo"/>
+		<result column="name" property="name"/>
+	</resultMap>
 	
 	
 	
@@ -80,5 +102,20 @@
 		select condition_section_name from vi_condition_selection where condition_type='4' and condition_section=#{armyServiceState}
 	</select>
 	
+	<select id="selectCity" resultMap="cityMap">
+		select * from vi_city_code
+	</select>
+	
+	<select id="selectArea" parameterType="integer" resultMap="areaMap">
+		select * from vi_area_code where city_code = #{cityCode} order by name
+	</select>
+	
+	<select id="selectCertification" parameterType="string" resultMap="certificateMap">
+		select * from vi_certificate where name like CONCAT('%',#{name},'%')
+	</select>
+	
+	<select id="selectLicensingDepartment" parameterType="integer" resultMap="licensingDepartmentMap">
+		select * from vi_licensing_department where licensing_department_no= #{licensingDepartmentNo} 
+	</select>
 	
 </mapper>

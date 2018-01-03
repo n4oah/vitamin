@@ -2,7 +2,11 @@ package kr.co.vitamin.repository.mapper;
 
 import java.util.List;
 
+import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.ArmyService;
+import kr.co.vitamin.repository.vo.Certificate;
+import kr.co.vitamin.repository.vo.City;
+import kr.co.vitamin.repository.vo.LicensingDepartment;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 
 public interface ResumeMapper {
@@ -18,6 +22,10 @@ public interface ResumeMapper {
 	public String selectSupportState(String supportState) throws Exception;
 	public void updateArmyService(ResumeBaseInfo resumeBaseInfo) throws Exception;
 	public String selectArmyState(int armyServiceState) throws Exception;
+	public List<City> selectCity() throws Exception;
+	public List<Area> selectArea(Integer cityCode) throws Exception;
+	public List<Certificate> selectCertification(String name) throws Exception;
+	public LicensingDepartment selectLicensingDepartment(Integer licensingDepartmentNo) throws Exception;
 	
 	
 }

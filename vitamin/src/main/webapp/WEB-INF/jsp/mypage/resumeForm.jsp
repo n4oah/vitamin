@@ -25,7 +25,18 @@
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=316e409a59e29fd51e1dcbf1e4769f1c&libraries=services"></script>
+<style type="text/css">
+.float-control{
+	width:220px;
+}
 
+.ui-autocomplete {
+    max-height: 100px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+  }
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp"%>
@@ -39,7 +50,7 @@
 							<h2>이력서 작성</h2>
 						</div>
 					</div>
-					<form action="${pageContext.request.contextPath}/mypage/intermediateSave.do" class="form-horizontal">
+<%-- 					<form action="${pageContext.request.contextPath}/mypage/intermediateSave.do" class="form-horizontal"> --%>
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">프로필사진</h4>
 							<table class="table">
@@ -122,7 +133,7 @@
 									<tr>
 										<th>구직상태</th>
 										<td>
-											<select class="selectpicker" id="jobState" name="jobState">
+											<select class="float-control" id="jobState" name="jobState">
 													<option value="" class="fa">구직상태 선택</option>
 													<option value="0" class="fa">구직준비중(재학생)</option>
 													<option value="1" class="fa">구직중</option>
@@ -132,7 +143,7 @@
 									</tr>
 									<tr>
 										<th>결혼여부</th>
-										<td><select class="selectpicker" id="marryState" name="marryState">
+										<td><select class="float-control" id="marryState" name="marryState">
 												<option value="" class="fa">결혼여부 선택</option>
 												<option value="0" class="fa">미혼</option>
 												<option value="1" class="fa">기혼</option>
@@ -140,7 +151,7 @@
 									</tr>
 									<tr>
 										<th>보훈대상</th>
-										<td><select class="selectpicker" id="bohonState" name="bohoonState">
+										<td><select class="float-control" id="bohonState" name="bohoonState">
 												<option value="" class="fa">보훈대상 선택</option>
 												<option value="0" class="fa">비대상</option>
 												<option value="1" class="fa">대상</option>
@@ -148,7 +159,7 @@
 									</tr>
 									<tr>
 										<th>고용지원금대상</th>
-										<td><select class="selectpicker" id="supportState" name="supportState">
+										<td><select class="float-control" id="supportState" name="supportState">
 												<option value="" class="fa">고용지원금대상 선택</option>
 												<option value="0" class="fa">비대상</option>
 												<option value="1" class="fa">대상</option>
@@ -158,7 +169,7 @@
 									<tr>
 										<th>병역대상</th>
 										<td>
-											<select class="selectpicker" id="armyServiceState" name="armyServiceState"style="width: 10%">
+											<select class="float-control" id="armyServiceState" name="armyServiceState"style="width: 10%">
 													<option value="" class="fa">병역대상 선택</option>
 													<option value="0" class="fa">비대상</option>
 													<option value="1" class="fa">군필</option>
@@ -176,7 +187,7 @@
 							<div>
 								<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
 							</div>
-					</form>
+<!-- 					</form> -->
 							
 							
 						</div>
@@ -326,24 +337,10 @@
 										<tr>
 											<th>근무지역</th>
 											<td><select class="float-control">
-													<option class="fa" value="">지역선택</option>
-													<option class="fa" value="11">서울</option>
-													<option class="fa" value="21">부산</option>
-													<option class="fa" value="22">대구</option>
-													<option class="fa" value="23">인천</option>
-													<option class="fa" value="24">광주</option>
-													<option class="fa" value="25">대전</option>
-													<option class="fa" value="26">울산</option>
-													<option class="fa" value="29">세종</option>
-													<option class="fa" value="31">경기</option>
-													<option class="fa" value="32">강원</option>
-													<option class="fa" value="33">충북</option>
-													<option class="fa" value="34">충남</option>
-													<option class="fa" value="35">전북</option>
-													<option class="fa" value="36">전남</option>
-													<option class="fa" value="37">경북</option>
-													<option class="fa" value="38">경남</option>
-													<option class="fa" value="39">제주</option>
+													<option value="">지역선택</option>
+													<c:forEach var="city" items="${clist}">
+														<option class="fa" value="${city.cityCode}">${city.subName}</option>
+													</c:forEach>
 											</select></td>
 										</tr>
 										<tr>
@@ -414,7 +411,7 @@
 									<tbody>
 										<tr>
 											<th>항목선택</th>
-											<td><select class="selectpicker">
+											<td><select class="float-control">
 													<option class="fa" value="">항목선택</option>
 													<option class="fa" value="1">자격증/면허증</option>
 													<option class="fa" value="2">어학자격증</option>
@@ -423,18 +420,21 @@
 										</tr>
 										<tr>
 											<th>자격증/면허증</th>
-											<td><input type="text" class="float-control"
-												placeholder="1개의 입력란에 하나의 자격증만 입력해주세요" style="width: 50%">
+											<td>
+											
+												<input type="text" class="float-control" id="certification" style="width: 50%">
+											
 											</td>
 										</tr>
 										<tr>
 											<th>발행처</th>
-											<td><input type="text" class="float-control"
-												style="width: 50%"></td>
+											<td>
+												<input type="text" class="float-control" id="licensingDepartment"style="width: 50%">
+											</td>
 										</tr>
 										<tr>
 											<th>합격구분</th>
-											<td><select class="selectpicker">
+											<td><select class="float-control">
 													<option class="fa" value="">합격구분</option>
 													<option class="fa" value="0">1차합격</option>
 													<option class="fa" value="1">2차합격</option>
@@ -458,7 +458,8 @@
 									<tbody>
 										<tr>
 											<th>근무형태</th>
-											<td><select class="selectpicker">
+											<td>
+												<select class="float-control">
 													<option class="fa" value="">근무형태</option>
 													<option class="fa" value="0">정규직</option>
 													<option class="fa" value="1">교육생</option>
@@ -473,43 +474,37 @@
 													<option class="fa" value="10">해외취업</option>
 													<option class="fa" value="11">위촉직</option>
 													<option class="fa" value="12">프리랜서</option>
-											</select></td>
+												</select>
+											</td>
 										</tr>
 										<tr>
 											<th>희망연봉</th>
 											<td>
-												<select class="selectpicker">
+												<select class="float-control">
 													<option class="fa">회사내규에 따름</option>
-													<option class="fa">1800</option>
-													<option class="fa">2000</option>
-													<option class="fa">2200</option>
-													<option class="fa">2400</option>
-													<option class="fa">2600</option>
-													<option class="fa">2800</option>
-													<option class="fa">3000</option>
-													<option class="fa">3200</option>
-													<option class="fa">3400</option>
-													<option class="fa">3600</option>
-													<option class="fa">3800</option>
-													<option class="fa">4000</option>
-													<option class="fa">5000</option>
-													<option class="fa">6000</option>
-													<option class="fa">7000</option>
-													<option class="fa">8000</option>
-													<option class="fa">9000</option>
-													<option class="fa">1억원</option>
-													<option class="fa">1억원이상</option>
+													<c:forEach var="i" begin="1800" end="4000" step="200">
+														<option class="fa" value="${i}">${i}</option>
+													</c:forEach>
+													<c:forEach var="i" begin="5000" end="9000" step="1000">
+														<option class="fa" value="${i}">${i}</option>
+													</c:forEach>
+													<option class="fa" value="1억원이상">1억원이상</option>
 													<option class="fa">면접후 결정</option>
 											</select>
 											</td>
 										</tr>
 										<tr>
 											<th>희망 근무지역</th>
-											<td><select class="selectpicker">
-													<option class="fa">서울</option>
-											</select> <select class="selectpicker">
-													<option class="fa">강남구</option>
-											</select></td>
+											<td>
+												<select class="float-control" id="hope_city">
+													<option value="">지역선택</option>
+													<c:forEach var="city" items="${clist}">
+														<option class="fa" value="${city.cityCode}">${city.subName}</option>
+													</c:forEach>
+												</select>
+												<select class="float-control" id="hope_area">
+												</select>
+											</td>
 										</tr>
 										<tr>
 											<th>희망 직종</th>
@@ -536,6 +531,11 @@
 	<!-- </form> -->
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp"%>
 <script>
+
+
+
+
+
 function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -619,6 +619,8 @@ $(document).ready(function(){
 		 $('#direct_input').removeAttr("checked","checked");
 		 $('#repitation_removal').attr("disabled","disabled");
 		 $('#direct_input').attr("disabled","disabled");
+		 $('#emyear').val("");
+		 $('#emmonth').val("");
 		 $('#emyear').attr("disabled","disabled");
 		 $('#emmonth').attr("disabled","disabled");
 	 });
@@ -651,18 +653,103 @@ $(document).ready(function(){
 			$("#religion").html(html);
 		}
 	}); */
-	
-	/* $.ajax({
-		url:"${pageContext.request.contextPath}/mypage/areaSelect.do",
-		success:function(data){
-			var html="";
-			for(var i = 0;i<data.length;i++){
-				html += "<option value=+data[i]."
+
+	/* $('.selectpicker').selectpicker(); */
+	$("#hope_city").on("change",function(e){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/mypage/areaSelect.do?cityCode="+$("#hope_city").val(),
+			success:function(data){
+				data = JSON.parse(data)
+				var html="";
+				for(var i = 0;i<data.length;i++){
+					html += "<option value="+data[i].areaCode+">"+data[i].name+"</option>";
+				}
+				$("#hope_area").html(html);
 			}
-		}
-			
-	})
-	 */
+		});
+	});
+	
+/* 	$('#certification').on("click",function(e){
+		$(this).append("")
+	}); */
+	
+	/* $('#certification').on("click",function(e){
+		$.ajax({
+			type:"POST",
+			url:"${pageContext.request.contextPath}/mypage/certificationSelect.do",
+			 data:'keyword='+$("#certification").val(),
+			success:function(data){
+				console.log(data);
+			}
+		})
+	});  */
+	
+/* 	 $('#certification').autocomplete({
+		source : function(request,response){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/mypage/certificationSelect.do",
+				dataType:"json",
+				data:{
+					term: request.term
+				},
+				success:function(data){
+					
+
+					response(data.name);
+				}
+			});
+		},
+		minLength:1
+	}); */
+	
+	
+	 $( "#certification" ).autocomplete({
+	        source : function( request, response ) {
+	             $.ajax({
+	                    type: 'post',
+	                    url: "${pageContext.request.contextPath}/mypage/certificationSelect.do",
+	                    dataType: "json",
+	                    data: { "name" : request.term },
+	                    success: function(data) {
+	                    
+	                        //서버에서 json 데이터 response 후 목록에 뿌려주기 위함
+	                          response(
+	                             $.map(data, function(item) {
+	                                return {
+	                                    label: item.name +" "+ item.licensingDepartmentNo,
+	                                    value: item.name,
+	                                    no: item.licensingDepartmentNo
+	                                }
+	                            })
+	                            )
+	                    	}
+	                    });
+	               },
+	      
+	        minLength: 2,
+	        select: function( event, ui ) {
+	        	 
+	            
+	             $.ajax({
+	            	 url:"${pageContext.request.contextPath}/mypage/licensingDepartment.do?licensingDepartmentNo="+ui.item.no,
+	            	 dataType:"json",
+	            	 success: function(data){
+	            		 console.log(data);
+	            		 $("#licensingDepartment").val(data.name);
+	            	 }
+	             });
+	             
+	        }
+       
+	
+	    });
+	
+	
+	
+	
+	
+	
+	 
 }); 
 
 

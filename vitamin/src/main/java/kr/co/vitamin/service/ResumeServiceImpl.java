@@ -7,7 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.vitamin.repository.mapper.ResumeMapper;
+import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.ArmyService;
+import kr.co.vitamin.repository.vo.Certificate;
+import kr.co.vitamin.repository.vo.City;
+import kr.co.vitamin.repository.vo.LicensingDepartment;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 
 @Service
@@ -65,10 +69,24 @@ public class ResumeServiceImpl implements ResumeService{
 		return mapper.selectArmyState(armyServiceState);
 	}
 
-	
-	
-	
+	@Override
+	public List<City> citySelect() throws Exception {
+		return mapper.selectCity();
+	}
 
-	
+	@Override
+	public List<Area> areaSelect(Integer cityCode) throws Exception {
+		return mapper.selectArea(cityCode);
+	}
+
+	@Override
+	public List<Certificate> certificationSelect(String name) throws Exception {
+		return mapper.selectCertification(name);
+	}
+
+	@Override
+	public LicensingDepartment licensingDepartmentSelect(Integer licensingDepartmentNo) throws Exception {
+		return mapper.selectLicensingDepartment(licensingDepartmentNo);
+	}
 
 }

@@ -7,10 +7,15 @@ import javax.xml.ws.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.ArmyService;
+import kr.co.vitamin.repository.vo.Certificate;
+import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.ConditionSelection;
+import kr.co.vitamin.repository.vo.LicensingDepartment;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.service.ResumeService;
 
@@ -96,8 +101,12 @@ public class ResumeController {
 	
 	
 	@RequestMapping("/resumeForm.do")
-	public void resumeForm() throws Exception{
+	public ModelAndView resumeForm() throws Exception{
 		System.out.println("resumeForm 들어옴");
+		ModelAndView mav = new ModelAndView();
+		List<City> clist = resumeService.citySelect();
+		mav.addObject("clist", clist);
+		return mav;
 	}
 	
 	
@@ -107,6 +116,32 @@ public class ResumeController {
 		resumeService.resumeInsert(resumeBaseInfo, armyService);
 		
 		return "redirect:/mypage/resumeList.do";
+	}
+	
+	@RequestMapping("/areaSelect.do")
+	@ResponseBody
+	public List<Area> areaSelect(Integer cityCode) throws Exception{
+		System.out.println("areaSelect 들어옴");
+		List<Area> alist = resumeService.areaSelect(cityCode);
+		for (Area area : alist) {
+			System.out.println(area.getName());
+		}
+		return alist;
+	}
+	
+	@RequestMapping("/certificationSelect.do")
+	@ResponseBody
+	public List<Certificate> certificationSelect(String name) throws Exception{
+		List<Certificate> certifilist = resumeService.certificationSelect(name);
+		return certifilist;
+	}
+	
+	@RequestMapping("/licensingDepartment.do")
+	@ResponseBody
+	public LicensingDepartment licensingDepartmentSelect(Integer licensingDepartmentNo) throws Exception{
+		System.out.println("licensingDepartmentNo"+licensingDepartmentNo);
+		LicensingDepartment ld = resumeService.licensingDepartmentSelect(licensingDepartmentNo);
+		return ld;
 	}
 	
 	
