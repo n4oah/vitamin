@@ -30,13 +30,14 @@
 					</div>
 					<c:forEach items="${cityList }" var="city">
 							<div class="optContainer" id="ddCity${city.cityCode }">
-							    <label><input type="checkbox" class="checked"><b>${city.subName }전체</b></label>
+							    <label>
+							    <input type="checkbox" class="checked" name="cityCode" id="${city.cityCode }"><b>${city.subName }전체</b></label>
 								
 							    <h5>지역</h5>
 							    
 							    <c:forEach items="${areaList }" var="area">
 							    	<c:if test="${area.cityCode eq city.cityCode}">
-								    	<label class="area"><input type="checkbox">${area.name }</label>
+								    	<label class="area"><input type="checkbox" name="areaCode" id="${area.areaCode }">${area.name }</label>
 								    </c:if>
 							    </c:forEach>
 						    </div>
@@ -45,47 +46,49 @@
 					<div class="detail_wrapper">
 						<div class="career">
 							<Strong class="career_title">경력</Strong>
-								<span><input type="checkbox" name="careerState" value = 0>신입</span>
-								<span><input type="checkbox" name="careerState" value = 1>경력</span>
+								<span><input type="checkbox" name="careerState" value = 1>신입</span>
+								<span><input type="checkbox">경력</span>
 					
-							<span class="dropdown">
-								 <span class="select">
-								 	<input type="hidden" name="careerStart">
-	        						<span>기간 시작</span>
-				         			<i class="fa fa-chevron-down"></i>
-				        		</span>
-				        		
-				        		<input type="hidden">
-				        			<ul class="dropdown-menu">
-				        			<li>기간 시작</li>
-				        			<c:forEach begin="1" end="20" var="i">
-				          				<li id="${i}">${i }년 이상</li>
-				          			</c:forEach>
-				        			</ul>
+							<span class="career_period">
+								<span class="dropdown">
+									 <span class="select">
+									 	<input type="hidden" name="careerStart" value="-1">
+		        						 <span>기간 시작</span>
+					         			 <i class="fa fa-chevron-down"></i>
+					        		</span>
+					        		
+					        		<ul class="dropdown-menu">
+					        			<li id="-1" class="startDefault">기간 시작</li>
+					        			<c:forEach begin="1" end="20" var="i">
+					          				<li id="${i }">${i }년 이상</li>
+					          			</c:forEach>
+					        		</ul>
+								</span>
+								
+								<span class="water" style="margin:0 2%;">
+									<span class="ex_label abcd">~</span>
+								</span>
+								
+								<span class="dropdown">
+				        			 <span class="select">
+									 	<input type="hidden" name="careerEnd" value="-1">
+		        						<span>기간 종료</span>
+					         			<i class="fa fa-chevron-down"></i>
+					        		</span>
+					        		
+					        		<ul class="dropdown-menu">
+					        			<li id="-1" class="endDefault">기간 종료</li>
+					        			<c:forEach begin="1" end="20" var="i">
+					          				<li id="${i }">${i }년 이하</li>
+					          			</c:forEach>
+					        		</ul>
+								</span>
 							</span>
+							
+							
 							
 							<span>
-								<Strong>~</Strong>
-							</span>
-							
-							<span class="dropdown">
-								 <span class="select">
-								 	<input type="hidden" name="careerEnd">
-	        						<span>기간 종료</span>
-				         			<i class="fa fa-chevron-down"></i>
-				        		</span>
-				        		
-				        		<input type="hidden">
-				        			<ul class="dropdown-menu">
-				        				<li>기간 종료</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이하</li>
-				          				</c:forEach>
-				        			</ul>
-							</span>
-							
-							<span>
-								<input type="checkbox" value = 2 class="career_none"> 경력무관						
+								<input type="checkbox" value ="-1" class="career_none"> 경력무관						
 							</span>
 						</div>
 						
@@ -94,21 +97,23 @@
 							
 							<span class="dropdown">
 								 <span class="select">
-	        						 <span>전체</span>
-				         			 <i class="fa fa-chevron-down"></i>
+								 	<input type="hidden" name="schoolLevel" value="-1">
+	        						<span>전체</span>
+				         			<i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="careerStart">
-				        			<ul class="dropdown-menu">
-				        			<li>전체</li>
-				        			<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이상</li>
-				          			</c:forEach>
+				        		<ul class="dropdown-menu">
+				        			<li id="-1">전체</li>
+					        			<c:forEach var="sl" items="${schoolLevelList }">
+					        				<c:if test="${sl.level ne 0}">
+					          					<li id="${sl.level}">${sl.graduateState} 이상</li>
+					          				</c:if>
+					          			</c:forEach>
 				        			</ul>
 							</span>
 							
-							<span>
-								<Strong>~</Strong>
+							<span class="water" style="margin:0 2%;">
+									<span class="ex_label abcd">~</span>
 							</span>
 							
 							<span class="dropdown">
