@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 #favorites {
 	background-color: rgba(0, 0, 0, 0);
 	border: none;
@@ -90,10 +91,11 @@ favorite-star[hover] {
 	border: 1px solid #cccccc;
 }
 
-.detail_wrapper {
+div.detail_wrapper {
 	padding: 15px;
 	border: 1px solid #cccccc;
 	border-top: 0px;
+	margin-bottom:2%;
 }
 input[type="radio"] {
 	margin-left: 2px;
@@ -369,4 +371,11 @@ span.dropdown .dropdown-menu li:hover {
 }
 span.dropdown .dropdown-menu li:active {
     background-color: #e2e2e2
+}
+
+
+
+
+div.center-block {
+	text-align: center;
 }

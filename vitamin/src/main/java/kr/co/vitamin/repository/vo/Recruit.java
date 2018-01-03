@@ -2,15 +2,70 @@ package kr.co.vitamin.repository.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Recruit {
 	
 	private MultipartFile attachFile;
 	
+	private String formServiceName; 
+	
+	private String subName;
+	private String name;
 	
 	
-	   public Integer getRecruitCount() {
+	public String getSubName() {
+		return subName;
+	}
+
+	public void setSubName(String subName) {
+		this.subName = subName;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFormServiceName() {
+		return formServiceName;
+	}
+
+	public void setFormServiceName(String formServiceName) {
+		this.formServiceName = formServiceName;
+	}
+
+	//  접수기간 시작
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date recruitDateStart;
+
+    //  접구기간 끝
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    private Date recruitDateEnd;
+
+    
+    
+	public Date getRecruitDateStart() {
+		return recruitDateStart;
+	}
+
+	public void setRecruitDateStart(Date recruitDateStart) {
+		this.recruitDateStart = recruitDateStart;
+	}
+
+	public Date getRecruitDateEnd() {
+		return recruitDateEnd;
+	}
+
+	public void setRecruitDateEnd(Date recruitDateEnd) {
+		this.recruitDateEnd = recruitDateEnd;
+	}
+
+	public Integer getRecruitCount() {
 		return recruitCount;
 	}
 
@@ -80,11 +135,6 @@ public class Recruit {
 	    //  우대조건
 	    private String 우대조건;
 
-	    //  접수기간 시작
-	    private String recruitDateStart;
-
-	    //  접구기간 끝
-	    private String recruitDateEnd;
 
 	    //  1이면 비타민 양식 2이면 회사 이력서 방식
 	    private Integer recruitForm;
@@ -230,21 +280,6 @@ public class Recruit {
 	    }
 
 	 
-	    public String getRecruitDateStart() {
-			return recruitDateStart;
-		}
-
-		public void setRecruitDateStart(String recruitDateStart) {
-			this.recruitDateStart = recruitDateStart;
-		}
-
-		public String getRecruitDateEnd() {
-			return recruitDateEnd;
-		}
-
-		public void setRecruitDateEnd(String recruitDateEnd) {
-			this.recruitDateEnd = recruitDateEnd;
-		}
 
 		public Integer getRecruitForm() {
 	        return recruitForm;
@@ -320,8 +355,6 @@ public class Recruit {
 	        this.formService = param.getFormService();
 	        this.major = param.getMajor();
 	        this.우대조건 = param.get우대조건();
-	        this.recruitDateStart = param.getRecruitDateStart();
-	        this.recruitDateEnd = param.getRecruitDateEnd();
 	        this.recruitForm = param.getRecruitForm();
 	        this.recruitFormFileNo = param.getRecruitFormFileNo();
 	        this.addressNo = param.getAddressNo();

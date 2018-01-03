@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -211,13 +212,13 @@
 						        <th class="col-md-4">제목</th>
 						        <th class="col-md-1">지원자격</th>
 						        <th class="col-md-1">근무조건</th>
-						        <th class="col-md-1">마감일·등록일</th>
+						        <th class="col-md-1">접수일·마감일</th>
 						        <th align="center" class="col-md-1">즉시지원</th>
 					    	</tr>
 				   		 </thead>
 				   		 
 				   		 
-				   		<c:forEach begin="1" end="10" var="i">
+				   		<c:forEach items="${recruitList }" var="rlist">
 					    	<tbody>
 								<tr class="outstand_point point_line">
 	           						<td>
@@ -226,34 +227,93 @@
 	        						</td>
 	        						
 	        						<td class="company_nm">
-	        							<a class="str_tit" onclick="s_trackApply(this, 'area_recruit', 'general');" title="(주)에즈금융서비스" href="/zf_user/jobs/view?rec_idx=32503885"><span>(주)에즈금융서비스</span></a>                         
+	        							<a class="str_tit" onclick="s_trackApply(this, 'area_recruit', 'general');" title="(주)회사명" href="/zf_user/jobs/view?rec_idx=32503885"><span>(주)회사명</span></a>                         
 	        							<div class="icon"></div>
 	    							</td>
 	    							
 	    							<td class="notification_info">
 		        						<div class="job_tit">
 									        <span class="prd_icon_02"></span>            
-									        <a class="str_tit" id="rec_link_32503885" onclick="s_trackApply(this, 'area_recruit', 'general');" title="2017 AZ금융서비스 하반기 신입사원(FC) 채용" href="/zf_user/jobs/view?rec_idx=32503885&amp;adsCategoryItem=effect_bold,icon&amp;" onmousedown="Saramin.clickAds(32503885, 'ads_category=highlight_effect&amp;ads_item=effect_bold,icon')"><span>2017 AZ금융서비스 하반기 신입사원(FC) 채용</span></a>             
+									        <a class="str_tit" id="rec_link_32503885" onclick="s_trackApply(this, 'area_recruit', 'general');" 
+									           title="${rlist.title }" href="/zf_user/jobs/view?rec_idx=32503885&amp;adsCategoryItem=effect_bold,icon&amp;" onmousedown="Saramin.clickAds(32503885, 'ads_category=highlight_effect&amp;ads_item=effect_bold,icon')">
+									        
+									        <span>${rlist.title }</span></a>             
 									        
 		        						</div>
 		        						
+		        						
+		        						
 		        						<p class="job_sector">
-		            					<span>일반영업</span><span>금융·보험영업</span> 외        </p>
+		            					<!-- <span>일반영업</span><span>금융·보험영업</span> 외  -->
+		            						<span>${rlist.assignedTask }</span>
+		            					      
+		            					</p>
+		            					
 	                    			</td>
 								    
 								    <td class="recruit_condition">
-								        <p class="career">신입 · 경력</p>
-								        <p class="education">학력무관</p>
+								    	<p class="career">
+									    	<c:choose>
+									    		<c:when test="${rlist.careerState eq 1 and rlist.careerStart ne -1}">
+									    			신입 · 경력
+									    		</c:when>
+									    		<c:when test="${rlist.careerState eq 1 }">
+									    			신입
+									    		</c:when>
+									    		<c:when test="${rlist.careerStart ne -1 }">
+									    			경력
+									    		</c:when>
+									    		<c:otherwise>
+									    			경력 무관
+									    		</c:otherwise>
+									    	</c:choose>
+								    	</p>
+								    
+								    
+								    	<p class="education">
+									        <c:choose>
+									        	<c:when test="${rlist.schoolLevel eq 1 }">
+													고등학교 졸업 이상						        	
+									        	</c:when>
+									        	
+									        	<c:when test="${rlist.schoolLevel eq 2 }">
+													대학교 졸업 이상						        	
+									        	</c:when>
+									        	
+									        	<c:when test="${rlist.schoolLevel eq 3 }">
+													대학원 석사 졸업 이상						        	
+									        	</c:when>
+									        	
+									        	<c:when test="${rlist.schoolLevel eq 4 }">
+													대학원 박사 졸업 이상						        	
+									        	</c:when>
+									        	
+									        	<c:otherwise>
+									        		학력무관
+									        	</c:otherwise>
+									        </c:choose>
+								        </p>
 								    </td>
 								    
+								    
+								    
+								    
 								    <td class="company_info">
-	                    				<p class="employment_type">계약직 · 위촉직</p>
-	                            		<p class="work_place">서울전체</p>
+	                    				<p class="employment_type">
+	                    					${rlist.formServiceName }
+	                    				</p>
+	                    				
+	                    				
+	                            		<p class="work_place">${rlist.subName} ${rlist.name }</p> 
 	                    			</td>
-	    							<td class="support_info">
-	       								<p class="deadlines">~ 12/21(목)
-	       									<span class="reg_date">(19일 전 등록)</span>
+	    							<td class="support_info" >
+	       								<p class="recruit_date_start" style="padding-left:2px">
+	       									<fmt:formatDate value="${rlist.recruitDateStart }" pattern="yyyy-MM-dd" />
 	       								</p>
+	       								
+	       								<p class="recruit_date_end" style="padding-left:2px">
+	       									<fmt:formatDate value="${rlist.recruitDateEnd }" pattern="yyyy-MM-dd" />
+	    								</p>
 	    							</td>
 	    							
 	    							<td class="support_submit">
@@ -261,7 +321,7 @@
 	        								<button class="sri_btn_xs" title="클릭하면 입사지원할 수 있는 창이 뜹니다." onclick="try{quickApplyForm('32503885','','t_category=area_recruit&amp;t_content=general', ''); return false;} catch (e) {}; return false;" onmousedown="try{n_trackEvent('apply','list','quick_apply');}catch(e){}">
 	        									<span class="sri_btn_immediately">즉시지원</span>
 	        								</button>
-	        							</p>   
+	        							</p>
 	    							</td>
 								</tr>    
 							</tbody>

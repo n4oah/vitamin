@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import kr.co.vitamin.repository.mapper.SearchMapper;
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.City;
+import kr.co.vitamin.repository.vo.Recruit;
 
 @Service
 public class SearchServiceImpl implements SearchService{
@@ -23,5 +24,10 @@ public class SearchServiceImpl implements SearchService{
 	@Override
 	public List<Area> selectArea() throws Exception {
 		return searchMapper.selectArea();
+	}
+	
+	@Override
+	public List<Recruit> selectRecruit() throws Exception {
+		return searchMapper.selectRecruit();
 	}
 }
