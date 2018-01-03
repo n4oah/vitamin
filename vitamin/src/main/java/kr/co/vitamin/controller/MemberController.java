@@ -159,16 +159,14 @@ public class MemberController {
 		
 		if(memVo == null) {
 			redirectAttributes.addFlashAttribute("errorMsg", "아이디가 존재하지 않거나, 비밀번호가 틀렷습니다.");
-			System.out.println("비번");
 		}
 		else {
 			if(memVo.getEmailTokenStatus() == 2) {
 				session.setAttribute("user", memVo);
 				
 				viewUrl = "redirect:/main.do";
-			} else {				
+			} else {
 				redirectAttributes.addFlashAttribute("errorMsg", "이메일 인증이 완료되지 않았습니다, 7일 이내로 이메일을 확인해주세요.");
-				System.out.println("이메일");
 			}
 		}
 		return viewUrl;
