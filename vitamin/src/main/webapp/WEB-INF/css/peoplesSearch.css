@@ -102,10 +102,10 @@ input[type="radio"] {
 	margin-right: 2px;
 }
 
-.career > span {
+.career > span:not(.river), .age > span:not(.river) {
 	margin-right: 2%
 }
-.education > span {
+.education > span:not(.river) {
 	margin-right: 2%;
 	margin-bottom: 10px;
 	margin-top: 10px;
@@ -317,14 +317,9 @@ span.dropdown {
   text-align: left
 }
 span.dropdown .select {
-	border: 1px solid #ccc;
     cursor: pointer;
     display: block;
-    padding: 10px;
-    
-    border-radius: 4px;
-    height: 34px;
-    padding: 7px;
+    padding: 10px
 }
 span.dropdown .select i {
     font-size: 13px;
@@ -378,9 +373,16 @@ span.dropdown .dropdown-menu li:active {
     background-color: #e2e2e2
 }
 
-
-
-
 div.center-block {
 	text-align: center;
+}
+
+.col-md-offset-3 {
+	margin-left: 12%;
+}
+.river {
+	margin-left: -2%;
+}
+input[type=checkbox]:checked + * {
+	color: #000;
 }

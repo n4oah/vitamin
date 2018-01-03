@@ -9,11 +9,13 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Insert title here</title>
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/companySearch.css">
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 		 
 		<script src="https://use.fontawesome.com/942e94bfdb.js"></script>
 		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/peoplesSearch.css">
+		<script src="${pageContext.request.contextPath}/js/waitMe.js"></script>
+		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/waitMe.css">
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
@@ -24,71 +26,55 @@
 					<div class="row" style="margin: 0px">
 						<div class="city_wrapper">
 							<c:forEach items="${cityList }" var="city">
-								<span class="showSelect btn-secondary" style="float:left;" data-target="#ddCity${city.cityCode}" id="ddCityBtn">${city.subName}</span>
+								<span class="showSelect btn-secondary" style="float:left;" data-target="#ddCity${city.cityCode}" id="ddCityBtn" data-no="${city.cityCode}">${city.subName}</span>
 							</c:forEach>
 						</div>
 					</div>
-					<c:forEach items="${cityList }" var="city">
-							<div class="optContainer" id="ddCity${city.cityCode }">
-							    <label>
-							    <input type="checkbox" class="checked" name="cityCode" id="${city.cityCode }"><b>${city.subName }전체</b></label>
-								
-							    <h5>지역</h5>
-							    
-							    <c:forEach items="${areaList }" var="area">
-							    	<c:if test="${area.cityCode eq city.cityCode}">
-								    	<label class="area"><input type="checkbox" name="areaCode" id="${area.areaCode }">${area.name }</label>
-								    </c:if>
-							    </c:forEach>
-						    </div>
-					</c:forEach>
 					
 					<div class="detail_wrapper">
 						<div class="career">
 							<Strong class="career_title">경력</Strong>
-								<span><input type="checkbox" name="careerState" value = 1>신입</span>
-								<span><input type="checkbox">경력</span>
+								<span><input type="checkbox" name="careerState" value = 0>신입</span>
+								<span><input type="checkbox" name="careerState" value = 1>경력</span>
 					
-							<span class="career_period">
-								<span class="dropdown">
-									 <span class="select">
-									 	<input type="hidden" name="careerStart" value="-1">
-		        						 <span>기간 시작</span>
-					         			 <i class="fa fa-chevron-down"></i>
-					        		</span>
-					        		
-					        		<ul class="dropdown-menu">
-					        			<li id="-1" class="startDefault">기간 시작</li>
-					        			<c:forEach begin="1" end="20" var="i">
-					          				<li id="${i }">${i }년 이상</li>
-					          			</c:forEach>
-					        		</ul>
-								</span>
-								
-								<span class="water" style="margin:0 2%;">
-									<span class="ex_label abcd">~</span>
-								</span>
-								
-								<span class="dropdown">
-				        			 <span class="select">
-									 	<input type="hidden" name="careerEnd" value="-1">
-		        						<span>기간 종료</span>
-					         			<i class="fa fa-chevron-down"></i>
-					        		</span>
-					        		
-					        		<ul class="dropdown-menu">
-					        			<li id="-1" class="endDefault">기간 종료</li>
-					        			<c:forEach begin="1" end="20" var="i">
-					          				<li id="${i }">${i }년 이하</li>
-					          			</c:forEach>
-					        		</ul>
-								</span>
+							<span class="dropdown">
+								 <span class="select">
+								 	<input type="hidden" name="careerStart">
+	        						<span>기간 시작</span>
+				         			<i class="fa fa-chevron-down"></i>
+				        		</span>
+				        		
+				        		<input type="hidden">
+				        			<ul class="dropdown-menu">
+				        			<li>기간 시작</li>
+				        			<c:forEach begin="1" end="20" var="i">
+				          				<li id="${i}">${i }년 이상</li>
+				          			</c:forEach>
+				        			</ul>
 							</span>
 							
+							<span class="river">
+								<Strong>~</Strong>
+							</span>
 							
+							<span class="dropdown">
+								 <span class="select">
+								 	<input type="hidden" name="careerEnd">
+	        						<span>기간 종료</span>
+				         			<i class="fa fa-chevron-down"></i>
+				        		</span>
+				        		
+				        		<input type="hidden">
+				        			<ul class="dropdown-menu">
+				        				<li>기간 종료</li>
+				          				<c:forEach begin="1" end="20" var="i">
+				          				<li>${i }년 이하</li>
+				          				</c:forEach>
+				        			</ul>
+							</span>
 							
 							<span>
-								<input type="checkbox" value ="-1" class="career_none"> 경력무관						
+								<input type="checkbox" value = 2 class="career_none"> 경력무관						
 							</span>
 						</div>
 						
@@ -97,23 +83,21 @@
 							
 							<span class="dropdown">
 								 <span class="select">
-								 	<input type="hidden" name="schoolLevel" value="-1">
-	        						<span>전체</span>
-				         			<i class="fa fa-chevron-down"></i>
+	        						 <span>전체</span>
+				         			 <i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<ul class="dropdown-menu">
-				        			<li id="-1">전체</li>
-					        			<c:forEach var="sl" items="${schoolLevelList }">
-					        				<c:if test="${sl.level ne 0}">
-					          					<li id="${sl.level}">${sl.graduateState} 이상</li>
-					          				</c:if>
-					          			</c:forEach>
+				        		<input type="hidden" name="careerStart">
+				        			<ul class="dropdown-menu">
+				        			<li>전체</li>
+				        			<c:forEach begin="1" end="20" var="i">
+				          				<li>${i }년 이상</li>
+				          			</c:forEach>
 				        			</ul>
 							</span>
 							
-							<span class="water" style="margin:0 2%;">
-									<span class="ex_label abcd">~</span>
+							<span class="river">
+								<Strong>~</Strong>
 							</span>
 							
 							<span class="dropdown">
@@ -169,11 +153,30 @@
 				         			 <i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="age_count">
+				        		<input type="hidden" name="ageStart">
 				        			<ul class="dropdown-menu">
 				        				<li>전체</li>
 				          				<c:forEach begin="1" end="20" var="i">
 				          				<li>${i }년 이하</li>
+				          				</c:forEach>
+				        			</ul>
+							</span>
+							
+							<span class="river">
+								<Strong>~</Strong>
+							</span>
+							
+							<span class="dropdown">
+								 <span class="select">
+	        						 <span>전체</span>
+				         			 <i class="fa fa-chevron-down"></i>
+				        		</span>
+				        		
+				        		<input type="hidden" name="ageEnd">
+				        			<ul class="dropdown-menu">
+				        				<li>전체</li>
+				          				<c:forEach begin="1" end="20" var="i">
+				          				<li id="${i }">${i }년 이하</li>
 				          				</c:forEach>
 				        			</ul>
 							</span>
@@ -352,16 +355,25 @@
 	
 	
 	<script>
+		$(document).ajaxStart(function () {waitEffect();})
+		.ajaxStop(function () {$("body").waitMe("hide");});
+
+		function waitEffect() {
+			$("body").waitMe({
+				effect : "bounce",
+				text : "Wait",
+				bg : "rgba(0, 0, 0, 0.5)",
+				color : "white"
+			});
+		}
+		
+		var path = "${pageContext.request.contextPath}";
 		$(function() {
 			let anim = $('.showSelect').css('transition');
 			
 			let length = $('.showSelect').length;
 			let ss = $('.city_wrapper > span.showSelect');
 			ss.css('transition', 'none');
-			console.log(typeof(ss.parent().width()));
-			console.log(typeof(length));
-			
-			console.log(ss.parent().width() / length);
 			ss.width((ss.parent().width() / length) - 24 - 2);
 	
 			//ss.css('transition', anim);
@@ -384,11 +396,37 @@
 		});
 	
 		$(".showSelect").click(function () {
-			$(this).toggleClass("open").siblings("span").removeClass("open");
-			$($(this).data("target")).fadeToggle("fast").siblings("div.optContainer").hide();
+			var no = $(this).attr("data-no");
+			if ($("#ddCity"+no).length <= 0) {
+				$.ajax({
+					type: "post",
+					data: "no="+no,
+					url: path+"/search/areaList.do",
+					success: function (city) {
+						city = JSON.parse(city);
+						
+						var div = $("<div>").addClass("optContainer").attr("id", "ddCity"+city.cityCode).css("display", "block")
+					    .append($("<label>")
+					    	.append($("<input>").addClass("checked").attr("type", "checkbox"))
+					    	.append($("<b>").text(city.subName+"전체")))
+				    	.append($("<h5>").text("지역"));
+						
+						city.areaList.forEach(function (area) {
+					    	div.append($("<label>").addClass("area")
+					    			.append($("<input>").attr("type", "checkbox"))
+					    			.append($("<b>").text(area.name)));
+					    });
+					    
+					    $(".search_wrapper > .row").after(div);
+					}
+				});
+			}
+
+			$("#ddCity"+no).toggle();
+			$(".optContainer:not("+"#ddCity"+no+")").hide();
 		});
 		
-		$(".checked").click(function () {
+		$(".checked").live("click", function () {
 			var chk = $(this).prop("checked");
 			$(this).parent().parent().find(":checkbox").prop({"checked": chk});
 			if (chk) {
@@ -396,8 +434,7 @@
 			} else {
 				$(this).parent().parent().find(":checkbox").parent().removeClass("checked");
 			}
-		});
-		
+		});		
 		
 		/*Dropdown Menu*/
 		$('span.dropdown').click(function () {

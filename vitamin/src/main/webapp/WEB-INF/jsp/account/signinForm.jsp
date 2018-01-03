@@ -41,7 +41,7 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12">
-										<form id="signin-form" class="sign-form" action="${pageContext.request.contextPath}/member/signin.do" method="post" role="form" style="display: block;">
+										<form id="signin-form" class="sign-form" action="${pageContext.request.contextPath}/account/signin.do" method="post" role="form" style="display: block;">
 											<div class="form-group">
 												<input type="text" name="id" id="signin_id" class="form-control" placeholder="아이디">
 											</div>

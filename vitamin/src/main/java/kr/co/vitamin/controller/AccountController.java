@@ -40,16 +40,16 @@ import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.Terms;
 import kr.co.vitamin.repository.vo.member.Member;
 import kr.co.vitamin.repository.vo.member.MemberSignup;
-import kr.co.vitamin.service.MemberService;
+import kr.co.vitamin.service.AccountService;
 import kr.co.vitamin.service.SchoolLevelService;
 
 @Controller
-@RequestMapping("/member")
-public class MemberController {
+@RequestMapping("/account")
+public class AccountController {
 	@Autowired
 	private SchoolLevelService schoolService;
 	@Autowired
-	private MemberService memberService;
+	private AccountService accountService;
 	@Autowired
 	private EmailSender email;
 	
@@ -96,10 +96,13 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/signup.do", method=RequestMethod.POST)
-	public String signup(MemberSignup memberSignupVO, Model model, HttpServletRequest request) throws Exception {
+	public String signup(MemberSignup memberSignupVO, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
+		String resultUrl = null;
+		
 		Member memberVO = memberSignupVO.getMember();
 		Address address = memberSignupVO.getAddress();
 		EmailToken emailTok = memberSignupVO.getEmailTok();
+		
 		if(idOverlapCheck(memberVO) == false) {
 			memberVO.setShaPwd(memberVO.getPwd());
 			memberVO.setEmailTokenStatus(1);
@@ -119,12 +122,15 @@ public class MemberController {
 			Date deleteDate = calendar.getTime();
 			emailTok.setDeleteDate(deleteDate);
 			
-			memberService.signupMember(memberVO, address, emailTok);
+			accountService.signupMember(memberVO, address, emailTok);
 			
 			model.addAttribute("n", "n");
-			return "redirect:/member/signupSuccess.do";
+			resultUrl = "redirect:/account/signupSuccess.do";
+		} else {
+			redirectAttributes.addFlashAttribute("errorMsg", "");
+			resultUrl = "redirect:/account/signupForm.do";
 		}
-		throw new Exception();
+		return resultUrl;
 	}
 	
 	@RequestMapping("signupSuccess.do")
@@ -135,12 +141,12 @@ public class MemberController {
 	@RequestMapping("/idOverlapChk.do")
 	@ResponseBody
 	public boolean idOverlapCheck(Member memberVO) throws Exception {
-		return memberService.getOverlapIdCheck(memberVO);
+		return accountService.getOverlapIdCheck(memberVO);
 	}
 	
 	@RequestMapping(value = "/certify.do", method=RequestMethod.GET)
 	public String emailCertify(EmailToken emailTok) throws Exception {
-		memberService.emailCertify(emailTok);
+		accountService.emailCertify(emailTok);
 		return "redirect:/member/signinForm.do";
 	}
 	
@@ -155,20 +161,18 @@ public class MemberController {
 		
 		memberVO.setShaPwd(memberVO.getPwd());
 		
-		Member memVo = memberService.login(memberVO);
+		Member memVo = accountService.login(memberVO);
 		
 		if(memVo == null) {
 			redirectAttributes.addFlashAttribute("errorMsg", "아이디가 존재하지 않거나, 비밀번호가 틀렷습니다.");
-			System.out.println("비번");
 		}
 		else {
 			if(memVo.getEmailTokenStatus() == 2) {
 				session.setAttribute("user", memVo);
 				
 				viewUrl = "redirect:/main.do";
-			} else {				
+			} else {
 				redirectAttributes.addFlashAttribute("errorMsg", "이메일 인증이 완료되지 않았습니다, 7일 이내로 이메일을 확인해주세요.");
-				System.out.println("이메일");
 			}
 		}
 		return viewUrl;

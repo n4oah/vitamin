@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 매퍼 연결 -->
-<mapper namespace="kr.co.vitamin.repository.mapper.MemberMapper">
+<mapper namespace="kr.co.vitamin.repository.mapper.AccountMapper">
 	<resultMap type="member" id="memberMap">
 		<result column="member_no" property="memberNo" />
 		<result column="id" property="id" />

@@ -50,6 +50,7 @@ public class RecruitController {
 		List<FormService> formServiceList = formServiceService.selectFormService();
 		System.out.println(formServiceList);
 		
+		
 		model.addAttribute("schoolLevelList", schoolLevelList);
 		model.addAttribute("formServiceList", formServiceList);
 	}
@@ -58,14 +59,12 @@ public class RecruitController {
 	public String recruitWrtie(Recruit recruit, Welfare welfare, Address address) throws Exception {
 		String filePath = "C:\\kang\\project\\vitamin\\src\\main\\webapp\\WEB-INF\\resumeFile";
 		int fileNo = -1;
-		
 
 		System.out.println(recruit);
 		System.out.println(welfare);
 		System.out.println(address);
 		
-		
-		
+		address.parseData();
 		
 		java.io.File fileDir = new java.io.File(filePath);
 		if(!fileDir.exists()) fileDir.mkdirs();
@@ -100,16 +99,8 @@ public class RecruitController {
 		
 		int addressNo = -1;
 		
-		if (address.getCityName() != null) {
-			Address addrCode = addressService.selectCode(address);
-			
-			address.setCityCode(addrCode.getCityCode());
-			address.setAreaCode(addrCode.getAreaCode());
-			
-			addressService.insertAddress2(address);
-			
-			addressNo = addressService.selectNextAutoIncrement();
-		}
+		addressService.insertAddress2(address);
+		addressNo = addressService.selectNextAutoIncrement();
 		
 		if (addressNo > -1)
 			recruit.setAddressNo(addressNo);

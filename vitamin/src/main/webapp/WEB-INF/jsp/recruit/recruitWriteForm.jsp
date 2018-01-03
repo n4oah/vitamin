@@ -19,7 +19,6 @@
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 <form class="form-horizontal" method="post" enctype="multipart/form-data">
-	
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container" style="margin-bottom: 100px;">
 		<div class="row">
@@ -378,7 +377,7 @@
 									<td>
 										<!-- <input type="text" name="phoneNumber" maxlength="13" placeholder="ex)010-1111-1111" style="width:50%; margin-right:1%">
 										 -->
-										 <input type="text" name="phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+dd (ddd) dddd-dddd" style="width:30%; margin-right:1%; float:left;">
+										 <input type="text" name="phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+82 (ddd) dddd-dddd" style="width:30%; margin-right:1%; float:left;">
 											<input type="checkbox" id="check">
 											<label for="check" class="loadcheck" id="loadcheck">
 											  <span class="entypo-cancel">&#10008;</span>
@@ -397,18 +396,13 @@
 									<td>
 										<div class="companyAddress">
 											<div style="margin-bottom:10px">
-												<input type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
+												<input type="text" name="postCode" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
 												<button type="button" onclick="sample6_execDaumPostcode()" style="height: 34px;">주소 찾기</button>
 											</div>
 											<div>
-												<input type="text" id="sample6_address" placeholder="주소 " style="width:50%;" readonly="readonly">
-												<input type="text" id="sample6_address2"  value="상세주소" placeholder="상세주소">
-											
-												<input type="hidden" name="postCode">
-												<input type="hidden" name="cityName">
-												<input type="hidden" name="areaName">
-												<input type="hidden" name="address">
-											
+												<input type="text" name="address1" id="sample6_address" placeholder="주소 " style="width:50%;" readonly="readonly">
+												<input type="text" name="address2" id="sample6_address2"  value="상세주소" placeholder="상세주소">
+												<input type="text" name="sigunguCode" id="sample6_sigunguCode" style="display: none;"/>
 											</div>
 										</div>
 									</td>
@@ -432,13 +426,14 @@
 </form>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
 	
+	<!-- <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script type="text/javascript"src="//dapi.kakao.com/v2/maps/sdk.js?appkey=316e409a59e29fd51e1dcbf1e4769f1c&libraries=services"></script> -->
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-	<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=316e409a59e29fd51e1dcbf1e4769f1c&libraries=services"></script>
+	<script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script>
 
 <script>
 	var path = '${pageContext.request.contextPath}';
-    function sample6_execDaumPostcode() {
+    /* function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -499,7 +494,7 @@
 				
 			}
 			}).open();
-	}
+	} */
     
 
     $("[type=file]").on("change", function(){
@@ -707,11 +702,16 @@
 	});
 	
 	$("input[name='phoneNumber']").keyup(function () {
-		if ($("input[name='phoneNumber']").val().length < 14) {
+		if(/^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/.test($(this).val())) {
+			$("#check").prop("checked", "true");
+		} else {
+			$("#check").removeAttr("checked");
+		}
+		/* if ($("input[name='phoneNumber']").val().length < 19) {
 			$("#check").removeAttr("checked");
 		} else {
 			$("#check").prop("checked", "true");
-		}
+		} */
 		/* if (!regExp.test($("input[name='phoneNumber']").val())) {
 			$("#check").removeAttr("checked");
 		} else {
@@ -738,14 +738,16 @@
 			return false;
 		}
 		
-		$("input[name='address']").val($("input#sample6_address").val().trim()+" "+$("input#sample6_address2").val().trim());
-
-		var inputList = $("input:not([name='id'], [name='pwd'], [name='welfareTitleList'], [name='welfareContentList'], [name='attachFile'])");
+		//$("input[name='address']").val($("input#sample6_address").val().trim()+" "+$("input#sample6_address2").val().trim());
+		var inputList = $("input:not([name='id'], [name='pwd'], [name='welfareTitleList'], [name='welfareContentList'], [name='attachFile'], #sample6_sigunguCode)");
 		
 		for (var i = 0; i < inputList.length; i++) {
 			var data = $(inputList[i]);
 			if (!data.val() || data.val() == "") {
 				alert("빈 칸이 있습니다.");
+				console.log(i);
+				console.log(data);
+				
 				return false;
 			}
 		}

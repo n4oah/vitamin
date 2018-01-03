@@ -1,10 +1,21 @@
 package kr.co.vitamin.repository.vo;
 
+import java.util.List;
+
 public class City {
 	private Integer cityCode;
 	private String name;
 	private String subName;
+	private List<Area> areaList;
 	
+
+	public List<Area> getAreaList() {
+		return areaList;
+	}
+
+	public void setAreaList(List<Area> areaList) {
+		this.areaList = areaList;
+	}
 
 	public String getSubName() {
 		return subName;
@@ -36,4 +47,10 @@ public class City {
 		this.name = param.getName();
 		this.subName = param.getSubName();
 	 }
+
+	@Override
+	public String toString() {
+		return "City [cityCode=" + cityCode + ", name=" + name + ", subName=" + subName + ", areaList=" + areaList
+				+ "]";
+	}
 }
