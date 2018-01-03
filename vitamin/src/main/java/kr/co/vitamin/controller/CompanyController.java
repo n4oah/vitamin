@@ -42,6 +42,6 @@ public class CompanyController {
 	@ResponseBody
 	@RequestMapping("/reviewPlus.do")
 	public List<Review> reviewPlus(Review review) throws Exception {
-		return companyService.newCommentDetail(review);
+		return companyService.commentDetailPlus(review);
 	}
 }

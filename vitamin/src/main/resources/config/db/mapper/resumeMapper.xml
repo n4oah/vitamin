@@ -39,7 +39,7 @@
 				values(sysdate(),#{resumeTitle},#{openState},#{jobState},#{marryState},#{bohoonState},#{supportState})
 	</insert>
 	
-	<insert id="insertArmyService" parameterType="resumeBaseInfo">
+	<insert id="insertArmyService" parameterType="armyService">
 		insert into vi_army_service(resume_no,army_service_state,army_service_reason)
 			values((select max(resume_no) from vi_resume),#{armyServiceState},#{armyServiceReason})
 	</insert>
@@ -72,8 +72,13 @@
 		select condition_section_name from vi_condition_selection where condition_type='3' and condition_section=#{supportState}
 	</select>
 	
-	<update id="updateArmyService" parameterType="resumeBaseInfo">
+	<update id="updateArmyService" parameterType="armyService">
 		update vi_resume set army_service_no = (select army_service_no from vi_army_service where resume_no = #{resumeNo})
 	</update>
+	
+	<select id="selectArmyState" parameterType="int" resultType="string">
+		select condition_section_name from vi_condition_selection where condition_type='4' and condition_section=#{armyServiceState}
+	</select>
+	
 	
 </mapper>

@@ -37,8 +37,8 @@
 	</select>
 	
 	<insert id="insertAddress2" parameterType="address">
-		insert into vi_address(city_code, area_code, address)
-		values (#{cityCode}, #{areaCode}, #{address})
+		insert into vi_address(city_code, area_code, address, post_code)
+		values (#{cityCode}, #{areaCode}, #{address}, #{postCode})
 	</insert>
 	
 </mapper>

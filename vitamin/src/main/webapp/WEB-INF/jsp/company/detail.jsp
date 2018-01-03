@@ -295,16 +295,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 
 <script type="text/javascript">
 	var path = "${pageContext.request.contextPath}";
-	/* $(document).ready(function () {
-		var maxTop = $(document).height();
-		console.log(maxTop)
-		$.snowfall(document, {
-			flakePosition: 'absolute',
-			minSize: 5,
-			flakeCount: 250,
-			round: true,
-		}, maxTop);
-	}); */
+
 	function resize() {
 		var chk = false;
 		if ($(window).width() < $(window).height()) {
@@ -386,27 +377,30 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 		}, 500); */
 	});
 	
-	function abcd(data) {
-		var div = $("<div>").addClass("input-group comment");
-		var regDate = $("<span>").addClass("regDate");
-		var content = $("<span>").addClass("content");
-		
+	function abcd(data, i) {
 		data = JSON.parse(data);
 		
 		data.forEach(function (comment) {
 			var date = new Date(comment.regDate);
 			var sdf = new simpleDateFormat("yyyy-MM-dd");
 			comment.regDate = sdf.format(date);
-			$(".commentList").prepend(div.append(regDate.text(comment.regDate)).append(content.text(comment.content)));			
-		})
+			
+			var div = $("<div>").addClass("input-group comment").attr("data-no", comment.reviewNo).append($("<span>").addClass("regDate").text(comment.regDate)).append($("<span>").addClass("content").text(comment.content));
+			
+			if (i == 1)
+				$(".commentList").prepend(div);
+			else
+				div.appendTo(".commentList");
+		});
 	}
 	
-	$(".plus").click(function () {
+	$(".plus").on("click", function () {
 		$.ajax({
 			type: "post",
 			url: path+"/company/reviewPlus.do",
-			data: "reviewNo="+$(".comment:first-child").attr("data-no")+"&companyNo=${param.no}",
+			data: "reviewNo="+$(".comment:last-child").attr("data-no")+"&companyNo=${param.no}",
 			success: function (data) {
+				console.log(data)
 				abcd(data);
 			}
 		});
@@ -430,7 +424,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 			success: function (data) {
 				$(".heart").removeClass("selected");
 				$(".commentContent").val("");
-				abcd(data);
+				abcd(data, 1);
 			}
 		});
 	});

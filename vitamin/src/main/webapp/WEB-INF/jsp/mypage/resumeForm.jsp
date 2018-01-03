@@ -41,6 +41,21 @@
 					</div>
 					<form action="${pageContext.request.contextPath}/mypage/intermediateSave.do" class="form-horizontal">
 					<div class="horizontal_table table_wrap">
+						<h4 class="table_title">프로필사진</h4>
+							<table class="table">
+								<tbody>
+									<tr>
+										<th class="col-md-2">프로</th>
+										<td class="col-md-2"><img alt="" src="">프로필이미지</td>
+										<td class="col-md-2">홈페이지</td>
+										<td class="col-md-2">홈페이지</td>
+									</tr>
+								</tbody>
+							</table>
+								
+					</div>
+					
+					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">이력서제목</h4>
 								<input type="text" class="form-control" name="resumeTitle"
 									placeholder="이력서 제목을 입력하세요">
@@ -106,12 +121,14 @@
 									</tr>
 									<tr>
 										<th>구직상태</th>
-										<td><select class="selectpicker" id="jobState" name="jobState">
-												<option value="" class="fa">구직상태 선택</option>
-												<option value="0" class="fa">구직준비중(재학생)</option>
-												<option value="1" class="fa">구직중</option>
-												<option value="2" class="fa">재직중</option>
-										</select></td>
+										<td>
+											<select class="selectpicker" id="jobState" name="jobState">
+													<option value="" class="fa">구직상태 선택</option>
+													<option value="0" class="fa">구직준비중(재학생)</option>
+													<option value="1" class="fa">구직중</option>
+													<option value="2" class="fa">재직중</option>
+											</select>
+										</td>
 									</tr>
 									<tr>
 										<th>결혼여부</th>
@@ -170,12 +187,12 @@
 						<div class="horizontal_table table_wrap">
 							<div>
 								<h4 class="table_title">학력사항</h4>
-								<span style="float: right">대학교이상</span> <input type="checkbox"
-									id="ch_schoolevel1" style="float: right"> <span
-									style="float: right">고등학교&nbsp</span> <input type="checkbox"
-									id="ch_schoolevel2" style="float: right"> <span
-									style="float: right">고등학교 미만 졸업/중퇴인 경우 선택&nbsp</span> <input
-									type="checkbox" id="ch_schoolevel3" style="float: right">
+									<span style="float: right">대학교이상</span> 
+									<input type="radio"	id="ch_schoolevel1" name="schoolevel" style="float: right"> <span
+									style="float: right">고등학교&nbsp</span> 
+									<input type="radio" id="ch_schoolevel2" name="schoolevel" style="float: right"> <span
+									style="float: right">고등학교 미만 졸업/중퇴인 경우 선택&nbsp</span> 
+									<input type="radio" id="ch_schoolevel3" name="schoolevel" style="float: right">
 							</div>
 							<div class="highschool">
 								<table class="table">
@@ -240,11 +257,11 @@
 									</tbody>
 								</table>
 								<!--/.table-->
-								<div>
-									<input style="float: right" type="button" class="intermediate_save" value="중간저장">
-								</div>
+								
 							</div>
-							
+							<div>
+								<input style="float: right" type="button" class="intermediate_save btn-primary" value="중간저장">
+							</div>
 
 						</div>
 						<div class="career">
@@ -255,20 +272,21 @@
 									<tbody>
 										<tr>
 											<th rowspan="2">경력사항</th>
-											<td><input type="radio" name="career" id="newcomer"
-												value="1">신입 <input type="radio" name="career"
-												id="employe" value="2">경력</td>
+											<td>
+												<input type="radio" name="career" id="newcomer" value="1">신입 
+												<input type="radio" name="career" id="employe" value="2">경력
+											</td>
 										</tr>
 										<tr>
 											<td>
 												<div>
-													<input type="checkbox" id="repitation_removal">
-													중복기간 빼기&nbsp <input type="checkbox" id="direct_input">
-													직접입력
-												</div> <input type="text" maxlength="2" class="float-control"
-												id="emyear" style="width: 50px"> <span>년</span> <input
-												type="text" maxlength="2" class="float-control" id="emmonth"
-												style="width: 50px"> <span>개월</span>
+													<input type="checkbox" id="repitation_removal" disabled="disabled">중복기간 빼기&nbsp 
+													<input type="checkbox" id="direct_input" disabled="disabled">직접입력
+												</div> 
+												<input type="text" maxlength="2" class="float-control" id="emyear" style="width: 50px" disabled="disabled"> 
+												<span>년</span> 
+												<input type="text" maxlength="2" class="float-control" id="emmonth" style="width: 50px" disabled="disabled"> 
+												<span>개월</span>
 											</td>
 										</tr>
 									</tbody>
@@ -290,7 +308,8 @@
 													<option class="fa" value="0">퇴사</option>
 													<option class="fa" value="1">재직중</option>
 											</select> <input class="float-control" type="text" id="work_start"
-												style="width: 100px" placeholder="입사일"> <span>~</span>
+												style="width: 100px" placeholder="입사일"> 
+												<span>~</span>
 												<input class="float-control" type="text" id="work_end"
 												style="width: 100px" placeholder="퇴사일"></td>
 										</tr>
@@ -573,6 +592,78 @@ function sample6_execDaumPostcode() {
 		}
 		}).open();
 }
+
+$(document).ready(function(){
+	 $('.highschool').hide();
+	 $('.university').hide();
+	 
+	 $('#ch_schoolevel3').click(function(){
+		 $('.highschool').hide();
+		 $('.university').hide();
+	 });
+	 
+	 $('#ch_schoolevel2').click(function(){
+		 $('.university').hide();
+		 $('.highschool').show();
+	 });
+	 
+	 $('#ch_schoolevel1').click(function(){
+		 $('.highschool').hide();
+		 $('.university').show();
+		 
+	 });
+	 
+	 $("#newcomer").click(function(){
+		 
+		 $('#repitation_removal').removeAttr("checked","checked");
+		 $('#direct_input').removeAttr("checked","checked");
+		 $('#repitation_removal').attr("disabled","disabled");
+		 $('#direct_input').attr("disabled","disabled");
+		 $('#emyear').attr("disabled","disabled");
+		 $('#emmonth').attr("disabled","disabled");
+	 });
+	 
+	 $('#direct_input').click(function(){
+			if($("#direct_input").prop('checked')==true){
+				$('#emyear').removeAttr("disabled","disabled");
+				$('#emmonth').removeAttr("disabled","disabled");
+			}else{
+				$('#emyear').attr("disabled","disabled");
+				$('#emmonth').attr("disabled","disabled");
+			}
+	 });
+	 
+	 $("#employe").click(function(){
+		 $('#repitation_removal').removeAttr("disabled","disabled");
+		 $('#direct_input').removeAttr("disabled","disabled");
+	 });
+	 
+	 
+	 
+	 
+	/* $.ajax({
+		url:"${pageContext.request.contextPath}/mypage/schoolTable.do",
+		success:function(data){
+			var html="";
+			for(var i = 0; i<data.length;i++){
+				html += "<option value="+data[i].religionName+">"+data[i].religionName+"</option>";
+			}
+			$("#religion").html(html);
+		}
+	}); */
+	
+	/* $.ajax({
+		url:"${pageContext.request.contextPath}/mypage/areaSelect.do",
+		success:function(data){
+			var html="";
+			for(var i = 0;i<data.length;i++){
+				html += "<option value=+data[i]."
+			}
+		}
+			
+	})
+	 */
+}); 
 
 
 </script>

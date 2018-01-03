@@ -12,6 +12,7 @@
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 		 
 		<script src="https://use.fontawesome.com/942e94bfdb.js"></script>
+		<script src="../js/simpledateformat.js"></script>
 		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
 	</head>
@@ -32,7 +33,7 @@
 			 	<div class="write_title  form-group">
 					<span class="ex_label col-md-1 title">제목</span>
 					<div class="col-md-10">
-						<input type="text" class="form-control" name="title">
+						<input type="text" class="form-control" name="title"  value="테스트제목">
 					</div>
 			 	</div>
 			 </div>
@@ -40,8 +41,8 @@
 			 <div class="detail_wrapper form-group">
 						<div class="career">
 							<span class="ex_label col-md-1">경력</span>
-								<span><label><input type="checkbox" value = "1" name="careerState" class="newcomer">신입</label></span>
-								<span><label><input type="checkbox" value = "-1" name="careerState" class="career_level">경력</label></span>
+								<span><label><input type="checkbox" value = "1" name="careerState" class="newcomer" checked>신입</label></span>
+								<span><label><input type="checkbox" name="careerState" class="career_level">경력</label></span>
 					
 							<span class="career_period" style="display:none">
 								<span class="dropdown">
@@ -230,7 +231,7 @@
 							<tbody>
 								<tr>
 									<th>주요업무</th>
-									<td><input type="text" name="assignedTask" class="form-control" ></td>
+									<td><input type="text" name="assignedTask" class="form-control" value="주요업무"></td>
 								</tr>
 								
 								<tr>
@@ -259,7 +260,7 @@
 								<tr>
 									<th>모집인원</th>
 									<td>
-										<input type="text" maxlength="3" name="recruitCount" class="form-control" style="width:5%; display:inline; margin-right:0.5%;">
+										<input type="text" value="3" maxlength="3" name="recruitCount" class="form-control" style="width:5%; display:inline; margin-right:0.5%;">
 										<strong>명</strong>
 									</td>
 								</tr> 
@@ -278,6 +279,8 @@
 										<input type="date" name="recruitDateStart" class="dateofbirth">
 										<strong> ~ </strong>
 										<input type="date" name="recruitDateEnd" class="dateofbirth">
+									
+										<input type="hidden" name="recruitingState" value="1">									
 									</td>
 								</tr>
 								
@@ -342,9 +345,9 @@
 									<td>
 										<div class="welfare">
 											<div class="welfare_content">
-												<input type="text" name="welfareTitleList" placeholder="제목" class="dateofbirth" style="width:17.6%; margin-bottom:1%">
+												<input type="text" value="복리제목" name="welfareTitleList" placeholder="제목" class="dateofbirth" style="width:17.6%; margin-bottom:1%">
 												<strong>:</strong>
-												<input type="text" name="welfareContentList" placeholder="내용" class="dateofbirth" style="width:80%; margin-left:10px" >
+												<input type="text" value="복리내용" name="welfareContentList" placeholder="내용" class="dateofbirth" style="width:80%; margin-left:10px" >
 											</div>
 										</div>
 										
@@ -366,14 +369,26 @@
 								<tr>
 									<th>담당자</th>
 									<td>
-										<input type="text"  name="master">
+										<input type="text" value="담당자이름" name="master">
 									</td>
 								</tr>
 								
 								<tr>
-									<th>전화 및 FAX 전화</th>
+									<th>전화번호</th>
 									<td>
-										<input type="text" name="phoneNumber">
+										<!-- <input type="text" name="phoneNumber" maxlength="13" placeholder="ex)010-1111-1111" style="width:50%; margin-right:1%">
+										 -->
+										 <input type="text" name="phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+dd (ddd) dddd-dddd" style="width:30%; margin-right:1%; float:left;">
+											<input type="checkbox" id="check">
+											<label for="check" class="loadcheck" id="loadcheck">
+											  <span class="entypo-cancel">&#10008;</span>
+											  <span class="load"></span>
+											  <span class="load"></span>
+											  <span class="load"></span>
+											  <span class="load"></span>
+											  <span class="load"></span>
+											  <span class="entypo-check">&#10004;</span>
+											</label>
 									</td>
 								</tr>
 								
@@ -382,13 +397,14 @@
 									<td>
 										<div class="companyAddress">
 											<div style="margin-bottom:10px">
-												<input type="text" id="sample6_postcode" placeholder="우편번호">
+												<input type="text" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
 												<button type="button" onclick="sample6_execDaumPostcode()" style="height: 34px;">주소 찾기</button>
 											</div>
 											<div>
-												<input type="text" id="sample6_address" placeholder="주소 " style="width:50%;">
-												<input type="text" id="sample6_address2"   placeholder="상세주소">
+												<input type="text" id="sample6_address" placeholder="주소 " style="width:50%;" readonly="readonly">
+												<input type="text" id="sample6_address2"  value="상세주소" placeholder="상세주소">
 											
+												<input type="hidden" name="postCode">
 												<input type="hidden" name="cityName">
 												<input type="hidden" name="areaName">
 												<input type="hidden" name="address">
@@ -478,6 +494,7 @@
 				var sigungu = data.sigungu.split(" ");
 				console.log("시/군/구", sigungu[sigungu.length - 1]);
 				$('input[name="areaName"]').val(sigungu[sigungu.length - 1]);
+				$('input[name="postCode"]').val(data.zonecode);
 				
 				
 			}
@@ -581,7 +598,31 @@
 	
 	compare($('.career_period'), "경력을");
 	compare($('.salary'), "연봉을");
-	compare($('.age'), "나이를")
+	compare($('.age'), "나이를");	
+	
+	$("input[type='date']").on("change", function () {
+		var dateValueList = [$("input[name='recruitDateStart']").val(),
+			$("input[name='recruitDateEnd']").val()];
+		
+		var startVal = "";
+		var endVal = "";
+		for (var i = 0; i < 2; i++) {
+			dateValueList[i].split("-").forEach(function (data) {
+				if(i == 0)
+					startVal += data;
+				else
+					endVal += data;
+			});
+		}
+		
+		startVal = parseInt(startVal);
+		endVal = parseInt(endVal);
+		
+		if(startVal > endVal && endVal && startVal) {
+			$(this).removeAttr("value");
+			alert("날짜를 확인해주세요.");
+		}
+	});
 	
 	$('.career_none').click(function () {
 		$(".career_period").hide();
@@ -614,17 +655,20 @@
 		
 		if ($(this).val() != "" && !reg1.test($(this).val())) {
 			if (reg2.test($(this).val())) $(this).val(parseInt($(this).val()));
-			else $(this).val("");
+			else $(this).removeAttr("value");
 		}
 	});
 	
+	var fileChk = false;
 	
 	$('ul.recruit_form > li').click(function () {
 		var file = $("span.attach_file");
 		if ($(this).attr("id") == "1") {
 			file.hide();
+			fileChk = false;
 		} else {
 			file.show();
+			fileChk = true;
 		}
 	});
 	
@@ -659,14 +703,56 @@
 	
 	
 	$('.welfare_add').click(function () {
-		$('.welfare').append($(".welfare_content:first-child").clone().find("input").val("").end());
+		$('.welfare').append($(".welfare_content:first-child").clone().find("input").removeAttr("value").end());
+	});
+	
+	$("input[name='phoneNumber']").keyup(function () {
+		if ($("input[name='phoneNumber']").val().length < 14) {
+			$("#check").removeAttr("checked");
+		} else {
+			$("#check").prop("checked", "true");
+		}
+		/* if (!regExp.test($("input[name='phoneNumber']").val())) {
+			$("#check").removeAttr("checked");
+		} else {
+			$("#check").prop("checked", "true");
+		} */
 	});
 	
 	$("form").on("submit", function () {
 		$(this).attr("action", path+"/recruit/recruitWrite.do");
+		$(this).attr("method", "post");
+		
+		/* if (!regExp.test($("input[name='phoneNumber']").val())) {
+			 alert("잘못된 휴대폰 번호입니다. 숫자, - 를 포함한 숫자만 입력하세요.");
+		     return false;
+		} */
+		
+		if (fileChk && !$("input[type='file']").val()) {
+			alert("파일을 입력해주세요.");
+			return false;
+		}
+		
+		if ($("input[name='phoneNumber']").val().length != 19) {
+			alert("전화번호를 입력해주세요.");
+			return false;
+		}
+		
 		$("input[name='address']").val($("input#sample6_address").val().trim()+" "+$("input#sample6_address2").val().trim());
+
+		var inputList = $("input:not([name='id'], [name='pwd'], [name='welfareTitleList'], [name='welfareContentList'], [name='attachFile'])");
+		
+		for (var i = 0; i < inputList.length; i++) {
+			var data = $(inputList[i]);
+			if (!data.val() || data.val() == "") {
+				alert("빈 칸이 있습니다.");
+				return false;
+			}
+		}
+		
 		return true;
 	})
+
 	
 </script>
 </body>
