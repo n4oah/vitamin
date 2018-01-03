@@ -19,7 +19,6 @@
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 <form class="form-horizontal" method="post" enctype="multipart/form-data">
-	
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container" style="margin-bottom: 100px;">
 		<div class="row">
@@ -378,7 +377,7 @@
 									<td>
 										<!-- <input type="text" name="phoneNumber" maxlength="13" placeholder="ex)010-1111-1111" style="width:50%; margin-right:1%">
 										 -->
-										 <input type="text" name="phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+dd (ddd) dddd-dddd" style="width:30%; margin-right:1%; float:left;">
+										 <input type="text" name="phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+82 (ddd) dddd-dddd" style="width:30%; margin-right:1%; float:left;">
 											<input type="checkbox" id="check">
 											<label for="check" class="loadcheck" id="loadcheck">
 											  <span class="entypo-cancel">&#10008;</span>
@@ -707,11 +706,16 @@
 	});
 	
 	$("input[name='phoneNumber']").keyup(function () {
-		if ($("input[name='phoneNumber']").val().length < 14) {
+		if(/^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/.test($("input[name='phoneNumber']").val())) {
+			$("#check").prop("checked", "true");
+		} else {
+			$("#check").removeAttr("checked");
+		}
+		/* if ($("input[name='phoneNumber']").val().length < 19) {
 			$("#check").removeAttr("checked");
 		} else {
 			$("#check").prop("checked", "true");
-		}
+		} */
 		/* if (!regExp.test($("input[name='phoneNumber']").val())) {
 			$("#check").removeAttr("checked");
 		} else {

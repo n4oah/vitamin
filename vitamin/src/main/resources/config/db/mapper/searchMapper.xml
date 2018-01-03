@@ -26,4 +26,55 @@
 		select *
 		from vi_area_code
 	</select>
+	
+	
+	
+	
+	
+	
+	
+	<resultMap type="recruit" id="selectRecruitMap">
+		<result column="title"  property="title" />
+		<result column="member_no" property="memberNo" />
+		<result column="career_state"  property="careerState" />
+		<result column="career_end"  property="careerEnd" />
+		<result column="career_start"  property="careerStart" />
+		<result column="school_level"  property="schoolLevel" />
+		<result column="year_pay_start"  property="yearPayStart" />
+		<result column="year_pay_end"  property="yearPayEnd" />
+		<result column="age_count_start"  property="ageCountStart" />
+		<result column="age_count_end"  property="ageCountEnd" />
+		<result column="gender"  property="gender" />
+		<result column="assigned_task"  property="assignedTask" />
+		<result column="form_service"  property="formService" />
+		<result column="recruit_count"  property="recruitCount" />
+		<result column="recruit_date_start"  property="recruitDateStart" />
+		<result column="recruit_date_end"  property="recruitDateEnd" />
+		<result column="recruit_form"  property="recruitForm" />
+		<result column="recruit_form_file_no"  property="recruitFormFileNo" />
+		<result column="address_no"  property="addressNo" />
+		<result column="day_of_week"  property="dayOfWeek" />
+		<result column="master"  property="master" />
+		<result column="phone_number"  property="phoneNumber" />
+		<result column="recruiting_state"  property="recruitingState" />
+		<result column="form_service_name" property="formServiceName" />
+		<result column="sub_name" property="subName" />
+		<result column="name" property="name" />
+	</resultMap>
+	
+	<select id="selectRecruit" resultMap="selectRecruitMap">
+	select recruit_no, title, career_state, career_start, assigned_task, recruit_date_start, recruit_date_end, form_service_name, graduate_state, sub_name, name
+        from (select recruit_no, title, career_state, career_start, school_level, assigned_task,
+		form_service, recruit_date_start, recruit_date_end, address_no from vi_recruit_write where recruiting_state = 1 and recruit_date_end > current_date()) recruit
+		  join (select form_service_name, form_service_type from vi_form_service) form_service
+		on recruit.form_service = form_service.form_service_type
+		  join (select graduate_state, level from vi_school_level) school
+		on recruit.school_level = school.level
+		  join (select address_no, city_code, area_code from vi_address) address
+		on recruit.address_no = address.address_no
+          join (select sub_name, city_code from vi_city_code) city
+		on address.city_code = city.city_code
+          join (select area_code, name from vi_area_code) area
+		on address.area_code = area.area_code;
+	</select>
 </mapper>

@@ -19,8 +19,4 @@ public class RecruitServiceImpl implements RecruitService {
 		 recruitMapper.insertRecruit(recruit);
 	}
 	
-	@Override
-	public List<Recruit> selectRecruit() throws Exception {
-		return recruitMapper.selectRecruit();
-	}
 }
