@@ -141,6 +141,7 @@ input[type="radio"] {
 }
 
 .showSelect {
+	flex: 1 1;
     display: inline-block;
     cursor: pointer;
     /* margin: 4px 10px 15px 0 !important; */
@@ -385,4 +386,51 @@ div.center-block {
 }
 input[type=checkbox]:checked + * {
 	color: #000;
+}
+.city_wrapper {
+	display: flex;
+}
+label {
+    font-weight: normal;
+}
+#hanzi-labels-slider {
+    font-family: "SimHei", "Hei", sans-serif;
+}
+                    
+#hanzi-labels-slider .ui-sliper-pip {
+    font-size: 1.4em; 
+}
+  
+#hanzi-labels-slider .ui-slider-handle .ui-slider-tip {
+    font-size: 1.4em;
+    width: 42px;
+    margin-left: -22px;
+    height: 33px;
+    line-height: 30px;
+    top: -40px;
+    background: #434d5a;
+    border-color: #434d5a;
+    color: white; 
+}
+
+#hanzi-labels-slider .ui-slider-handle .ui-slider-tip:before, 
+#hanzi-labels-slider .ui-slider-handle .ui-slider-tip:after {
+    border-top-color: #434d5a; 
+}
+#steps-fivepercent-slider .ui-slider-tip {
+    visibility: visible;
+    opacity: 1;
+    top: -30px;
+}
+.slider {
+	display: inline-block;
+    width: 60%;
+    margin-right: 2%;
+    top: 10px;
+}
+.detail_wrapper > div {
+    /* margin-bottom: 1.2%; */
+}
+.ui-slider-label {
+	width: 120%;
 }

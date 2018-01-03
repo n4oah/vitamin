@@ -7,6 +7,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="content-script-type" content="text/javascript">
 		<title>Insert title here</title>
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
@@ -16,6 +17,14 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/peoplesSearch.css">
 		<script src="${pageContext.request.contextPath}/js/waitMe.js"></script>
 		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/waitMe.css">
+		
+		<!-- include the jQuery and jQuery UI scripts -->
+		<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+		                
+		<!-- plus a jQuery UI theme, here I use "flick" -->
+		<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui-slider-pips.css">
+		<script src="${pageContext.request.contextPath}/js/jquery-ui-slider-pips.js"></script>
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
@@ -26,7 +35,7 @@
 					<div class="row" style="margin: 0px">
 						<div class="city_wrapper">
 							<c:forEach items="${cityList }" var="city">
-								<span class="showSelect btn-secondary" style="float:left;" data-target="#ddCity${city.cityCode}" id="ddCityBtn" data-no="${city.cityCode}">${city.subName}</span>
+								<span class="showSelect btn-secondary" data-target="#ddCity${city.cityCode}" id="ddCityBtn" data-no="${city.cityCode}">${city.subName}</span>
 							</c:forEach>
 						</div>
 					</div>
@@ -34,47 +43,13 @@
 					<div class="detail_wrapper">
 						<div class="career">
 							<Strong class="career_title">경력</Strong>
-								<span><input type="checkbox" name="careerState" value = 0>신입</span>
-								<span><input type="checkbox" name="careerState" value = 1>경력</span>
+								<span><label><input type="checkbox" name="careerState" value = 0>신입</label></span>
+								<span><label><input type="checkbox" name="careerState" value = 1>경력</label></span>
 					
-							<span class="dropdown">
-								 <span class="select">
-								 	<input type="hidden" name="careerStart">
-	        						<span>기간 시작</span>
-				         			<i class="fa fa-chevron-down"></i>
-				        		</span>
-				        		
-				        		<input type="hidden">
-				        			<ul class="dropdown-menu">
-				        			<li>기간 시작</li>
-				        			<c:forEach begin="1" end="20" var="i">
-				          				<li id="${i}">${i }년 이상</li>
-				          			</c:forEach>
-				        			</ul>
-							</span>
-							
-							<span class="river">
-								<Strong>~</Strong>
-							</span>
-							
-							<span class="dropdown">
-								 <span class="select">
-								 	<input type="hidden" name="careerEnd">
-	        						<span>기간 종료</span>
-				         			<i class="fa fa-chevron-down"></i>
-				        		</span>
-				        		
-				        		<input type="hidden">
-				        			<ul class="dropdown-menu">
-				        				<li>기간 종료</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이하</li>
-				          				</c:forEach>
-				        			</ul>
-							</span>
+							<div class="slider"></div>
 							
 							<span>
-								<input type="checkbox" value = 2 class="career_none"> 경력무관						
+								<label><input type="checkbox" value = 2 class="career_none"> 경력무관</label>						
 							</span>
 						</div>
 						
@@ -87,7 +62,6 @@
 				         			 <i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="careerStart">
 				        			<ul class="dropdown-menu">
 				        			<li>전체</li>
 				        			<c:forEach begin="1" end="20" var="i">
@@ -106,7 +80,6 @@
 				         			 <i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="careerEnd">
 				        			<ul class="dropdown-menu">
 				        				<li>전체</li>
 				          				<c:forEach begin="1" end="20" var="i">
@@ -116,7 +89,7 @@
 							</span>
 							
 							<span>
-								<input type="checkbox" value = 2 class="education_none"> 학력무관						
+								<label><input type="checkbox" value = 2 class="education_none"> 학력무관</label>						
 							</span>
 							
 						</div>
@@ -130,7 +103,6 @@
 				         			 <i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="year_salary">
 				        			<ul class="dropdown-menu">
 				        				<li>전체</li>
 				          				<c:forEach begin="1" end="20" var="i">
@@ -140,7 +112,7 @@
 							</span>
 							
 							<span>
-								<input type="checkbox" value = 2 class="education_none"> 회사내규에 따름 포함						
+								<label><input type="checkbox" value = 2 class="education_none"> 없음</label>				
 							</span>
 						</div>
 						
@@ -153,7 +125,6 @@
 				         			 <i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="ageStart">
 				        			<ul class="dropdown-menu">
 				        				<li>전체</li>
 				          				<c:forEach begin="1" end="20" var="i">
@@ -172,7 +143,6 @@
 				         			 <i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        		<input type="hidden" name="ageEnd">
 				        			<ul class="dropdown-menu">
 				        				<li>전체</li>
 				          				<c:forEach begin="1" end="20" var="i">
@@ -184,9 +154,9 @@
 							<span class="col-md-offset-3">
 								<Strong class="salary_title">성별 </Strong>
 						
-								<input type="radio" value="1" name="gender"> 남자
-								<input type="radio" value="2" name="gender"> 여자
-								<input type="radio" value="3" name="gender"> 성별무관
+								<label><input type="radio" value="1" name="gender"> 남자</label>
+								<label><input type="radio" value="2" name="gender"> 여자</label>
+								<label><input type="radio" value="3" name="gender"> 성별무관</label>
 							</span>
 						</div>
 						
@@ -367,6 +337,30 @@
 			});
 		}
 		
+		var hanzi = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
+        
+		/* $(".slider").slider({ 
+		        min: 0, 
+		        max: hanzi.length-1, 
+		        range: true,
+		        values: [3, 8] 
+		    }).slider("pips", {
+		        rest: "label",
+		        labels: hanzi
+		    }).slider("float", {
+		        labels: hanzi
+		    }); */
+		    
+	    $(".slider").slider({ 
+	        min: 0, 
+	        max: 20, 
+	        range: true,
+	        values: [0, 20] 
+	    }).slider("pips", {
+	        rest: "label",
+	        suffix: "년"
+	    }).slider("float");
+		
 		var path = "${pageContext.request.contextPath}";
 		$(function() {
 			let anim = $('.showSelect').css('transition');
@@ -378,21 +372,9 @@
 	
 			//ss.css('transition', anim);
 		});
-	
-		$(":checkbox").on('click', function(){
-			$(this).parent().toggleClass("checked");
-			
-			if (!$(this).prop("checked")) $(".checked").prop({"checked": false});
-			else {
-				if ($(this).parent().parent().find(".area > input:checked").length ==
-				$(this).parent().parent().find(".area > input").length)
-					$(".checked").prop({"checked": true});
-			}
-		});
 		
-		$(".career_none").on('click', function () {
-			$(".career").css({"pointer-events": "none"});
-			
+		$(".career_none, .education_none").click(function () {
+			$(this).parent().parent().siblings().not("strong").toggle();
 		});
 	
 		$(".showSelect").click(function () {
@@ -426,6 +408,15 @@
 			$(".optContainer:not("+"#ddCity"+no+")").hide();
 		});
 		
+		$(":checkbox").live('click', function(){
+			if (!$(this).prop("checked")) $(".checked").prop({"checked": false});
+			else {
+				if ($(this).parent().parent().find(".area > input:checked").length ==
+				$(this).parent().parent().find(".area > input").length)
+					$(".checked").prop({"checked": true});
+			}
+		});
+		
 		$(".checked").live("click", function () {
 			var chk = $(this).prop("checked");
 			$(this).parent().parent().find(":checkbox").prop({"checked": chk});
@@ -436,7 +427,6 @@
 			}
 		});		
 		
-		/*Dropdown Menu*/
 		$('span.dropdown').click(function () {
 		        $(this).attr('tabindex', 1).focus();
 		        $(this).toggleClass('active');
@@ -450,43 +440,6 @@
 		        $(this).parents('span.dropdown').find('span > span').text($(this).text());
 		        $(this).parents('span.dropdown').find('input').attr('value', $(this).attr('id'));
 		    });
-		/*End Dropdown Menu*/
-
-		/* $('.dropdown-menu li').click(function () {
-		  var input = '<strong>' + $(this).parents('span.dropdown').find('input').val() + '</strong>',
-		      msg = '<span class="msg">Hidden input value: ';
-		  $('.msg').html(msg + input + '</span>');
-		});  */
-		
-		let star = document.querySelector('.star');
-
-		var proto = Object.create(HTMLElement.prototype);
-
-		proto.createdCallback = function() {
-		  this.innerHTML = '★';
-		  
-		  this.addEventListener('click', function() {
-		  	if (this.hasAttribute('active')) {
-		      this.removeAttribute('active');
-		      this.removeAttribute('hover');
-		    }
-		    else {
-		      this.setAttribute('active', '');
-		    }
-		  });
-		  
-		  this.addEventListener('mouseout', function() {
-		    this.removeAttribute('hover');
-		  });
-		  
-		  this.addEventListener('mouseover', function() {
-		    if (!this.hasAttribute('active')) {
-		      this.setAttribute('hover', '');
-		    }
-		  });
-		};
-
-		document.registerElement('favorite-star', {prototype: proto});
 	</script>
 </body>
 </html>

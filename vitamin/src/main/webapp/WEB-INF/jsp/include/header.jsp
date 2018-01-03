@@ -22,7 +22,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#" class="btn btn-sm btn-primary">
+						<a href="${pageContext.request.contextPath }/account/signupForm.do" class="btn btn-sm btn-primary">
 							<span class="glyphicon glyphicon-certificate"></span> Register
 						</a>
 					</li>
