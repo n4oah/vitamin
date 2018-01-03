@@ -396,18 +396,13 @@
 									<td>
 										<div class="companyAddress">
 											<div style="margin-bottom:10px">
-												<input type="text" name="address.postCode" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
+												<input type="text" name="postCode" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
 												<button type="button" onclick="sample6_execDaumPostcode()" style="height: 34px;">주소 찾기</button>
 											</div>
 											<div>
-												<input type="text" name="address.address1" id="sample6_address" placeholder="주소 " style="width:50%;" readonly="readonly">
-												<input type="text" name="address.address2" id="sample6_address2"  value="상세주소" placeholder="상세주소">
-												<input type="text" name="address.sigunguCode" id="sample6_sigunguCode" style="display: none;"/>
-												<!-- <input type="hidden" name="sample6_postcode">
-												<input type="hidden" name="cityName">
-												<input type="hidden" name="areaName">
-												<input type="hidden" name="address"> -->
-											
+												<input type="text" name="address1" id="sample6_address" placeholder="주소 " style="width:50%;" readonly="readonly">
+												<input type="text" name="address2" id="sample6_address2"  value="상세주소" placeholder="상세주소">
+												<input type="text" name="sigunguCode" id="sample6_sigunguCode" style="display: none;"/>
 											</div>
 										</div>
 									</td>
@@ -743,7 +738,7 @@
 			return false;
 		}
 		
-		$("input[name='address']").val($("input#sample6_address").val().trim()+" "+$("input#sample6_address2").val().trim());
+		//$("input[name='address']").val($("input#sample6_address").val().trim()+" "+$("input#sample6_address2").val().trim());
 		var inputList = $("input:not([name='id'], [name='pwd'], [name='welfareTitleList'], [name='welfareContentList'], [name='attachFile'], #sample6_sigunguCode)");
 		
 		for (var i = 0; i < inputList.length; i++) {

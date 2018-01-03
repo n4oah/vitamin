@@ -64,6 +64,8 @@ public class RecruitController {
 		System.out.println(welfare);
 		System.out.println(address);
 		
+		address.parseData();
+		
 		java.io.File fileDir = new java.io.File(filePath);
 		if(!fileDir.exists()) fileDir.mkdirs();
 		
@@ -97,16 +99,8 @@ public class RecruitController {
 		
 		int addressNo = -1;
 		
-		if (address.getCityName() != null) {
-			Address addrCode = addressService.selectCode(address);
-			
-			address.setCityCode(addrCode.getCityCode());
-			address.setAreaCode(addrCode.getAreaCode());
-			
-			addressService.insertAddress2(address);
-			
-			addressNo = addressService.selectNextAutoIncrement();
-		}
+		addressService.insertAddress2(address);
+		addressNo = addressService.selectNextAutoIncrement();
 		
 		if (addressNo > -1)
 			recruit.setAddressNo(addressNo);
