@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.PeoplesSearchMapper">
+	
+	<resultMap type="city" id="cityMap">
+		<id column="city_code" property="cityCode" />
+		<result column="sub_name" property="subName" />
+		<collection property="areaList" javaType="java.util.ArrayList" resultMap="areaMap" />
+	</resultMap>
+	
+	<resultMap type="java.util.HashMap" id="areaMap">
+		<id column="area_code" property="areaCode" />
+		<result column="name" property="name" />
+	</resultMap>
+	
+	<select id="cityList" resultMap="cityMap">
+		select * from vi_city_code
+	</select>
+	
+	<select id="abcd" resultMap="cityMap" parameterType="int">
+		select a.city_code, a.sub_name, b.area_code, b.name from
+		vi_city_code a
+		join vi_area_code b
+		on a.city_code = b.city_code
+		where a.city_code = #{no};
+	</select>
+	
+</mapper>
