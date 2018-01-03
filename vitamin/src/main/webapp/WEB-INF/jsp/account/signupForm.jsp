@@ -18,13 +18,13 @@
 		<script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script>
 		<script>
 			$(function() {
-				$('#signup_id').blur(function() {
+				$('#private-input-id').blur(function() {
 					$.ajax({
 						url: "${pageContext.request.contextPath}/account/idOverlapChk.do",
 						dataType: "json",
-						data: {id: $('#signup_id').val()},
+						data: {id: $('#private-input-id').val()},
 						success: function(chk) {
-							var $idInput = $('#signup_id')[0];
+							var $idInput = $('#private-input-id')[0];
 							
 							console.log(idOverlapChk);
 							idOverlapChk = chk;
@@ -68,16 +68,16 @@
 									<div class="col-md-12">
 										<form id="private-form" class="sign-form" action="${actionUrl}?memberType=1" method="post" role="form" style="display: block;">
 											<div class="form-group">
-												<input type="text" name="id" id="signup_id" class="form-control" placeholder="아이디">
+												<input type="text" name="id" id="private-input-id" class="form-control" placeholder="아이디">
 											</div>
 											<div class="form-group">
-												<input type="password" name="pwd" id="signup_pwd" class="form-control" placeholder="비밀번호">
+												<input type="password" name="pwd" id="private-input-pwd" class="form-control" placeholder="비밀번호">
 											</div>
 											<div class="form-group">
-												<input type="password" id="signup_pwd_chk" class="form-control" placeholder="비밀번호 확인">
+												<input type="password" id="private-input-pwd_chk" class="form-control" placeholder="비밀번호 확인">
 											</div>
 											<div class="form-group">
-												<input type="text" name="name" id="signup_name" class="form-control" placeholder="이름">
+												<input type="text" name="name" id="private-input-name" class="form-control" placeholder="이름">
 											</div>
 											<div class="form-group">
 												<select class="selectpicker" name="member.gender">
@@ -91,17 +91,17 @@
 												<div class="row">
 													<div class="col-md-12">
 														<div class="form-group col-md-5" style="padding: 0px; margin: 0px;">
-															<input class="form-control" name="email1" id="signup_email1" type="text" placeholder="이메일"/>
+															<input class="form-control" name="email1" id="private-input-email1" type="text" placeholder="이메일"/>
 														</div>
 														<div class="form-group col-md-1" style="top: 10px">@</div>
 														<div class="form-group col-md-6" style="padding: 0px; margin: 0px;">
-															<input class="form-control" name="email2" id="signup_email2" type="text" placeholder="도메인 주소" />
+															<input class="form-control" name="email2" id="private-input-email2" type="text" placeholder="도메인 주소" />
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="form-group">
-												<input type="text" name="member.phoneNumber" id="signup_phoneNumber" class="form-control bfh-phone" data-format="+82 (ddd) dddd-dddd">
+												<input type="text" name="member.phoneNumber" id="private-input-phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+82 (ddd) dddd-dddd">
 											</div>
 											<div class="form-group">
 						                        <input type="date" name="member.birthDate" id="birthDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
@@ -130,6 +130,24 @@
 											<input type="text" name="address.sigunguCode" class="hide" id="sample6_sigunguCode"/>
 										</form>
 										<form id="company-form" class="sign-form" action="${actionUrl}?memberType=2" method="post" role="form" style="display: none;">
+											<div class="form-group">
+													<input type="text" name="id" id="company-input-id" class="form-control" placeholder="아이디">
+											</div>
+											<div class="form-group">
+												<input type="password" name="pwd" id="company-input-pwd" class="form-control" placeholder="비밀번호">
+											</div>
+											<div class="form-group">
+												<input type="password" id="company-input-pwd_chk" class="form-control" placeholder="비밀번호 확인">
+											</div>
+											<div class="form-group">
+												<input type="text" name="company.companyName" id="company-input-companyName" class="form-control" placeholder="기업 이름">
+											</div>
+											<div class="form-group">
+												<input type="text" name="company.licenseNumber" id="company-input-licenseNumber" class="form-control bfh-phone" data-format="ddd-dd-ddddd" maxlength="12" placeholder="사업자 등록번호">
+											</div>
+											<div class="form-group">
+												<input type="text" name="company.employeeCount" id="company-input-employeeCount" class="form-control" placeholder="사원수">
+											</div>
 											<div class="form-group">
 												<div class="row">
 													<div class="col-sm-6 col-sm-offset-3">

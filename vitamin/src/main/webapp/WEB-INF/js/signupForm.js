@@ -4,13 +4,13 @@ $(function() {
 	var ptn = [];
 	
 	let privatePtn = [];
-	privatePtn.push(new Pattern($("#signup_id"), /^[a-z0-9]{4,12}$/, "아이디는 4~12자 소문자 영문과 숫자를 조합해서만 사용 가능합니다."));
-	privatePtn.push(new Pattern($("#signup_pwd"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", {'code':1, 'target':true, 'msg': '비밀번호가 서로 같지 않습니다.'}));
-	privatePtn.push(new Pattern($("#signup_pwd_chk"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", {"code":1, "target":false}));
-	privatePtn.push(new Pattern($("#signup_name"), /^[a-z0-9가-힣]{1,10}$/, "이름은 1~10자 까지 가능합니다."));
-	privatePtn.push(new Pattern($("#signup_email1"), /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/i, "이메일 주소를 확인하세요."));
-	privatePtn.push(new Pattern($("#signup_email2"), /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i, "도메인 주소를 확인하세요."));
-	privatePtn.push(new Pattern($("#signup_phoneNumber"), /^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/, "핸드폰 번호를 입력해주세요."));
+	privatePtn.push(new Pattern($("#private-input-id"), /^[a-z0-9]{4,12}$/, "아이디는 4~12자 소문자 영문과 숫자를 조합해서만 사용 가능합니다."));
+	privatePtn.push(new Pattern($("#private-input-pwd"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", {'code':1, 'target':true, 'msg': '비밀번호가 서로 같지 않습니다.'}));
+	privatePtn.push(new Pattern($("#private-input-pwd_chk"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", {"code":1, "target":false}));
+	privatePtn.push(new Pattern($("#private-input-name"), /^[a-z0-9가-힣]{1,10}$/, "이름은 1~10자 까지 가능합니다."));
+	privatePtn.push(new Pattern($("#private-input-email1"), /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/i, "이메일 주소를 확인하세요."));
+	privatePtn.push(new Pattern($("#private-input-email2"), /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i, "도메인 주소를 확인하세요."));
+	privatePtn.push(new Pattern($("#private-input-phoneNumber"), /^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/, "핸드폰 번호를 입력해주세요."));
 	privatePtn.push(new Pattern($("#birthDate"), /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, "생일을 입력해주세요."));
 	privatePtn.push(new Pattern($("#sample6_postcode"), /^[0-9]{1,}$/, "우편 번호를 확인해주세요."));
 	privatePtn.push(new Pattern($("#sample6_address"), /^().+$/, "주소를 확인해주세요."));
