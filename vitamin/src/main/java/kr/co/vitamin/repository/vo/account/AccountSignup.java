@@ -89,6 +89,4 @@ public class AccountSignup extends Account {
 				+ getEmail() + ", getRegDate()=" + getRegDate() + ", toString()=" + super.toString() + ", getClass()="
 				+ getClass() + ", hashCode()=" + hashCode() + "]";
 	}
-	
-	
 }

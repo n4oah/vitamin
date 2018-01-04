@@ -140,6 +140,11 @@
 		    <artifactId>spring-security-core</artifactId>
 		    <version>5.0.0.RELEASE</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
 	</dependencies>
 	
 	<!-- jdk 버전 세팅 -->
