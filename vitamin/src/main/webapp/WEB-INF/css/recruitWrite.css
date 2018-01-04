@@ -1,6 +1,13 @@
 @charset "UTF-8";
 @import "compass/css3";
 
+input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    margin-right:2px;
+    padding: 0;
+}
+
+
 .form_inline {
     border: 1px solid #ccc;
     border-radius: 5px;

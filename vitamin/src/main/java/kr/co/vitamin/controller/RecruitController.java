@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.vitamin.repository.vo.FormService;
@@ -53,7 +54,7 @@ public class RecruitController {
 		model.addAttribute("formServiceList", formServiceList);
 	}
 	
-	@RequestMapping("/recruit/recruitWrite.do")
+	@RequestMapping(value="/recruit/recruitWrite.do", method=RequestMethod.POST)
 	public String recruitWrtie(Recruit recruit, Welfare welfare, Address address) throws Exception {
 		String filePath = "C:\\kang\\project\\vitamin\\src\\main\\webapp\\WEB-INF\\resumeFile";
 		int fileNo = -1;

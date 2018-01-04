@@ -97,7 +97,7 @@
 				        		<ul class="dropdown-menu">
 				        			<li id="-1">전체</li>
 					        			<c:forEach var="sl" items="${schoolLevelList }">
-					        				<c:if test="${sl.level ne 0}">
+					        				<c:if test="${sl.level ne 0 && sl.level ne -1}">
 					          					<li id="${sl.level}">${sl.graduateState} 이상</li>
 					          				</c:if>
 					          			</c:forEach>
@@ -245,8 +245,6 @@
 								        		</span>
 								        		
 							        			<ul class="dropdown-menu">
-							        				<li id="-1">전체</li>
-							        				
 							          				<c:forEach var="fsl" items="${formServiceList}">
 							          					<li id="${fsl.formServiceType}">${fsl.formServiceName}</li>
 							          				</c:forEach>
@@ -702,7 +700,7 @@
 	});
 	
 	$("input[name='phoneNumber']").keyup(function () {
-		if(/^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/.test($(this).val())) {
+		if(/^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4,}$/.test($(this).val())) {
 			$("#check").prop("checked", "true");
 		} else {
 			$("#check").removeAttr("checked");

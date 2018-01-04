@@ -89,7 +89,7 @@ public class Address {
 	}
 
 	public void parseData() {
-		setAddress(address1 + address2);
+		setAddress(address1 +" "+ address2);
 		
 		int cityCode = Integer.parseInt(sigunguCode.substring(0, 2));
 		int areaCode = Integer.parseInt(sigunguCode);
