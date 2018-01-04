@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.vitamin.repository.mapper.PeoplesSearchMapper;
 import kr.co.vitamin.repository.vo.City;
+import kr.co.vitamin.repository.vo.SchoolLevel;
 
 @Service
 public class PeoplesSearchServiceImpl implements PeoplesSearchService {
@@ -22,5 +23,10 @@ public class PeoplesSearchServiceImpl implements PeoplesSearchService {
 	@Override
 	public List<City> cityList() throws Exception {
 		return peoplesSearchMapper.cityList();
+	}
+	
+	@Override
+	public List<SchoolLevel> schList() throws Exception {
+		return peoplesSearchMapper.schList();
 	}
 }

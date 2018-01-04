@@ -15,6 +15,12 @@
 		<result column="name" property="name" />
 	</resultMap>
 	
+	<resultMap type="schoolLevel" id="schoolLevelMap">
+		<result column="school_level_no" property="schoolLevelNo" />
+		<result column="graduate_state" property="graduateState" />
+		<result column="level" property="level" />
+	</resultMap>
+	
 	<select id="cityList" resultMap="cityMap">
 		select * from vi_city_code
 	</select>
@@ -25,6 +31,10 @@
 		join vi_area_code b
 		on a.city_code = b.city_code
 		where a.city_code = #{no};
+	</select>
+	
+	<select id="schList" resultMap="schoolLevelMap">
+		select * from vi_school_level order by level asc
 	</select>
 	
 </mapper>

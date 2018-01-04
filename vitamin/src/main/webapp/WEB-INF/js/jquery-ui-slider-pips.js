@@ -49,7 +49,11 @@
                 /* number */
 
                 formatLabel: function(value) {
-                    return this.prefix + value + this.suffix;
+                	if (this.labels.first != value && this.labels.last != value) {
+                		return this.prefix + value + this.suffix;                		
+                	}
+                	else
+                		return this.prefix + value;
                 }
                 /* function
                     must return a value to display in the pip labels */
@@ -252,7 +256,7 @@
             // without this method the label is just treated like a part
             // of the slider and there's no accuracy in the selected value
 
-            function labelClick( label, e ) {
+            function labelClick( label, e, civa ) {
 
                 if (slider.option("disabled")) {
                     return;
@@ -262,9 +266,10 @@
                     indexToChange = getClosestHandle( val );
 
                 if ( slider.values() && slider.values().length ) {
-
-                    slider.options.values[ indexToChange ] = slider._trimAlignValue( val );
-
+            		if (civa)
+            			slider.options.values[0, indexToChange[1]] = slider._trimAlignValue( val );
+            		else
+            			slider.options.values[ indexToChange ] = slider._trimAlignValue( val );
                 } else {
 
                     slider.options.value = slider._trimAlignValue( val );
@@ -506,7 +511,6 @@
                     $handle.addClass("ui-state-active");
 
                     if ( $target.is(".ui-slider-label") ) {
-
                         labelClick( $target, e );
 
                         slider.element
@@ -601,7 +605,11 @@
                 /* "slidechange", "slide", "slidechange slide" */
 
                 formatLabel: function(value) {
-                    return this.prefix + value + this.suffix;
+                	if (this.labels.first != value && this.labels.last != value) {
+                		return this.prefix + value + this.suffix;                		
+                	}
+                	else
+                		return this.prefix + value;
                 }
                 /* function
                     must return a value to display in the floats */
