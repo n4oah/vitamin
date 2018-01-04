@@ -15,6 +15,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="${pageContext.request.contextPath}/js/signupForm.js"></script>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+		<%-- <script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script> --%>
 		<script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script>
 		<script>
 			$(function() {
