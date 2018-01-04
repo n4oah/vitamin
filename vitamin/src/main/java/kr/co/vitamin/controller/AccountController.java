@@ -42,6 +42,7 @@ import org.w3c.dom.NodeList;
 import kr.co.vitamin.common.EmailSender;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.AutoSignin;
+import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.EmailToken;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.Terms;
@@ -49,6 +50,7 @@ import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.repository.vo.account.AccountSignup;
 import kr.co.vitamin.service.AccountService;
+import kr.co.vitamin.service.ResumeService;
 import kr.co.vitamin.service.SchoolLevelService;
 
 @Controller
@@ -58,6 +60,8 @@ public class AccountController {
 	private SchoolLevelService schoolService;
 	@Autowired
 	private AccountService accountService;
+	@Autowired
+	private ResumeService resumeService;
 	@Autowired
 	private EmailSender email;
 	
@@ -96,6 +100,9 @@ public class AccountController {
 			terms.setTitle(title);
 			terms.setContent(str.toString());
 			termsList.add(terms);
+			
+			List<BusinessType> bt = resumeService.businessTypeSelect();
+			model.addAttribute("bt", bt);
 		}
 		model.addAttribute("newLine", newLine);
 		model.addAttribute("termsList", termsList);
