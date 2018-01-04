@@ -54,6 +54,14 @@
 		<result column="name" property="name"/>
 	</resultMap>
 	
+	<resultMap type="businessType" id="businessTypeMap">
+		<result column="business_no" property="businessNo"/>
+		<result column="business_content" property="businessContent"/>
+		<result column="business_order" property="businessOrder"/>
+		<result column="business_category" property="businessCategory"/>
+		<result column="business_type" property="businessType"/>
+	</resultMap>
+	
 	
 	
 	<insert id="insertResume" parameterType="resumeBaseInfo">
@@ -116,6 +124,15 @@
 	
 	<select id="selectLicensingDepartment" parameterType="integer" resultMap="licensingDepartmentMap">
 		select * from vi_licensing_department where licensing_department_no= #{licensingDepartmentNo} 
+	</select>
+	
+	<select id="selectBusinessType" resultMap="businessTypeMap">
+		select * from vi_business_type
+	</select>
+	
+	<select id="chooseBusinessType" parameterType="integer" resultMap="businessTypeMap">
+		select business_content, (select business_content from vi_business_type where business_category = (select business_category from vi_business_type where business_no = #{businessNo}) and business_order=0) as business_type 
+		from vi_business_type where business_no = #{businessNo}
 	</select>
 	
 </mapper>

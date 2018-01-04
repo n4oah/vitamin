@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.ArmyService;
+import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
@@ -24,5 +25,7 @@ public interface ResumeService {
 	public List<Area> areaSelect(Integer cityCode) throws Exception;
 	public List<Certificate> certificationSelect(String name) throws Exception;
 	public LicensingDepartment licensingDepartmentSelect(Integer licensingDepartmentNo) throws Exception;
+	public List<BusinessType> businessTypeSelect() throws Exception;
+	public BusinessType choiceBusiness(Integer businessNo) throws Exception;
 	
 }

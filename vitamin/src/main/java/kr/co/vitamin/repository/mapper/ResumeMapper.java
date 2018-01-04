@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.ArmyService;
+import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
@@ -26,6 +27,8 @@ public interface ResumeMapper {
 	public List<Area> selectArea(Integer cityCode) throws Exception;
 	public List<Certificate> selectCertification(String name) throws Exception;
 	public LicensingDepartment selectLicensingDepartment(Integer licensingDepartmentNo) throws Exception;
+	public List<BusinessType> selectBusinessType() throws Exception;
+	public BusinessType chooseBusinessType(Integer BusinessNo) throws Exception;
 	
 	
 }
