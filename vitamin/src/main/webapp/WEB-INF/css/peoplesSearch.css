@@ -529,19 +529,23 @@ box-shadow: none;
 	font-weight:  bold;
 	margin: 7px;
 }
-.careerList font {
-	width: 62px;	
-}
 .grid-unit font{
+    position: relative;
+    z-index: 1000;
     display: inline-block;
 }
 .remove, .removeSch, .removeAddr {
 	color: red;
 	cursor: pointer;
+	position: relative;
+    z-index: 1000;
 }
 .removeSch, .removeAddr {
 	margin: 0 1% 0 0.5%;
 }
 font.sch {
 width: auto;
+}
+.addrList {
+	width: 85%
 }

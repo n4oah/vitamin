@@ -412,6 +412,7 @@ fa {
 
 .label {
   position: absolute;
+  z-index: 1;
   font-family: Oxygen, arial, sans-serif;
   color: #fff;
   font-size: 1.2em;

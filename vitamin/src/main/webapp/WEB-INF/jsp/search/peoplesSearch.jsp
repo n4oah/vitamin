@@ -114,13 +114,13 @@
 							<div class="careerList">
 								<div>
 									최소 경력:
-									<font class="careerStart"></font>
+									<font class="careerStart">신입</font>
 									<span class="remove" data-name="cs">X</span>
 								</div>
 								
 								<div>
 									최고 경력:
-									<font class="careerEnd"></font>
+									<font class="careerEnd">20년 이상</font>
 									<span class="remove" data-name="ce">X</span>
 								</div>
 							</div>
@@ -341,9 +341,9 @@
 	    	careerEnd = ui.values[1];
 	    	
 	    	if (ui.value == ui.values[0])
-	    		$(".careerStart").text(ui.values[0] == "0" ? "신입" : ui.values[0]+"년");
+	    		$(".careerStart").text(ui.values[0] == "0" ? "신입" : ui.values[0]+"년").attr("data-civa", ui.values[0]);
 	    	if (ui.value == ui.values[1])
-	    		$(".careerEnd").text(ui.values[1] == "20" ? ui.values[1]+"년 이상" : ui.values[1]+"년");
+	    		$(".careerEnd").text(ui.values[1] == "20" ? ui.values[1]+"년 이상" : ui.values[1]+"년").attr("data-civa", ui.values[1]);
 	    });
 	    
 	    var chk = true;
@@ -419,8 +419,10 @@
 				
 				$("[data-civa='"+value+"'], [data-civa='"+value+"'] + span").remove();
 			} else {
-				$("<font>").attr("data-civa", value).text($(this).next().text()).appendTo(".addrList");
-				$("<span>").addClass("removeAddr").text("X").appendTo(".addrList");
+				$("<span>")
+					.append($("<font>").attr("data-civa", value).text($(this).next().text()))
+					.append($("<span>").addClass("removeAddr").text("X"))
+				.appendTo(".addrList");
 				
 				if ($(this).parent().parent().find(".area > input:checked").length ==
 				$(this).parent().parent().find(".area > input").length)
@@ -500,7 +502,7 @@
 			    	});
 			}
 			
-			$(this).prev().text("");
+			//$(this).prev().text("");
 		});	
 		
 		$('span.dropdown').click(function () {
