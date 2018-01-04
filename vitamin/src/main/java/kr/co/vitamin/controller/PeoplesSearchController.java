@@ -19,6 +19,7 @@ public class PeoplesSearchController {
 	@RequestMapping("/peoplesSearch.do")
 	public void companySearch(Model model) throws Exception {
 		model.addAttribute("cityList", peoplesSearchService.cityList());
+		model.addAttribute("schList", peoplesSearchService.schList());
 	}
 	
 	@ResponseBody

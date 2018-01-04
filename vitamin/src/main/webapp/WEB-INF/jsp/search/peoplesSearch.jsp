@@ -43,78 +43,21 @@
 					<div class="detail_wrapper">
 						<div class="career">
 							<Strong class="career_title">경력</Strong>
-								<span><label><input type="checkbox" name="careerState" value = 0>신입</label></span>
-								<span><label><input type="checkbox" name="careerState" value = 1>경력</label></span>
-					
-							<div class="slider"></div>
-							
-							<span>
-								<label><input type="checkbox" value = 2 class="career_none"> 경력무관</label>						
-							</span>
+							<div class="career_slider slider"></div>
 						</div>
 						
 						<div class="education">
 							<Strong class="education_title">학력</Strong>
-							
-							<span class="dropdown">
-								 <span class="select">
-	        						 <span>전체</span>
-				         			 <i class="fa fa-chevron-down"></i>
-				        		</span>
-				        		
-				        			<ul class="dropdown-menu">
-				        			<li>전체</li>
-				        			<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이상</li>
-				          			</c:forEach>
-				        			</ul>
-							</span>
-							
-							<span class="river">
-								<Strong>~</Strong>
-							</span>
-							
-							<span class="dropdown">
-								 <span class="select">
-	        						 <span>전체</span>
-				         			 <i class="fa fa-chevron-down"></i>
-				        		</span>
-				        		
-				        			<ul class="dropdown-menu">
-				        				<li>전체</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li id="${i }">${i }년 이하</li>
-				          				</c:forEach>
-				        			</ul>
-							</span>
-							
-							<span>
-								<label><input type="checkbox" value = 2 class="education_none"> 학력무관</label>						
-							</span>
-							
+							<label class="btn active">
+						          <input type="checkbox" class="bootCheck allCheck"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span> 전체 선택</span>
+					        </label>
+							<c:forEach items="${schList }" var="sch">
+								<label class="btn active">
+						          <input type="checkbox" name="schoolLevel" class="bootCheck" value="${sch.level }"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span> ${sch.graduateState}</span>
+						        </label>
+					        </c:forEach>
 						</div>
 						
-						<div class="salary">
-							<Strong class="salary_title">연봉</Strong>
-							
-							<span class="dropdown">
-								 <span class="select">
-	        						 <span>전체</span>
-				         			 <i class="fa fa-chevron-down"></i>
-				        		</span>
-				        		
-				        			<ul class="dropdown-menu">
-				        				<li>전체</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이하</li>
-				          				</c:forEach>
-				        			</ul>
-							</span>
-							
-							<span>
-								<label><input type="checkbox" value = 2 class="education_none"> 없음</label>				
-							</span>
-						</div>
 						
 						<div class="age">
 							<Strong class="age_title">나이</Strong>
@@ -127,8 +70,8 @@
 				        		
 				        			<ul class="dropdown-menu">
 				        				<li>전체</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li>${i }년 이하</li>
+				          				<c:forEach begin="20" end="60" var="i">
+				          				<li>${i }세 이상</li>
 				          				</c:forEach>
 				        			</ul>
 							</span>
@@ -145,8 +88,8 @@
 				        		
 				        			<ul class="dropdown-menu">
 				        				<li>전체</li>
-				          				<c:forEach begin="1" end="20" var="i">
-				          				<li id="${i }">${i }년 이하</li>
+				          				<c:forEach begin="20" end="60" var="i">
+				          				<li>${i }세 이하</li>
 				          				</c:forEach>
 				        			</ul>
 							</span>
@@ -165,6 +108,47 @@
 							<input type="button" value="검색">
 						</div>
 					</div>
+
+					<div class="wrapper preload">
+						<section class="grid-unit top-left">
+							<div class="careerList">
+								<div>
+									최소 경력:
+									<font class="careerStart"></font>
+									<span class="remove" data-name="cs">X</span>
+								</div>
+								
+								<div>
+									최고 경력:
+									<font class="careerEnd"></font>
+									<span class="remove" data-name="ce">X</span>
+								</div>
+							</div>
+							<div class="sphere"></div>
+							<span class="icon fa fa-black-tie"></span> <span class="label">Career</span>
+						</section>
+						
+						
+						<section class="grid-unit top-right">
+							<div class="schList">
+							</div>
+							<div class="sphere"></div>
+							<span class="icon fa fa-graduation-cap"></span> <span class="label">School</span>
+						</section>
+						
+						
+						<section class="grid-unit bottom-left">
+							<div class="sphere"></div>
+							<span class="icon fa fa-globe"></span> <span class="label">Address</span>
+						</section>
+						
+						
+						<section class="grid-unit bottom-right">
+							<div class="sphere"></div>
+							<span class="icon fa fa-id-card"></span> <span class="label">Gallery</span>
+						</section>
+					</div>
+					<!-- end wrapper -->
 				</div>
 				
 				<div class="recruit_list">
@@ -218,8 +202,6 @@
 									        <span>${rlist.title }</span></a>             
 									        
 		        						</div>
-		        						
-		        						
 		        						
 		        						<p class="job_sector">
 		            					<!-- <span>일반영업</span><span>금융·보험영업</span> 외  -->
@@ -336,30 +318,39 @@
 				color : "white"
 			});
 		}
-		
-		var hanzi = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
-        
-		/* $(".slider").slider({ 
-		        min: 0, 
-		        max: hanzi.length-1, 
-		        range: true,
-		        values: [3, 8] 
-		    }).slider("pips", {
-		        rest: "label",
-		        labels: hanzi
-		    }).slider("float", {
-		        labels: hanzi
-		    }); */
-		    
-	    $(".slider").slider({ 
+				    
+	    $(".career_slider").slider({ 
 	        min: 0, 
 	        max: 20, 
 	        range: true,
 	        values: [0, 20] 
 	    }).slider("pips", {
 	        rest: "label",
-	        suffix: "년"
-	    }).slider("float");
+	        suffix: "년",
+	        labels: {"first": "신입", "last": "20년<font class='up_arrow'>↑</font>"}
+	    }).slider("float", {
+	    	suffix: "년",
+	    	labels: {"first": "신입", "last": "20년<font class='up_arrow'>↑</font>"}
+	    }).on("slidechange", function (e, ui) {
+	    	if (ui.value == ui.values[0])
+	    		$(".careerStart").text(ui.values[0] == "0" ? "신입" : ui.values[0]+"년");
+	    	if (ui.value == ui.values[1])
+	    		$(".careerEnd").text(ui.values[1] == "20" ? ui.values[1]+"년 이상" : ui.values[1]+"년");
+	    });
+	    
+	    var chk = true;
+	    
+	    $(".dropdown-menu > li").click(function () {
+	    	parseInt($(this).text())
+	    	if(bool && end != -1 && start != -1) {
+				chk = false;
+				if ($.inArray(this, efg.find('span.dropdown:eq(0) > .dropdown-menu li')) > -1) efg.find(".startDefault").trigger("click")
+				else efg.find(".endDefault").trigger("click");
+				alert(str+" 확인해주세요.");
+				
+				chk = true;
+			}
+	    })
 		
 		var path = "${pageContext.request.contextPath}";
 		$(function() {
@@ -373,8 +364,12 @@
 			//ss.css('transition', anim);
 		});
 		
-		$(".career_none, .education_none").click(function () {
-			$(this).parent().parent().siblings().not("strong").toggle();
+		$(".career_none, .education_none").toggle(function () {
+			$(this).attr("checked", $(this).is(":checked"));
+			$(this).parent().parent().siblings().not("strong").css("pointer-events", "none");
+		}, function () {
+			$(this).attr("checked", $(this).is(":checked"));
+			$(this).parent().parent().siblings().not("strong").css("pointer-events", "");
 		});
 	
 		$(".showSelect").click(function () {
@@ -408,8 +403,8 @@
 			$(".optContainer:not("+"#ddCity"+no+")").hide();
 		});
 		
-		$(":checkbox").live('click', function(){
-			if (!$(this).prop("checked")) $(".checked").prop({"checked": false});
+		$(".search_wrapper").on("click", ":checkbox", function () {
+			if (!$(this).prop("checked")) $(this).parent().parent().find(".checked").prop({"checked": false});
 			else {
 				if ($(this).parent().parent().find(".area > input:checked").length ==
 				$(this).parent().parent().find(".area > input").length)
@@ -417,7 +412,7 @@
 			}
 		});
 		
-		$(".checked").live("click", function () {
+		$(".search_wrapper").on("click", ".checked", function () {
 			var chk = $(this).prop("checked");
 			$(this).parent().parent().find(":checkbox").prop({"checked": chk});
 			if (chk) {
@@ -425,12 +420,54 @@
 			} else {
 				$(this).parent().parent().find(":checkbox").parent().removeClass("checked");
 			}
-		});		
+		});
 		
+		$(".bootCheck").click(function () {
+			if (!$(this).prop("checked")) $(this).parent().siblings().find(".allCheck").prop({"checked": false});
+			else {
+				if ($(this).parent().parent().find("input:checked").length -
+				$(this).parent().parent().find("input").length == -1)
+					$(".allCheck").prop({"checked": true});
+			}
+		});
+		
+		$(".bootCheck").on("change", function () {
+			if ($(this).is(":checked")) {
+				$("<font>").addClass("sch").text($(this).parent().find("span").text()).attr("data-civa", $(this).val()).appendTo(".schList");
+				$("<span>").addClass("removeSch").text("X").appendTo(".schList");				
+			} else {
+				var civa = $("font.sch[data-civa='"+$(this).val()+"']");
+				civa.next().remove();
+				civa.remove();
+			}
+		});
+		
+		$(".removeSch").click(function (e) {
+			$(this).prev().remove();
+			$(this).remove();
+		});	
+		
+		$(".allCheck").click(function () {
+			var chk = $(this).prop("checked");
+			$(this).parent().parent().find("[type=checkbox]").prop({"checked": chk});
+		});
+		
+		$(".remove").click(function (e) {
+			/* switch ($(this).attr("data-name")) {
+				case "cs" :
+					$("span.ui-slider-label:eq(0)").trigger("click");
+					console.log($("span.ui-slider-label:eq(0)"), ";sadasdsadadsdssda")
+			} */
+			$(this).prev().text("");
+		});	
+		
+		$("span.ui-slider-label:eq(0)")
 		$('span.dropdown').click(function () {
-		        $(this).attr('tabindex', 1).focus();
+			if (chk) {
+				$(this).attr('tabindex', 1).focus();
 		        $(this).toggleClass('active');
 		        $(this).find('.dropdown-menu').slideToggle(300);
+			} else $(this).removeClass('active');
 		    });
 		    $('span.dropdown').focusout(function () {
 		        $(this).removeClass('active');

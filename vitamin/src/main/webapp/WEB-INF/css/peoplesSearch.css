@@ -120,19 +120,8 @@ input[type="radio"] {
 }
 
 
-.career > .career_title {
-	margin-right: 5%
-}
-
-.education > .education_title {
-	margin-right: 5%
-}
-
-.salary > .salary_title {
-	margin-right: 5%
-}
-.age > .age_title {
-	margin-right: 5%
+.career_title, .education_title, .salary_title, .age_title {
+	display:inline-block; width: 8%;
 }
 
 .sectionContent {
@@ -148,9 +137,6 @@ input[type="radio"] {
     font-size: 14px;
     vertical-align: top;
     transition: all .3s ease-in-out;
-}
-.salary_title {
-	margin-right: 2%
 }
 
 .showSelect:hover {
@@ -288,7 +274,7 @@ input[type="radio"] {
 }
 
 div.search_wrapper {
-	
+	margin-bottom: 5%;
 	width: 100%;
 }
 
@@ -424,13 +410,136 @@ label {
 }
 .slider {
 	display: inline-block;
-    width: 60%;
     margin-right: 2%;
     top: 10px;
+    margin-left: 7px;
+}
+.career_slider {
+    width: 80%;
 }
 .detail_wrapper > div {
-    /* margin-bottom: 1.2%; */
+    margin-bottom: 1.2%;
 }
 .ui-slider-label {
-	width: 120%;
+	width: 150%;
+}
+font[class$='_arrow'] {
+	font-weight: bold; font-family: 굴림;
+}
+font[class^='down'] {
+	color: red;
+}
+font[class^='up'] {
+	color: blue;
+}
+
+label.btn span {
+  font-size: 1em ;
+  color: #c8c8c8;
+}
+.active:hover span, .bootCheck:checked ~ span {
+	color: #000000;
+}
+.bootCheck {
+	display: none;
+}
+
+label input[type="radio"] ~ i.fa.fa-circle-o{
+    color: #c8c8c8;    display: inline;
+}
+label input[type="radio"] ~ i.fa.fa-dot-circle-o{
+    display: none;
+}
+label input[type="radio"]:checked ~ i.fa.fa-circle-o{
+    display: none;
+}
+label input[type="radio"]:checked ~ i.fa.fa-dot-circle-o{
+    color: #000000;    display: inline;
+}
+label:hover input[type="radio"] ~ i.fa {
+color: #000000;
+}
+
+label input[type="checkbox"] ~ i.fa.fa-square-o{
+    color: #c8c8c8;    display: inline;
+}
+label input[type="checkbox"] ~ i.fa.fa-check-square-o{
+    display: none;
+}
+label input[type="checkbox"]:checked ~ i.fa.fa-square-o{
+    display: none;
+}
+label input[type="checkbox"]:checked ~ i.fa.fa-check-square-o{
+    color: #000000;    display: inline;
+}
+label:hover input[type="checkbox"] ~ i.fa {
+color: #000000;
+}
+
+div[data-toggle="buttons"] label.active{
+    color: #000000;
+}
+
+div[data-toggle="buttons"] label {
+display: inline-block;
+padding: 6px 12px;
+margin-bottom: 0;
+font-size: 14px;
+font-weight: normal;
+line-height: 2em;
+text-align: left;
+white-space: nowrap;
+vertical-align: top;
+cursor: pointer;
+background-color: none;
+border: 0px solid 
+#c8c8c8;
+border-radius: 3px;
+color: #c8c8c8;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+-o-user-select: none;
+user-select: none;
+}
+
+div[data-toggle="buttons"] label:hover {
+color: #000000;
+}
+
+div[data-toggle="buttons"] label:active, div[data-toggle="buttons"] label.active {
+-webkit-box-shadow: none;
+box-shadow: none;
+}
+.btn.active, .btn:active {
+	margin-right: 2%;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 0;
+    padding: 0;
+}
+.fa-2x {
+	font-size:1.5em;
+}
+.grid-unit {
+	height: 160px;
+}
+.careerList, .schList {
+	font-weight:  bold;
+	margin: 7px;
+}
+.grid-unit font{
+	width: 62px;
+    display: inline-block;
+}
+.remove, .removeSch {
+	color: red;
+	cursor: pointer;
+}
+.removeSch {
+	margin-right: 1%;
+}
+font.sch {
+width: auto;
 }
