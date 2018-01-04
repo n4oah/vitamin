@@ -87,7 +87,8 @@ $(function() {
 	}
 	
 	//=====================================================================================//
-	const MAX_COUNT = 3;
+	/*
+	const MAX_COUNT = 1;
 	
 	let array = new Array();
 	
@@ -106,18 +107,18 @@ $(function() {
 
             let no = $(this).val();
             let content = $(this).parent('label').find('span.content').text();
-            let category = $(this).closest('tr').find('th').text();
+            //let category = $(this).closest('tr').find('th').text();
 
             let map = new Map();
             map.set('no', no);
             map.set('content', content);
-            map.set('category', category);
+            //map.set('category', category);
             
 			array.push(map);
 		} else if($(this).is(':checked') == false) {
             let no = $(this).val();
             let content = $(this).parent('label').find('span.content').text();
-            let category = $(this).parent('tr').find('th').text();
+            //let category = $(this).parent('tr').find('th').text();
 
             for(let i = 0; i < array.length; i++) {
                 if(array[i].get('no') == no) {
@@ -128,19 +129,18 @@ $(function() {
 	});
 	
 	$('#myModal').on('hide.bs.modal', function (event) {
-        let split = ', ';
-        let str, strNo = '';
+        let str = '',
+            strNo = '';
 
         for(let map of array) {
-            str += `${map.get('category')} > ${map.get('content')}${split}`;
-            strNo += `${map.get('no')}|`;
+            str += `${map.get('content')}`;
+            strNo += `${map.get('no')}`;
         }
-        str = str.substr(0, str.length-split.length);
-        strNo = strNo.substr(0, strNo.length-1);
 
         $('#hope_bussiness').val(str);
         $('#hope_bussiness_no').val(strNo)
 	});
+	*/
 	//=====================================================================================//
 });
 

@@ -101,8 +101,17 @@ public class AccountController {
 			terms.setContent(str.toString());
 			termsList.add(terms);
 			
-			List<BusinessType> bt = resumeService.businessTypeSelect();
-			model.addAttribute("bt", bt);
+			List<BusinessType> busType = resumeService.businessTypeSelect();
+			
+			/* 임시 코드 */
+			List<BusinessType> busType2 = new ArrayList<>();
+			for(BusinessType bus : busType) {
+				if(bus.getBusinessOrder() == 0) {
+					busType2.add(bus);
+				}
+			}
+			model.addAttribute("busType", busType2);
+			/* 임시 코드 */
 		}
 		model.addAttribute("newLine", newLine);
 		model.addAttribute("termsList", termsList);

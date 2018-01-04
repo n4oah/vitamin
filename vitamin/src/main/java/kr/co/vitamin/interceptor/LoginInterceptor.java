@@ -29,16 +29,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		
 		Cookie cookie = WebUtils.getCookie(request, "AUTO_SIGNIN");
 		if(cookie != null) {
-			
-			System.out.println(cookie.getValue());
-			
 			AutoSignin autoSignin = new AutoSignin();
 			autoSignin.setAuthToken(cookie.getValue());
 			
 			Account accountVO2 = accountService.getAutoSigninToToken(autoSignin);
 			
-			session.setAttribute("user", accountVO2);
-			return true;
+			if(accountVO2 != null) {
+				session.setAttribute("user", accountVO2);
+				return true;
+			}
 		}
 		response.sendRedirect(request.getContextPath() + "/account/signinForm.do");
 		return false;

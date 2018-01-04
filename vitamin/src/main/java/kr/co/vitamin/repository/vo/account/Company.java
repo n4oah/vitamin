@@ -5,8 +5,16 @@ import java.util.Date;
 
 public class Company extends Account {
 	private Integer companyNo, employeeCount, logoNo, businessNo;
-	private String licenseNumber, companyName, bossName, companyType, businessContent, telNumber, homepage;
+	private String licenseNumber, companyName, bossName, companyType, telNumber, homepage, businessContent;
 	private Date buildupDate;
+
+	public String getBusinessContent() {
+		return businessContent;
+	}
+
+	public void setBusinessContent(String businessContent) {
+		this.businessContent = businessContent;
+	}
 
 	public Integer getCompanyNo() {
 		return companyNo;
@@ -64,14 +72,6 @@ public class Company extends Account {
 		this.companyType = companyType;
 	}
 
-	public String getBusinessContent() {
-		return businessContent;
-	}
-
-	public void setBusinessContent(String businessContent) {
-		this.businessContent = businessContent;
-	}
-
 	public String getTelNumber() {
 		return telNumber;
 	}
@@ -108,8 +108,8 @@ public class Company extends Account {
 	public String toString() {
 		return "Company [companyNo=" + companyNo + ", employeeCount=" + employeeCount + ", logoNo=" + logoNo
 				+ ", businessNo=" + businessNo + ", licenseNumber=" + licenseNumber + ", companyName=" + companyName
-				+ ", bossName=" + bossName + ", companyType=" + companyType + ", businessContent=" + businessContent
-				+ ", telNumber=" + telNumber + ", homepage=" + homepage + ", buildupDate=" + buildupDate
+				+ ", bossName=" + bossName + ", companyType=" + companyType + ", telNumber=" + telNumber + ", homepage="
+				+ homepage + ", businessContent=" + businessContent + ", buildupDate=" + buildupDate
 				+ ", getAccountNo()=" + getAccountNo() + ", getAddressNo()=" + getAddressNo() + ", getEmailTokenNo()="
 				+ getEmailTokenNo() + ", getMemberType()=" + getMemberType() + ", getEmailTokenStatus()="
 				+ getEmailTokenStatus() + ", getId()=" + getId() + ", getPwd()=" + getPwd() + ", getName()=" + getName()

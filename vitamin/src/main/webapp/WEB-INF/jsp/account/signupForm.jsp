@@ -15,7 +15,6 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="${pageContext.request.contextPath}/js/signupForm.js"></script>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-		<%-- <script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script> --%>
 		<script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script>
 		<script>
 			$(function() {
@@ -47,7 +46,6 @@
 			    border-right: 1px solid #c1bcbc;
 			}
 			.horizontal_table .table > tbody > tr > th {
-			    /*width: 140px;*/
 			    padding: 10px 15px;
 			    background-color: #e5e7e9;
 			   	font-weight: 400;
@@ -182,15 +180,46 @@
 												<input type="text" name="company.companyName" id="company-input-companyName" class="form-control" placeholder="기업 이름">
 											</div>
 											<div class="form-group">
+												<input type="text" name="company.bossName" id="company-input-bossName" class="form-control" placeholder="대표자 이름">
+											</div>
+											<div class="form-group">
 												<input type="text" name="company.licenseNumber" id="company-input-licenseNumber" class="form-control bfh-phone" data-format="ddd-dd-ddddd" maxlength="12" placeholder="사업자 등록번호">
 											</div>
 											<div class="form-group">
 												<input type="text" name="company.employeeCount" id="company-input-employeeCount" class="form-control" placeholder="사원수">
 											</div>
 											<div class="form-group">
-												<input type="text" id="hope_bussiness" class="form-control" readonly="readonly" placeholder="회사 직종">
-												<input type="text" name="hope_bussiness_no" id="hope_bussiness_no" class="form-control hide" readonly="readonly">
+												<select class="selectpicker" name="member.gender">
+													<optgroup label="직종을 선택해주세요.">
+														<c:forEach var="bus" items="${busType}">
+															<option value="${bus.businessNo}">${bus.businessContent }</option>
+														</c:forEach>
+													</optgroup>
+												</select>
 											</div>
+											<div class="form-group">
+												<input type="text" name="company.businessContent" id="company-input-businessContent" class="form-control" placeholder="사업 내용">
+											</div>
+											<div class="form-group">
+												<input type="date" name="company.buildupDate" id="private-input-buildupDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
+											</div>
+											<div class="form-group">
+												<input type="text" name="company.telNumber" id="private-input-phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+82 (ddd) dddd-dddd">
+											</div>
+											<!-- <div class="form-group">
+												<div class="input-group">
+													<input name="address.postCode" type="text" class="form-control" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
+													<span class="input-group-btn">
+														<button class="btn btn-secondary" type="button" onclick="sample6_execDaumPostcode()" style="padding-top: 10%; padding-bottom: 10%;">우편번호 찾기</button>
+													</span>
+												</div>
+											</div>
+											<div class="form-group">
+												<input name="address.address1" type="text" class="form-control" id="sample6_address" placeholder="주소" readonly="readonly">
+											</div>
+											<div class="form-group">
+												<input name="address.address2" type="text" class="form-control" id="sample6_address2" placeholder="상세주소">
+											</div> -->
 											<div class="form-group">
 												<div class="row">
 													<div class="col-sm-6 col-sm-offset-3">
@@ -198,63 +227,26 @@
 													</div>
 												</div>
 											</div>
-											<div class="modal fade" id="myModal" role="dialog">
-												<div class="modal-dialog modal-xl">
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal">&times;</button>
-															<h4 class="modal-title">직종</h4>
-														</div>
-														<div class="modal-body">
-															<div class="horizontal_table table_wrap">
-																<table class="table">
-																	<tbody>
-																		<c:forEach var="b" items="${bt}" varStatus="loop">
-																			<c:if test="${b.businessOrder eq 0}">
-																				<c:if test="${loop.first == false}">
-																					</div>
-																					</td>
-																					</tr>
-																				</c:if>
-																				<tr>
-																					<th class="col-md-2">${b.businessContent}</th>
-																					<td>
-																						<div>
-																			</c:if>
-																			<div class="form-check">
-																				<c:if test="${b.businessOrder ne 0}">
-																					<ul>
-																						<li class="col-md-2">
-																							<label class="form-check-label">
-																								<input type="checkbox" class="form-check-input selectedBusiness" name="selectedBusiness" value="${b.businessNo}" />
-																								<span class="content">${b.businessContent}</span>
-																							</label>
-																						</li>
-																					</ul>
-																				</c:if>
-																			</div>
-																		</c:forEach>
-																		</div>
-																		</td>
-																		</tr>
-																	</tbody>
-																</table>
-															</div>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-														</div>
+										</form>
+										<div class="modal fade" id="myModal" role="dialog">
+											<div class="modal-dialog modal-xl">
+												<div class="modal-content">
+													<div class="modal-header">
+														<button type="button" class="close" data-dismiss="modal">&times;</button>
+														<h4 class="modal-title">직종</h4>
+													</div>
+													<div class="modal-footer">
+														<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 													</div>
 												</div>
 											</div>
-										</form>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<!-- termsList -->
 						<h3 class="title">약관동의</h3>
 						<c:forEach var="terms" items="${termsList}">
 							<div class="scrollbar scrollbar-white">
