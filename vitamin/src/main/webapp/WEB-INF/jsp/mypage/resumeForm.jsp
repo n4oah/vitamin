@@ -821,8 +821,17 @@ $(document).ready(function(){
 			$("#myModal").modal("show");
 		});
 
+		var str="";
 		$('#myModal').on('hide.bs.modal', function (e) {
+			var inputList = $('label > input:checked');
 			
+			for (var i = 0; i < inputList.length; i++) {
+				//console.log(inputList.length-1 == i ? "" :", ");
+				//console.log($(inputList[i]).attr("attr"))
+				str +=  $(inputList[i]).attr("attr");
+				str +=  inputList.length-1 == i ? "" :", ";				
+			}
+			$('#hope_bussiness').val(str);
 			
 		});
 		
