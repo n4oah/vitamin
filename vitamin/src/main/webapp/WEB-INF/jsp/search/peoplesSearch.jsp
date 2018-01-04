@@ -138,6 +138,8 @@
 						
 						
 						<section class="grid-unit bottom-left">
+							<div class="addrList">
+							</div>
 							<div class="sphere"></div>
 							<span class="icon fa fa-globe"></span> <span class="label">Address</span>
 						</section>
@@ -318,6 +320,9 @@
 				color : "white"
 			});
 		}
+		
+		var careerStart;
+		var careerEnd;
 				    
 	    $(".career_slider").slider({ 
 	        min: 0, 
@@ -332,6 +337,9 @@
 	    	suffix: "년",
 	    	labels: {"first": "신입", "last": "20년<font class='up_arrow'>↑</font>"}
 	    }).on("slidechange", function (e, ui) {
+	    	careerStart = ui.values[0];
+	    	careerEnd = ui.values[1];
+	    	
 	    	if (ui.value == ui.values[0])
 	    		$(".careerStart").text(ui.values[0] == "0" ? "신입" : ui.values[0]+"년");
 	    	if (ui.value == ui.values[1])
@@ -390,7 +398,7 @@
 						
 						city.areaList.forEach(function (area) {
 					    	div.append($("<label>").addClass("area")
-					    			.append($("<input>").attr("type", "checkbox"))
+					    			.append($("<input>").attr("type", "checkbox").val(area.areaCode))
 					    			.append($("<b>").text(area.name)));
 					    });
 					    
@@ -404,8 +412,16 @@
 		});
 		
 		$(".search_wrapper").on("click", ":checkbox", function () {
-			if (!$(this).prop("checked")) $(this).parent().parent().find(".checked").prop({"checked": false});
-			else {
+			var value = $(this).val();
+			
+			if (!$(this).prop("checked")) {
+				$(this).parent().parent().find(".checked").prop({"checked": false});
+				
+				$("[data-civa='"+value+"'], [data-civa='"+value+"'] + span").remove();
+			} else {
+				$("<font>").attr("data-civa", value).text($(this).next().text()).appendTo(".addrList");
+				$("<span>").addClass("removeAddr").text("X").appendTo(".addrList");
+				
 				if ($(this).parent().parent().find(".area > input:checked").length ==
 				$(this).parent().parent().find(".area > input").length)
 					$(".checked").prop({"checked": true});
@@ -431,7 +447,7 @@
 			}
 		});
 		
-		$(".bootCheck").on("change", function () {
+		$(".bootCheck:not(.allCheck)").on("change", function () {
 			if ($(this).is(":checked")) {
 				$("<font>").addClass("sch").text($(this).parent().find("span").text()).attr("data-civa", $(this).val()).appendTo(".schList");
 				$("<span>").addClass("removeSch").text("X").appendTo(".schList");				
@@ -442,26 +458,51 @@
 			}
 		});
 		
-		$(".removeSch").click(function (e) {
-			$(this).prev().remove();
-			$(this).remove();
+		$(".schList, .addrList").on("click", ".removeSch, .removeAddr", function (e) {
+			/* $(this).prev().remove();
+			$(this).remove(); */
+			$("[value='"+$(this).prev().attr("data-civa")+"']").trigger("click");
 		});	
 		
 		$(".allCheck").click(function () {
 			var chk = $(this).prop("checked");
 			$(this).parent().parent().find("[type=checkbox]").prop({"checked": chk});
+			if (chk) {
+				$(".bootCheck:not(.allCheck)").each(function (i, e) {
+					var input = $(e);
+					
+					if ($("font.sch[data-civa='"+input.val()+"']").length <= 0) {
+						$("<font>").addClass("sch").text(input.parent().find("span").text()).attr("data-civa", input.val()).appendTo(".schList");
+						$("<span>").addClass("removeSch").text("X").appendTo(".schList");						
+					}
+					
+				});
+			} else {
+				$(".bootCheck:not(.allCheck)").each(function (i, e) {
+					var civa = $("font.sch[data-civa='"+$(this).val()+"']");
+					civa.next().remove();
+					civa.remove();
+				})
+			}
 		});
 		
 		$(".remove").click(function (e) {
-			/* switch ($(this).attr("data-name")) {
+			switch ($(this).attr("data-name")) {
 				case "cs" :
-					$("span.ui-slider-label:eq(0)").trigger("click");
-					console.log($("span.ui-slider-label:eq(0)"), ";sadasdsadadsdssda")
-			} */
+					//$("span.ui-slider-label:eq(0)").trigger("click");
+					$(".career_slider").slider({ 
+				        values: [0, careerEnd] 
+			    	});
+					break;
+				case "ce" :
+					$(".career_slider").slider({ 
+				        values: [careerStart, 20] 
+			    	});
+			}
+			
 			$(this).prev().text("");
 		});	
 		
-		$("span.ui-slider-label:eq(0)")
 		$('span.dropdown').click(function () {
 			if (chk) {
 				$(this).attr('tabindex', 1).focus();

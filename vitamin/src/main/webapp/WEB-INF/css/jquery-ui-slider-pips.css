@@ -365,7 +365,7 @@ fa {
 }
 
 .top-right {
-  background: rgba(217,91,67,1);
+  background: rgb(187, 137, 137);
   border-right: 10px solid #fff;
 }
 
@@ -378,7 +378,7 @@ fa {
 
 .bottom-left {
 	height: 150px; 
-	background: rgba(84,36,55,1);
+	background: rgb(228, 142, 176);
 	border-bottom: 10px solid #fff;
 }
 
@@ -424,27 +424,31 @@ fa {
 }
 
 .top-left .label {
-	bottom: 75px;
-	right: 80px;
+	bottom: 50px;
+	right: 60px;
 	transform: rotate(25deg);
+    opacity: 0.5;
 }
 
 .top-right .label {
-  bottom: 75px;
-  left: 80px;
+  bottom: 50px;
+  left: 60px;
   transform: rotate(-25deg);
+  opacity: 0.5;
 }
 
 .bottom-left .label {
-  top: 75px;
-  right: 80px;
+  top: 50px;
+  right: 60px;
   transform: rotate(-25deg);
+  opacity: 0.5;
 }
 
 .bottom-right .label {
-  top: 75px;
-  left: 80px;
+  top: 50px;
+  left: 60px;
   transform: rotate(25deg);
+  opacity: 0.5;
 }
 
 .top-left .desc {
@@ -473,8 +477,8 @@ fa {
 
 .sphere {
   position: absolute;
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   background-color: rgba(255,255,255,1);
   border-radius: 500px;
   transition: background-color .25s ease;
@@ -482,23 +486,23 @@ fa {
 }
 
 .top-left .sphere {
-  right: -100px;
-  bottom: -100px;
+  right: -80px;
+  bottom: -80px;
 }
 
 .top-right .sphere {
-  left: -100px;
-  bottom: -100px;
+  left: -80px;
+  bottom: -80px;
 }
 
 .bottom-right .sphere {
-  left: -100px;
-  top: -100px;
+  left: -80px;
+  top: -80px;
 }
 
 .bottom-left .sphere {
-  right: -100px;
-  top: -100px;
+  right: -80px;
+  top: -80px;
 }
 
 .grid-unit:hover .sphere {
