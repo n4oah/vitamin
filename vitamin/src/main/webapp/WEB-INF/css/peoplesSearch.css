@@ -525,21 +525,27 @@ box-shadow: none;
 .grid-unit {
 	height: 160px;
 }
-.careerList, .schList {
+.careerList, .schList, .addrList {
 	font-weight:  bold;
 	margin: 7px;
 }
 .grid-unit font{
-	width: 62px;
+    position: relative;
+    z-index: 1000;
     display: inline-block;
 }
-.remove, .removeSch {
+.remove, .removeSch, .removeAddr {
 	color: red;
 	cursor: pointer;
+	position: relative;
+    z-index: 1000;
 }
-.removeSch {
-	margin-right: 1%;
+.removeSch, .removeAddr {
+	margin: 0 1% 0 0.5%;
 }
 font.sch {
 width: auto;
+}
+.addrList {
+	width: 85%
 }
