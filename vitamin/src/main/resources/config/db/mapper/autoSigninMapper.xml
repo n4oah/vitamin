@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.vitamin.repository.mapper.AutoSigninMapper">
+	<resultMap type="autoSignin" id="autoSigninMap">
+		<result column="auto_signin_no" property="autoSigninNo" />
+		<result column="account_no" property="accountNo" />
+		<result column="auth_token" property="authToken" />
+		<result column="ip" property="ip" />
+		<result column="delete_date" property="deleteDate" />
+	</resultMap>
+	
+	<resultMap type="account" id="accountMap">
+		<result column="account_no" property="accountNo" />
+		<result column="id" property="id" />
+		<result column="pwd" property="pwd" />
+		<result column="name" property="name" />
+		<result column="email" property="email" />
+		<result column="address_no" property="addressNo" />
+		<result column="email_token_no" property="emailTokenNo" />
+		<result column="reg_date" property="regDate" />
+		<result column="member_type" property="memberType" />
+		<result column="email_token_status" property="emailTokenStatus" />
+
+		<discriminator javaType="int" column="member_type">
+			<case value="1" resultMap="memberMap"/>
+			<case value="2" resultMap="companyMap"/>
+		</discriminator>
+	</resultMap>
+
+	<resultMap type="member" id="memberMap" extends="accountMap">
+		<result column="member_no" property="memberNo" />
+		<result column="account_no" property="accountNo" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="birth_date" property="birthDate" />
+		<result column="gender" property="gender" />
+	</resultMap>
+	
+	<resultMap type="company" id="companyMap" extends="accountMap">
+		<result column="company_no" property="companyNo" />
+		<result column="account_no" property="accountNo" />
+		<result column="license_number" property="licenseNumber" />
+		<result column="company_name" property="companyName" />
+		<result column="boss_name" property="bossName" />
+		<result column="company_type" property="companyType" />
+		<result column="buildup_date" property="buildupDate" />
+		<result column="business_content" property="businessContent" />
+		<result column="business_no" property="businessNo" />
+		<result column="tel_number" property="telNumber" />
+		<result column="homepage" property="homepage" />
+		<result column="employee_count" property="employeeCount" />
+		<result column="logo_no" property="logoNo" />
+	</resultMap>
+	
+	<insert id="insertAutoSignin" parameterType="autoSignin">
+		INSERT INTO vi_auto_signin
+		(account_no, auth_token, ip, delete_date)
+		VALUES
+		(#{accountNo}, #{authToken}, #{ip}, #{deleteDate})
+	</insert>
+	
+	<delete id="deleteAutoSignin" parameterType="autoSignin">
+		DELETE FROM vi_auto_signin
+		WHERE auth_token=#{authToken} LIMIT 1
+	</delete>
+	
+	<select id="selectAutoSignAccount" parameterType="autoSignin" resultMap="accountMap">
+		SELECT account.*, member.*
+		FROM vi_account AS account JOIN vi_member AS member JOIN vi_auto_signin AS auto_signin 
+		WHERE auto_signin.auth_token=#{authToken} AND account.account_no = auto_signin.account_no AND account.account_no = member.account_no;
+	</select>
+</mapper>

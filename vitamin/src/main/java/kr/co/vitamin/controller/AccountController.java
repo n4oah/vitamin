@@ -12,7 +12,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,10 +25,14 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -35,6 +41,7 @@ import org.w3c.dom.NodeList;
 
 import kr.co.vitamin.common.EmailSender;
 import kr.co.vitamin.repository.vo.Address;
+import kr.co.vitamin.repository.vo.AutoSignin;
 import kr.co.vitamin.repository.vo.EmailToken;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.Terms;
@@ -159,7 +166,10 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/signin.do", method=RequestMethod.POST)
-	public String signin(HttpSession session, Account memberVO, RedirectAttributes redirectAttributes) throws Exception {
+	public String signin(HttpSession session, Account memberVO, @RequestParam(value="autoSignin", defaultValue="0")Integer autoSignin,
+						@RequestParam(value="idSave", defaultValue="0")Integer idSave, RedirectAttributes redirectAttributes,
+						 @CookieValue(value="AUTO_SIGNIN", required=false)Cookie cookie,
+						 HttpServletResponse response) throws Exception {
 		String viewUrl = "redirect:/account/signinForm.do";
 		
 		memberVO.setShaPwd(memberVO.getPwd());
@@ -173,6 +183,34 @@ public class AccountController {
 			if(memVo.getEmailTokenStatus() == 2) {
 				session.setAttribute("user", memVo);
 				
+				if(autoSignin == 1) {
+					HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+					
+					Calendar calendar = Calendar.getInstance();
+					calendar.add(Calendar.DATE, 90);
+					
+					AutoSignin autoSigninVO = new AutoSignin();
+					autoSigninVO.setAccountNo(memVo.getAccountNo());
+					autoSigninVO.setDeleteDate(calendar.getTime());
+					autoSigninVO.setIp(req.getRemoteAddr());
+					
+					if(cookie != null) {
+						cookie.setMaxAge(0);
+						autoSigninVO.setAuthToken(cookie.getValue());
+						accountService.deleteAutoSignin(autoSigninVO);
+						response.addCookie(cookie);
+					}
+					autoSigninVO.makeAuthToken();
+					cookie = new Cookie("AUTO_SIGNIN", autoSigninVO.getAuthToken());
+					cookie.setMaxAge(7776000);
+					cookie.setPath("/");
+					accountService.setAutoSignin(autoSigninVO);
+					
+					response.addCookie(cookie);
+				} else if(idSave == 1) {
+					
+				}
+				
 				viewUrl = "redirect:/main.do";
 			} else {
 				redirectAttributes.addFlashAttribute("errorMsg", "이메일 인증이 완료되지 않았습니다, 7일 이내로 이메일을 확인해주세요.");
@@ -180,7 +218,6 @@ public class AccountController {
 		}
 		return viewUrl;
 	}
-	
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) throws Exception {
