@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.vitamin.repository.mapper.ResumeMapper;
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.ArmyService;
+import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
@@ -87,6 +88,16 @@ public class ResumeServiceImpl implements ResumeService{
 	@Override
 	public LicensingDepartment licensingDepartmentSelect(Integer licensingDepartmentNo) throws Exception {
 		return mapper.selectLicensingDepartment(licensingDepartmentNo);
+	}
+
+	@Override
+	public List<BusinessType> businessTypeSelect() throws Exception {
+		return mapper.selectBusinessType();
+	}
+
+	@Override
+	public BusinessType choiceBusiness(Integer businessNo) throws Exception {
+		return mapper.chooseBusinessType(businessNo);
 	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.ArmyService;
+import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.ConditionSelection;
@@ -105,7 +106,9 @@ public class ResumeController {
 		System.out.println("resumeForm 들어옴");
 		ModelAndView mav = new ModelAndView();
 		List<City> clist = resumeService.citySelect();
-		mav.addObject("clist", clist);
+		List<BusinessType> bt = resumeService.businessTypeSelect();
+		mav.addObject("clist",clist);
+		mav.addObject("bt",bt);
 		return mav;
 	}
 	
@@ -142,6 +145,17 @@ public class ResumeController {
 		System.out.println("licensingDepartmentNo"+licensingDepartmentNo);
 		LicensingDepartment ld = resumeService.licensingDepartmentSelect(licensingDepartmentNo);
 		return ld;
+	}
+	
+	@RequestMapping("/choiceBusiness.do")
+	@ResponseBody
+	public BusinessType choiceBusiness(Integer businessNo) throws Exception{
+		System.out.println("choiceBusiness 들어옴");
+		System.out.println(businessNo);
+		BusinessType businessType = resumeService.choiceBusiness(businessNo);
+		System.out.println(businessType.getBusinessType());
+		System.out.println(businessType.getBusinessContent());
+		return businessType;
 	}
 	
 	

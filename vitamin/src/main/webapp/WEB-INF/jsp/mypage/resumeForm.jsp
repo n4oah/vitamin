@@ -9,6 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>이력서 등록</title>
 <%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/basic.css">
 <link rel="stylesheet"
@@ -16,16 +17,17 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/resume.css">
-<link rel="stylesheet"
-	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
-<link rel="stylesheet"
-	href="path/to/font-awesome/css/font-awesome.min.css">
-<script src="https://use.fontawesome.com/942e94bfdb.js"></script>
+<!-- <link rel="stylesheet"
+	href="path/to/font-awesome/css/font-awesome.min.css"> -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <script src="https://use.fontawesome.com/942e94bfdb.js"></script> -->
 <script src="${pageContext.request.contextPath}/js/resumeInfo.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=316e409a59e29fd51e1dcbf1e4769f1c&libraries=services"></script>
+
 <style type="text/css">
+
 .float-control{
 	width:220px;
 }
@@ -36,6 +38,14 @@
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
   }
+li{
+	width:50%;
+	float:left;
+	list-style:none;
+}
+/* label{
+	cursor:pointer;
+} */
 </style>
 </head>
 <body>
@@ -319,10 +329,10 @@
 													<option class="fa" value="0">퇴사</option>
 													<option class="fa" value="1">재직중</option>
 											</select> <input class="float-control" type="text" id="work_start"
-												style="width: 100px" placeholder="입사일"> 
+												style="width: 150px" placeholder="입사일"> 
 												<span>~</span>
 												<input class="float-control" type="text" id="work_end"
-												style="width: 100px" placeholder="퇴사일"></td>
+												style="width: 150px" placeholder="퇴사일"></td>
 										</tr>
 										<tr>
 											<th>회사명</th>
@@ -508,7 +518,7 @@
 										</tr>
 										<tr>
 											<th>희망 직종</th>
-											<td><input type="text" class="float-control"></td>
+											<td><input type="text" id="hope_bussiness" class="float-control" readonly="readonly" style="width:80%"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -527,6 +537,64 @@
 				</div>
 			</section>
 		</div>
+		
+		  <!-- Trigger the modal with a button -->
+  <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">직종</h4>
+        </div>
+        <div class="modal-body">
+        <div class="horizontal_table table_wrap">
+          <table class="table">
+          	<tbody>
+         		<c:forEach var="b" items="${bt}" varStatus="loop">
+         			<c:if test="${b.businessOrder eq 0}">
+         			<c:if test="${loop.first == false}">
+         			</div>
+         			</td>
+         			</tr>
+         			</c:if>
+         			<tr>
+         			<th>${b.businessContent}</th>
+         			<td>
+         			<div>
+         			</c:if>
+         			<c:if test="${b.businessOrder ne 0}">
+         			<ul>
+	         			<li>
+		         			<label>
+		         				<input type="checkbox" id="${b.businessContent}" class="selectedBusiness" name="selectedBusiness" attr="${b.businessContent}" value="${b.businessNo}"/>
+		         				${b.businessContent}
+		         			</label>
+	         			</li>
+         			</ul>
+         			</c:if>
+	          	</c:forEach>
+         		</div>
+	          	</td>
+         		</tr>
+         		
+          	</tbody>
+          </table>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+
 
 	<!-- </form> -->
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp"%>
@@ -716,7 +784,7 @@ $(document).ready(function(){
 	                          response(
 	                             $.map(data, function(item) {
 	                                return {
-	                                    label: item.name +" "+ item.licensingDepartmentNo,
+	                                    label: item.name,
 	                                    value: item.name,
 	                                    no: item.licensingDepartmentNo
 	                                }
@@ -725,26 +793,69 @@ $(document).ready(function(){
 	                    	}
 	                    });
 	               },
-	      
 	        minLength: 2,
 	        select: function( event, ui ) {
-	        	 
-	            
 	             $.ajax({
 	            	 url:"${pageContext.request.contextPath}/mypage/licensingDepartment.do?licensingDepartmentNo="+ui.item.no,
 	            	 dataType:"json",
 	            	 success: function(data){
-	            		 console.log(data);
 	            		 $("#licensingDepartment").val(data.name);
 	            	 }
 	             });
-	             
 	        }
-       
-	
 	    });
 	
+		/* $('#hope_bussiness').on("click",function(e){
+			$.ajax({
+				url:"${pageContext.request.contextPath}/mypage/hopeBussinessSelect.do",
+				success: function(data){
+					
+				}
+			});
+		}); */
+		
+		
+		
+		
+		$('#hope_bussiness').click(function(){
+			$("#myModal").modal("show");
+		});
+
+		$('#myModal').on('hide.bs.modal', function (e) {
+			
+			
+		});
+		
+		
 	
+	
+ 	/* var text="";
+	var text2="";
+	$('label > input').click(function(){
+		console.log($(this).attr("attr"));
+		if($(this).attr("attr"))
+		text += $(this).attr("attr")+", ";
+		
+		$('#hope_bussiness').val(text);
+		
+	}); 
+	 */
+	
+	
+	/* 	$.ajax({
+			url: "${pageContext.request.contextPath}/mypage/choiceBusiness.do?businessNo="+$("label > input:checked").val(),
+			dataType:"json",
+			success:function(data){
+				var text="";
+				
+				 console.log(data) 
+				 text=data.businessType+"-"+data.businessContent;
+				
+				 $('#hope_bussiness').val(text);
+				
+				
+			}
+		}); */
 	
 	
 	

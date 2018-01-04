@@ -5,9 +5,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.vitamin.repository.mapper.AddressMapper;
+import kr.co.vitamin.repository.mapper.AutoSigninMapper;
 import kr.co.vitamin.repository.mapper.EmailTokenMapper;
 import kr.co.vitamin.repository.mapper.AccountMapper;
 import kr.co.vitamin.repository.vo.Address;
+import kr.co.vitamin.repository.vo.AutoSignin;
 import kr.co.vitamin.repository.vo.EmailToken;
 import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.repository.vo.account.AccountSignup;
@@ -22,6 +24,8 @@ public class AccountServiceImpl implements AccountService {
 	private AddressMapper addressMapper;
 	@Autowired
 	private EmailTokenMapper emailTokMapper;
+	@Autowired
+	private AutoSigninMapper autoSigninMapper;
 	
 	@Override
 	public boolean getOverlapIdCheck(Account actionVO) throws Exception {
@@ -73,5 +77,20 @@ public class AccountServiceImpl implements AccountService {
 	public Account login(Account accountVO) throws Exception {
 		accountVO.setMemberType(memberMapper.selectMemberType(accountVO));
 		return memberMapper.selectLoginAccount(accountVO);
+	}
+
+	@Override
+	public void setAutoSignin(AutoSignin autoSignin) throws Exception {
+		autoSigninMapper.insertAutoSignin(autoSignin);
+	}
+	
+	@Override
+	public void deleteAutoSignin(AutoSignin autoSignin) throws Exception {
+		autoSigninMapper.deleteAutoSignin(autoSignin);
+	}
+
+	@Override
+	public Account getAutoSigninToToken(AutoSignin autoSignin) throws Exception {
+		return autoSigninMapper.selectAutoSignAccount(autoSignin);
 	}
 }

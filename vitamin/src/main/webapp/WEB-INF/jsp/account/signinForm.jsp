@@ -49,6 +49,16 @@
 												<input type="password" name="pwd" id="signin_id" class="form-control" placeholder="비밀번호">
 											</div>
 											<div class="form-group">
+												<div class="form-check text-center">
+													<label class="form-check-label">
+														<input name="idSave" id="id-save" class="form-check-input terms-check" type="checkbox" value="1"> 아이디 저장
+													</label>
+													<label class="form-check-label">
+														<input name="autoSignin" id="auto-signin" class="form-check-input terms-check" type="checkbox" value="1"> 자동 로그인
+													</label>
+												</div>
+											</div>
+											<div class="form-group">
 												<div class="row">
 													<div class="col-md-6 col-md-offset-3">
 														<input type="button" id="signin-btn" class="form-control btn submit" value="로그인">
