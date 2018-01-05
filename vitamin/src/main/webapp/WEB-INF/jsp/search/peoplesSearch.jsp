@@ -392,7 +392,7 @@
 						
 						var div = $("<div>").addClass("optContainer").attr("id", "ddCity"+city.cityCode).css("display", "block")
 					    .append($("<label>")
-					    	.append($("<input>").addClass("checked").attr("type", "checkbox"))
+					    	.append($("<input>").addClass("checked").attr({"type": "checkbox"}).val(city.cityCode))
 					    	.append($("<b>").text(city.subName+"전체")))
 				    	.append($("<h5>").text("지역"));
 						
@@ -411,13 +411,17 @@
 			$(".optContainer:not("+"#ddCity"+no+")").hide();
 		});
 		
-		$(".search_wrapper").on("click", ":checkbox", function () {
+		$(".search_wrapper").on("click", ".area > :checkbox", function () {
 			var value = $(this).val();
+			var checked = $(this).parent().parent().find(".checked");
+			var fValue = checked.val();
 			
 			if (!$(this).prop("checked")) {
-				$(this).parent().parent().find(".checked").prop({"checked": false});
+				checked.prop({"checked": false});
 				
 				$("[data-civa='"+value+"'], [data-civa='"+value+"'] + span").remove();
+				
+				$("font[data-civa='"+fValue+"'], font[data-civa='"+fValue+"'] + span").remove();
 			} else {
 				$("<span>")
 					.append($("<font>").attr("data-civa", value).text($(this).next().text()))
@@ -425,18 +429,35 @@
 				.appendTo(".addrList");
 				
 				if ($(this).parent().parent().find(".area > input:checked").length ==
-				$(this).parent().parent().find(".area > input").length)
-					$(".checked").prop({"checked": true});
+				$(this).parent().parent().find(".area > input").length) {
+					$(".checked").trigger("click");					
+				}
 			}
 		});
 		
 		$(".search_wrapper").on("click", ".checked", function () {
 			var chk = $(this).prop("checked");
+			var value = $(this).val();
+
 			$(this).parent().parent().find(":checkbox").prop({"checked": chk});
+			
 			if (chk) {
 				$(this).parent().parent().find(":checkbox").parent().addClass("checked");
+				
+				$(this).parent().parent().find(":checkbox").each(function (i, e) {
+					var eValue = $(this).val();
+					$("[data-civa='"+eValue+"'], [data-civa='"+eValue+"'] + span").remove();
+				});
+				
+				
+				$("<span>")
+					.append($("<font>").attr("data-civa", value).text($(this).next().text()))
+					.append($("<span>").addClass("removeAddr").text("X"))
+				.appendTo(".addrList");
 			} else {
 				$(this).parent().parent().find(":checkbox").parent().removeClass("checked");
+				
+				$("font[data-civa='"+value+"'], font[data-civa='"+value+"'] + span").remove();
 			}
 		});
 		

@@ -350,6 +350,7 @@ span.dropdown .dropdown-menu li {
     cursor: pointer
 } 
 span.dropdown .dropdown-menu {
+    z-index: 2000;
     padding: 0;
     list-style: none
 }
@@ -548,4 +549,8 @@ width: auto;
 }
 .addrList {
 	width: 85%
+}
+.age li {
+	width: 48.8%;
+	display: inline-block;
 }
