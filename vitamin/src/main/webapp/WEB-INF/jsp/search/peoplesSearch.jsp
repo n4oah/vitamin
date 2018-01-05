@@ -68,7 +68,7 @@
 				         			 <i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        			<ul class="dropdown-menu">
+				        			<ul class="dropdown-menu" data-civa="start">
 				        				<li>전체</li>
 				          				<c:forEach begin="20" end="60" var="i">
 				          				<li>${i }세 이상</li>
@@ -86,7 +86,7 @@
 				         			 <i class="fa fa-chevron-down"></i>
 				        		</span>
 				        		
-				        			<ul class="dropdown-menu">
+				        			<ul class="dropdown-menu" data-civa="end">
 				        				<li>전체</li>
 				          				<c:forEach begin="20" end="60" var="i">
 				          				<li>${i }세 이하</li>
@@ -119,7 +119,7 @@
 								</div>
 								
 								<div>
-									최고 경력:
+									최대 경력:
 									<font class="careerEnd">20년 이상</font>
 									<span class="remove" data-name="ce">X</span>
 								</div>
@@ -146,8 +146,22 @@
 						
 						
 						<section class="grid-unit bottom-right">
+							<div class="ageList">
+								<div>
+									최소 나이:
+									<font class="ageStart">전체</font>
+									<span class="removeAge" data-name="cs">X</span>
+								</div>
+								
+								<div>
+									최대 나이:
+									<font class="ageEnd">전체</font>
+									<span class="removeAge" data-name="ce">X</span>
+								</div>
+							</div>
+							
 							<div class="sphere"></div>
-							<span class="icon fa fa-id-card"></span> <span class="label">Gallery</span>
+							<span class="icon fa fa-id-card"></span> <span class="label">Info</span>
 						</section>
 					</div>
 					<!-- end wrapper -->
@@ -340,26 +354,27 @@
 	    	careerStart = ui.values[0];
 	    	careerEnd = ui.values[1];
 	    	
+	    	var val1;
+	    	var val2;
+	    	
+	    	if (ui.values[0] == "0") {
+	    		val1 = "신입";
+	    	}
+	    	
+	    	if (ui.values[1] == "0") {
+	    		val2 = "신입";
+	    	} else if (ui.values[1] == "20") {	    		
+	    		val2 = ui.values[1]+"년 이상";
+	    	}
+	    	
 	    	if (ui.value == ui.values[0])
-	    		$(".careerStart").text(ui.values[0] == "0" ? "신입" : ui.values[0]+"년").attr("data-civa", ui.values[0]);
+	    		$(".careerStart").text(val1 ? val1 : ui.values[0]+"년 이상").attr("data-civa", ui.values[0]);
 	    	if (ui.value == ui.values[1])
-	    		$(".careerEnd").text(ui.values[1] == "20" ? ui.values[1]+"년 이상" : ui.values[1]+"년").attr("data-civa", ui.values[1]);
+	    		$(".careerEnd").text(val2 ? val2 : ui.values[1]+"년 이하").attr("data-civa", ui.values[1]);
 	    });
 	    
 	    var chk = true;
-	    
-	    $(".dropdown-menu > li").click(function () {
-	    	parseInt($(this).text())
-	    	if(bool && end != -1 && start != -1) {
-				chk = false;
-				if ($.inArray(this, efg.find('span.dropdown:eq(0) > .dropdown-menu li')) > -1) efg.find(".startDefault").trigger("click")
-				else efg.find(".endDefault").trigger("click");
-				alert(str+" 확인해주세요.");
-				
-				chk = true;
-			}
-	    })
-		
+
 		var path = "${pageContext.request.contextPath}";
 		$(function() {
 			let anim = $('.showSelect').css('transition');
@@ -392,7 +407,7 @@
 						
 						var div = $("<div>").addClass("optContainer").attr("id", "ddCity"+city.cityCode).css("display", "block")
 					    .append($("<label>")
-					    	.append($("<input>").addClass("checked").attr("type", "checkbox"))
+					    	.append($("<input>").addClass("checked").attr({"type": "checkbox"}).val(city.cityCode))
 					    	.append($("<b>").text(city.subName+"전체")))
 				    	.append($("<h5>").text("지역"));
 						
@@ -411,13 +426,25 @@
 			$(".optContainer:not("+"#ddCity"+no+")").hide();
 		});
 		
-		$(".search_wrapper").on("click", ":checkbox", function () {
+		$(".search_wrapper").on("click", ".area > :checkbox", function () {
 			var value = $(this).val();
+			var checked = $(this).parent().parent().find(".checked");
+			var fValue = checked.val();
 			
 			if (!$(this).prop("checked")) {
-				$(this).parent().parent().find(".checked").prop({"checked": false});
+				if (checked.is(":checked")) {
+					checked.prop({"checked": false});
+					$(this).parent().parent().find(":checked").each(function (i, e) {
+						$("<span>")
+							.append($("<font>").attr("data-civa", $(this).val()).text($(this).next().text()))
+							.append($("<span>").addClass("removeAddr").text("X"))
+						.appendTo(".addrList");
+					});
+				}
 				
 				$("[data-civa='"+value+"'], [data-civa='"+value+"'] + span").remove();
+				
+				$("font[data-civa='"+fValue+"'], font[data-civa='"+fValue+"'] + span").remove();
 			} else {
 				$("<span>")
 					.append($("<font>").attr("data-civa", value).text($(this).next().text()))
@@ -425,18 +452,35 @@
 				.appendTo(".addrList");
 				
 				if ($(this).parent().parent().find(".area > input:checked").length ==
-				$(this).parent().parent().find(".area > input").length)
-					$(".checked").prop({"checked": true});
+				$(this).parent().parent().find(".area > input").length) {
+					$(".checked").trigger("click");					
+				}
 			}
 		});
 		
 		$(".search_wrapper").on("click", ".checked", function () {
 			var chk = $(this).prop("checked");
+			var value = $(this).val();
+
 			$(this).parent().parent().find(":checkbox").prop({"checked": chk});
+			
 			if (chk) {
-				$(this).parent().parent().find(":checkbox").parent().addClass("checked");
+				//$(this).parent().parent().find(":checkbox").parent().addClass("checked");
+				
+				$(this).parent().parent().find(":checkbox").each(function (i, e) {
+					var eValue = $(this).val();
+					$("[data-civa='"+eValue+"'], [data-civa='"+eValue+"'] + span").remove();
+				});
+				
+				
+				$("<span>")
+					.append($("<font>").attr("data-civa", value).text($(this).next().text()))
+					.append($("<span>").addClass("removeAddr").text("X"))
+				.appendTo(".addrList");
 			} else {
-				$(this).parent().parent().find(":checkbox").parent().removeClass("checked");
+				//$(this).parent().parent().find(":checkbox").parent().removeClass("checked");
+				
+				$("font[data-civa='"+value+"'], font[data-civa='"+value+"'] + span").remove();
 			}
 		});
 		
@@ -518,8 +562,31 @@
 		    });
 		    $('span.dropdown .dropdown-menu li').click(function () {
 		        $(this).parents('span.dropdown').find('span > span').text($(this).text());
-		        $(this).parents('span.dropdown').find('input').attr('value', $(this).attr('id'));
+		        
+		        var text = $(this).text()
+		        var val = parseInt(text);
+		        
+		        switch ($(this).parent().attr("data-civa")) {
+			        case "start" :
+			        	$(".ageStart").text(val ? text : "전체");
+						break;
+			        case "end" :
+			        	$(".ageEnd").text(val ? text : "전체");
+		        }
 		    });
+		    
+		    
+	    $(".dropdown-menu > li").click(function () {
+	    	var start = parseInt($(".select:eq(0) > span").text());
+	    	var end = parseInt($(".select:eq(1) > span").text());
+
+	    	if(start && end && start > end) {
+				chk = false;
+				$(this).siblings(":first-child").trigger("click")
+				alert("나이를 확인해주세요.");
+				chk = true;
+			}
+	    });
 	</script>
 </body>
 </html>

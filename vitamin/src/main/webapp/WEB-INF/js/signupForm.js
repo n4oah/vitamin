@@ -1,4 +1,5 @@
 var idOverlapChk = false;
+var signupFormChk = true;
 
 $(function() {
 	var ptn = [];
@@ -12,21 +13,36 @@ $(function() {
 	privatePtn.push(new Pattern($("#private-input-email2"), /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i, "도메인 주소를 확인하세요."));
 	privatePtn.push(new Pattern($("#private-input-phoneNumber"), /^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/, "핸드폰 번호를 입력해주세요."));
 	privatePtn.push(new Pattern($("#birthDate"), /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, "생일을 입력해주세요."));
-	privatePtn.push(new Pattern($("#sample6_postcode"), /^[0-9]{1,}$/, "우편 번호를 확인해주세요."));
-	privatePtn.push(new Pattern($("#sample6_address"), /^().+$/, "주소를 확인해주세요."));
-	privatePtn.push(new Pattern($("#sample6_address2"),  /^().+$/, "상세주소를 확인해주세요."));
-	privatePtn.push(new Pattern($("#sample6_sigunguCode"),  /^().+$/, "주소를 확인해주세요."));
+	privatePtn.push(new Pattern($("#private-form input[name='address.postCode']"), /^[0-9]{1,}$/, "우편 번호를 확인해주세요."));
+	privatePtn.push(new Pattern($("#private-form input[name='address.address1']"), /^().+$/, "주소를 확인해주세요."));
+	privatePtn.push(new Pattern($("#private-form input[name='address.address2']"),  /^().+$/, "상세주소를 확인해주세요."));
+	privatePtn.push(new Pattern($("#private-form input[name='address.sigunguCode']"),  /^().+$/, "주소를 확인해주세요."));
 	
 	let companyPtn = [];
-	
+	companyPtn.push(new Pattern($("#company-input-id"), /^[a-z0-9]{4,12}$/, "아이디는 4~12자 소문자 영문과 숫자를 조합해서만 사용 가능합니다."));
+	companyPtn.push(new Pattern($("#company-input-pwd"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", {'code':1, 'target':true, 'msg': '비밀번호가 서로 같지 않습니다.'}));
+	companyPtn.push(new Pattern($("#company-input-pwd_chk"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", {"code":1, "target":false}));
+	companyPtn.push(new Pattern($("#company-input-companyName"), /^[a-z0-9가-힣]{1,20}$/, "기업 이름은 1~20자 까지 가능합니다."));
+	companyPtn.push(new Pattern($("#company-input-bossName"), /^[a-z0-9가-힣]{1,10}$/, "대표자 이름은 1~20자 까지 가능합니다."));
+	companyPtn.push(new Pattern($("#company-input-licenseNumber"), /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/, "사업자 등록 번호를 확인해주세요."));
+	companyPtn.push(new Pattern($("#company-input-employeeCount"), /^[0-9]{1,6}$/, "사원수를 확인해 주세요."));
+	companyPtn.push(new Pattern($("#company.buildupDate"), /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, "설립일을 확인해주세요."));
+	companyPtn.push(new Pattern($("#company-input-businessContent"), /^().+$/, "사업 내용을 확인해주세요."));
+	companyPtn.push(new Pattern($("#private-input-phoneNumber"), /^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/, "대표 전화를 확인해주세요."));
+	companyPtn.push(new Pattern($("#company-form input[name='address.postCode']"), /^[0-9]{1,}$/, "우편 번호를 확인해주세요."));
+	companyPtn.push(new Pattern($("#company-form input[name='address.address1']"), /^().+$/, "주소를 확인해주세요."));
+	companyPtn.push(new Pattern($("#company-form input[name='address.address2']"),  /^().+$/, "상세주소를 확인해주세요."));
+	companyPtn.push(new Pattern($("#company-form input[name='address.sigunguCode']"),  /^().+$/, "주소를 확인해주세요."));
+
 	ptn = privatePtn;
 	
     $('#private-form-link').click(function(e) {
-		$("#private-form").delay(100).fadeIn(100);
+    	$("#private-form").delay(100).fadeIn(100);
  		$("#company-form").fadeOut(100);
 		$('#company-form-link').removeClass('active');
 		$(this).addClass('active');
 		ptn = privatePtn;
+		signupFormChk = true;
 		e.preventDefault();
 	});
 	$('#company-form-link').click(function(e) {
@@ -35,6 +51,7 @@ $(function() {
 		$('#private-form-link').removeClass('active');
 		$(this).addClass('active');
 		ptn = companyPtn;
+		signupFormChk = false;
 		e.preventDefault();
 	});
 	
@@ -243,6 +260,44 @@ function signClick(e) {
 			break;
 		}
 	}
+}
+
+function sample6_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            var fullAddr = '';
+            var extraAddr = '';
+
+            if (data.userSelectedType === 'R') {
+                fullAddr = data.roadAddress;
+
+            } else {
+                fullAddr = data.jibunAddress;
+            }
+
+            if(data.userSelectedType === 'R'){
+                if(data.bname !== ''){
+                    extraAddr += data.bname;
+                }
+                if(data.buildingName !== ''){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+
+                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+            }
+            
+            let formId;
+            if(signupFormChk == true) {
+            	formId = 'private-form';
+            } else if(signupFormChk == false) {
+            	formId = 'company-form';            	
+            }
+            $("#" + formId + " input[name='address.postCode']").val(data.zonecode);
+        	$("#" + formId + " input[name='address.address1']").val(fullAddr);
+        	$("#" + formId + " input[name='address.address2']").focus();
+        	$("#" + formId + " input[name='address.sigunguCode']").val(data.sigunguCode);
+        }
+    }).open();
 }
 
 (function (root, factory) {

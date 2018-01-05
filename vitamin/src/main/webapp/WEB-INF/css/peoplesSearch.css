@@ -350,6 +350,7 @@ span.dropdown .dropdown-menu li {
     cursor: pointer
 } 
 span.dropdown .dropdown-menu {
+    z-index: 2000;
     padding: 0;
     list-style: none
 }
@@ -525,7 +526,7 @@ box-shadow: none;
 .grid-unit {
 	height: 160px;
 }
-.careerList, .schList, .addrList {
+.careerList, .schList, .addrList, .ageList  {
 	font-weight:  bold;
 	margin: 7px;
 }
@@ -534,7 +535,7 @@ box-shadow: none;
     z-index: 1000;
     display: inline-block;
 }
-.remove, .removeSch, .removeAddr {
+.remove, .removeSch, .removeAddr, .removeAge {
 	color: red;
 	cursor: pointer;
 	position: relative;
@@ -548,4 +549,11 @@ width: auto;
 }
 .addrList {
 	width: 85%
+}
+.ageList {
+	margin-left: 85px;
+}
+.age li {
+	width: 48.8%;
+	display: inline-block;
 }
