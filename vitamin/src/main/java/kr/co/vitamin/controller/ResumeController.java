@@ -1,15 +1,23 @@
 package kr.co.vitamin.controller;
 
+import java.beans.PropertyEditorSupport;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.xml.ws.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.ArmyService;
 import kr.co.vitamin.repository.vo.BusinessType;
@@ -18,6 +26,9 @@ import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.ConditionSelection;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
+import kr.co.vitamin.repository.vo.School;
+import kr.co.vitamin.repository.vo.account.Member;
+import kr.co.vitamin.service.AddressService;
 import kr.co.vitamin.service.ResumeService;
 
 @Controller
@@ -26,12 +37,17 @@ public class ResumeController {
 	
 	@Autowired
 	private ResumeService resumeService;
+	@Autowired
+	private AddressService addressService;
+	
 	
 	@RequestMapping("/resumeList.do")
-	public ModelAndView resumeList() throws Exception{
+	public ModelAndView resumeList(HttpSession session) throws Exception{
+		Member user = (Member)session.getAttribute("user");
+		Integer MemberNo=user.getMemberNo();
 		System.out.println("resumeList 들어옴");
 		ModelAndView mav = new ModelAndView();
-		List<ResumeBaseInfo> rlist = resumeService.resumeList();
+		List<ResumeBaseInfo> rlist = resumeService.resumeList(MemberNo);
 		System.out.println(rlist + "sadgsdg");
 		for (ResumeBaseInfo resumeBaseInfo : rlist) {
 			resumeBaseInfo.getResumeTitle();
@@ -102,11 +118,21 @@ public class ResumeController {
 	
 	
 	@RequestMapping("/resumeForm.do")
-	public ModelAndView resumeForm() throws Exception{
+	public ModelAndView resumeForm(HttpSession session) throws Exception{
+		Member user = (Member)session.getAttribute("user");
+		System.out.println(user);
 		System.out.println("resumeForm 들어옴");
 		ModelAndView mav = new ModelAndView();
+		
+		Address address = new Address();
+		address.setAddressNo(user.getAddressNo());
+		
+		address = addressService.selectAddress(address);
+		
 		List<City> clist = resumeService.citySelect();
 		List<BusinessType> bt = resumeService.businessTypeSelect();
+		mav.addObject("address", address);
+		mav.addObject("user",user);
 		mav.addObject("clist",clist);
 		mav.addObject("bt",bt);
 		return mav;
@@ -114,11 +140,25 @@ public class ResumeController {
 	
 	
 	@RequestMapping("/intermediateSave.do")
-	public String intermediateSave(ResumeBaseInfo resumeBaseInfo, ArmyService armyService) throws Exception{
-		System.out.println("중간저장 들어옴");
-		resumeService.resumeInsert(resumeBaseInfo, armyService);
+	public String intermediateSave(HttpSession session,ResumeBaseInfo resumeBaseInfo, ArmyService armyService, School school//,
+									, Integer[] schoolLevelNoTmp/*Integer schoolLevelNoTmp, String schoolLevelNoTmp2*/) throws Exception{
+
+		school.setSchoolLevelNo(schoolLevelNoTmp[schoolLevelNoTmp.length-1]);
 		
+		
+		System.out.println(schoolLevelNoTmp);
+		System.out.println(school.getSchoolNo());
+		
+		
+		System.out.println("중간저장 들어옴");
+		Member user = (Member)session.getAttribute("user");
+		Integer memberNo = user.getMemberNo();
+		resumeBaseInfo.setMemberNo(memberNo);
+		System.out.println("학교명:"+school.getSchoolTitle());
+		resumeService.resumeInsert(resumeBaseInfo, armyService, school);
 		return "redirect:/mypage/resumeList.do";
+		return null;
+		
 	}
 	
 	@RequestMapping("/areaSelect.do")
@@ -158,7 +198,16 @@ public class ResumeController {
 		return businessType;
 	}
 	
-	
-	
-
+	@InitBinder
+	public void initBinder(WebDataBinder binder) throws Exception {
+	    binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+	        public void setAsText(String text) throws IllegalArgumentException {
+	            try {
+	                setValue(new SimpleDateFormat("yyyy-MM-dd").parse(text));
+	            } catch (ParseException e) {
+	                setValue(null);
+	            }
+	        }
+	    });
+	}
 }

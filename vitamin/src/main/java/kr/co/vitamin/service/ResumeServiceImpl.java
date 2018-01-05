@@ -14,30 +14,19 @@ import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
+import kr.co.vitamin.repository.vo.School;
 
 @Service
-public class ResumeServiceImpl implements ResumeService{
+public class ResumeServiceImpl implements ResumeService {
 
 	@Autowired
 	private ResumeMapper mapper;
-	
-	@Override
-	@Transactional(rollbackFor=Exception.class)
-	public void resumeInsert(ResumeBaseInfo resumeBaseInfo, ArmyService armyService) throws Exception {
-		mapper.insertResume(resumeBaseInfo);
-		mapper.insertArmyService(armyService);
-		mapper.updateArmyService(resumeBaseInfo);
-	}
 
-	@Override
-	public List<ResumeBaseInfo> resumeList() throws Exception {
-		return mapper.selectResume();
-	}
 
 	@Override
 	public ResumeBaseInfo resumeInfo(int resumeNo) throws Exception {
 		return mapper.selectResumeInfo(resumeNo);
-		
+
 	}
 
 	@Override
@@ -100,4 +89,23 @@ public class ResumeServiceImpl implements ResumeService{
 		return mapper.chooseBusinessType(businessNo);
 	}
 
+	@Override
+	public List<ResumeBaseInfo> resumeList(Integer memberNo) throws Exception {
+		return mapper.selectResume(memberNo);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void resumeInsert(ResumeBaseInfo resumeBaseInfo, ArmyService armyService, School school) throws Exception {
+		int armyNo = mapper.selectNextAutoIncrementArmy();
+		int schoolNo = mapper.selectNextAutoIncrementSchool();
+		System.out.println("mapper armyNo"+armyNo);
+		armyService.setArmyServiceNo(armyNo);
+		school.setSchoolNo(schoolNo);
+		resumeBaseInfo.setArmyServiceNo(armyNo);
+		resumeBaseInfo.setSchoolNo(schoolNo);
+		mapper.insertArmyService(armyService);
+		mapper.insertSchool(school);
+		mapper.insertResume(resumeBaseInfo);
+	}
 }

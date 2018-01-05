@@ -9,12 +9,13 @@ import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
+import kr.co.vitamin.repository.vo.School;
 
 public interface ResumeMapper {
 
 	public void insertResume(ResumeBaseInfo resumeBaseInfo) throws Exception;
 	public void insertArmyService(ArmyService armyService) throws Exception;
-	public List<ResumeBaseInfo> selectResume() throws Exception;
+	public List<ResumeBaseInfo> selectResume(Integer memberNo) throws Exception;
 	public ResumeBaseInfo selectResumeInfo(int resumeNo) throws Exception;
 	public ArmyService selectArmyServiceInfo(int resumeNo) throws Exception;
 	public String selectJobState(String jobState) throws Exception;
@@ -29,6 +30,9 @@ public interface ResumeMapper {
 	public LicensingDepartment selectLicensingDepartment(Integer licensingDepartmentNo) throws Exception;
 	public List<BusinessType> selectBusinessType() throws Exception;
 	public BusinessType chooseBusinessType(Integer BusinessNo) throws Exception;
+	public int selectNextAutoIncrementArmy() throws Exception;
+	public int selectNextAutoIncrementSchool() throws Exception;
+	public void insertSchool(School school) throws Exception;
 	
 	
 }
