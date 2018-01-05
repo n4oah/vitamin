@@ -157,8 +157,8 @@ public class ResumeController {
 		System.out.println("학교명:"+school.getSchoolTitle());
 		resumeService.resumeInsert(resumeBaseInfo, armyService, school);
 		return "redirect:/mypage/resumeList.do";
-		return null;
-		
+
+
 	}
 	
 	@RequestMapping("/areaSelect.do")

@@ -39,23 +39,42 @@
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
   }
-
-#myModal table.table li {
-    float: left;
-    list-style: none;
-}
-@media (min-width: 992px) {
-	.modal-lg {
-	  width: 900px;
+	.horizontal_table .table > tbody > tr:last-child > th, .horizontal_table .table > tbody > tr:last-child > td {
+	    border-bottom: 1px solid #c1bcbc;
+	    border-left: 1px solid #c1bcbc;
+	    border-right: 1px solid #c1bcbc;
 	}
-}
-@media (min-width: 768px) {
-	.modal-xl {
-		width: 90%;
-		max-width:1200px;
+	.horizontal_table .table > tbody > tr > th {
+	    /*width: 140px;*/
+	    padding: 10px 15px;
+	    background-color: #e5e7e9;
+	   	font-weight: 400;
+	    border-right: 1px solid #c1bcbc;
+	    border-left: 1px solid #c1bcbc;
 	}
-}
-
+	.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	    padding: 8px;
+	    line-height: 1.42857143;
+	    vertical-align: top;
+	    border-top: 1px solid #c1bcbc;
+	    border-right: 1px solid #c1bcbc;
+	    border-left: 1px solid #c1bcbc;
+	}
+	#myModal table.table li {
+	    float: left;
+	    list-style: none;
+	}
+	@media (min-width: 992px) {
+		.modal-lg {
+		  width: 900px;
+		}
+	}
+	@media (min-width: 768px) {
+		.modal-xl {
+			width: 90%;
+			max-width:1200px;
+		}
+	}
 /* label{
 	cursor:pointer;
 } */
@@ -556,7 +575,19 @@
 										</tr>
 										<tr>
 											<th>희망 직종</th>
-											<td><input type="text" id="hope_bussiness" class="float-control" readonly="readonly" style="width:80%"></td>
+											<td>
+												<input type="text" id="hope_bussiness" class="float-control" readonly="readonly" style="width:80%">
+												<input type="text" name="hope_bussiness_no" id="hope_bussiness_no" style="display:none;" readonly="readonly">
+												<!-- 
+													hope_bussiness_no 파라미터로 
+													254|242|248
+													이런식으로 비지니스 no
+													넘어가니까
+													split으로 잘라서 쓰면 되요 형
+													ㅇㅋㅇㅋㅇㅋㅇㅋ
+												 -->
+											</td>
+											
 										</tr>
 									</tbody>
 								</table>
