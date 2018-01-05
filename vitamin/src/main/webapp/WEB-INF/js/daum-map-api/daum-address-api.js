@@ -25,11 +25,10 @@ function sample6_execDaumPostcode() {
 
             document.getElementById('sample6_postcode').value = data.zonecode;
             document.getElementById('sample6_sigunguCode').value = data.sigunguCode;
-            console.log(data.sigunguCode);
             document.getElementById('sample6_address').value = fullAddr;
-            
-
             document.getElementById('sample6_address2').focus();
+            
+            
         }
     }).open();
 }

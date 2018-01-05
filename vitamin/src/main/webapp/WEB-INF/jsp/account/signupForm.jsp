@@ -13,9 +13,8 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/signupForm.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<script src="${pageContext.request.contextPath}/js/signupForm.js"></script>
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-		<script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script>
+		<%-- <script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script> --%>
 		<script>
 			$(function() {
 				$('#private-input-id').blur(function() {
@@ -39,6 +38,7 @@
 				});
 			});
 		</script>
+		<script src="${pageContext.request.contextPath}/js/signupForm.js"></script>
 		<style>
 			.horizontal_table .table > tbody > tr:last-child > th, .horizontal_table .table > tbody > tr:last-child > td {
 			    border-bottom: 1px solid #c1bcbc;
@@ -145,17 +145,18 @@
 											</div>
 											<div class="form-group">
 												<div class="input-group">
-													<input name="address.postCode" type="text" class="form-control" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
+													<input name="address.postCode" type="text" class="form-control" placeholder="우편번호" readonly="readonly">
 													<span class="input-group-btn">
 														<button class="btn btn-secondary" type="button" onclick="sample6_execDaumPostcode()" style="padding-top: 10%; padding-bottom: 10%;">우편번호 찾기</button>
 													</span>
 												</div>
 											</div>
 											<div class="form-group">
-												<input name="address.address1" type="text" class="form-control" id="sample6_address" placeholder="주소" readonly="readonly">
+												<input name="address.address1" type="text" class="form-control" placeholder="주소" readonly="readonly">
 											</div>
 											<div class="form-group">
-												<input name="address.address2" type="text" class="form-control" id="sample6_address2" placeholder="상세주소">
+												<input name="address.address2" type="text" class="form-control" placeholder="상세주소">
+												<input type="text" name="address.sigunguCode" class="hide" />
 											</div>
 											<div class="form-group">
 												<div class="row">
@@ -164,7 +165,6 @@
 													</div>
 												</div>
 											</div>
-											<input type="text" name="address.sigunguCode" class="hide" id="sample6_sigunguCode"/>
 										</form>
 										<form id="company-form" class="sign-form" action="${actionUrl}?memberType=2" method="post" role="form" style="display: none;">
 											<div class="form-group">
@@ -186,10 +186,23 @@
 												<input type="text" name="company.licenseNumber" id="company-input-licenseNumber" class="form-control bfh-phone" data-format="ddd-dd-ddddd" maxlength="12" placeholder="사업자 등록번호">
 											</div>
 											<div class="form-group">
+												<select class="selectpicker" name="company.companyType">
+													<optgroup label="기업 형태를 선택해주세요.">
+														<option value="대기업">대기업</option>
+														<option value="중견기업">중견기업</option>
+														<option value="강소기업">강소기업</option>
+														<option value="중소기업">중소기업</option>
+													</optgroup>
+												</select>
+											</div>
+											<div class="form-group">
 												<input type="text" name="company.employeeCount" id="company-input-employeeCount" class="form-control" placeholder="사원수">
 											</div>
 											<div class="form-group">
-												<select class="selectpicker" name="member.gender">
+												<input type="date" name="company.buildupDate" id="private-input-buildupDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
+											</div>
+											<div class="form-group">
+												<select class="selectpicker" name="company.businessNo">
 													<optgroup label="직종을 선택해주세요.">
 														<c:forEach var="bus" items="${busType}">
 															<option value="${bus.businessNo}">${bus.businessContent }</option>
@@ -201,12 +214,10 @@
 												<input type="text" name="company.businessContent" id="company-input-businessContent" class="form-control" placeholder="사업 내용">
 											</div>
 											<div class="form-group">
-												<input type="date" name="company.buildupDate" id="private-input-buildupDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
-											</div>
-											<div class="form-group">
 												<input type="text" name="company.telNumber" id="private-input-phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+82 (ddd) dddd-dddd">
 											</div>
-											<!-- <div class="form-group">
+											
+											<div class="form-group">
 												<div class="input-group">
 													<input name="address.postCode" type="text" class="form-control" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
 													<span class="input-group-btn">
@@ -219,7 +230,9 @@
 											</div>
 											<div class="form-group">
 												<input name="address.address2" type="text" class="form-control" id="sample6_address2" placeholder="상세주소">
-											</div> -->
+												<input type="text" name="address.sigunguCode" class="hide" id="sample6_sigunguCode"/>
+											</div>
+											
 											<div class="form-group">
 												<div class="row">
 													<div class="col-sm-6 col-sm-offset-3">
