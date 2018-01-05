@@ -6,12 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.FormService;
 import kr.co.vitamin.repository.vo.Recruit;
 import kr.co.vitamin.repository.vo.SchoolLevel;
+import kr.co.vitamin.repository.vo.SearchRecruit;
+import kr.co.vitamin.repository.vo.Welfare;
 import kr.co.vitamin.service.FormServiceService;
 import kr.co.vitamin.service.SchoolLevelService;
 import kr.co.vitamin.service.SearchService;
@@ -45,5 +49,13 @@ public class SearchRecruitController {
 		model.addAttribute("recruitList", recruitList);
 		model.addAttribute("cityList",cityList);
 		model.addAttribute("areaList",areaList);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/searchWork.do") 
+	public List<Recruit> searchWork(SearchRecruit searchRecruit) throws Exception {
+		System.out.println(searchRecruit);
+		
+		return searchService.selectSearchCondition(searchRecruit); 
 	}
 }

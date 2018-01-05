@@ -14,12 +14,15 @@
 		 
 		<script src="https://use.fontawesome.com/942e94bfdb.js"></script>
 		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+		<script src="../js/simpledateformat.js"></script>
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container">
 			<div class="row">
+			
+			
 				<div class="search_wrapper">
 					<div class="row" style="margin: 0px">
 						<div class="city_wrapper">
@@ -32,13 +35,13 @@
 					<c:forEach items="${cityList }" var="city">
 							<div class="optContainer" id="ddCity${city.cityCode }">
 							    <label>
-							    <input type="checkbox" class="checked" name="cityCode" id="${city.cityCode }"><b>${city.subName }전체</b></label>
+							    <input type="checkbox" class="city_name" name="cityCode" value="${city.cityCode }" id="${city.cityCode }"><b>${city.subName }전체</b></label>
 								
 							    <h5>지역</h5>
 							    
 							    <c:forEach items="${areaList }" var="area">
 							    	<c:if test="${area.cityCode eq city.cityCode}">
-								    	<label class="area"><input type="checkbox" name="areaCode" id="${area.areaCode }">${area.name }</label>
+								    	<label class="area"><input type="checkbox" class="area_name" value="${area.areaCode }" name="areaCode" id="${area.areaCode }">${area.name }</label>
 								    </c:if>
 							    </c:forEach>
 						    </div>
@@ -48,7 +51,7 @@
 						<div class="career">
 							<span class="ex_label col-md-1">경력</span>
 								<span><label><input type="checkbox" value = "1" name="careerState" class="newcomer" checked>신입</label></span>
-								<span><label><input type="checkbox" name="careerState" class="career_level">경력</label></span> 
+								<span><label><input type="checkbox" name="careerOnly" value="1" class="career_level">경력</label></span> 
 					
 							<span class="career_period">
 								<span class="dropdown">
@@ -89,7 +92,7 @@
 							
 							
 							<span>
-								<label><input type="checkbox" value ="-1" class="career_none"> 경력무관</label>						
+								<label><input type="checkbox" value ="-1" name="careerState" class="career_none"> 경력무관</label>						
 							</span> 
 						</div>
 						
@@ -155,7 +158,7 @@
 							</span>
 							
 							<span>
-								<label><input type="checkbox" value = "-1" class="school_level_none"> 학력무관</label>						
+								<label><input type="checkbox" value = "-1" name="schoolLevelNone" class="school_level_none"> 학력무관</label>						
 							</span>
 						</div>
 						
@@ -204,7 +207,7 @@
 							</span>
 							
 							<span>
-								<label><input type="checkbox" class="salary_none"> 연봉무관</label>
+								<label><input type="checkbox" name="yearPayNone" class="salary_none"> 연봉무관</label>
 							</span>
 						</div>
 						
@@ -260,7 +263,7 @@
 							</span>
 									
 							<span>
-								<label><input type="checkbox" class="age_none"> 나이무관</label>
+								<label><input type="checkbox" name="ageNone" class="age_none"> 나이무관</label>
 							</span>
 							
 							
@@ -284,6 +287,8 @@
 						</div>
 					</div>
 				</div>
+				
+			</form>
 				
 				<div class="recruit_list">
 					<table class="recruit_table table" >
@@ -314,8 +319,8 @@
 				   		 </thead>
 				   		 
 				   		 
+				    	<tbody>
 				   		<c:forEach items="${recruitList }" var="rlist">
-					    	<tbody>
 								<tr class="outstand_point point_line">
 	           						<td>
 	           							<img src="https://i.imgur.com/Z4wlC9v.png" class="star">
@@ -369,19 +374,19 @@
 								    	<p class="education">
 									        <c:choose>
 									        	<c:when test="${rlist.schoolLevel eq 1 }">
-													고등학교 졸업 이상						        	
+													고등학교 졸업						        	
 									        	</c:when>
 									        	
 									        	<c:when test="${rlist.schoolLevel eq 2 }">
-													대학교 졸업 이상						        	
+													대학교 졸업					        	
 									        	</c:when>
 									        	
 									        	<c:when test="${rlist.schoolLevel eq 3 }">
-													대학원 석사 졸업 이상						        	
+													대학원 석사 졸업					        	
 									        	</c:when>
 									        	
 									        	<c:when test="${rlist.schoolLevel eq 4 }">
-													대학원 박사 졸업 이상						        	
+													대학원 박사 졸업					        	
 									        	</c:when>
 									        	
 									        	<c:otherwise>
@@ -420,9 +425,9 @@
 	        							</p>
 	    							</td>
 								</tr>    
-							</tbody>
 						
 						</c:forEach>
+						</tbody>
 					</table>
 				</div>
 			</div>
@@ -458,25 +463,38 @@
 			//ss.css('transition', anim);
 		});
 	
-		$(".optContainer :checkbox").on('click', function(){
+		$(".optContainer input.area_name").on('click', function(){
 			$(this).parent().toggleClass("checked");
 			
-			if (!$(this).prop("checked")) $(".checked").prop({"checked": false});
-			else {
-				if ($(this).parent().parent().find(".area > input:checked").length ==
-				$(this).parent().parent().find(".area > input").length)
-					$(".checked").prop({"checked": true});
+			if (!$(this).prop("checked")) {
+				$(this).parent().parent()
+					   .find('label:eq(0)')
+					   .removeClass("checked")
+					   .find('input').attr("checked", false);
+				
+				 
 			}
+			else {
+				if ($(this).parent().parent().find("label.area > input:checked").length ==
+				    $(this).parent().parent().find("label.area > input").length) {
+				
+					$(this).parent().parent().find('label:eq(0) > input').prop({"checked": true});
+					
+					$(this).parent().parent()
+					   .find('label:eq(0)')
+					   .addClass("checked");
+				}
+				
+				else {
+					$(this).parent().parent().find('label:eq(0) > input').prop({"checked": false});
+				}
+			
+			}
+			
 		});
 		
 		
-	
-		$(".showSelect").click(function () {
-			$(this).toggleClass("open").siblings("span").removeClass("open");
-			$($(this).data("target")).fadeToggle("fast").siblings("div.optContainer").hide();
-		});
-		
- 		$(".optContainer .checked").click(function () {
+ 		$(".optContainer .city_name").click(function () {
 			var chk = $(this).prop("checked");
 			$(this).parent().parent().find(":checkbox").prop({"checked": chk});
 			if (chk) {
@@ -485,19 +503,25 @@
 				$(this).parent().parent().find(":checkbox").parent().removeClass("checked");
 			}
 		}); 
+	
+		$(".showSelect").click(function () {
+			$(this).toggleClass("open").siblings("span").removeClass("open");
+			$($(this).data("target")).fadeToggle("fast").siblings("div.optContainer").hide();
+		});
 		
-		chk = true;
+		
+		selectChk = true;
 		/*Dropdown Menu*/
 		$('span.dropdown').click(function () {
 			
-			if(chk == true) {
+			if(selectChk == true) {
 		        $(this).attr('tabindex', 1).focus();
 		        $(this).toggleClass('active');
 		        $(this).find('.dropdown-menu').slideToggle(300);
 			}
 		 });
 	    $('span.dropdown').focusout(function () {
-	    	if(chk == true) {
+	    	if(selectChk == true) {
 		        $(this).removeClass('active');
 		        $(this).find('.dropdown-menu').slideUp(300);
 	    	}
@@ -565,12 +589,12 @@
 				var bool = start > end;
 
 				if(bool && end != -1 && start != -1) {
-					chk = false;
+					selectChk = false;
 					if ($.inArray(this, efg.find('span.dropdown:eq(0) > .dropdown-menu li')) > -1) efg.find("li.startDefault").trigger("click")
 					else efg.find("li.endDefault").trigger("click");
 					alert(str+" 확인해주세요.");
 					
-					chk = true;
+					selectChk = true;
 				}
 			});
 		}
@@ -596,8 +620,6 @@
 		})
 		
 		$('input[type="checkbox"].career_level').click(function (e) {
-			console.log("12312");
-			console.log($(this).is(':checked'));
 			
 			if($(this).is(':checked')) {
 				$('input[type="checkbox"].career_none').prop("checked",false);
@@ -607,13 +629,23 @@
 				
 			//e.preventDefault();
 		});
+		$('input.newcomer').click(function (e) {
+			
+			if($(this).is(':checked')) {
+				$('input[type="checkbox"].career_none').prop("checked",false);
+			}
+				
+			//e.preventDefault();
+		});
+		
+		
 		
 		$(".career_none").on('click', function (e) {
 			console.log($(this).parents('label').is(":checked"));
 			
 			if($(this).is(":checked")) {
 				$('input[type="checkbox"].career_level').prop("checked",false);
-				
+				$('input.newcomer').prop("checked",false);
 				$('input.career_start').attr('value', "-1");
 				$('span.career_start_value').text("기간 시작")
 				
@@ -657,7 +689,69 @@
 		reset($('input.school_level_none'),$('span.school_level') ,$('span.school_level_start'),  $('span.school_level_end'));
 		reset($('input.salary_none'),$('span.salary') ,$('span.salary_start'),  $('span.salary_end'));
 		reset($('input.age_none'),$('span.age') ,$('span.age_start'),  $('span.age_end'));
-	
+		
+		var path = "${pageContext.request.contextPath}";
+		
+		
+		$('input[type="button"]').one("click", searchFn);
+			
+		function searchFn() {
+			$.ajax({
+				type:"post",
+				data: $("<form>").css("display", "none").appendTo("body").append($("input").clone()).serialize(),
+				url: path + "/search/searchWork.do",
+				dataType:"JSON",
+				success: function (result) {
+					$("form").remove();
+					$(".recruit_table > tbody").empty();
+					result.forEach(function (recruit) {
+						var tr = $("<tr>")
+						tr.append($("<td>").append($("<img>").addClass("star").attr("src", "https://i.imgur.com/Z4wlC9v.png")));
+						
+						tr.append($("<td>").addClass("company_nm")
+							.append($("<a>").addClass("str_tit").attr({"title": "(주)회사명"})
+								.append($("<span>").text("(주)회사명")))
+							.append($("<div>").addClass("icon")));
+						
+						tr.append($("<td>").addClass("notification_info")
+							.append($("<div>").addClass("job_tit")
+								.append($("<a>").addClass("str_tit").attr("title", recruit.title)
+									.append($("<span>").text(recruit.title)))
+								.append($("<p>").addClass("job_sector")
+									.append($("<span>").text(recruit.assignedTask)))));
+						
+						var career;
+						if(recruit.careerState == 1 && recruit.careerStart != -1)
+							career = "신입 · 경력 ";
+						else if(recruit.careerState == 1)
+							career = "신입";
+						else if(recruit.careerStart != -1)
+							career = "경력";
+						
+						tr.append($('<td>').addClass('recruit_condition')
+							.append($('<p>').addClass('career').text(career))	
+							.append($('<p>').addClass('education').text(recruit.graduateState)));
+						
+						tr.append($('<td>').addClass('company_info')
+							.append($('<p>').addClass('employment_type').text(recruit.formServiceName))
+							.append($('<p>').addClass('work_place').text(recruit.subName +" "+recruit.name)));
+							
+						var sdf = new simpleDateFormat("yyyy-MM-dd");
+							
+						tr.append($('<td>').addClass('support_info')
+							.append($('<p>').addClass('recruit_date_start').css("padding-left", "2px").text(sdf.format(new Date(recruit.recruitDateStart))))
+							.append($('<p>').addClass('recruit_date_end').css("padding-left", "2px").text(sdf.format(new Date(recruit.recruitDateEnd)))));
+						
+						tr.append($('<td>').addClass('support_submit').append($('<p>').addClass('support_type').append($('<button>').addClass('sri_btn_xs').attr('title',"클릭하면 입사지원 할 수 있는 창이 뜹니다.").append($('<span>').addClass('sri_btn_immediately').text('즉시지원')))));
+							
+							
+						$("tbody").append(tr);
+					})
+					
+					$('input[type="button"]').one("click", searchFn);
+				}
+			});
+		};	
 		
 	</script>
 </body>

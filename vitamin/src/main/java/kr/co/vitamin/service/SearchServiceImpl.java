@@ -10,6 +10,7 @@ import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.CityAndArea;
 import kr.co.vitamin.repository.vo.Recruit;
+import kr.co.vitamin.repository.vo.SearchRecruit;
 
 @Service
 public class SearchServiceImpl implements SearchService{
@@ -36,5 +37,10 @@ public class SearchServiceImpl implements SearchService{
 	@Override
 	public List<CityAndArea> selectCityAndArea() throws Exception {
 		return searchMapper.selectCityAndArea();
+	}
+	
+	@Override
+	public List<Recruit> selectSearchCondition(SearchRecruit searchRecruit) throws Exception {
+		return searchMapper.selectSearchCondition(searchRecruit);
 	}
 }

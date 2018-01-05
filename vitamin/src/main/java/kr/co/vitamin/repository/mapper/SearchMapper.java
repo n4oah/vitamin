@@ -6,6 +6,7 @@ import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.CityAndArea;
 import kr.co.vitamin.repository.vo.Recruit;
+import kr.co.vitamin.repository.vo.SearchRecruit;
 
 public interface SearchMapper {
 	
@@ -14,4 +15,6 @@ public interface SearchMapper {
 	
 	public List<CityAndArea> selectCityAndArea() throws Exception;
 	public List<Recruit> selectRecruit() throws Exception;
+	
+	public List<Recruit> selectSearchCondition(SearchRecruit searchRecruit) throws Exception;
 }

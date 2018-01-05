@@ -74,10 +74,11 @@
 		<result column="form_service_name" property="formServiceName" />
 		<result column="sub_name" property="subName" />
 		<result column="name" property="name" />
+		<result column="graduate_state" property="graduateState" />
 	</resultMap>
 	
 	<select id="selectRecruit" resultMap="selectRecruitMap">
-	select recruit_no, title, career_state, career_start, assigned_task, recruit_date_start, recruit_date_end, form_service_name, graduate_state, sub_name, name
+	select school_level, recruit_no, title, career_state, career_start, assigned_task, recruit_date_start, recruit_date_end, form_service_name, graduate_state, sub_name, name
         from (select recruit_no, title, career_state, career_start, school_level, assigned_task,
 		form_service, recruit_date_start, recruit_date_end, address_no from vi_recruit_write where recruiting_state = 1 and recruit_date_end > current_date()) recruit
 		  join (select form_service_name, form_service_type from vi_form_service) form_service
@@ -90,5 +91,72 @@
 		on address.city_code = city.city_code
           join (select area_code, name from vi_area_code) area
 		on address.area_code = area.area_code;
+	</select>
+	
+	
+	<select id="selectSearchCondition" parameterType="searchRecruit" resultMap="selectRecruitMap">
+		select recruit_no, title, career_state, career_start, assigned_task, recruit_date_start, recruit_date_end, form_service_name, graduate_state, sub_name, name
+        from
+        <!-- recruit -->
+        (select recruit_no, title, career_state, career_start, school_level, assigned_task, form_service, recruit_date_start, recruit_date_end, address_no from vi_recruit_write
+        where recruiting_state = 1 and recruit_date_end > current_date() 
+	   		<if test="careerState != -1">
+		   		<if test="careerState != null">
+		   			and career_state = #{careerState}
+		   		</if>
+		   		
+		   		<choose>
+		   			<when test="careerOnly == 1 and careerStart == -1">
+		   				and career_start &gt;= 1
+		   			</when>
+			   		<when test="careerStart != -1">
+			   			and career_start &gt;= #{careerStart}
+			   		</when>
+		   		</choose>
+		   		
+		   		<choose>
+		   			<when test="careerOnly == 1 and careerEnd == -1">
+		   			</when>
+			   		<when test="careerEnd != -1">
+			   			and career_end &lt;= #{careerEnd}
+			   		</when>
+		   		</choose>
+	   		</if>
+	   		
+			<choose>
+				<when test="schoolLevelStart != -1 and schoolLevelEnd  != -1">
+					and school_level between #{schoolLevelStart} and #{schoolLevelEnd}
+				</when>
+				
+				<when test="schoolLevelStart != -1 and schoolLevelEnd  == -1">
+					and school_level &gt;= #{schoolLevelStart}
+				</when>
+				
+				<when test="schoolLevelStart == -1 and schoolLevelEnd  != -1">
+					and school_level &lt;= #{schoolLevelEnd}
+				</when>
+			</choose>
+					
+        ) recruit
+		  join
+		<!-- form_service -->
+		(select form_service_name, form_service_type from vi_form_service) form_service
+		on recruit.form_service = form_service.form_service_type
+		  join
+		<!-- school -->
+		(select graduate_state, level from vi_school_level) school
+		on recruit.school_level = school.level
+		  join
+		<!-- address -->
+		(select address_no, city_code, area_code from vi_address) address
+		on recruit.address_no = address.address_no
+          join
+        <!-- city -->
+        (select sub_name, city_code from vi_city_code) city
+		on address.city_code = city.city_code
+          join
+        <!-- area -->
+        (select area_code, name from vi_area_code) area
+		on address.area_code = area.area_code
 	</select>
 </mapper>

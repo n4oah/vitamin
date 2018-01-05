@@ -17,9 +17,16 @@ public class Recruit {
 	
 	private String subName;
 	private String name;
-	
-	
-	
+	private String graduateState;
+
+	public String getGraduateState() {
+		return graduateState;
+	}
+
+	public void setGraduateState(String graduateState) {
+		this.graduateState = graduateState;
+	}
+
 	@Override
 	public String toString() {
 		return "Recruit [attachFile=" + attachFile + ", formServiceName=" + formServiceName + ", subName=" + subName
