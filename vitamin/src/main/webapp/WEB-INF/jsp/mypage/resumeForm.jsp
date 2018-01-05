@@ -22,6 +22,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- <script src="https://use.fontawesome.com/942e94bfdb.js"></script> -->
 <script src="${pageContext.request.contextPath}/js/resumeInfo.js"></script>
+<script src="${pageContext.request.contextPath}/js/resumeForm.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=316e409a59e29fd51e1dcbf1e4769f1c&libraries=services"></script>
@@ -38,11 +39,23 @@
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
   }
-li{
-	width:50%;
-	float:left;
-	list-style:none;
+
+#myModal table.table li {
+    float: left;
+    list-style: none;
 }
+@media (min-width: 992px) {
+	.modal-lg {
+	  width: 900px;
+	}
+}
+@media (min-width: 768px) {
+	.modal-xl {
+		width: 90%;
+		max-width:1200px;
+	}
+}
+
 /* label{
 	cursor:pointer;
 } */
@@ -60,7 +73,7 @@ li{
 							<h2>이력서 작성</h2>
 						</div>
 					</div>
-<%-- 					<form action="${pageContext.request.contextPath}/mypage/intermediateSave.do" class="form-horizontal"> --%>
+ 					<form action="${pageContext.request.contextPath}/mypage/intermediateSave.do?memberNo=${user.memberNo}" method="post" class="form-horizontal">
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">프로필사진</h4>
 							<table class="table">
@@ -92,45 +105,48 @@ li{
 									<tr>
 										<th>이름</th>
 										<td><input type="text" class="float-control"
-											style="width: 20%" placeholder="이름을 입력해주세요" readonly="readonly"></td>
+											style="width: 20%" value="${user.name}"placeholder="이름을 입력해주세요" readonly="readonly"></td>
 									</tr>
 									<tr>
 										<th>생년월일</th>
 										<td><input type="text" class="float-control" id="birth"
-											style="width: 20%" placeholder="생년월일" readonly="readonly"></td>
+											style="width: 20%" value="<fmt:formatDate value="${user.birthDate}" pattern="yyyy-MM-dd" />"placeholder="생년월일" readonly="readonly"></td>
 									</tr>
 									<tr>
 										<th>주소</th>
 										<td><input type="text" class="float-control" id="postcode"
-											style="width: 20%" placeholder="우편번호"
-											onclick="sample6_execDaumPostcode()" readonly="readonly"> <input
-											type="text" class="float-control" id="address1"
-											style="width: 80%" placeholder="주소" readonly="readonly">
-											<input type="text" class="float-control" id="address2"
-											style="width: 80%" placeholder="상세주소"></td>
+											style="width: 20%" value="${address.postCode}"placeholder="우편번호"
+											onclick="sample6_execDaumPostcode()" readonly="readonly"> 
+											<input type="text" class="float-control" id="address"
+											style="width: 80%" value="${address.address }" placeholder="주소" readonly="readonly">
+											
+											<!-- <input type="text" class="float-control" id="address2"
+											style="width: 80%" placeholder="상세주소"> --></td>
 									</tr>
 									<tr>
 										<th>휴대전화</th>
-										<td><input type="text" class="float-control"
-											maxlength="3" style="width: 60px" > <span>-</span> <input
+										<td>
+											<input type="text" class="float-control"  value="${user.phoneNumber}" style="width: 80%"> 
+											<!-- <span>-</span> <input
 											type="text" class="float-control" maxlength="4"
 											style="width: 60px"> <span>-</span> <input
 											type="text" class="float-control" maxlength="4"
-											style="width: 60px"></td>
-
+											style="width: 60px"> -->
+										</td>
 									</tr>
 									<tr>
 										<th>이메일</th>
-										<td><input class="float-control" name="email1"
-											id="signup_email1" type="text" placeholder="이메일"
-											style="width: 23%" readonly="readonly"/> <span>@</span> <input
+										<td><input class="float-control"
+											id="signup_email1" type="text" value="${user.email}" placeholder="이메일"
+											style="width: 80%" readonly="readonly"/> <!-- <span>@</span> <input
 											class="float-control" name="email2" id="signup_email2"
-											type="text" placeholder="도메인 주소" style="width: 55%" readonly="readonly"/></td>
+											type="text" placeholder="도메인 주소" style="width: 55%" readonly="readonly"/> -->
+											</td>
 									</tr>
 									<tr>
 										<th>성별</th>
 										<td>
-											<input class="float-control" type="text" readonly="readonly" style="width:20%">
+											<input class="float-control" type="text" readonly="readonly"  value="${user.gender}"style="width:20%">
 										<!-- 
 											<select class="selectpicker">
 													<option class="fa">성별</option>
@@ -194,48 +210,55 @@ li{
 								</tbody>
 							</table>
 							<!--/.table-->
-							<div>
+							<!-- <div>
 								<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
-							</div>
+							</div> -->
 <!-- 					</form> -->
 							
 							
 						</div>
 						</div>
-
+					
 		
 						
 						<div class="horizontal_table table_wrap">
 							<div>
 								<h4 class="table_title">학력사항</h4>
-									<span style="float: right">대학교이상</span> 
-									<input type="radio"	id="ch_schoolevel1" name="schoolevel" style="float: right"> <span
+									<span style="float: right">대학교이상</span>
+									<!-- name="schoolLevelNo" value="2"  --> 
+									<input type="radio"	id="ch_schoolevel1" name="schoolLevelNoTmp" value="2" style="float: right"> <span
 									style="float: right">고등학교&nbsp</span> 
-									<input type="radio" id="ch_schoolevel2" name="schoolevel" style="float: right"> <span
+									<input type="radio" id="ch_schoolevel2" name="schoolLevelNoTmp" value="1" style="float: right"> <span
 									style="float: right">고등학교 미만 졸업/중퇴인 경우 선택&nbsp</span> 
-									<input type="radio" id="ch_schoolevel3" name="schoolevel" style="float: right">
+									<input type="radio" id="ch_schoolevel3" name="schoolLevelNoTmp" value="0" checked="checked"  style="float: right">
 							</div>
 							<div class="highschool">
 								<table class="table">
 									<tbody>
 										<tr>
 											<th>재학기간</th>
-											<td><input type="text" class="float-control"
-												id="highenter" placeholder="입학" readonly="readonly">
-												<strong> ~ </strong> <input type="text"
-												class="float-control" id="highgraduate" placeholder="졸업"
-												readonly="readonly">
-												</td>
+											<td>
+												<input type="date" class="float-control highschool" name="schoolStartDate" id="highenter" readonly="readonly">
+												<strong> ~ </strong>
+												<input type="date" class="float-control highschool" name="schoolEndDate" id="highgraduate" readonly="readonly">
+											</td>
 										</tr>
 										<tr>
 											<th>학교명</th>
-											<td><input type="text" class="float-control"
-												id="highname" placeholder="학교이름"></td>
+											<td>
+											<input type="text" class="float-control highschool" name="schoolTitle" id="highname" placeholder="학교이름">
+											</td>
 										</tr>
 										<tr>
 											<th>전공</th>
-											<td><input type="text" class="float-control"
-												placeholder="전공"></td>
+											<td>
+												<select class="float-control highschool" name="major">
+													<option class="fa" value="예체능">예체능</option>
+													<option class="fa" value="문과계열">문과계열</option>
+													<option class="fa" value="이과계열">이과계열</option>
+													<option class="fa" value="실업계">실업계</option>
+												</select>	
+											</td>
 										</tr>
 										<tr>
 											<th>학점</th>
@@ -246,34 +269,49 @@ li{
 								<!--/.table-->
 							</div>
 							<br>
+
 							<div class="university">
 								<table class="table">
 									<tbody>
 										<tr>
 											<th>재학기간</th>
-											<td><input type="text" class="float-control"
-												id="univenter" placeholder="입학" readonly="readonly">
-												<strong> ~ </strong> <input type="text"
-												class="float-control" id="univgraduate" placeholder="졸업"
-												readonly="readonly"></td>
+											<td>
+												<input type="date" class="float-control university" id="univenter" name="schoolStartDate" readonly="readonly">
+												<strong> ~ </strong> 
+												<input type="date" class="float-control university" id="univgraduate" name="schoolEndDate" readonly="readonly">
+											</td>
 										</tr>
 										<tr>
 											<th>학교명</th>
-											<td><input type="text" class="float-control"
-												id="univname" placeholder="학교이름"></td>
+											<td>
+												<input type="text" class="float-control university" name="schoolTitle" id="univname" placeholder="학교이름">
+												<strong> -- </strong>
+												
+												<select class="float-control university" name="schoolLevelNoTmp">
+													<option class="fa" value="2">대학교졸업</option>
+													<option class="fa" value="3">대학원석사졸업</option>
+													<option class="fa" value="4">대학원박사졸업</option>
+												</select>
+												 
+												
+											</td>
 										</tr>
 										<tr>
 											<th>전공</th>
-											<td><input type="text" class="float-control" id="major"
+											<td><input type="text" class="float-control university" name="major" id="major"
 												placeholder="전공"></td>
 										</tr>
 										<tr>
 											<th>학점</th>
-											<td><input type="text" class="float-control"
-												id="myscore" maxlength="3" style="width: 50px"> <span>/</span>
-												<select class="float-control" id="basescore">
-													<option>기준점수</option>
-											</select></td>
+											<td>
+												<input type="text" class="float-control university" name="schoolScore" id="myscore" maxlength="3" style="width: 50px"> 
+												<span>/</span>
+												<select class="float-control university" name="schoolScoreStandard" id="basescore" style="width:10%">
+													<option value="4.5">4.5</option>
+													<option value="4.3">4.3</option>
+													<option value="100">100</option>
+												</select>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -281,10 +319,10 @@ li{
 								
 							</div>
 							<div>
-								<input style="float: right" type="button" class="intermediate_save btn-primary" value="중간저장">
+								<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
 							</div>
-
 						</div>
+						</form>
 						<div class="career">
 							<div class="horizontal_table table_wrap">
 								<h4 class="table_title">경력사항</h4>
@@ -294,8 +332,8 @@ li{
 										<tr>
 											<th rowspan="2">경력사항</th>
 											<td>
-												<input type="radio" name="career" id="newcomer" value="1">신입 
-												<input type="radio" name="career" id="employe" value="2">경력
+												 <input type="radio" name="career" id="newcomer" value="1">신입 
+												 <input type="radio" name="career" id="employe" value="2">경력
 											</td>
 										</tr>
 										<tr>
@@ -303,7 +341,7 @@ li{
 												<div>
 													<input type="checkbox" id="repitation_removal" disabled="disabled">중복기간 빼기&nbsp 
 													<input type="checkbox" id="direct_input" disabled="disabled">직접입력
-												</div> 
+												</div>
 												<input type="text" maxlength="2" class="float-control" id="emyear" style="width: 50px" disabled="disabled"> 
 												<span>년</span> 
 												<input type="text" maxlength="2" class="float-control" id="emmonth" style="width: 50px" disabled="disabled"> 
@@ -535,6 +573,7 @@ li{
 						<a href="#" class="pull-right default_btn btn">목록</a>
 					</div>
 				</div>
+				
 			</section>
 		</div>
 		
@@ -671,15 +710,25 @@ $(document).ready(function(){
 	 });
 	 
 	 $('#ch_schoolevel2').click(function(){
+
+		 $('.highschool').removeAttr("disabled","disabled");
+		 $('.university').attr("disabled","disabled");
 		 $('.university').hide();
 		 $('.highschool').show();
 	 });
 	 
 	 $('#ch_schoolevel1').click(function(){
+		 $('.highschool').attr("disabled","disabled");
+		 $('.university').removeAttr("disabled","disabled");
 		 $('.highschool').hide();
 		 $('.university').show();
 		 
 	 });
+	 
+	 
+	 
+	 
+	 
 	 
 	 $("#newcomer").click(function(){
 		 
@@ -817,7 +866,7 @@ $(document).ready(function(){
 		
 		
 		
-		$('#hope_bussiness').click(function(){
+		/* $('#hope_bussiness').click(function(){
 			$("#myModal").modal("show");
 		});
 
@@ -833,7 +882,7 @@ $(document).ready(function(){
 			}
 			$('#hope_bussiness').val(str);
 			
-		});
+		}); */
 		
 		
 	

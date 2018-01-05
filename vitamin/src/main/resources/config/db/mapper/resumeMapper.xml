@@ -5,7 +5,7 @@
 <mapper namespace="kr.co.vitamin.repository.mapper.ResumeMapper">
 	<resultMap type="resumeBaseInfo" id="resumeMap">
 		<result column="resume_no" property="resumeNo"/>
-		<result column="member_no" property="memeberNo"/>
+		<result column="member_no" property="memberNo"/>
 		<result column="reg_date" property="regDate"/>
 		<result column="title" property="resumeTitle"/>
 		<result column="open_state" property="openState"/>
@@ -26,7 +26,6 @@
 	
 	<resultMap type="armyService" id="armyServiceMap">
 		<result column="army_service_no" property="armyServiceNo"/>
-		<result column="resume_no" property="resumeNo"/>
 		<result column="army_service_state" property="armyServiceState"/>
 		<result column="army_service_reason" property="armyServiceReason"/>
 	</resultMap>
@@ -36,6 +35,7 @@
 		<result column="name" property="name"/>
 		<result column="sub_name" property="subName"/>
 	</resultMap>
+	
 	
 	<resultMap type="area" id="areaMap">
 		<result column="area_code" property="areaCode"/>
@@ -62,20 +62,33 @@
 		<result column="business_type" property="businessType"/>
 	</resultMap>
 	
+	<resultMap type="school" id="schoolMap">
+		<result column="school_no" property="schoolNo"/>
+		<result column="school_level_no" property="schoolLevelNo"/>
+		<result column="school_start_date" property="schoolStartDate"/>
+		<result column="school_end_date" property="schoolEndDate"/>
+		<result column="school_title" property="schoolTitle"/>
+		<result column="school_score_standard" property="schoolScoreStandard"/>
+		<result column="school_score" property="schoolScore"/>
+		<result column="major" property="major"/>
+	</resultMap>
+	
+	
+	
 	
 	
 	<insert id="insertResume" parameterType="resumeBaseInfo">
-		insert into vi_resume (reg_date,title,open_state, job_state, marry_state,bohoon_state,support_state) 
-				values(sysdate(),#{resumeTitle},#{openState},#{jobState},#{marryState},#{bohoonState},#{supportState})
+		insert into vi_resume (member_no,reg_date,title,open_state,modify_date,job_state, marry_state,bohoon_state,support_state,army_service_no,school_level_no,school_no) 
+				values(#{memberNo},now(),#{resumeTitle},0,now(),#{jobState},#{marryState},#{bohoonState},#{supportState},#{armyServiceNo},#{schoolLevelNo},#{schoolNo})
 	</insert>
 	
 	<insert id="insertArmyService" parameterType="armyService">
-		insert into vi_army_service(resume_no,army_service_state,army_service_reason)
-			values((select max(resume_no) from vi_resume),#{armyServiceState},#{armyServiceReason})
+		insert into vi_army_service(army_service_state,army_service_reason)
+			values(#{armyServiceState},#{armyServiceReason})
 	</insert>
 	
 	<select id="selectResume" resultMap="resumeMap">
-		select * from vi_resume
+		select * from vi_resume where member_no = #{memberNo}
 	</select>
 	
 	<select id="selectResumeInfo" parameterType="int" resultMap="resumeMap">
@@ -134,5 +147,30 @@
 		select business_content, (select business_content from vi_business_type where business_category = (select business_category from vi_business_type where business_no = #{businessNo}) and business_order=0) as business_type 
 		from vi_business_type where business_no = #{businessNo}
 	</select>
+	
+	<insert id="insertSchool" parameterType="school">
+		insert into vi_school (school_no,school_start_date,school_end_date,school_title,school_score_standard,school_score,major,school_level_no)
+		values(#{schoolNo},#{schoolStartDate},#{schoolEndDate},#{schoolTitle},#{schoolScoreStandard},#{schoolScore},#{major},#{schoolLevelNo})
+	</insert>
+	
+	
+	
+	
+	
+	
+	<select id="selectNextAutoIncrementArmy" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_army_service"/>
+		</include>
+	</select>
+	
+	
+	<select id="selectNextAutoIncrementSchool" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_school"/>
+		</include>
+	</select>
+	
+	
 	
 </mapper>
