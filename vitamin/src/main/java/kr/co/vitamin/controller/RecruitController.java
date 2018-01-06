@@ -98,8 +98,9 @@ public class RecruitController {
 		
 		int addressNo = -1;
 		
-		addressService.insertAddress2(address);
 		addressNo = addressService.selectNextAutoIncrement();
+		address.setAddressNo(addressNo);
+		addressService.insertAddress(address);
 		
 		if (addressNo > -1)
 			recruit.setAddressNo(addressNo);

@@ -22,10 +22,6 @@ public class AddressServiceImpl implements AddressService{
 		return addressMapper.selectCode(address);
 	}
 
-	@Override
-	public void insertAddress2(Address address) throws Exception {
-		addressMapper.insertAddress(address);
-	}
 	
 	@Override
 	public Address selectAddress(Address addres) throws Exception {

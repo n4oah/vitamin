@@ -95,7 +95,7 @@
 	
 	
 	<select id="selectSearchCondition" parameterType="searchRecruit" resultMap="selectRecruitMap">
-		select recruit_no, title, career_state, career_start, assigned_task, recruit_date_start, recruit_date_end, form_service_name, graduate_state, sub_name, name
+		select recruit_no, title, career_state, career_start ,assigned_task, recruit_date_start, recruit_date_end, form_service_name, graduate_state, sub_name, name
         from
         <!-- recruit -->
         (select recruit_no, title, career_state, career_start, school_level, assigned_task, form_service, recruit_date_start, recruit_date_end, address_no from vi_recruit_write
@@ -123,40 +123,86 @@
 		   		</choose>
 	   		</if>
 	   		
-			<choose>
-				<when test="schoolLevelStart != -1 and schoolLevelEnd  != -1">
-					and school_level between #{schoolLevelStart} and #{schoolLevelEnd}
-				</when>
-				
-				<when test="schoolLevelStart != -1 and schoolLevelEnd  == -1">
-					and school_level &gt;= #{schoolLevelStart}
-				</when>
-				
-				<when test="schoolLevelStart == -1 and schoolLevelEnd  != -1">
-					and school_level &lt;= #{schoolLevelEnd}
-				</when>
-			</choose>
+	   		
+	   		<if test="schoolLevelNone == null">
+				<choose>
+					<when test="schoolLevelStart != -1 and schoolLevelEnd  == -1">
+						and school_level >= #{schoolLevelStart}
+					</when>
 					
+					<when test="schoolLevelStart == -1 and schoolLevelEnd  != -1">
+						and school_level &lt;= #{schoolLevelEnd}
+					</when>
+					
+					<otherwise>
+						and school_level between #{schoolLevelStart} and #{schoolLevelEnd}
+					</otherwise>
+				</choose>
+			</if>	
+			<!-- 
+	   		<if test="yearPayNone == null">
+				<choose>
+					<when test="yearPayStart != -1 and yearPayEnd  == -1">
+						and year_pay_start >= #{yearPayStart}
+					</when>
+					
+					<when test="yearPayStart == -1 and yearPayEnd  != -1">
+						and year_pay_End &lt;= #{yearPayEnd}
+					</when>
+					
+					<otherwise>
+						and year_pay_start >= #{yearPayStart}
+						and year_pay_End &lt;= #{yearPayEnd}
+					</otherwise>
+				</choose>
+			</if>	
+			
+			<if test="ageNone == null">
+				<choose>
+					<when test="ageCountStart != -1 and ageCountEnd  == -1">
+						and age_count_start >= #{ageCountStart}
+					</when>
+					
+					<when test="ageCountStart == -1 and ageCountEnd  != -1">
+						and age_count_end &lt;= #{ageCountEnd}
+					</when>
+					
+					<otherwise>
+						and age_count_start >= #{ageCountStart}
+						and age_count_end &lt;= #{ageCountEnd}
+					</otherwise>
+				</choose>
+			</if>	
+			
+			<if test="gender != -1">
+				and gender = #{gender} 
+				or gender = -1
+			</if>
+			 -->
+			
+			
         ) recruit
-		  join
+        
+        
+		
 		<!-- form_service -->
-		(select form_service_name, form_service_type from vi_form_service) form_service
-		on recruit.form_service = form_service.form_service_type
-		  join
+		 join (select form_service_name, form_service_type from vi_form_service) form_service
+			on recruit.form_service = form_service.form_service_type
+		
 		<!-- school -->
-		(select graduate_state, level from vi_school_level) school
-		on recruit.school_level = school.level
-		  join
+		 join (select graduate_state, level as school_level from vi_school_level) school
+			on recruit.school_level = school.school_level
+		 
 		<!-- address -->
-		(select address_no, city_code, area_code from vi_address) address
-		on recruit.address_no = address.address_no
-          join
+		 join (select address_no, city_code, area_code from vi_address) address
+			on recruit.address_no = address.address_no
+        
         <!-- city -->
-        (select sub_name, city_code from vi_city_code) city
-		on address.city_code = city.city_code
-          join
+		 join (select sub_name, city_code from vi_city_code) city
+		 	on address.city_code = city.city_code
+         
         <!-- area -->
-        (select area_code, name from vi_area_code) area
-		on address.area_code = area.area_code
+         join (select area_code, name from vi_area_code) area
+		 	on address.area_code = area.area_code
 	</select>
 </mapper>

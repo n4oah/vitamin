@@ -41,6 +41,8 @@ public class SearchServiceImpl implements SearchService{
 	
 	@Override
 	public List<Recruit> selectSearchCondition(SearchRecruit searchRecruit) throws Exception {
+		System.out.println("selectSearchCondition " + searchMapper.selectSearchCondition(searchRecruit).size());
+		
 		return searchMapper.selectSearchCondition(searchRecruit);
 	}
 }

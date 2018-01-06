@@ -158,7 +158,7 @@
 							</span>
 							
 							<span>
-								<label><input type="checkbox" value = "-1" name="schoolLevelNone" class="school_level_none"> 학력무관</label>						
+								<label><input type="checkbox" value = "1" name="schoolLevelNone" class="school_level_none"> 학력무관</label>						
 							</span>
 						</div>
 						
@@ -702,6 +702,8 @@
 				url: path + "/search/searchWork.do",
 				dataType:"JSON",
 				success: function (result) {
+					console.log(result);
+					
 					$("form").remove();
 					$(".recruit_table > tbody").empty();
 					result.forEach(function (recruit) {
