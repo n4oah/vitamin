@@ -32,7 +32,10 @@ public interface ResumeMapper {
 	public BusinessType chooseBusinessType(Integer BusinessNo) throws Exception;
 	public int selectNextAutoIncrementArmy() throws Exception;
 	public int selectNextAutoIncrementSchool() throws Exception;
+	public int selectNextAutoIncrementPrevCompany() throws Exception;
 	public void insertSchool(School school) throws Exception;
+	public void insertPrevCompany(int prevCompanyNo)throws Exception;
+	
 	
 	
 }

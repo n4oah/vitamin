@@ -21,6 +21,7 @@
 		<result column="bohoon_state" property="bohoonState"/>
 		<result column="support_state" property="supportState"/>
 		<result column="army_service_no" property="armyServiceNo"/>
+		<result column="prev_company_no" property="prevCompanyNo"/>
 	</resultMap>
 	
 	
@@ -73,13 +74,30 @@
 		<result column="major" property="major"/>
 	</resultMap>
 	
+	<resultMap type="prevCompany" id="prevCompanyMap">
+		<result column="prev_company_no" property="prevCompanyNo"/>
+		<result column="resume_no" property="resumeNo"/>
+		<result column="prev_company_working" property="prevCompanyWorking"/>
+		<result column="prev_company_start" property="prevCompanyStart"/>
+		<result column="prev_company_end" property="prevCompanyEnd"/>
+		<result column="prev_company_name" property="prevCompanyName"/>
+		<result column="prev_company_area" property="prevCompanyArea"/>
+		<result column="prev_company_position" property="prevCompanyPosition"/>
+		<result column="prev_company_years" property="prevCompanyYears"/>
+		<result column="prev_company_salary" property="prevCompanySalary"/>
+		<result column="prev_company_type" property="prevCompanyType"/>
+		<result column="prev_company_charge" property="prevCompanyCharge"/>
+		<result column="prev_company_reason" property="prevCompanyReason"/>
+		<result column="prev_company_career_describe" property="prevCompanyCareerDescribe"/>
+	</resultMap>
+	
 	
 	
 	
 	
 	<insert id="insertResume" parameterType="resumeBaseInfo">
-		insert into vi_resume (member_no,reg_date,title,open_state,modify_date,job_state, marry_state,bohoon_state,support_state,army_service_no,school_level_no,school_no) 
-				values(#{memberNo},now(),#{resumeTitle},0,now(),#{jobState},#{marryState},#{bohoonState},#{supportState},#{armyServiceNo},#{schoolLevelNo},#{schoolNo})
+		insert into vi_resume (member_no,reg_date,title,open_state,modify_date,job_state, marry_state,bohoon_state,support_state,army_service_no,school_level_no,school_no,career_state,career_years,prev_company_no) 
+				values(#{memberNo},now(),#{resumeTitle},0,now(),#{jobState},#{marryState},#{bohoonState},#{supportState},#{armyServiceNo},#{schoolLevelNo},#{schoolNo},#{careerState},#{careerYears},#{prevCompanyNo})
 	</insert>
 	
 	<insert id="insertArmyService" parameterType="armyService">
@@ -153,6 +171,11 @@
 		values(#{schoolNo},#{schoolStartDate},#{schoolEndDate},#{schoolTitle},#{schoolScoreStandard},#{schoolScore},#{major},#{schoolLevelNo})
 	</insert>
 	
+	<insert id="insertPrevCompany" parameterType="prevCompany">
+		insert into vi_prev_company (prev_company_no,resume_no,prev_company_working,prev_company_start, prev_company_end, prev_company_name, prev_company_area, prev_company_position,prev_company_years, prev_company_salary,prev_company_type,prev_company_charge,prev_company_reason,prev_company_career_describe)
+		values(#{prevCompanyNo},#{resumeNo},#{prevCompanyWorking},#{prevCompanyStart},#{prevCompanyEnd},#{prevCompanyName},#{prevCompanyArea},#{prevCompanyposition},#{prevCompanyYears},#{prevCompanySalary},#{prevCompanyType},#{prevCompanyCharge},#{prevCompanyReason},#{prevCompanyCareerDescribe})
+	</insert>
+	
 	
 	
 	
@@ -168,6 +191,12 @@
 	<select id="selectNextAutoIncrementSchool" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
 			<property name="tableName" value="vi_school"/>
+		</include>
+	</select>
+	
+	<select id="selectNextAutoIncrementPrevCompany" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_prev_company"/>
 		</include>
 	</select>
 	

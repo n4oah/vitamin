@@ -20,6 +20,7 @@ public class ResumeBaseInfo {
 	private Integer hopeNo;
 	private Integer addressNo;
 	private Integer armyServiceNo;
+	private Integer prevCompanyNo;
 
 	
 	public Integer getResumeNo() {
@@ -149,5 +150,15 @@ public class ResumeBaseInfo {
 	public void setArmyServiceNo(Integer armyServiceNo) {
 		this.armyServiceNo = armyServiceNo;
 	}
+
+	public Integer getPrevCompanyNo() {
+		return prevCompanyNo;
+	}
+
+	public void setPrevCompanyNo(Integer prevCompanyNo) {
+		this.prevCompanyNo = prevCompanyNo;
+	}
+	
+	
 
 }

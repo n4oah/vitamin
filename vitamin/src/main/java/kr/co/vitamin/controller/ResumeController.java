@@ -24,8 +24,11 @@ import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.ConditionSelection;
+import kr.co.vitamin.repository.vo.Hope;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
+import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
+import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.School;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.AddressService;
@@ -140,8 +143,9 @@ public class ResumeController {
 	
 	
 	@RequestMapping("/intermediateSave.do")
-	public String intermediateSave(HttpSession session,ResumeBaseInfo resumeBaseInfo, ArmyService armyService, School school//,
-									, Integer[] schoolLevelNoTmp/*Integer schoolLevelNoTmp, String schoolLevelNoTmp2*/) throws Exception{
+	public String intermediateSave(HttpSession session,ResumeBaseInfo resumeBaseInfo, ArmyService armyService, School school
+									, Integer[] schoolLevelNoTmp, PrevCompany prevCompany, ResumeCertification resumeCertification,
+									Hope hope) throws Exception{
 
 		school.setSchoolLevelNo(schoolLevelNoTmp[schoolLevelNoTmp.length-1]);
 		
@@ -150,12 +154,18 @@ public class ResumeController {
 		System.out.println(school.getSchoolNo());
 		
 		
+		
 		System.out.println("중간저장 들어옴");
 		Member user = (Member)session.getAttribute("user");
 		Integer memberNo = user.getMemberNo();
 		resumeBaseInfo.setMemberNo(memberNo);
-		System.out.println("학교명:"+school.getSchoolTitle());
-		resumeService.resumeInsert(resumeBaseInfo, armyService, school);
+		System.out.println(prevCompany.getPrevCompanyArea());
+		System.out.println(prevCompany.getPrevCompanyCharge());
+		System.out.println(prevCompany.getPrevCompanyPosition());
+		System.out.println(prevCompany.getPrevCompanyName());
+		
+		/*System.out.println("학교명:"+school.getSchoolTitle());*/
+		resumeService.resumeInsert(resumeBaseInfo, armyService, school, prevCompany, resumeCertification, hope);
 		return "redirect:/mypage/resumeList.do";
 
 

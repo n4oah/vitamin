@@ -341,7 +341,7 @@
 								<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
 							</div>
 						</div>
-						</form>
+						
 						<div class="career">
 							<div class="horizontal_table table_wrap">
 								<h4 class="table_title">경력사항</h4>
@@ -351,8 +351,8 @@
 										<tr>
 											<th rowspan="2">경력사항</th>
 											<td>
-												 <input type="radio" name="career" id="newcomer" value="1">신입 
-												 <input type="radio" name="career" id="employe" value="2">경력
+												 <input type="radio" name="careerState" id="newcomer" checked="checked" value="1">신입 
+												 <input type="radio" name="careerState" id="employe" value="2">경력
 											</td>
 										</tr>
 										<tr>
@@ -361,10 +361,10 @@
 													<input type="checkbox" id="repitation_removal" disabled="disabled">중복기간 빼기&nbsp 
 													<input type="checkbox" id="direct_input" disabled="disabled">직접입력
 												</div>
-												<input type="text" maxlength="2" class="float-control" id="emyear" style="width: 50px" disabled="disabled"> 
+												<input type="text" maxlength="2" class="float-control" name="careerYears" id="emyear" style="width: 50px" disabled="disabled"> 
 												<span>년</span> 
-												<input type="text" maxlength="2" class="float-control" id="emmonth" style="width: 50px" disabled="disabled"> 
-												<span>개월</span>
+												<!-- <input type="text" maxlength="2" class="float-control" id="emmonth" style="width: 50px" disabled="disabled"> 
+												<span>개월</span> -->
 											</td>
 										</tr>
 									</tbody>
@@ -376,34 +376,35 @@
 									id="detail"> <span> 기간별 상세경력</span> <input type="radio"
 									name="career" id="career_st"> <span> 경력기술서</span>
 							</div> -->
-							<div class="horizontal_table table_wrap">
+							<div class="horizontal_table table_wrap careerStatement">
 								<table class="table">
 									<tbody>
 										<tr>
 											<th>근무기간</th>
-											<td><select class="float-control">
-													<option class="fa" value="">근무여부</option>
-													<option class="fa" value="0">퇴사</option>
-													<option class="fa" value="1">재직중</option>
-											</select> <input class="float-control" type="text" id="work_start"
+											<td>
+											<select class="float-control" name="prevCompanyWorking">
+												<option class="fa" value="">근무여부</option>
+												<option class="fa" value="0">퇴사</option>
+												<option class="fa" value="1">재직중</option>
+											</select> <input class="float-control" type="date" name="prevCompanyStart" id="work_start"
 												style="width: 150px" placeholder="입사일"> 
 												<span>~</span>
-												<input class="float-control" type="text" id="work_end"
+												<input class="float-control" type="date" name="prevCompanyEnd" id="work_end"
 												style="width: 150px" placeholder="퇴사일"></td>
 										</tr>
 										<tr>
 											<th>회사명</th>
-											<td><input class="float-control" type="text"
+											<td><input class="float-control" type="text" name="prevCompanyName"
 												style="width: 80%"></td>
 										</tr>
 										<tr>
 											<th>근무부서</th>
-											<td><input class="float-control" type="text"
+											<td><input class="float-control" type="text" name="prevCompanyDepartment"
 												style="width: 80%"></td>
 										</tr>
 										<tr>
 											<th>근무지역</th>
-											<td><select class="float-control">
+											<td><select class="float-control" name="prevCompanyArea">
 													<option value="">지역선택</option>
 													<c:forEach var="city" items="${clist}">
 														<option class="fa" value="${city.cityCode}">${city.subName}</option>
@@ -413,25 +414,25 @@
 										<tr>
 											<th>직급(직책)</th>
 											<td><input class="float-control" type="text"
-												id="position" style="width: 60%"> <input
-												class="float-control" type="text" id="career_year"
+												id="position" name="prevCompanyPosition"style="width: 60%"> 
+												<input class="float-control" type="text" name="prevCompanyYears" id="career_year"
 												style="width: 10%"> <span>년차</span></td>
 										</tr>
 										<tr>
 											<th>연봉</th>
-											<td><input class="float-control" type="text" id="salary"
+											<td><input class="float-control" type="text" id="salary" name="prevCompanySalary"
 												style="width: 100px"> <input class="float-control"
 												type="text" style="width: 60px" value="만원"
 												readonly="readonly"></td>
 										</tr>
 										<tr>
 											<th>직종</th>
-											<td><input class="float-control" type="text"
+											<td><input class="float-control" type="text" name="prevCompanyType"
 												id="work_type" style="width: 100px"></td>
 										</tr>
 										<tr>
 											<th>담당업무</th>
-											<td style="padding:0px"><textarea class="textarea-control" rows="10"
+											<td style="padding:0px"><textarea class="textarea-control" name="prevCompanyCharge" rows="10"
 													cols="80%"></textarea></td>
 										</tr>
 										<tr>
@@ -446,7 +447,8 @@
 													<option class="fa" value="6">학업</option>
 													<option class="fa" value="7">유학</option>
 													<option class="fa" value="8">개인사정</option>
-											</select> <input type="text" class="float-control" readonly="readonly">
+													<option class="fa" value="9">직접입력</option>
+											</select> <input type="text" class="float-control" name="prevCompanyReason" readonly="readonly">
 												<input type="checkbox"> <span class="res-cmt">직접입력</span>
 											</td>
 										</tr>
@@ -460,48 +462,53 @@
 									<tbody>
 										<tr>
 											<th>경력기술서</th>
-											<td style="padding:0px" ><textarea class="textarea-control" rows="10"
-													cols="80%"></textarea></td>
+											<td style="padding:0px" >
+												<textarea class="textarea-control" name="prevCompanyCareerDescribe" rows="10"
+													cols="80%"></textarea>
+											</td>
 										</tr>
 									</tbody>
 								</table>
 								<div>
-									<input style="float: right" type="button" class="intermediate_save" value="중간저장">
+									<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
 								</div>
 							</div>
 						</div>
+						</form>
 						<div class="certification">
 							<div class="horizontal_table table_wrap">
-								<h4 class="table_title">자격증/어학/수상내역</h4>
+								<h4 class="table_title">자격증</h4>
 								<br>
 								<table class="table">
 									<tbody>
 										<tr>
 											<th>항목선택</th>
-											<td><select class="float-control">
+											<td><select class="float-control" name="certificationCate">
 													<option class="fa" value="">항목선택</option>
 													<option class="fa" value="1">자격증/면허증</option>
+													<!-- 
 													<option class="fa" value="2">어학자격증</option>
 													<option class="fa" value="3">수상내역/공모전</option>
+													 -->
 											</select></td>
 										</tr>
 										<tr>
 											<th>자격증/면허증</th>
 											<td>
 											
-												<input type="text" class="float-control" id="certification" style="width: 50%">
+												<input type="text" class="float-control" name="certificationTitle" id="certification" style="width: 50%">
 											
 											</td>
 										</tr>
 										<tr>
 											<th>발행처</th>
 											<td>
-												<input type="text" class="float-control" id="licensingDepartment"style="width: 50%">
+												<input type="text" class="float-control" name="certificationOffice" id="licensingDepartment"style="width: 50%">
 											</td>
 										</tr>
 										<tr>
 											<th>합격구분</th>
-											<td><select class="float-control">
+											<td><select class="float-control" name="certificationDivision">
 													<option class="fa" value="">합격구분</option>
 													<option class="fa" value="0">1차합격</option>
 													<option class="fa" value="1">2차합격</option>
@@ -513,7 +520,7 @@
 									</tbody>
 								</table>
 								<div>
-									<input style="float: right" type="button" class="intermediate_save" value="중간저장">
+									<input style="float: right" type="button" class="intermediate_save btn-primary" value="중간저장">
 								</div>
 							</div>
 						</div>
@@ -526,7 +533,7 @@
 										<tr>
 											<th>근무형태</th>
 											<td>
-												<select class="float-control">
+												<select class="float-control" name="hopeWork">
 													<option class="fa" value="">근무형태</option>
 													<option class="fa" value="0">정규직</option>
 													<option class="fa" value="1">교육생</option>
@@ -547,7 +554,7 @@
 										<tr>
 											<th>희망연봉</th>
 											<td>
-												<select class="float-control">
+												<select class="float-control" name="hopeSalary">
 													<option class="fa">회사내규에 따름</option>
 													<c:forEach var="i" begin="1800" end="4000" step="200">
 														<option class="fa" value="${i}">${i}</option>
@@ -563,13 +570,13 @@
 										<tr>
 											<th>희망 근무지역</th>
 											<td>
-												<select class="float-control" id="hope_city">
+												<select class="float-control" name="cityCode" id="hope_city">
 													<option value="">지역선택</option>
 													<c:forEach var="city" items="${clist}">
 														<option class="fa" value="${city.cityCode}">${city.subName}</option>
 													</c:forEach>
 												</select>
-												<select class="float-control" id="hope_area">
+												<select class="float-control" name="areaCode" id="hope_area">
 												</select>
 											</td>
 										</tr>
@@ -734,6 +741,7 @@ function sample6_execDaumPostcode() {
 $(document).ready(function(){
 	 $('.highschool').hide();
 	 $('.university').hide();
+	 $('.careerStatement').hide();
 	 
 	 $('#ch_schoolevel3').click(function(){
 		 $('.highschool').hide();
@@ -771,6 +779,7 @@ $(document).ready(function(){
 		 $('#emmonth').val("");
 		 $('#emyear').attr("disabled","disabled");
 		 $('#emmonth').attr("disabled","disabled");
+		 $('.careerStatement').hide();
 	 });
 	 
 	 $('#direct_input').click(function(){
@@ -786,6 +795,7 @@ $(document).ready(function(){
 	 $("#employe").click(function(){
 		 $('#repitation_removal').removeAttr("disabled","disabled");
 		 $('#direct_input').removeAttr("disabled","disabled");
+		 $('.careerStatement').show();
 	 });
 	 
 	 
