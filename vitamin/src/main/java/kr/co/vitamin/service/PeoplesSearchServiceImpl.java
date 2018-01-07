@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.vitamin.repository.mapper.PeoplesSearchMapper;
+import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 
@@ -28,5 +29,10 @@ public class PeoplesSearchServiceImpl implements PeoplesSearchService {
 	@Override
 	public List<SchoolLevel> schList() throws Exception {
 		return peoplesSearchMapper.schList();
+	}
+	
+	@Override
+	public List<Certificate> licenseList(String name) throws Exception {
+		return peoplesSearchMapper.licenseList(name);
 	}
 }

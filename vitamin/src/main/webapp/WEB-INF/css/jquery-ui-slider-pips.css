@@ -371,7 +371,7 @@ fa {
 
 .bottom-right {
 	height: 150px;
-	background: rgba(192,41,66,1);
+	background: rgb(255, 134, 154);
 	border-bottom: 10px solid #fff;
 	border-right: 10px solid #fff;
 }
@@ -506,10 +506,6 @@ fa {
   top: -80px;
 }
 
-.grid-unit:hover .sphere {
-  background-color: rgba(255,255,255,0);
-}
-
 .icon {
   position: absolute;
   font-size: 2em;
@@ -544,4 +540,39 @@ fa {
 .grid-unit:hover .icon {
   color: #fff;
   font-size: 4em;
+}
+
+.grid-unit:hover .sphere {
+  background-color: rgba(255,255,255,0);
+}
+#buttons {
+  padding-top: 50px;
+  text-align: center;
+}
+
+/* start da css for da buttons */
+.button {
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 15px;
+  text-decoration: none;
+  /* margin: 20px; */
+  color: #fff;
+  position: relative;
+  display: inline-block;
+}
+
+.button:active {
+  transform: translate(0px, 5px);
+  -webkit-transform: translate(0px, 5px);
+  box-shadow: 0px 1px 0px 0px;
+}
+
+.blue {
+  background-color: #55acee;
+  box-shadow: 1px 2px 1px 1px #3C93D5
+}
+
+.blue:hover {
+  background-color: #6FC6FF;
 }
