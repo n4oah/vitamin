@@ -21,6 +21,12 @@
 		<result column="level" property="level" />
 	</resultMap>
 	
+	<resultMap type="certificate" id="certificateMap">
+		<result column="certificate_no" property="certificateNo"/>
+		<result column="name" property="name"/>
+		<result column="licensing_department_no" property="licensingDepartmentNo"/>
+	</resultMap>
+	
 	<select id="cityList" resultMap="cityMap">
 		select * from vi_city_code
 	</select>
@@ -35,6 +41,96 @@
 	
 	<select id="schList" resultMap="schoolLevelMap">
 		select * from vi_school_level order by level asc
+	</select>
+	
+	<select id="licenseList" parameterType="string" resultMap="certificateMap">
+		select * from vi_certificate where name like CONCAT('%',#{name},'%')
+	</select>
+	
+	<select id="peoplesSearch" parameterType="peopleSearch">
+		select * from 
+		<!-- 이력서 -->
+		(select * from vi_resume
+		<where>
+			<if test="schoolCode != null">
+				school_level_no in
+				<foreach collection="schoolCode" item="school" open="(" separator="," close=")">
+					#{school}
+				</foreach>
+			</if>
+			
+			<choose>
+				<when test="careerStart != null and careerEnd != null">
+					and career_years beteween #{careerStart} and #{careerEnd}
+				</when>
+				
+				<when test="careerStart != null">
+					and career_years >= #{careerStart}
+				</when>
+				
+				<when test="careerEnd != null">
+					and career_years &lt;= #{careerEnd}
+				</when>
+			</choose>
+		</where>) resume
+		<!-- 회원 -->
+		inner join (select * vi_member
+		<where>
+			<if test="gender != null">
+				<choose>
+					<when test="gender == 1">
+						gender = 'm'
+					</when>
+					
+					<when test="gender == 2">
+						gender = 'w'
+					</when>
+				</choose>
+			</if>
+			<choose>
+				<when test="ageStart != null and ageEnd != null">
+					and date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 between #{ageStart} and #{ageEnd}
+				</when>
+				
+				<when test="ageStart != null">
+					and date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 &gt;= #{ageStart}
+				</when>
+				
+				<when test="ageEnd != null">
+					and date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 &lt;= #{ageEnd}
+				</when>
+			</choose>
+		</where>) member
+		on resume.memeber_no = member.member_no
+		<!-- 자격증 -->
+		inner join (select * from vi_resume_certification
+		<where>
+			<if test="licenseCode != null">
+				certification_title in
+				<foreach collection="licenseName" item="license" open="(" separator="," close=")">
+					#{license}
+				</foreach>
+			</if>
+		</where>) license
+		on resume.resume_no = license.resume_no
+		<!-- 주소 -->
+		inner join (select * from vi_address
+		<where>
+			<if test="cityCode != null">
+				city_code in
+				<foreach collection="cityCode" item="city" open="(" separator="," close=")">
+					#{city}
+				</foreach>
+			</if>
+			
+			<if test="areaCode != null">
+				area_code in
+				<foreach collection="areaCode" item="area" open="(" separator="," close=")">
+					#{area}
+				</foreach>
+			</if>
+		</where>) address
+		on resume.address_no = address.address_no
 	</select>
 	
 </mapper>
