@@ -82,14 +82,6 @@
 		<result column="licensing_department_no" property="licensingDepartmentNo" />
 		<result column="name" property="name" />
 	</resultMap>
-	<resultMap id="peoplesMap" type="peoples">
-		<result column="job_state" property="jobState" />
-		<result column="marry_state" property="marryState" />
-		<result column="support_state" property="supportState" />
-		<result column="career_years_start" property="careerYearsStart" />
-		<result column="career_years_end" property="careerYearsEnd" />
-		<result column="reg_date" property="regDate" />
-	</resultMap>
 	<resultMap id="recruitMap" type="recruit">
 		<result column="form_service_name" property="formServiceName" />
 		<result column="sub_name" property="subName" />
