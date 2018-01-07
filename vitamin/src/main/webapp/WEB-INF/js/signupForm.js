@@ -26,9 +26,9 @@ $(function() {
 	companyPtn.push(new Pattern($("#company-input-bossName"), /^[a-z0-9가-힣]{1,10}$/, "대표자 이름은 1~20자 까지 가능합니다."));
 	companyPtn.push(new Pattern($("#company-input-licenseNumber"), /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/, "사업자 등록 번호를 확인해주세요."));
 	companyPtn.push(new Pattern($("#company-input-employeeCount"), /^[0-9]{1,6}$/, "사원수를 확인해 주세요."));
-	companyPtn.push(new Pattern($("#company.buildupDate"), /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, "설립일을 확인해주세요."));
+	companyPtn.push(new Pattern($("#company-input-buildupDate"), /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/, "설립일을 확인해주세요."));
 	companyPtn.push(new Pattern($("#company-input-businessContent"), /^().+$/, "사업 내용을 확인해주세요."));
-	companyPtn.push(new Pattern($("#private-input-phoneNumber"), /^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/, "대표 전화를 확인해주세요."));
+	companyPtn.push(new Pattern($("#company-input-phoneNumber"), /^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4}$/, "대표 전화를 확인해주세요."));
 	companyPtn.push(new Pattern($("#company-form input[name='address.postCode']"), /^[0-9]{1,}$/, "우편 번호를 확인해주세요."));
 	companyPtn.push(new Pattern($("#company-form input[name='address.address1']"), /^().+$/, "주소를 확인해주세요."));
 	companyPtn.push(new Pattern($("#company-form input[name='address.address2']"),  /^().+$/, "상세주소를 확인해주세요."));
@@ -57,10 +57,11 @@ $(function() {
 	
 	let $signForm = $('form.sign-form .submit');
 	for(let i = 0; i < $signForm.length; i++) {
-		$($signForm[i]).click({form: $signForm.closest('form')}, signClick);
+		console.log($($signForm[i]).closest('form.sign-form'));
+		$($signForm[i]).click({form: $($signForm[i]).closest('form.sign-form')}, signClick);
 	}
 	
-	$("company-form").submit(signupSubmit);
+	$("#company-form").submit(signupSubmit);
 	$("#private-form").submit(signupSubmit);
 	
 	$('input.form-control').on('input', function(e) {
@@ -159,7 +160,19 @@ $(function() {
 	});
 	*/
 	//=====================================================================================//
+	$('#private-input-id').blur(function() {
+		idOverlapChk = false;
+		idOverlapCheck(this);
+	});
+	$('#company-input-id').blur(function() {
+		idOverlapChk = false;
+		idOverlapCheck(this);
+	});
 });
+
+function setIdOverlapChk(chk) {
+	idOverlapChk = chk;
+}
 
 function matches(ptn, tPtn) {
 	let overlap = new Set();
@@ -249,6 +262,7 @@ function deleteLabel(formInput) {
 
 function signClick(e) {
 	let url = $(e.data.form).attr('action');
+	console.log(url);
 	parm = url.split('?', 2);
 	switch(parm[1]) {
 		case 'memberType=1': {

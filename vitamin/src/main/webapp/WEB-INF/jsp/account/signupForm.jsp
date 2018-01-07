@@ -16,27 +16,26 @@
 		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 		<%-- <script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script> --%>
 		<script>
-			$(function() {
-				$('#private-input-id').blur(function() {
-					$.ajax({
-						url: "${pageContext.request.contextPath}/account/idOverlapChk.do",
-						dataType: "json",
-						data: {id: $('#private-input-id').val()},
-						success: function(chk) {
-							var $idInput = $('#private-input-id')[0];
-							
-							console.log(idOverlapChk);
-							idOverlapChk = chk;
-							
-							if(chk == true) {
-								createLabel($idInput, '이미 등록된 아이디 입니다.', {'color': 'red'});
-							} else {
-								createLabel($idInput, '사용 가능한 아이디 입니다.', {'color': 'blue'});
-							}
+			function idOverlapCheck(formType) {
+				var _chk;
+				
+				$.ajax({
+					url: "${pageContext.request.contextPath}/account/idOverlapChk.do",
+					dataType: "json",
+					data: {id: $(formType).val()},
+					success: function(chk) {
+						var $idInput = $(formType)[0];
+						
+						setIdOverlapChk(chk);
+						
+						if(chk == true) {
+							createLabel($idInput, '이미 등록된 아이디 입니다.', {'color': 'red'});
+						} else {
+							createLabel($idInput, '사용 가능한 아이디 입니다.', {'color': 'blue'});
 						}
-					});
+					}
 				});
-			});
+			};
 		</script>
 		<script src="${pageContext.request.contextPath}/js/signupForm.js"></script>
 		<style>
@@ -114,7 +113,7 @@
 												<input type="password" id="private-input-pwd_chk" class="form-control" placeholder="비밀번호 확인">
 											</div>
 											<div class="form-group">
-												<input type="text" name="name" id="private-input-name" class="form-control" placeholder="이름">
+												<input type="text" name="member.name" id="private-input-name" class="form-control" placeholder="이름">
 											</div>
 											<div class="form-group">
 												<select class="selectpicker" name="member.gender">
@@ -168,7 +167,7 @@
 										</form>
 										<form id="company-form" class="sign-form" action="${actionUrl}?memberType=2" method="post" role="form" style="display: none;">
 											<div class="form-group">
-													<input type="text" name="id" id="company-input-id" class="form-control" placeholder="아이디">
+												<input type="text" name="id" id="company-input-id" class="form-control" placeholder="아이디">
 											</div>
 											<div class="form-group">
 												<input type="password" name="pwd" id="company-input-pwd" class="form-control" placeholder="비밀번호">
@@ -199,7 +198,7 @@
 												<input type="text" name="company.employeeCount" id="company-input-employeeCount" class="form-control" placeholder="사원수">
 											</div>
 											<div class="form-group">
-												<input type="date" name="company.buildupDate" id="private-input-buildupDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
+												<input type="date" name="company.buildupDate" id="company-input-buildupDate" max="<fmt:formatDate value='${todayDate}' pattern='yyyy-MM-dd' />" class="form-control">
 											</div>
 											<div class="form-group">
 												<select class="selectpicker" name="company.businessNo">
@@ -214,7 +213,7 @@
 												<input type="text" name="company.businessContent" id="company-input-businessContent" class="form-control" placeholder="사업 내용">
 											</div>
 											<div class="form-group">
-												<input type="text" name="company.telNumber" id="private-input-phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+82 (ddd) dddd-dddd">
+												<input type="text" name="company.telNumber" id="company-input-phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+82 (ddd) dddd-dddd">
 											</div>
 											
 											<div class="form-group">
@@ -236,7 +235,7 @@
 											<div class="form-group">
 												<div class="row">
 													<div class="col-sm-6 col-sm-offset-3">
-														<input type="button" id="private-signup" class="form-control btn submit" value="회원가입">
+														<input type="button" id="company-signup" class="form-control btn submit" value="회원가입">
 													</div>
 												</div>
 											</div>

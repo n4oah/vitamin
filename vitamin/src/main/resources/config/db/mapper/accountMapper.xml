@@ -7,7 +7,6 @@
 		<result column="account_no" property="accountNo" />
 		<result column="id" property="id" />
 		<result column="pwd" property="pwd" />
-		<result column="name" property="name" />
 		<result column="email" property="email" />
 		<result column="address_no" property="addressNo" />
 		<result column="email_token_no" property="emailTokenNo" />
@@ -24,6 +23,7 @@
 	<resultMap type="member" id="memberMap" extends="accountMap">
 		<result column="member_no" property="memberNo" />
 		<result column="account_no" property="accountNo" />
+		<result column="name" property="name" />
 		<result column="phone_number" property="phoneNumber" />
 		<result column="birth_date" property="birthDate" />
 		<result column="gender" property="gender" />
@@ -45,24 +45,23 @@
 		<result column="logo_no" property="logoNo" />
 	</resultMap>
 	
-	
 	<select id="selectOverlapIdCheck" resultMap="accountMap" parameterType="account">
-		SELECT id FROM vi_account
+		SELECT * FROM vi_account
 		WHERE id=#{id} LIMIT 1
 	</select>
 	
 	<insert id="insertAccount" parameterType="account">
 		INSERT INTO vi_account
-		(account_no, id, pwd, name, email, address_no, email_token_no, email_token_status, member_type)
+		(account_no, id, pwd, email, address_no, email_token_no, email_token_status, member_type)
 		VALUES
-		(#{accountNo}, #{id}, #{pwd}, #{name}, #{email}, #{addressNo}, #{emailTokenNo}, #{emailTokenStatus}, #{memberType})
+		(#{accountNo}, #{id}, #{pwd}, #{email}, #{addressNo}, #{emailTokenNo}, #{emailTokenStatus}, #{memberType})
 	</insert>
 	
 	<insert id="insertMember" parameterType="member">
 		INSERT INTO vi_member
-		(account_no, phone_number, birth_date, gender)
+		(account_no, name, phone_number, birth_date, gender)
 		VALUES
-		(#{accountNo}, #{phoneNumber}, #{birthDate}, #{gender})
+		(#{accountNo}, #{name}, #{phoneNumber}, #{birthDate}, #{gender})
 	</insert>
 	
 	<insert id="insertCompany" parameterType="company">

@@ -85,8 +85,8 @@ public class AccountSignup extends Account {
 				+ email2 + ", member=" + member + ", company=" + company + ", getAccountNo()=" + getAccountNo()
 				+ ", getAddressNo()=" + getAddressNo() + ", getEmailTokenNo()=" + getEmailTokenNo()
 				+ ", getMemberType()=" + getMemberType() + ", getEmailTokenStatus()=" + getEmailTokenStatus()
-				+ ", getId()=" + getId() + ", getPwd()=" + getPwd() + ", getName()=" + getName() + ", getEmail()="
-				+ getEmail() + ", getRegDate()=" + getRegDate() + ", toString()=" + super.toString() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + "]";
+				+ ", getId()=" + getId() + ", getPwd()=" + getPwd() + ", getEmail()=" + getEmail() + ", getRegDate()="
+				+ getRegDate() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + "]";
 	}
 }

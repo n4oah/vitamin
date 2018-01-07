@@ -3,8 +3,8 @@ package kr.co.vitamin.repository.vo.account;
 import java.util.Date;
 
 public class Member extends Account {
-	private Integer memberNo; 
-	private String phoneNumber;
+	private Integer memberNo;
+	private String name, phoneNumber;
 	private Date birthDate;
 	private Character gender;
 
@@ -40,14 +40,21 @@ public class Member extends Account {
 		this.gender = gender;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	@Override
 	public String toString() {
-		return "Member [memberNo=" + memberNo + ", phoneNumber=" + phoneNumber + ", birthDate=" + birthDate
-				+ ", gender=" + gender + ", getAccountNo()=" + getAccountNo() + ", getAddressNo()=" + getAddressNo()
-				+ ", getEmailTokenNo()=" + getEmailTokenNo() + ", getMemberType()=" + getMemberType()
+		return "Member [memberNo=" + memberNo + ", name=" + name + ", phoneNumber=" + phoneNumber + ", birthDate="
+				+ birthDate + ", gender=" + gender + ", getAccountNo()=" + getAccountNo() + ", getAddressNo()="
+				+ getAddressNo() + ", getEmailTokenNo()=" + getEmailTokenNo() + ", getMemberType()=" + getMemberType()
 				+ ", getEmailTokenStatus()=" + getEmailTokenStatus() + ", getId()=" + getId() + ", getPwd()=" + getPwd()
-				+ ", getName()=" + getName() + ", getEmail()=" + getEmail() + ", getRegDate()=" + getRegDate()
-				+ ", toString()=" + super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ "]";
+				+ ", getEmail()=" + getEmail() + ", getRegDate()=" + getRegDate() + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 }

@@ -112,8 +112,8 @@ public class Company extends Account {
 				+ homepage + ", businessContent=" + businessContent + ", buildupDate=" + buildupDate
 				+ ", getAccountNo()=" + getAccountNo() + ", getAddressNo()=" + getAddressNo() + ", getEmailTokenNo()="
 				+ getEmailTokenNo() + ", getMemberType()=" + getMemberType() + ", getEmailTokenStatus()="
-				+ getEmailTokenStatus() + ", getId()=" + getId() + ", getPwd()=" + getPwd() + ", getName()=" + getName()
-				+ ", getEmail()=" + getEmail() + ", getRegDate()=" + getRegDate() + ", toString()=" + super.toString()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+				+ getEmailTokenStatus() + ", getId()=" + getId() + ", getPwd()=" + getPwd() + ", getEmail()="
+				+ getEmail() + ", getRegDate()=" + getRegDate() + ", toString()=" + super.toString() + ", getClass()="
+				+ getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 }

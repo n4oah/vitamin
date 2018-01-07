@@ -6,7 +6,7 @@ import org.springframework.security.core.token.Sha512DigestUtils;
 
 public class Account {
 	private Integer accountNo, addressNo, emailTokenNo, memberType, emailTokenStatus;
-	private String id, pwd, name, email;
+	private String id, pwd, email;
 	private Date regDate;
 
 	public Integer getAccountNo() {
@@ -69,14 +69,6 @@ public class Account {
 		this.pwd = pwd;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -97,6 +89,6 @@ public class Account {
 	public String toString() {
 		return "Account [accountNo=" + accountNo + ", addressNo=" + addressNo + ", emailTokenNo=" + emailTokenNo
 				+ ", memberType=" + memberType + ", emailTokenStatus=" + emailTokenStatus + ", id=" + id + ", pwd="
-				+ pwd + ", name=" + name + ", email=" + email + ", regDate=" + regDate + "]";
+				+ pwd + ", email=" + email + ", regDate=" + regDate + "]";
 	}
 }
