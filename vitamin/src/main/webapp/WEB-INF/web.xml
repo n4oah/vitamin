@@ -36,6 +36,20 @@
 		<url-pattern>*.jpg</url-pattern>
 	</servlet-mapping>
 	
+	<!-- <servlet>
+		<servlet-name>startupController</servlet-name>
+		<servlet-class>kr.co.vitamin.common.auto.AutoVOCreater</servlet-class>
+		<init-param>
+			<param-name>typeAliasesPackage</param-name>
+			<param-value>kr.co.vitamin.repository.vo</param-value>
+		</init-param>
+		<init-param>
+			<param-name>mapperLocations</param-name>
+			<param-value>config-db-mapper-commonMapper.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet> -->
+	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
