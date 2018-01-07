@@ -65,12 +65,12 @@
 	</insert>
 	
 	<insert id="insertCompany" parameterType="company">
-		INSERT INTO vi_member
+		INSERT INTO vi_company
 		(account_no, license_number, company_name, boss_name, company_type, buildup_date, business_content,
 		 business_no, tel_number, homepage, employee_count, logo_no)
 		VALUES
-		(#{account_no}, #{license_number}, #{company_name}, #{boss_name}, #{company_type}, #{buildup_date},
-		 #{business_content}, #{business_no}, #{tel_number}, #{homepage}, #{employee_count}, #{logo_no})
+		(#{accountNo}, #{licenseNumber}, #{companyName}, #{bossName}, #{companyType}, #{buildupDate},
+		 #{businessContent}, #{businessNo}, #{telNumber}, #{homepage}, #{employeeCount}, #{logoNo})
 	</insert>
 	
 	<update id="updateEmailToken" parameterType="account">
