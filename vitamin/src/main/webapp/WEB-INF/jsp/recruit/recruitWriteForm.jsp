@@ -40,8 +40,14 @@
 			 <div class="detail_wrapper form-group">
 						<div class="career">
 							<span class="ex_label col-md-1">경력</span>
-								<span><label><input type="checkbox" value = "1" name="careerState" class="newcomer" checked>신입</label></span>
-								<span><label><input type="checkbox" name="careerState" class="career_level">경력</label></span>
+							
+							<span>
+								<label><input type="checkbox" value = "1" name="careerState" class="newcomer" checked>신입</label>
+							</span>
+							
+							<span>
+								<label><input type="checkbox" name="careerState" class="career_level">경력</label>
+							</span>
 					
 							<span class="career_period" style="display:none">
 								<span class="dropdown">
@@ -59,7 +65,7 @@
 					        		</ul>
 								</span>
 								
-								<span class="water">
+								<span class="water" style="margin-right: 2%; margin-left:2%">
 									<span class="ex_label abcd">~</span>
 								</span>
 								
@@ -569,11 +575,11 @@
 				start = parseInt(efg.find("input[name='careerStart']").val());
 				end = parseInt(efg.find("input[name='careerEnd']").val());
 			} else if (str == "연봉을"){
-				start = parseInt(efg.find("input[name='year_pay_start']").val());
-				end = parseInt(efg.find("input[name='year_pay_end']").val());					
+				start = parseInt(efg.find("input[name='yearPayStart']").val());
+				end = parseInt(efg.find("input[name='yearPayEnd']").val());					
 			} else if (str == "나이를") {
-				start = parseInt(efg.find("input[name='age_count_start']").val());
-				end = parseInt(efg.find("input[name='age_count_end']").val());
+				start = parseInt(efg.find("input[name='ageCountStart']").val());
+				end = parseInt(efg.find("input[name='ageCountEnd']").val());
 			}
 			
 			var bool = start > end;

@@ -22,6 +22,8 @@ $(function() {
 	companyPtn.push(new Pattern($("#company-input-id"), /^[a-z0-9]{4,12}$/, "아이디는 4~12자 소문자 영문과 숫자를 조합해서만 사용 가능합니다."));
 	companyPtn.push(new Pattern($("#company-input-pwd"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", {'code':1, 'target':true, 'msg': '비밀번호가 서로 같지 않습니다.'}));
 	companyPtn.push(new Pattern($("#company-input-pwd_chk"), /^[A-Za-z0-9]{6,12}$/, "비밀번호는 6~12자 영문과 숫자를 조합해서만 사용 가능합니다.", {"code":1, "target":false}));
+	companyPtn.push(new Pattern($("#company-input-email1"), /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/i, "이메일 주소를 확인하세요."));
+	companyPtn.push(new Pattern($("#company-input-email2"), /^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i, "도메인 주소를 확인하세요."));
 	companyPtn.push(new Pattern($("#company-input-companyName"), /^[a-z0-9가-힣]{1,20}$/, "기업 이름은 1~20자 까지 가능합니다."));
 	companyPtn.push(new Pattern($("#company-input-bossName"), /^[a-z0-9가-힣]{1,10}$/, "대표자 이름은 1~20자 까지 가능합니다."));
 	companyPtn.push(new Pattern($("#company-input-licenseNumber"), /^[0-9]{3}-[0-9]{2}-[0-9]{5}$/, "사업자 등록 번호를 확인해주세요."));

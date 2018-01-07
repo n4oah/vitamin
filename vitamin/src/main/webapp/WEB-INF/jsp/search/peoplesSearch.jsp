@@ -48,13 +48,19 @@
 						
 						<div class="education">
 							<Strong class="education_title">학력</Strong>
-							<label class="btn active">
-						          <input type="checkbox" class="bootCheck allCheck"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span> 전체 선택</span>
-					        </label>
-							<c:forEach items="${schList }" var="sch">
-								<label class="btn active">
-						          <input type="checkbox" name="schoolLevel" class="bootCheck" value="${sch.level }"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span> ${sch.graduateState}</span>
-						        </label>
+							<c:forEach items="${schList }" var="sch" varStatus="i">
+								<c:choose>
+									<c:when test="${i.index == 0 }">
+										<label class="btn active">
+								          <input type="checkbox" class="bootCheck allCheck"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span> 전체 선택</span>
+							        	</label>
+									</c:when>
+									<c:otherwise>
+										<label class="btn active">
+								          <input type="checkbox" name="schoolLevel" class="bootCheck" value="${sch.level }"><i class="fa fa-square-o fa-2x"></i><i class="fa fa-check-square-o fa-2x"></i> <span> ${sch.graduateState}</span>
+								        </label>
+							        </c:otherwise>
+								</c:choose>
 					        </c:forEach>
 						</div>
 						
@@ -97,9 +103,17 @@
 							<span class="col-md-offset-3">
 								<Strong class="salary_title">성별 </Strong>
 						
-								<label><input type="radio" value="1" name="gender"> 남자</label>
-								<label><input type="radio" value="2" name="gender"> 여자</label>
-								<label><input type="radio" value="3" name="gender"> 성별무관</label>
+								<label><input type="radio" value="1" name="gender"> <font>남자</font></label>
+								<label><input type="radio" value="2" name="gender"> <font>여자</font></label>
+								<label><input type="radio" value="3" name="gender" checked="checked"> <font>성별무관</font></label>
+							</span>
+						</div>
+						
+						<div class="age">
+							<Strong class="age_title">자격증</Strong>
+							<span>
+								<input type="text" class="license">
+								<button type="button" class="button blue licensePlus">추가</button>
 							</span>
 						</div>
 						
@@ -123,6 +137,12 @@
 									<font class="careerEnd">20년 이상</font>
 									<span class="remove" data-name="ce">X</span>
 								</div>
+							</div>
+							
+							<div class="licenseList">
+								<span>
+									자격증:
+								</span>
 							</div>
 							<div class="sphere"></div>
 							<span class="icon fa fa-black-tie"></span> <span class="label">Career</span>
@@ -158,6 +178,18 @@
 									<font class="ageEnd">전체</font>
 									<span class="removeAge" data-name="ce">X</span>
 								</div>
+							</div>
+							
+							<div class="genderHope">
+								<div>
+									희망 성별:
+									<font class="gender" data-civa="3">성별무관</font>
+									<span class="removeGender">X</span>
+								</div>
+							</div>
+							
+							<div class="">
+							
 							</div>
 							
 							<div class="sphere"></div>
@@ -325,6 +357,8 @@
 	<script>
 		$(document).ajaxStart(function () {waitEffect();})
 		.ajaxStop(function () {$("body").waitMe("hide");});
+		
+		$('.wrapper').removeClass('preload');
 
 		function waitEffect() {
 			$("body").waitMe({
@@ -402,9 +436,8 @@
 					type: "post",
 					data: "no="+no,
 					url: path+"/search/areaList.do",
-					success: function (city) {
-						city = JSON.parse(city);
-						
+                    dataType: "JSON",
+					success: function (city) {						
 						var div = $("<div>").addClass("optContainer").attr("id", "ddCity"+city.cityCode).css("display", "block")
 					    .append($("<label>")
 					    	.append($("<input>").addClass("checked").attr({"type": "checkbox"}).val(city.cityCode))
@@ -474,7 +507,7 @@
 				
 				
 				$("<span>")
-					.append($("<font>").attr("data-civa", value).text($(this).next().text()))
+					.append($("<font>").attr({"data-civa": value, "data-city": true}).text($(this).next().text()))
 					.append($("<span>").addClass("removeAddr").text("X"))
 				.appendTo(".addrList");
 			} else {
@@ -505,8 +538,6 @@
 		});
 		
 		$(".schList, .addrList").on("click", ".removeSch, .removeAddr", function (e) {
-			/* $(this).prev().remove();
-			$(this).remove(); */
 			$("[value='"+$(this).prev().attr("data-civa")+"']").trigger("click");
 		});	
 		
@@ -547,7 +578,9 @@
 			}
 			
 			//$(this).prev().text("");
-		});	
+		});
+		
+		
 		
 		$('span.dropdown').click(function () {
 			if (chk) {
@@ -586,6 +619,130 @@
 				alert("나이를 확인해주세요.");
 				chk = true;
 			}
+	    });
+	    
+	    function ageRemove(no) {
+	    	$(".removeAge:eq("+no+")").click(function () {
+	    		chk = false;
+		    	$(".dropdown-menu:eq("+no+") > li:first-child").trigger("click");
+		    	chk = true;
+		    });
+	    }
+	    
+	    ageRemove(0);
+	    ageRemove(1);
+	    
+	    $("input[name='gender']").click(function () {
+	    	$(".gender").text($(this).next().text()).attr("data-civa", $(this).val());
+	    });
+	    
+	    $(".removeGender").click(function () {
+	    	$("input[name='gender'][value='3']").trigger("click");
+	    });
+	    
+	    var license;
+	    
+	    $( ".license" ).autocomplete({
+	        source : function( request, response ) {
+	             $.ajax({
+	                    type: 'post',
+	                    url: path+"/mypage/certificationSelect.do",
+	                    dataType: "JSON",
+	                    data: { "name" : request.term },
+	                    success: function(data) {
+	                          response(
+	                             $.map(data, function(item) {
+	                                return {
+	                                    label: item.name,
+	                                    value: item.name,
+	                                    no: item.certificateNo
+	                                }
+	                            }));
+	                    	}
+	                    });
+	               },
+	        minLength: 2,
+	        select: function( event, ui ) {
+	        	license = ui.item;
+	        }
+	    });
+	    
+	    $(".license").on("keydown", function (e) {
+	    	if (e.keyCode == 8) license = null;
+	    });
+	    
+	    $(".licensePlus").click(function () {
+	    	if (!license) {
+	    		alert("정확한 자격증 정보를 입력해주세요.");
+	    		return;
+	    	}
+			var civa = $("font.lic[data-civa='"+license.no+"']");
+	    	if (civa.length < 1) {
+				$("<font>").addClass("lic").text(license.label).attr("data-civa", license.no).appendTo(".licenseList");
+				$("<span>").addClass("removeLic").text("X").appendTo(".licenseList");				
+			} else {
+				alert("이미 존재하는 자격증입니다.");
+				if (!confirm("삭제하시겠습니까?")) {
+				    return;
+				} else {
+					civa.next().remove();
+					civa.remove();
+				}
+			}
+	    });
+	    
+	    $(".licenseList").on("click", ".removeLic", function () {
+	    	$(this).prev().remove();
+	    	$(this).remove();
+	    });
+	    
+	    $(".search_button > input").click(function () {
+	    	var parameterData = "?";
+	    	
+	    	var cs = parseInt($(".careerList font:eq(0)").text());
+	    	var ce = parseInt($(".careerList font:eq(1)").text());
+	    	
+	    	//console.log("경력 시작|",  cs ? cs : "신입");
+	    	if (cs) parameterData += "&careerStart="+cs;
+	    	
+	    	//console.log("경력 종료|",  ce ? ce : "신입");
+	    	if (ce != 20) parameterData += "&careerEnd="+ce;
+	    	
+	    	$(".lic").each(function (i, data) {
+	    		//console.log("자격증|", $(data).attr("data-civa"));
+	    		parameterData += "&licenseCode="+$(data).attr("data-civa");
+	    		parameterData += "&licenseName="+$(data).text();
+	    	});
+	    	$(".sch").each(function (i, data) {
+	    		//console.log("학력|", $(data).attr("data-civa"));
+	    		parameterData += "&schoolCode="+$(data).attr("data-civa");
+	    	});
+	    	$(".addrList font").each(function (i, data) {
+	    		//console.log(($(data).attr("data-city") ? "시/도" : "시/군/구")+"|", $(data).attr("data-civa"));
+	    		parameterData += "&"+($(data).attr("data-city") ? "cityCode" : "areaCode")+"="+$(data).attr("data-civa");
+	    	});
+	    	
+	    	var as = parseInt($(".ageStart").text());
+	    	var ae = parseInt($(".ageEnd").text());
+	    	
+	    	//console.log("나이 시작|",  as ? as : "전체");
+	    	if (as) parameterData += "&ageStart="+as;
+	    	
+	    	//console.log("나이 종료|",  ae ? ae : "전체");
+	    	if (ae) parameterData += "&ageEnd="+ae;
+	    	
+	    	var gender = $(".gender").attr("data-civa");
+	    	
+	    	//console.log("성별|", gender == 3 ? "전체" : gender);
+	    	if (gender != 3) parameterData += "&gender="+gender;
+	    	
+	    	console.log(parameterData);
+	    	
+	    	$.ajax({
+	    		type: "POST",
+	    		url: path+"/search/peoplesSearchList.do",
+	    		data: parameterData
+	    	})
 	    });
 	</script>
 </body>

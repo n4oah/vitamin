@@ -1,10 +1,193 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CommonMapper">
 	<sql id="getNextAutoIncrement">
 		SELECT auto_increment FROM INFORMATION_SCHEMA.TABLES
 		WHERE table_name = '${tableName}'
 	</sql>
+	<resultMap id="addressMap" type="address">
+		<result column="address_no" property="addressNo" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="address" property="address" />
+		<result column="post_code" property="postCode" />
+		<result column="city_name" property="cityName" />
+		<result column="area_name" property="areaName" />
+		<result column="address1" property="address1" />
+		<result column="address2" property="address2" />
+		<result column="sigungu_code" property="sigunguCode" />
+	</resultMap>
+	<resultMap id="areaMap" type="area">
+		<result column="area_code" property="areaCode" />
+		<result column="city_code" property="cityCode" />
+		<result column="name" property="name" />
+	</resultMap>
+	<resultMap id="armyServiceMap" type="armyService">
+		<result column="army_service_reason" property="armyServiceReason" />
+	</resultMap>
+	<resultMap id="autoSigninMap" type="autoSignin">
+		<result column="auto_signin_no" property="autoSigninNo" />
+		<result column="account_no" property="accountNo" />
+		<result column="auth_token" property="authToken" />
+		<result column="ip" property="ip" />
+		<result column="delete_date" property="deleteDate" />
+	</resultMap>
+	<resultMap id="businessTypeMap" type="businessType">
+		<result column="business_no" property="businessNo" />
+		<result column="business_content" property="businessContent" />
+		<result column="business_order" property="businessOrder" />
+		<result column="business_category" property="businessCategory" />
+		<result column="business_type" property="businessType" />
+	</resultMap>
+	<resultMap id="certificateMap" type="certificate">
+		<result column="certificate_no" property="certificateNo" />
+		<result column="name" property="name" />
+		<result column="licensing_department_no" property="licensingDepartmentNo" />
+	</resultMap>
+	<resultMap id="cityMap" type="city">
+		<result column="city_code" property="cityCode" />
+		<result column="name" property="name" />
+		<result column="sub_name" property="subName" />
+	</resultMap>
+	<resultMap id="cityAndAreaMap" type="cityAndArea">
+		<result column="area_code" property="areaCode" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_name" property="areaName" />
+		<result column="sub_name" property="subName" />
+	</resultMap>
+	<resultMap id="conditionSelectionMap" type="conditionSelection">
+		<result column="condition_type" property="conditionType" />
+		<result column="condition_type_name" property="conditionTypeName" />
+		<result column="condition_section" property="conditionSection" />
+		<result column="condition_section_name" property="conditionSectionName" />
+	</resultMap>
+	<resultMap id="emailTokenMap" type="emailToken">
+		<result column="email_token_no" property="emailTokenNo" />
+		<result column="token" property="token" />
+		<result column="delete_date" property="deleteDate" />
+	</resultMap>
+	<resultMap id="fileMap" type="file">
+		<result column="file_no" property="fileNo" />
+		<result column="original_name" property="originalName" />
+		<result column="system_name" property="systemName" />
+		<result column="file_size" property="fileSize" />
+		<result column="file_path" property="filePath" />
+	</resultMap>
+	<resultMap id="formServiceMap" type="formService">
+		<result column="form_service_no" property="formServiceNo" />
+		<result column="form_service_name" property="formServiceName" />
+		<result column="form_service_type" property="formServiceType" />
+	</resultMap>
+	<resultMap id="licensingDepartmentMap" type="licensingDepartment">
+		<result column="licensing_department_no" property="licensingDepartmentNo" />
+		<result column="name" property="name" />
+	</resultMap>
+	<resultMap id="peoplesMap" type="peoples">
+		<result column="job_state" property="jobState" />
+		<result column="marry_state" property="marryState" />
+		<result column="support_state" property="supportState" />
+		<result column="career_years_start" property="careerYearsStart" />
+		<result column="career_years_end" property="careerYearsEnd" />
+		<result column="reg_date" property="regDate" />
+	</resultMap>
+	<resultMap id="recruitMap" type="recruit">
+		<result column="form_service_name" property="formServiceName" />
+		<result column="sub_name" property="subName" />
+		<result column="name" property="name" />
+		<result column="graduate_state" property="graduateState" />
+		<result column="recruit_date_start" property="recruitDateStart" />
+		<result column="recruit_date_end" property="recruitDateEnd" />
+		<result column="recruit_count" property="recruitCount" />
+		<result column="gender" property="gender" />
+		<result column="recruit_no" property="recruitNo" />
+		<result column="company_no" property="companyNo" />
+		<result column="title" property="title" />
+		<result column="career_state" property="careerState" />
+		<result column="career_start" property="careerStart" />
+		<result column="career_end" property="careerEnd" />
+		<result column="school_level" property="schoolLevel" />
+		<result column="year_pay_start" property="yearPayStart" />
+		<result column="year_pay_end" property="yearPayEnd" />
+		<result column="age_count_start" property="ageCountStart" />
+		<result column="age_count_end" property="ageCountEnd" />
+		<result column="assigned_task" property="assignedTask" />
+		<result column="form_service" property="formService" />
+		<result column="major" property="major" />
+		<result column="?곕?議곌굔" property="?곕?議곌굔" />
+		<result column="recruit_form" property="recruitForm" />
+		<result column="recruit_form_file_no" property="recruitFormFileNo" />
+		<result column="address_no" property="addressNo" />
+		<result column="day_of_week" property="dayOfWeek" />
+		<result column="master" property="master" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="recruiting_state" property="recruitingState" />
+	</resultMap>
+	<resultMap id="resumeBaseInfoMap" type="resumeBaseInfo">
+		<result column="resume_no" property="resumeNo" />
+		<result column="member_no" property="memberNo" />
+		<result column="reg_date" property="regDate" />
+		<result column="resume_title" property="resumeTitle" />
+		<result column="open_state" property="openState" />
+		<result column="job_state" property="jobState" />
+		<result column="marry_state" property="marryState" />
+		<result column="bohoon_state" property="bohoonState" />
+		<result column="support_state" property="supportState" />
+		<result column="school_no" property="schoolNo" />
+		<result column="school_level_no" property="schoolLevelNo" />
+		<result column="career_state" property="careerState" />
+		<result column="career_years" property="careerYears" />
+		<result column="hope_no" property="hopeNo" />
+		<result column="address_no" property="addressNo" />
+		<result column="army_service_no" property="armyServiceNo" />
+	</resultMap>
+	<resultMap id="reviewMap" type="review">
+		<result column="review_no" property="reviewNo" />
+		<result column="company_no" property="companyNo" />
+		<result column="member_no" property="memberNo" />
+		<result column="page" property="page" />
+		<result column="score" property="score" />
+		<result column="content" property="content" />
+		<result column="reg_date" property="regDate" />
+	</resultMap>
+	<resultMap id="schoolMap" type="school">
+		<result column="school_no" property="schoolNo" />
+		<result column="school_level_no" property="schoolLevelNo" />
+		<result column="school_start_date" property="schoolStartDate" />
+		<result column="school_end_date" property="schoolEndDate" />
+		<result column="school_title" property="schoolTitle" />
+		<result column="major" property="major" />
+		<result column="school_score_standard" property="schoolScoreStandard" />
+		<result column="school_score" property="schoolScore" />
+	</resultMap>
+	<resultMap id="schoolLevelMap" type="schoolLevel">
+		<result column="school_level_no" property="schoolLevelNo" />
+		<result column="graduate_state" property="graduateState" />
+		<result column="level" property="level" />
+	</resultMap>
+	<resultMap id="searchRecruitMap" type="searchRecruit">
+		<result column="career_state" property="careerState" />
+		<result column="career_start" property="careerStart" />
+		<result column="career_end" property="careerEnd" />
+		<result column="career_only" property="careerOnly" />
+		<result column="school_level_start" property="schoolLevelStart" />
+		<result column="school_level_end" property="schoolLevelEnd" />
+		<result column="school_level_none" property="schoolLevelNone" />
+		<result column="year_pay_start" property="yearPayStart" />
+		<result column="year_pay_end" property="yearPayEnd" />
+		<result column="year_pay_none" property="yearPayNone" />
+		<result column="age_count_start" property="ageCountStart" />
+		<result column="age_count_end" property="ageCountEnd" />
+		<result column="age_none" property="ageNone" />
+		<result column="gender" property="gender" />
+	</resultMap>
+	<resultMap id="termsMap" type="terms">
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+	</resultMap>
+	<resultMap id="welfareMap" type="welfare">
+		<result column="welfare_no" property="welfareNo" />
+		<result column="recruit_no" property="recruitNo" />
+		<result column="welfare_title" property="welfareTitle" />
+		<result column="welfare_content" property="welfareContent" />
+	</resultMap>
 </mapper>

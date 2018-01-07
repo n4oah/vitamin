@@ -176,6 +176,19 @@
 												<input type="password" id="company-input-pwd_chk" class="form-control" placeholder="비밀번호 확인">
 											</div>
 											<div class="form-group">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="form-group col-md-5" style="padding: 0px; margin: 0px;">
+															<input class="form-control" name="email1" id="company-input-email1" type="text" placeholder="이메일"/>
+														</div>
+														<div class="form-group col-md-1" style="top: 10px">@</div>
+														<div class="form-group col-md-6" style="padding: 0px; margin: 0px;">
+															<input class="form-control" name="email2" id="company-input-email2" type="text" placeholder="도메인 주소" />
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="form-group">
 												<input type="text" name="company.companyName" id="company-input-companyName" class="form-control" placeholder="기업 이름">
 											</div>
 											<div class="form-group">
