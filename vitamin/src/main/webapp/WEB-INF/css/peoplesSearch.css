@@ -538,7 +538,7 @@ box-shadow: none;
 	height: 90%;
 }
 .licenseList {
-    width: 84%;
+    width: 85%;
     height: 50%;
 }
 .grid-unit font{
@@ -552,7 +552,7 @@ box-shadow: none;
 	position: relative;
     z-index: 1000;
 }
-.removeSch, .removeAddr, .removeLic {
+.removeSch, .removeAddr, .removeLic, .removeArmy {
 	margin: 0 1% 0 0.5%;
 }
 font.sch {

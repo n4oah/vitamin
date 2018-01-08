@@ -721,10 +721,12 @@
 	    	$.ajax({
 	    		type: "POST",
 	    		url: path+"/search/peoplesSearchList.do",
-	    		data: parameterData
+	    		data: parameterData,
+	    		success: function () {	    			
+			    	$(".search_button > input").one("click", submit);
+	    		}
 	    	});
 	    	
-	    	$(".search_button > input").one("click", submit);
 	    };
 	    
 	    $(".search_button > input").one("click", submit);
