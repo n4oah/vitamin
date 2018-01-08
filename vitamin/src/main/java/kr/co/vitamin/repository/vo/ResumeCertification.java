@@ -52,6 +52,19 @@ public class ResumeCertification {
 		this.certificationDivision = certificationDivision;
 	}
 	
+	@Override
+	public String toString() {
+		return "ResumeCertification [certificationNo=" + certificationNo + ", resumeNo=" + resumeNo
+				+ ", certificationDate=" + certificationDate + ", certificationCate=" + certificationCate
+				+ ", certificationTitle=" + certificationTitle + ", certificationOffice=" + certificationOffice
+				+ ", certificationDivision=" + certificationDivision + "]";
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

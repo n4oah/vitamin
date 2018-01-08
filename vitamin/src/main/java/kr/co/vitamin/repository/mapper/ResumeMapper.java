@@ -8,6 +8,7 @@ import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.Hope;
+import kr.co.vitamin.repository.vo.HopeBusiness;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
 import kr.co.vitamin.repository.vo.MajorCate;
 import kr.co.vitamin.repository.vo.PrevCompany;
@@ -39,6 +40,7 @@ public interface ResumeMapper {
 	public int selectNextAutoIncrementPrevCompany() throws Exception;
 	public int selectNextAutoIncrementCertification() throws Exception;
 	public int selectNextAutoIncrementHope() throws Exception;
+	public int selectNextAutoIncrementHopeBusiness() throws Exception;
 	
 	
 	public void insertSchool(School school) throws Exception;
@@ -46,6 +48,7 @@ public interface ResumeMapper {
 	public void insertCertification(ResumeCertification resumeCertification) throws Exception;
 	public void insertHope(Hope hope)throws Exception;
 	public List<MajorCate> selectMajor(String name)throws Exception;
+	public void insertHopeBusiness(HopeBusiness hopeBusiness) throws Exception;
 	
 	
 	

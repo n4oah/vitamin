@@ -25,6 +25,7 @@ import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.ConditionSelection;
 import kr.co.vitamin.repository.vo.Hope;
+import kr.co.vitamin.repository.vo.HopeBusiness;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
 import kr.co.vitamin.repository.vo.MajorCate;
 import kr.co.vitamin.repository.vo.PrevCompany;
@@ -105,10 +106,6 @@ public class ResumeController {
 	public void calendar() throws Exception{}
 	
 	
-	@RequestMapping("/myInfo.do")
-	public void myInfo() throws Exception{}
-	
-	
 	@RequestMapping("/fullcalendartest.do")
 	public void fullcalendarTest() throws Exception{
 		System.out.println("fullcalendartest 들어옴");
@@ -146,14 +143,19 @@ public class ResumeController {
 	@RequestMapping("/intermediateSave.do")
 	public String intermediateSave(HttpSession session,ResumeBaseInfo resumeBaseInfo, ArmyService armyService, School school
 									, Integer[] schoolLevelNoTmp, PrevCompany prevCompany, ResumeCertification resumeCertification,
-									Hope hope) throws Exception{
+									Hope hope, HopeBusiness hopeBusiness) throws Exception{
 
 		System.out.println("중간저장 들어옴");
+		System.out.println(hopeBusiness.getHopeBusinessNo());
+		System.out.println(hopeBusiness.getBusinessNo());
+		System.out.println("자격증"+resumeCertification.toString());
+		
 		school.setSchoolLevelNo(schoolLevelNoTmp[schoolLevelNoTmp.length-1]);
 		Member user = (Member)session.getAttribute("user");
+		System.out.println("schoolLevelNo "+ school.getSchoolLevelNo());
 		Integer memberNo = user.getMemberNo();
 		resumeBaseInfo.setMemberNo(memberNo);
-		resumeService.resumeInsert(resumeBaseInfo, armyService, school, prevCompany, resumeCertification, hope);
+		resumeService.resumeInsert(resumeBaseInfo, armyService, school, prevCompany, resumeCertification, hope, hopeBusiness);
 		return "redirect:/mypage/resumeList.do";
 
 

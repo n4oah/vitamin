@@ -99,6 +99,9 @@
 		<result column="hope_no" property="hopeNo"/>
 	</resultMap>
 	
+	
+	
+	
 	<resultMap type="majorCate" id="majorCateMap">
 		<result column="major_no" property="majorNo"/>
 		<result column="major_category" property="majorCategory"/>
@@ -190,8 +193,8 @@
 	</insert>
 	
 	<insert id="insertCertification" parameterType="resumeCertification">
-		insert into vi_resume_certification (certification_no, certification_cate, certification_title, certification_office, certification_division)
-		values(#{certificationNo},#{certificationCate},#{certificationTitle},#{certificationOffice},#{certificationDivision})
+		insert into vi_resume_certification (certification_cate, certification_title, certification_office, certification_division)
+		values(#{certificationCate},#{certificationTitle},#{certificationOffice},#{certificationDivision})
 	</insert>
 	
 	<insert id="insertHope" parameterType="hope">
@@ -199,9 +202,17 @@
 		values(#{hopeNo},#{hopeWork},#{hopeSalary},#{cityCode},#{areaCode})
 	</insert>
 	
+	<insert id="insertHopeBusiness" parameterType="hopeBusiness">
+		insert into vi_hope_business(hope_business_no,business_no,hope_no)
+		values(#{hopeBusinessNo},#{businessNo},#{hopeNo})
+	</insert>
+	
+	
 	<select id="selectMajor" parameterType="string" resultMap="majorCateMap">
 		select * from vi_major_cate where major_category like CONCAT('%',#{majorCategory},'%')
 	</select>
+	
+	
 	
 	
 	
@@ -239,6 +250,12 @@
 	<select id="selectNextAutoIncrementHope" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
 			<property name="tableName" value="vi_hope"/>
+		</include>
+	</select>
+	
+	<select id="selectNextAutoIncrementHopeBusiness" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_hope_business"/>
 		</include>
 	</select>
 	

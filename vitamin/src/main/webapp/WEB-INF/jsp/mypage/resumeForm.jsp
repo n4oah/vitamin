@@ -337,9 +337,9 @@
 								<!--/.table-->
 								
 							</div>
-							<div>
+							<!-- <div>
 								<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
-							</div>
+							</div> -->
 						</div>
 						
 						<div class="career">
@@ -469,9 +469,9 @@
 										</tr>
 									</tbody>
 								</table>
-								<div>
+								<!-- <div>
 									<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
-								</div>
+								</div> -->
 							</div>
 						</div>
 						<div class="certification">
@@ -518,9 +518,9 @@
 										</tr>
 									</tbody>
 								</table>
-								<div>
-									<input style="float: right" type="button" class="intermediate_save btn-primary" value="중간저장">
-								</div>
+								<!-- <div>
+									<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
+								</div> -->
 							</div>
 							
 						</div>
@@ -585,7 +585,7 @@
 											<th>희망 직종</th>
 											<td>
 												<input type="text" id="hope_bussiness" class="float-control" readonly="readonly" style="width:80%">
-												<input type="text" name="hopeBussinessNo" id="hope_bussiness_no" style="display:none;" readonly="readonly">
+												<input type="text" name="businessNo" id="hope_bussiness_no" style="display:none;" readonly="readonly">
 												<!-- 
 													hope_bussiness_no 파라미터로 
 													254|242|248
@@ -595,7 +595,6 @@
 													ㅇㅋㅇㅋㅇㅋㅇㅋ
 												 -->
 											</td>
-											
 										</tr>
 									</tbody>
 								</table>
@@ -605,7 +604,8 @@
 					</div>
 					
 					<div class="btn_panel">
-						<a href="${pageContext.request.contextPath}/mypage/intermediateSave.do" class="disabled_btn apply_btn"  onclick="validation()">등록</a>
+						<button style="float: right" class="intermediate_save btn-primary">저장</button>
+						<%-- <a href="${pageContext.request.contextPath}/mypage/intermediateSave.do" class="disabled_btn apply_btn"  onclick="validation()">등록</a> --%>
 					</div> 
 					
 					<div>

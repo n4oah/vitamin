@@ -1,20 +1,20 @@
 package kr.co.vitamin.repository.vo;
 
 public class HopeBusiness {
-	private Integer hopeBusiness;
-	private Integer husinessNo;
+	private Integer hopeBusinessNo;
+	private String businessNo;
 	private Integer HopeNo;
-	public Integer getHopeBusiness() {
-		return hopeBusiness;
+	public Integer getHopeBusinessNo() {
+		return hopeBusinessNo;
 	}
-	public void setHopeBusiness(Integer hopeBusiness) {
-		this.hopeBusiness = hopeBusiness;
+	public void setHopeBusiness(Integer hopeBusinessNo) {
+		this.hopeBusinessNo = hopeBusinessNo;
 	}
-	public Integer getHusinessNo() {
-		return husinessNo;
+	public String getBusinessNo() {
+		return businessNo;
 	}
-	public void setHusinessNo(Integer husinessNo) {
-		this.husinessNo = husinessNo;
+	public void setBusinessNo(String businessNo) {
+		this.businessNo = businessNo;
 	}
 	public Integer getHopeNo() {
 		return HopeNo;

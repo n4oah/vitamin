@@ -13,6 +13,7 @@ import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.Hope;
+import kr.co.vitamin.repository.vo.HopeBusiness;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
 import kr.co.vitamin.repository.vo.MajorCate;
 import kr.co.vitamin.repository.vo.PrevCompany;
@@ -101,23 +102,29 @@ public class ResumeServiceImpl implements ResumeService {
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void resumeInsert(ResumeBaseInfo resumeBaseInfo, ArmyService armyService, School school, PrevCompany prevCompany,
-			ResumeCertification resumeCertification, Hope hope) throws Exception {
+			ResumeCertification resumeCertification, Hope hope, HopeBusiness hopeBusiness) throws Exception {
 		int armyNo = mapper.selectNextAutoIncrementArmy();
 		int schoolNo = mapper.selectNextAutoIncrementSchool();
 		int prevCompanyNo = mapper.selectNextAutoIncrementPrevCompany();
 		int certificationNo = mapper.selectNextAutoIncrementCertification();
 		int hopeNo = mapper.selectNextAutoIncrementHope();
+		int hopeBusinessNo = mapper.selectNextAutoIncrementHopeBusiness();
+
 		
+		hopeBusiness.setHopeBusiness(hopeBusinessNo);
 		hope.setHopeNo(hopeNo);
 		resumeCertification.setCertificationNo(certificationNo);
 		armyService.setArmyServiceNo(armyNo);
 		school.setSchoolNo(schoolNo);
 		prevCompany.setPrevCompanyNo(prevCompanyNo);
+		resumeBaseInfo.setSchoolLevelNo(school.getSchoolLevelNo());
 		resumeBaseInfo.setHopeNo(hopeNo);
 		resumeBaseInfo.setCertificationNo(certificationNo);
 		resumeBaseInfo.setArmyServiceNo(armyNo);
 		resumeBaseInfo.setSchoolNo(schoolNo);
 		resumeBaseInfo.setPrevCompanyNo(prevCompanyNo);
+		
+		mapper.insertHopeBusiness(hopeBusiness);
 		mapper.insertHope(hope);
 		mapper.insertCertification(resumeCertification);
 		mapper.insertPrevCompany(prevCompany);
