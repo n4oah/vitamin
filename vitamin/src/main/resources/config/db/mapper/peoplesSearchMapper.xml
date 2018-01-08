@@ -68,7 +68,16 @@
 		<!-- 이력서 -->
 		(select * from vi_resume
 		<where>
-			open_state = 1
+			open_state = 0
+			<!-- open_state = 1 -->
+			
+			<if test="marry != null">
+				and marry_state = #{marry}
+			</if>
+			
+			<if test="jobState != null">
+				and job_state = 1 or 3
+			</if>
 		
 			<if test="schoolCode != null">
 				and school_level_no in
@@ -91,6 +100,22 @@
 				</when>
 			</choose>
 		</where>) resume
+		
+		<!-- 최종 학력 -->
+		inner join vi_school_level
+		on resume.school_level_no = vi_school_level.level
+		
+		inner join (select * from vi_army_service
+		<if test="army != null">
+			<where>
+				army_service_state in
+				<foreach collection="army" item="a" open="(" separator="," close=")">
+					#{a}
+				</foreach>
+			</where>
+		</if>) army
+		on resume.army_service_no = army.army_service_no
+		
 		<!-- 회원 -->
 		inner join (select vi_member.*, date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 as age, name as member_name from vi_member
 		<where>
@@ -120,17 +145,19 @@
 			</choose>
 		</where>) member
 		on resume.member_no = member.member_no
+		
 		<!-- 자격증 -->
+		<if test="licenseCode != null">
 		inner join (select * from vi_resume_certification
 		<where>
-			<if test="licenseCode != null">
 				certification_title in
 				<foreach collection="licenseName" item="license" open="(" separator="," close=")">
 					#{license}
 				</foreach>
-			</if>
 		</where>) license
-		on resume.resume_no = license.resume_no
+		on resume.certification_no = license.certification_no
+		</if>
+		
 		<!-- 주소 -->
 		inner join (select * from vi_address
 		<where>
@@ -149,15 +176,13 @@
 			</if>
 		</where>) address
 		on resume.address_no = address.address_no
+		
 		<!-- 시/도 -->
 		inner join vi_city_code
 		on address.city_code = vi_city_code.city_code
 		<!-- 시/군/구 -->
 		inner join (select area_code, name as area_name from vi_area_code) area
 		on address.area_code = area.area_code
-		<!-- 최종 학력 -->
-		inner join vi_school_level
-		on resume.school_level_no = vi_school_level.level
 	</select>
 	
 </mapper>

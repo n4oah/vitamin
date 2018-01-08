@@ -3,10 +3,28 @@ package kr.co.vitamin.repository.vo;
 import java.util.List;
 
 public class PeopleSearch {
-	private List<Integer> cityCode, areaCode, licenseCode, schoolCode;
+	private List<Integer> cityCode, areaCode, licenseCode, schoolCode, army;
 	private List<String> licenseName;
-	private Integer careerStart, careerEnd, ageStart, ageEnd, gender;
+	private Integer careerStart, careerEnd, ageStart, ageEnd, gender, marry, jobState;
 	
+	public List<Integer> getArmy() {
+		return army;
+	}
+	public void setArmy(List<Integer> army) {
+		this.army = army;
+	}
+	public Integer getMarry() {
+		return marry;
+	}
+	public void setMarry(Integer marry) {
+		this.marry = marry;
+	}
+	public Integer getJobState() {
+		return jobState;
+	}
+	public void setJobState(Integer jobState) {
+		this.jobState = jobState;
+	}
 	public List<Integer> getCityCode() {
 		return cityCode;
 	}
@@ -70,8 +88,15 @@ public class PeopleSearch {
 	
 	@Override
 	public String toString() {
-		return cityCode + "\t" + areaCode + "\t" + licenseCode + "\t" +schoolCode + "\t" +
-		careerStart + "\t" + careerEnd + "\t" + ageStart + "\t" + ageEnd + "\t" + gender + "\t" +
-		licenseName;
+		return "PeopleSearch [cityCode=" + cityCode + ", areaCode=" + areaCode + ", licenseCode=" + licenseCode
+				+ ", schoolCode=" + schoolCode + ", army=" + army + ", licenseName=" + licenseName + ", careerStart="
+				+ careerStart + ", careerEnd=" + careerEnd + ", ageStart=" + ageStart + ", ageEnd=" + ageEnd
+				+ ", gender=" + gender + ", marry=" + marry + ", jobState=" + jobState + ", getArmy()=" + getArmy()
+				+ ", getMarry()=" + getMarry() + ", getJobState()=" + getJobState() + ", getCityCode()=" + getCityCode()
+				+ ", getAreaCode()=" + getAreaCode() + ", getLicenseCode()=" + getLicenseCode() + ", getSchoolCode()="
+				+ getSchoolCode() + ", getCareerStart()=" + getCareerStart() + ", getCareerEnd()=" + getCareerEnd()
+				+ ", getAgeStart()=" + getAgeStart() + ", getAgeEnd()=" + getAgeEnd() + ", getGender()=" + getGender()
+				+ ", getLicenseName()=" + getLicenseName() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + "]";
 	}
 }
