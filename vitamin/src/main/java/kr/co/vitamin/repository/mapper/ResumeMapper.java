@@ -15,6 +15,7 @@ import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.School;
+import kr.co.vitamin.repository.vo.account.Account;
 
 public interface ResumeMapper {
 
@@ -42,6 +43,7 @@ public interface ResumeMapper {
 	public int selectNextAutoIncrementHope() throws Exception;
 	public int selectNextAutoIncrementHopeBusiness() throws Exception;
 	
+	public Account selectBaseInfo(Integer resumeNo) throws Exception;
 	
 	public void insertSchool(School school) throws Exception;
 	public void insertPrevCompany(PrevCompany prevCompany)throws Exception;

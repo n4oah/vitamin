@@ -1,20 +1,27 @@
 package kr.co.vitamin.repository.vo;
 
 public class ArmyService {
-	private int armyServiceNo;
-	private int armyServiceState;
+	private Integer armyServiceNo,armyServiceState, resumeNo;
 	private String armyServiceReason;
-	public int getArmyServiceNo() {
+	
+	
+	public Integer getArmyServiceNo() {
 		return armyServiceNo;
 	}
-	public void setArmyServiceNo(int armyServiceNo) {
+	public void setArmyServiceNo(Integer armyServiceNo) {
 		this.armyServiceNo = armyServiceNo;
 	}
-	public int getArmyServiceState() {
+	public Integer getArmyServiceState() {
 		return armyServiceState;
 	}
-	public void setArmyServiceState(int armyServiceState) {
+	public void setArmyServiceState(Integer armyServiceState) {
 		this.armyServiceState = armyServiceState;
+	}
+	public Integer getResumeNo() {
+		return resumeNo;
+	}
+	public void setResumeNo(Integer resumeNo) {
+		this.resumeNo = resumeNo;
 	}
 	public String getArmyServiceReason() {
 		return armyServiceReason;
@@ -22,6 +29,8 @@ public class ArmyService {
 	public void setArmyServiceReason(String armyServiceReason) {
 		this.armyServiceReason = armyServiceReason;
 	}
+	
+	
 	
 	
 	

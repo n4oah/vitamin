@@ -32,6 +32,7 @@ import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.School;
+import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.AddressService;
 import kr.co.vitamin.service.ResumeService;
@@ -63,11 +64,15 @@ public class ResumeController {
 	}
 	
 	@RequestMapping("/resumeInfo.do")
-	public ModelAndView resumeInfo(int resumeNo) throws Exception{
+	public ModelAndView resumeInfo(HttpSession session, Integer resumeNo) throws Exception{
 		System.out.println("resumeInfo 들어옴");
 		ModelAndView mav = new ModelAndView();
-		ResumeBaseInfo resumeInfo =	resumeService.resumeInfo(resumeNo);
 		
+		Member user = (Member)session.getAttribute("user");
+		
+		
+		ResumeBaseInfo resumeInfo =	resumeService.resumeInfo(resumeNo);
+		Account account = resumeService.baseInfoSelect(resumeNo);
 		String jobState = resumeService.resumeJobState(resumeInfo.getJobState());
 		String marryState = resumeService.resumeMarryState(resumeInfo.getMarryState());
 		String bohoonState = resumeService.resumeBohoonState(resumeInfo.getBohoonState());
@@ -75,7 +80,7 @@ public class ResumeController {
 		ArmyService armyService = resumeService.armyInfo(resumeNo);
 		String armyState = resumeService.resumeArmyState(armyService.getArmyServiceState());
 			
-		
+		mav.addObject("account", account);
 		mav.addObject("resumeInfo", resumeInfo);
 		mav.addObject("jobState", jobState);
 		mav.addObject("marryState", marryState);

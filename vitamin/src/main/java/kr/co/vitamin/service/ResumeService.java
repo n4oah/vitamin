@@ -15,6 +15,7 @@ import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.School;
+import kr.co.vitamin.repository.vo.account.Account;
 
 public interface ResumeService {
 	
@@ -35,6 +36,7 @@ public interface ResumeService {
 	public List<BusinessType> businessTypeSelect() throws Exception;
 	public BusinessType choiceBusiness(Integer businessNo) throws Exception;
 	public List<MajorCate> majorSelect(String name)throws Exception;
+	public Account baseInfoSelect(Integer resumeNo) throws Exception;
 	
 	
 	

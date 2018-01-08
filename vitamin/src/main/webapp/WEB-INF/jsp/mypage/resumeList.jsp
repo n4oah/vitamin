@@ -29,11 +29,11 @@
 				      </tr>
 				      <c:forEach var="resume" items="${rlist}">
 				       <tr>
-				        <td><a href="#" onclick="openResume(${reusme.resumeNo})" class="resumeTitle">${resume.resumeTitle}</a></td>
+				        <td><a href="${pageContext.request.contextPath}/mypage/resumeInfo.do?resumeNo=${resume.resumeNo}" <%-- onclick="openResume(${reusme.resumeNo})" --%> class="resumeTitle">${resume.resumeTitle}</a></td>
 				        <td>
 				       		<input name="openstate" type="checkbox" <c:if test="${resume.openState eq 1}">checked="checked"</c:if>>
 				        </td>
-				        <td><fmt:formatDate value="${resume.regDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+				        <td><fmt:formatDate value="${resume.regDate}" pattern="yyyy-MM-dd"/></td>
 				      </tr>
 				      </c:forEach>
 				    </tbody>
@@ -50,13 +50,14 @@
 		});
 		
 		
-		function openResume(resumeNo){
+		/* function openResume(resumeNo){
 			window.open(
 					"${pageContext.request.contextPath}/mypage/resumeInfo.do?resumeNo="+resumeNo,"","width=500, height=800"	  
 				);
-		}
+		} */
 			
 		});
+	
 		
 	</script>
 </body>

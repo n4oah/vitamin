@@ -20,6 +20,7 @@ import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.School;
+import kr.co.vitamin.repository.vo.account.Account;
 
 @Service
 public class ResumeServiceImpl implements ResumeService {
@@ -137,5 +138,11 @@ public class ResumeServiceImpl implements ResumeService {
 	public List<MajorCate> majorSelect(String majorCategory) throws Exception {
 		
 		return mapper.selectMajor(majorCategory);
+	}
+
+	@Override
+	public Account baseInfoSelect(Integer resumeNo) throws Exception {
+		
+		return mapper.selectBaseInfo(resumeNo);
 	}
 }

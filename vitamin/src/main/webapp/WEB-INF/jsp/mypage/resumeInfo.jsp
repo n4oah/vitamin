@@ -40,8 +40,7 @@
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">이력서제목</h4>
 						
-								<input type="text" class="form-control" name="re_title"
-									placeholder="이력서 제목을 입력하세요" readonly="readonly" value="${resumeInfo.resumeTitle}">
+								<p>${resumeInfo.resumeTitle}</p>
 					</div>
 
 					<div class="edit_content">
@@ -54,7 +53,7 @@
 									<tr>
 										<th>이름</th>
 										<td><input type="text" class="float-control"
-											style="width: 20%" placeholder="이름을 입력해주세요" readonly="readonly"></td>
+											style="width: 20%" placeholder="이름을 입력해주세요" value="${account.name}"readonly="readonly"></td>
 									</tr>
 									<tr>
 										<th>생년월일</th>
@@ -65,12 +64,10 @@
 										<th>주소</th>
 										<td>
 											<input type="text" class="float-control" id="postcode"
-												style="width: 20%" placeholder="우편번호" readonly="readonly"
-												onclick="sample6_execDaumPostcode()"> 
+												style="width: 20%" placeholder="우편번호" readonly="readonly"> 
 											<input type="text" class="float-control" id="address1"
-												style="width: 80%" placeholder="주소" readonly="readonly">
-											<input type="text" class="float-control" id="address2"
-												style="width: 80%" placeholder="상세주소" readonly="readonly"></td>
+												style="width: 80%" placeholder="주소" <%-- value="${account.address}" --%>readonly="readonly">
+										</td>
 									</tr>
 									<tr>
 										<th>휴대전화</th>
