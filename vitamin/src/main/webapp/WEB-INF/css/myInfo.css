@@ -17,7 +17,7 @@ h1, h2, h3, h4, h5, h6 {
 .wrapper {
 	
 }
-
+/* 
 #header {
 	border: 1px solid #ddd;
 	margin-bottom: 20px;
@@ -29,16 +29,8 @@ h1, h2, h3, h4, h5, h6 {
 	border: none;
 	font-family: 'Open Sans Condensed', sans-serif, sans-serif;
 }
-
-.navbar>li>a {
-	
-}
-
-.navbar-header {
-	
-}
-
-.navbar-brand {
+*/
+span.aa {
 	width: 160px;
 	height: 160px;
 	float: left;
@@ -51,7 +43,6 @@ h1, h2, h3, h4, h5, h6 {
 	text-align: center;
 	line-height: 160px;
 	color: #fff !important;
-	font-size: 2em;
 	-webkit-transition: all 0.3s ease-in-out;
 	-moz-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
@@ -62,7 +53,7 @@ h1, h2, h3, h4, h5, h6 {
 	color: #fff;
 	font-size: 2.4em;
 	float: left;
-	margin-top: -65px !important;
+	margin-top: -75px !important;
 	margin-left: 15px;
 	font-family: 'Open Sans Condensed', sans-serif, sans-serif;
 }
