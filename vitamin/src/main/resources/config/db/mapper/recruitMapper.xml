@@ -5,6 +5,66 @@
 
 <mapper namespace="kr.co.vitamin.repository.mapper.RecruitMapper">
 	
+	<resultMap type="recruit" id="detailRecruitMap">
+		<result column="assigned_task"  property="assignedTask" />
+		<result column="form_service"  property="formService" />
+		<result column="formServiceName"  property="formServiceName" />
+		<result column="recruit_count"  property="recruitCount" />
+		<result column="title"  property="title" />
+		<result column="company_no" property="companyNo" />
+		<result column="career_state"  property="careerState" />
+		<result column="career_end"  property="careerEnd" />
+		<result column="career_start"  property="careerStart" />
+		<result column="school_level"  property="schoolLevel" />
+		<result column="year_pay_start"  property="yearPayStart" />
+		<result column="year_pay_end"  property="yearPayEnd" />
+		<result column="age_count_start"  property="ageCountStart" />
+		<result column="age_count_end"  property="ageCountEnd" />
+		<result column="gender"  property="gender" />
+		<result column="recruit_date_start"  property="recruitDateStart" />
+		<result column="recruit_date_end"  property="recruitDateEnd" />
+		<result column="recruit_form"  property="recruitForm" />
+		<result column="recruit_form_file_no"  property="recruitFormFileNo" />
+		<result column="day_of_week"  property="dayOfWeek" />
+		<result column="master"  property="master" />
+		<result column="phone_number"  property="phoneNumber" />
+		<result column="recruiting_state"  property="recruitingState" />
+		<result column="form_service_name" property="formServiceName" />
+		<result column="sub_name" property="subName" />
+		<result column="name" property="name" />
+		<result column="graduate_state" property="graduateState" />
+		<result column="address_no"  property="addressNo" />
+		<result column="address"  property="address" />
+	</resultMap>
+	
+	<select id="detailRecruit" parameterType="int" resultMap="detailRecruitMap">
+	select assigned_task,recruit_no, form_service_name, recruit_count, career_state,career_start, career_end, school_level, year_pay_start, year_pay_end, age_count_start,age_count_end,
+		gender, recruit_date_start, recruit_date_end, recruit_form, day_of_week, master, phone_number, 
+        address
+        from 
+        (
+			 select *
+				from vi_recruit_write as recruit
+				
+            where recruiting_state = 1 and recruit_date_end > current_date()
+            
+		) recruit
+		 
+         join (select form_service_name, form_service_type from vi_form_service) form_service
+		on recruit.form_service = form_service.form_service_type
+		  join (select graduate_state, level from vi_school_level) school
+		on recruit.school_level = school.level
+		  join (select * from vi_address) address
+		on recruit.address_no = address.address_no
+          join (select sub_name, city_code from vi_city_code) city
+		on address.city_code = city.city_code
+          join (select area_code, name from vi_area_code) area
+		on address.area_code = area.area_code
+        
+		
+	where recruit_no = #{no};
+		
+	</select>
 	
 	
 	

@@ -8,7 +8,9 @@ import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.Hope;
+import kr.co.vitamin.repository.vo.HopeBusiness;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
+import kr.co.vitamin.repository.vo.MajorCate;
 import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
@@ -17,7 +19,7 @@ import kr.co.vitamin.repository.vo.School;
 public interface ResumeService {
 	
 	public void resumeInsert(ResumeBaseInfo resumeBaseInfo, ArmyService armyService, School school, PrevCompany prevCompany,
-			ResumeCertification resumeCertification, Hope hope) throws Exception;
+			ResumeCertification resumeCertification, Hope hope,HopeBusiness hopeBusiness) throws Exception;
 	public List<ResumeBaseInfo> resumeList(Integer memberNo) throws Exception;
 	public ResumeBaseInfo resumeInfo(int resumeNo) throws Exception;
 	public ArmyService armyInfo(int resumeNo) throws Exception;
@@ -32,6 +34,7 @@ public interface ResumeService {
 	public LicensingDepartment licensingDepartmentSelect(Integer licensingDepartmentNo) throws Exception;
 	public List<BusinessType> businessTypeSelect() throws Exception;
 	public BusinessType choiceBusiness(Integer businessNo) throws Exception;
+	public List<MajorCate> majorSelect(String name)throws Exception;
 	
 	
 	

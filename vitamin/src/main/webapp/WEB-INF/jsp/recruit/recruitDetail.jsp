@@ -22,12 +22,12 @@
 			<div class="top">
 				<div class="row">
 			      <div class="col-xs-12 col-md-8 col-lg-9">
-			        <h3 class="recruit_title">Naver 채용</h3>
+			        <h3 class="recruit_title">${recruit.title }</h3>
 			        <h3>로고</h3>
 			      </div> 
 			      <div class="col-xs-12 col-md-4 col-lg-3">
 			        <div class="top_right_wrap">
-			          <p>접수기간 ~<span>2017.11.30</span> </p>
+			          <p>접수기간 ~<span>${recruit.recruitDateEnd }</span> </p>
 			          <a href="#" class="disabled_btn apply_btn">지원</a>
 			        </div>  <!--/.top_right_wrap -->
 			      </div> <!--/.col-xs-12.col-md-3-->
@@ -41,17 +41,26 @@
 							<tbody>
 								<tr>
 									<th>주요업무</th>
-									<td class="assigned_task"></td>
+									
+									<td class="assigned_task">
+										${recruit.assignedTask }
+									</td>
 								</tr>
 							
 								<tr>
 									<th>근무형태</th>
-									<td class="form_service"></td>
+									
+									<td class="form_service">
+										${recruit.formServiceName }
+									</td>
 								</tr>
 								
 								<tr>
 									<th>모집인원</th>
-									<td class="recruit_count"></td>
+									
+									<td class="recruit_count">
+										${recruit.recruitCount }
+									</td>
 								</tr>
 								
 							</tbody>
@@ -67,28 +76,133 @@
 								<tr>
 									<th>경력</th>
 									<td class="career_state">
-										
+										<c:choose>
+								    		<c:when test="${recruit.careerState eq 1 and recruit.careerStart ne -1}">
+								    			신입 · 경력
+								    		</c:when>
+								    		<c:when test="${recruit.careerState eq 1 }">
+								    			신입
+								    		</c:when>
+								    		<c:when test="${recruit.careerStart ne -1 }">
+								    			경력
+								    		</c:when>
+								    		<c:otherwise>
+								    			경력무관
+								    		</c:otherwise>
+									    </c:choose>
 									</td>
 								</tr>
 								
 								<tr>
 									<th>학력</th>
-									<td class="school_level">SAMPLE&nbsp;</td>
+									
+									<td class="school_level">
+										<c:choose>
+									        	<c:when test="${recruit.schoolLevel eq 1 }">
+													고등학교 졸업						        	
+									        	</c:when>
+									        	
+									        	<c:when test="${recruit.schoolLevel eq 2 }">
+													대학교 졸업					        	
+									        	</c:when>
+									        	
+									        	<c:when test="${recruit.schoolLevel eq 3 }">
+													대학원 석사 졸업					        	
+									        	</c:when>
+									        	
+									        	<c:when test="${recruit.schoolLevel eq 4 }">
+													대학원 박사 졸업					        	
+									        	</c:when>
+									        	
+									        	<c:otherwise>
+									        		학력무관
+									        	</c:otherwise>
+										</c:choose>
+									</td>
 								</tr>
 								
 								<tr>
 									<th>연봉</th>
-									<td class="year_salary">SAMPLE&nbsp;</td>
+									
+									
+									<td class="year_salary">
+										<c:choose>
+											<c:when test="${recruit.yearPayStart ne -1 or recruit.yearPayEnd ne -1}">
+												<c:choose>
+													<c:when test="${recruit.yearPayStart ne -1 and recruit.yearPayEnd eq -1}">
+															${recruit.yearPayStart }00만원 이상											
+													</c:when>
+													
+													<c:when test="${recruit.yearPayStart eq -1 and recruit.yearPayEnd ne -1}">
+															${recruit.yearPayEnd }00만원 이하											
+													</c:when>
+													
+													<c:when test="${recruit.yearPayStart ne -1 and recruit.yearPayEnd ne -1}">
+															${recruit.yearPayStart }00만원	~	${recruit.yearPayEnd }00만원	 											
+													</c:when>
+													
+													
+												</c:choose>
+											</c:when>
+											
+											<c:otherwise>
+												회사 내규에 따름
+											</c:otherwise>
+											
+										</c:choose>
+									</td>
 								</tr>
 								
 								<tr>
 									<th>나이</th>
-									<td class="age">SAMPLE&nbsp;</td>
+									
+									
+									<td class="age">
+										<c:choose>
+											<c:when test="${recruit.ageCountStart ne -1 or recruit.ageCountEnd ne -1}">
+												<c:choose>
+													<c:when test="${recruit.ageCountStart ne -1 and recruit.ageCountEnd eq -1}">
+															${recruit.yearPayStart }살 이상											
+													</c:when>
+													
+													<c:when test="${recruit.ageCountStart eq -1 and recruit.ageCountEnd ne -1}">
+															${recruit.yearPayEnd }살 이하											
+													</c:when>
+													
+													<c:when test="${recruit.ageCountStart ne -1 and recruit.ageCountEnd ne -1}">
+															${recruit.yearPayStart }살	~	${recruit.yearPayEnd }살	 										
+													</c:when>
+													
+													
+												</c:choose>
+											</c:when>
+											
+											<c:otherwise>
+												나이무관
+											</c:otherwise>
+											
+										</c:choose>
+									
+									</td>
 								</tr>
 								
 								<tr>
 									<th>성별</th>
-									<td class="gender">SAMPLE&nbsp;</td>
+									
+									<td class="gender">
+										<c:choose>
+											<c:when test="${gender eq 1 }">
+												남자
+											</c:when>
+											<c:when test="${gender eq 2 }">
+												여자
+											</c:when>
+											
+											<c:otherwise>
+												성별무관
+											</c:otherwise>
+										</c:choose>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -103,16 +217,30 @@
 								<tr>
 									<th>접수기간</th>
 									<td>
-										<span class="recruit_date_start"></span>
+										<span class="recruit_date_start">
+											${recruit.recruitDateStart }
+										</span>
+										
 										<strong> ~ </strong>
-										<span class="recruit_date_end"></span>
+										
+										<span class="recruit_date_end">
+											${recruit.recruitDateEnd }
+										</span>
 									</td>
 								</tr>
 								
 								<tr>
 									<th>접수양식</th>
 									<td class="recruit_form">
-										
+										<c:choose>
+											<c:when test="${recruit.recruitForm eq 1}">
+												비타민 이력서 양식
+											</c:when>
+											
+											<c:when test="${recruit.recruitForm eq 2 }">
+												회사 이력서 양식
+											</c:when>
+										</c:choose>
 									</td>
 								</tr>
 							</tbody>
@@ -127,12 +255,20 @@
 							<tbody>
 								<tr>
 									<th>근무요일</th>
-									<td class="">SAMPLE&nbsp;</td>
+									
+									<td class="day_of_week">
+										${recruit.dayOfWeek }
+									
+									</td>
 								</tr>
 								
 								<tr>
 									<th>복리후생</th>
-									<td class="">SAMPLE&nbsp;</td>
+									
+									
+									<td class="welfare">
+										
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -146,17 +282,24 @@
 							<tbody>
 								<tr>
 									<th>담당자</th>
-									<td>SAMPLE&nbsp;</td>
+									
+									<td>
+										${recruit.master }
+									</td>
 								</tr>
 								
 								<tr>
 									<th>전화 및 FAX 전화</th>
-									<td>SAMPLE&nbsp;</td>
+									<td>
+										${recruit.phoneNumber }
+									</td>
 								</tr>
 								
 								<tr>
 									<th>회사주소</th>
-									<td>SAMPLE&nbsp;</td>
+									<td>
+										${recruit.address }
+									</td>
 								</tr>
 							</tbody>
 						</table>

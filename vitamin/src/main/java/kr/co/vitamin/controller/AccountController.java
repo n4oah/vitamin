@@ -33,7 +33,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.util.WebUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -233,6 +235,24 @@ public class AccountController {
 			}
 		}
 		return viewUrl;
+	}
+	
+	@RequestMapping(value = "/logout.do", method=RequestMethod.GET)
+	public String logout(HttpServletRequest request, HttpSession session) throws Exception {
+		String referer = request.getHeader("Referer");
+		Account accountVO = (Account)session.getAttribute("user");
+		
+		if(accountVO != null) {
+			Cookie cookie = WebUtils.getCookie(request, "AUTO_SIGNIN");
+			if(cookie != null) {
+				AutoSignin autoSignin = new AutoSignin();
+				autoSignin.setAuthToken(cookie.getValue());
+				
+				accountService.logout(autoSignin);
+			}
+		}
+		session.invalidate();
+		return "redirect:" + referer;
 	}
 	
 	@InitBinder

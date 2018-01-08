@@ -29,10 +29,9 @@
 				      </tr>
 				      <c:forEach var="resume" items="${rlist}">
 				       <tr>
-				        <td><a href="${pageContext.request.contextPath}/mypage/resumeInfo.do?resumeNo=${resume.resumeNo}">${resume.resumeTitle}</a></td>
+				        <td><a href="#" onclick="openResume(${reusme.resumeNo})" class="resumeTitle">${resume.resumeTitle}</a></td>
 				        <td>
-				        	
-				        <input name="openstate" type="checkbox" <c:if test="${resume.openState eq 1}">checked="checked"</c:if>>
+				       		<input name="openstate" type="checkbox" <c:if test="${resume.openState eq 1}">checked="checked"</c:if>>
 				        </td>
 				        <td><fmt:formatDate value="${resume.regDate}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 				      </tr>
@@ -44,10 +43,21 @@
 		
 	</div>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
-	<script type="text/javascript">
+	<script>
+	$(document).ready(function(){
 		$("#regResume").click(function(){
 			location.href="${pageContext.request.contextPath}/mypage/resumeForm.do";
 		});
+		
+		
+		function openResume(resumeNo){
+			window.open(
+					"${pageContext.request.contextPath}/mypage/resumeInfo.do?resumeNo="+resumeNo,"","width=500, height=800"	  
+				);
+		}
+			
+		});
+		
 	</script>
 </body>
 </html>
