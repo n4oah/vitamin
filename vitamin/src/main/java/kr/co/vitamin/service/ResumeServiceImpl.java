@@ -14,6 +14,7 @@ import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.Hope;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
+import kr.co.vitamin.repository.vo.MajorCate;
 import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
@@ -104,17 +105,30 @@ public class ResumeServiceImpl implements ResumeService {
 		int armyNo = mapper.selectNextAutoIncrementArmy();
 		int schoolNo = mapper.selectNextAutoIncrementSchool();
 		int prevCompanyNo = mapper.selectNextAutoIncrementPrevCompany();
+		int certificationNo = mapper.selectNextAutoIncrementCertification();
+		int hopeNo = mapper.selectNextAutoIncrementHope();
 		
-		System.out.println("mapper armyNo"+armyNo);
+		hope.setHopeNo(hopeNo);
+		resumeCertification.setCertificationNo(certificationNo);
 		armyService.setArmyServiceNo(armyNo);
 		school.setSchoolNo(schoolNo);
 		prevCompany.setPrevCompanyNo(prevCompanyNo);
+		resumeBaseInfo.setHopeNo(hopeNo);
+		resumeBaseInfo.setCertificationNo(certificationNo);
 		resumeBaseInfo.setArmyServiceNo(armyNo);
 		resumeBaseInfo.setSchoolNo(schoolNo);
 		resumeBaseInfo.setPrevCompanyNo(prevCompanyNo);
-		mapper.insertPrevCompany(prevCompanyNo);
+		mapper.insertHope(hope);
+		mapper.insertCertification(resumeCertification);
+		mapper.insertPrevCompany(prevCompany);
 		mapper.insertArmyService(armyService);
 		mapper.insertSchool(school);
 		mapper.insertResume(resumeBaseInfo);
+	}
+
+	@Override
+	public List<MajorCate> majorSelect(String majorCategory) throws Exception {
+		
+		return mapper.selectMajor(majorCategory);
 	}
 }

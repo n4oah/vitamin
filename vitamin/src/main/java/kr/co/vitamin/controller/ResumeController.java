@@ -26,6 +26,7 @@ import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.ConditionSelection;
 import kr.co.vitamin.repository.vo.Hope;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
+import kr.co.vitamin.repository.vo.MajorCate;
 import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
@@ -147,24 +148,11 @@ public class ResumeController {
 									, Integer[] schoolLevelNoTmp, PrevCompany prevCompany, ResumeCertification resumeCertification,
 									Hope hope) throws Exception{
 
-		school.setSchoolLevelNo(schoolLevelNoTmp[schoolLevelNoTmp.length-1]);
-		
-		
-		System.out.println(schoolLevelNoTmp);
-		System.out.println(school.getSchoolNo());
-		
-		
-		
 		System.out.println("중간저장 들어옴");
+		school.setSchoolLevelNo(schoolLevelNoTmp[schoolLevelNoTmp.length-1]);
 		Member user = (Member)session.getAttribute("user");
 		Integer memberNo = user.getMemberNo();
 		resumeBaseInfo.setMemberNo(memberNo);
-		System.out.println(prevCompany.getPrevCompanyArea());
-		System.out.println(prevCompany.getPrevCompanyCharge());
-		System.out.println(prevCompany.getPrevCompanyPosition());
-		System.out.println(prevCompany.getPrevCompanyName());
-		
-		/*System.out.println("학교명:"+school.getSchoolTitle());*/
 		resumeService.resumeInsert(resumeBaseInfo, armyService, school, prevCompany, resumeCertification, hope);
 		return "redirect:/mypage/resumeList.do";
 
@@ -207,6 +195,14 @@ public class ResumeController {
 		System.out.println(businessType.getBusinessContent());
 		return businessType;
 	}
+	
+	@RequestMapping("/majorSelect.do")
+	@ResponseBody
+	public List<MajorCate> majorSelect(String majorCategory) throws Exception{
+		List<MajorCate> mc = resumeService.majorSelect(majorCategory);
+		return mc;
+	}
+	
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) throws Exception {

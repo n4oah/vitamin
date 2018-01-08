@@ -474,7 +474,6 @@
 								</div>
 							</div>
 						</div>
-						</form>
 						<div class="certification">
 							<div class="horizontal_table table_wrap">
 								<h4 class="table_title">자격증</h4>
@@ -523,7 +522,9 @@
 									<input style="float: right" type="button" class="intermediate_save btn-primary" value="중간저장">
 								</div>
 							</div>
+							
 						</div>
+						
 
 						<div class="hope_work_condition">
 							<div class="horizontal_table table_wrap">
@@ -584,7 +585,7 @@
 											<th>희망 직종</th>
 											<td>
 												<input type="text" id="hope_bussiness" class="float-control" readonly="readonly" style="width:80%">
-												<input type="text" name="hope_bussiness_no" id="hope_bussiness_no" style="display:none;" readonly="readonly">
+												<input type="text" name="hopeBussinessNo" id="hope_bussiness_no" style="display:none;" readonly="readonly">
 												<!-- 
 													hope_bussiness_no 파라미터로 
 													254|242|248
@@ -604,14 +605,14 @@
 					</div>
 					
 					<div class="btn_panel">
-						<a href="${pageContext.request.contextPath}/mypage/saveResumeInfo.do" class="disabled_btn apply_btn"  onclick="validation()">등록</a>
-					</div>
-
+						<a href="${pageContext.request.contextPath}/mypage/intermediateSave.do" class="disabled_btn apply_btn"  onclick="validation()">등록</a>
+					</div> 
+					
 					<div>
 						<a href="#" class="pull-right default_btn btn">목록</a>
 					</div>
+				</form>
 				</div>
-				
 			</section>
 		</div>
 		
@@ -620,7 +621,7 @@
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
 
       <!-- Modal content-->
       <div class="modal-content">
@@ -646,10 +647,10 @@
          			</c:if>
          			<c:if test="${b.businessOrder ne 0}">
          			<ul>
-	         			<li>
+	         			<li class="col-md-2">
 		         			<label>
 		         				<input type="checkbox" id="${b.businessContent}" class="selectedBusiness" name="selectedBusiness" attr="${b.businessContent}" value="${b.businessNo}"/>
-		         				${b.businessContent}
+		         				<span class="content">${b.businessContent}</span>
 		         			</label>
 	         			</li>
          			</ul>
@@ -894,6 +895,35 @@ $(document).ready(function(){
 	             });
 	        }
 	    });
+	
+	$( "#major" ).autocomplete({
+        source : function( request, response ) {
+             $.ajax({
+                    type: 'post',
+                    url: "${pageContext.request.contextPath}/mypage/majorSelect.do",
+                    dataType: "json",
+                    data: { "majorCategory" : request.term },
+                    success: function(data) {
+                    
+                        //서버에서 json 데이터 response 후 목록에 뿌려주기 위함
+                          response(
+                             $.map(data, function(item) {
+                                return {
+                                    value: item.majorCategory,
+                                    label:item.majorCategory,
+                                    no: item.majorNo
+                                }
+                            })
+                            )
+                    	}
+                    });
+               },
+        minLength: 2
+    });
+	
+	
+	
+	
 	
 		/* $('#hope_bussiness').on("click",function(e){
 			$.ajax({

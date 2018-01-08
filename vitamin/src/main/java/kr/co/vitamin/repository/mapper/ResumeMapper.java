@@ -7,8 +7,12 @@ import kr.co.vitamin.repository.vo.ArmyService;
 import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
+import kr.co.vitamin.repository.vo.Hope;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
+import kr.co.vitamin.repository.vo.MajorCate;
+import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
+import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.School;
 
 public interface ResumeMapper {
@@ -33,8 +37,15 @@ public interface ResumeMapper {
 	public int selectNextAutoIncrementArmy() throws Exception;
 	public int selectNextAutoIncrementSchool() throws Exception;
 	public int selectNextAutoIncrementPrevCompany() throws Exception;
+	public int selectNextAutoIncrementCertification() throws Exception;
+	public int selectNextAutoIncrementHope() throws Exception;
+	
+	
 	public void insertSchool(School school) throws Exception;
-	public void insertPrevCompany(int prevCompanyNo)throws Exception;
+	public void insertPrevCompany(PrevCompany prevCompany)throws Exception;
+	public void insertCertification(ResumeCertification resumeCertification) throws Exception;
+	public void insertHope(Hope hope)throws Exception;
+	public List<MajorCate> selectMajor(String name)throws Exception;
 	
 	
 	
