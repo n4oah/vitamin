@@ -115,12 +115,12 @@ input[type="radio"] {
 	margin-right: 2%
 }
 
-.age {
+.age, .selectList, .licenseInput {
 	margin-top:10px
 }
 
 
-.career_title, .education_title, .salary_title, .age_title {
+Strong {
 	display:inline-block; width: 8%;
 }
 
@@ -526,7 +526,8 @@ box-shadow: none;
 .grid-unit {
 	height: 160px;
 }
-.careerList, .schList, .addrList, .ageList, .genderHope, .licenseList {
+.careerList, .schList, .addrList, .ageList, .licenseList,
+.genderHope, .marryHope, .armyHope {
 	overflow:auto;
 	font-weight:  bold;
 	margin: 7px;
@@ -545,7 +546,7 @@ box-shadow: none;
     z-index: 1000;
     display: inline-block;
 }
-.remove, .removeSch, .removeAddr, .removeAge, .removeGender, .removeLic {
+[class^='remove'] {
 	color: red;
 	cursor: pointer;
 	position: relative;
@@ -564,6 +565,7 @@ width: auto;
 	margin-left: 90px;
 }
 .genderHope {
+    transition: margin .5s ease;
 	margin-left: 105px;
 }
 .bottom-right:hover .genderHope {
@@ -584,4 +586,7 @@ input[type='text'].license {
     background-image: none;
     border: 1px solid #fff;
     border-radius: 4px;
+}
+.marryHope, .armyHope {
+    margin-left: 12px;
 }

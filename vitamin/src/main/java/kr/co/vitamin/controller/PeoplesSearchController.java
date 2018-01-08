@@ -41,6 +41,7 @@ public class PeoplesSearchController {
 	@ResponseBody
 	@RequestMapping("/peoplesSearchList.do")
 	public void peoplesSearchList(PeopleSearch peopleSearch) throws Exception {
+		System.out.println(peopleSearch);
 		System.out.println(peoplesSearchService.peoplesSearch(peopleSearch));
 	}
 }

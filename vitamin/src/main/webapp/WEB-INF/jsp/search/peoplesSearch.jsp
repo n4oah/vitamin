@@ -109,11 +109,39 @@
 							</span>
 						</div>
 						
-						<div class="age">
+						<div class="licenseInput">
 							<Strong class="age_title">자격증</Strong>
 							<span>
 								<input type="text" class="license">
 								<button type="button" class="button blue licensePlus">추가</button>
+							</span>
+						</div>
+						
+						<div class="selectList">
+							<span>
+								<Strong class="marry_title">혼인</Strong>
+						
+								<label><input type="radio" value="0" name="marry"> <font>미혼</font></label>
+								<label><input type="radio" value="1" name="marry"> <font>비혼</font></label>
+								<label><input type="radio" value="3" name="marry" checked="checked"> <font>혼인 무관</font></label>
+							</span>
+							
+							<span style="margin-left: 8%;">
+								<Strong class="army_title">군필</Strong>
+						
+								<label><input type="checkbox" value="0" name="army"> <font>미필</font></label>
+								<label><input type="checkbox" value="1" name="army"> <font>군필</font></label>
+								<label><input type="checkbox" value="2" name="army"> <font>면제</font></label>
+								<label><input type="checkbox" value="3" name="army"> <font>군필 무관</font></label>
+							</span>
+							
+							<span style="margin-left: 8%;">
+								<Strong class="job_title">구직 중만</Strong>
+								<div class="switch">
+									<input type="checkbox" name="toggle" class="jobState">
+									<label for="toggle"><i></i></label>
+									<span></span>
+								</div>
 							</span>
 						</div>
 						
@@ -188,8 +216,18 @@
 								</div>
 							</div>
 							
-							<div class="">
+							<div class="marryHope">
+								<div>
+									혼인 유무:
+									<font class="marry" data-civa="3">혼인 무관</font>
+									<span class="removeMarry">X</span>
+								</div>
+							</div>
 							
+							<div class="armyHope">
+								<div>
+									군필:
+								</div>
 							</div>
 							
 							<div class="sphere"></div>
@@ -213,12 +251,8 @@
 						
 						<thead>
 					    	<tr>
-					          <!--  <th scope="col" class="check_list">
-					           <label class="sri_check" for="chk_all">
-					           <input type="checkbox" name="check_all" id="check_all" value="" class="inp_check" data-pass-onload-refresh="y">
-					           <span class="txt_check blank"></span></label></th> -->
 				                <th class="col-md-1"></th>
-				                <th class="col-md-2">기업명</th>
+				                <th class="col-md-2">이름</th>
 						        <th class="col-md-4">제목</th>
 						        <th class="col-md-1">지원자격</th>
 						        <th class="col-md-1">근무조건</th>
@@ -229,110 +263,6 @@
 				   		 
 				   		 
 				    	<tbody>
-				   		<c:forEach items="${recruitList }" var="rlist">
-								<tr class="outstand_point point_line">
-	           						<td>
-	           							<img src="https://i.imgur.com/Z4wlC9v.png" class="star">
-	           							<!-- 즐겨 찾기 한 회사면 class가 star_checked -->
-	        						</td>
-	        						
-	        						<td class="company_nm">
-	        							<a class="str_tit" onclick="s_trackApply(this, 'area_recruit', 'general');" title="(주)회사명" href="/zf_user/jobs/view?rec_idx=32503885"><span>(주)회사명</span></a>                         
-	        							<div class="icon"></div>
-	    							</td>
-	    							
-	    							<td class="notification_info">
-		        						<div class="job_tit">
-									        <span class="prd_icon_02"></span>            
-									        <a class="str_tit" id="rec_link_32503885" onclick="s_trackApply(this, 'area_recruit', 'general');" 
-									           title="${rlist.title }" href="/zf_user/jobs/view?rec_idx=32503885&amp;adsCategoryItem=effect_bold,icon&amp;" onmousedown="Saramin.clickAds(32503885, 'ads_category=highlight_effect&amp;ads_item=effect_bold,icon')">
-									        
-									        <span>${rlist.title }</span></a>             
-									        
-		        						</div>
-		        						
-		        						<p class="job_sector">
-		            					<!-- <span>일반영업</span><span>금융·보험영업</span> 외  -->
-		            						<span>${rlist.assignedTask }</span>
-		            					      
-		            					</p>
-		            					
-	                    			</td>
-								    
-								    <td class="recruit_condition">
-								    	<p class="career">
-									    	<c:choose>
-									    		<c:when test="${rlist.careerState eq 1 and rlist.careerStart ne -1}">
-									    			신입 · 경력
-									    		</c:when>
-									    		<c:when test="${rlist.careerState eq 1 }">
-									    			신입
-									    		</c:when>
-									    		<c:when test="${rlist.careerStart ne -1 }">
-									    			경력
-									    		</c:when>
-									    		<c:otherwise>
-									    			경력 무관
-									    		</c:otherwise>
-									    	</c:choose>
-								    	</p>
-								    
-								    
-								    	<p class="education">
-									        <c:choose>
-									        	<c:when test="${rlist.schoolLevel eq 1 }">
-													고등학교 졸업 이상						        	
-									        	</c:when>
-									        	
-									        	<c:when test="${rlist.schoolLevel eq 2 }">
-													대학교 졸업 이상						        	
-									        	</c:when>
-									        	
-									        	<c:when test="${rlist.schoolLevel eq 3 }">
-													대학원 석사 졸업 이상						        	
-									        	</c:when>
-									        	
-									        	<c:when test="${rlist.schoolLevel eq 4 }">
-													대학원 박사 졸업 이상						        	
-									        	</c:when>
-									        	
-									        	<c:otherwise>
-									        		학력무관
-									        	</c:otherwise>
-									        </c:choose>
-								        </p>
-								    </td>
-								    
-								    
-								    
-								    
-								    <td class="company_info">
-	                    				<p class="employment_type">
-	                    					${rlist.formServiceName }
-	                    				</p>
-	                    				
-	                    				
-	                            		<p class="work_place">${rlist.subName} ${rlist.name }</p> 
-	                    			</td>
-	    							<td class="support_info" >
-	       								<p class="recruit_date_start" style="padding-left:2px">
-	       									<fmt:formatDate value="${rlist.recruitDateStart }" pattern="yyyy-MM-dd" />
-	       								</p>
-	       								
-	       								<p class="recruit_date_end" style="padding-left:2px">
-	       									<fmt:formatDate value="${rlist.recruitDateEnd }" pattern="yyyy-MM-dd" />
-	    								</p>
-	    							</td>
-	    							
-	    							<td class="support_submit">
-	    								<p class="support_type">
-	        								<button class="sri_btn_xs" title="클릭하면 입사지원할 수 있는 창이 뜹니다." onclick="try{quickApplyForm('32503885','','t_category=area_recruit&amp;t_content=general', ''); return false;} catch (e) {}; return false;" onmousedown="try{n_trackEvent('apply','list','quick_apply');}catch(e){}">
-	        									<span class="sri_btn_immediately">즉시지원</span>
-	        								</button>
-	        							</p>
-	    							</td>
-								</tr>    
-						</c:forEach>
 						</tbody>
 					</table>
 				</div>
@@ -631,12 +561,52 @@
 	    ageRemove(0);
 	    ageRemove(1);
 	    
-	    $("input[name='gender']").click(function () {
-	    	$(".gender").text($(this).next().text()).attr("data-civa", $(this).val());
+	    function selectChange(str) {
+		    $("input[name='"+str+"']").on("change", function () {
+		    	$("."+str+"").text($(this).next().text()).attr("data-civa", $(this).val());
+		    });
+		    
+		    $(".remove"+str.charAt(0).toUpperCase()+str.slice(1)).click(function () {
+		    	$("input[name='"+str+"'][value='3']").trigger("click");
+		    });	    	
+	    }
+	    
+	    selectChange("gender");
+	    selectChange("marry");
+	    
+	    
+	    $("input[name='army']").on("change", function () {
+	    	var val = $(this).val();
+	    	var str = $(this).next().text();
+
+	    	if ($(this).is(":checked")) {
+	    		if ($("input[name='army'][value=3]").not(this).length != 0 && $("input[name='army'][value=3]").is(":checked")) {
+		    		console.log("凸")
+		    		$("input[name='army'][value=3]").attr("checked", false);
+		    		$(".army[data-civa=3]").next().remove();
+		    		$("font.army[data-civa=3]").remove();
+		    	}
+	    		
+	    		$(".armyHope > div:first-child").append($("<font>").addClass("army").attr("data-civa", val).text(str));
+	    		$(".armyHope > div:first-child").append($("<span>").addClass("removeArmy").text("X"));	    		    		
+	    	} else {
+	    		$(".army[data-civa="+val+"]").next().remove();
+	    		$("font.army[data-civa="+val+"]").remove();	    		
+	    	}
 	    });
 	    
-	    $(".removeGender").click(function () {
-	    	$("input[name='gender'][value='3']").trigger("click");
+	    $(".armyHope").on("click", ".removeArmy", function () {
+	    	$("input[name='army'][value="+$(this).prev().attr("data-civa")+"]").trigger("click");
+	    });
+	    
+	    $("input[name='army'][value=3]").on("change", function () {
+	    	console.log($(this).is(":checked"))
+	    	if ($(this).is(":checked")) {
+	    		$("input[name='army']").not(this).each(function (i, data) {
+	    			if ($(data).is(":checked"))
+	    				$(data).trigger("click");
+	    		});
+	    	}
 	    });
 	    
 	    var license;
@@ -695,7 +665,7 @@
 	    	$(this).remove();
 	    });
 	    
-	    $(".search_button > input").click(function () {
+	    var submit = function () {
 	    	var parameterData = "?";
 	    	
 	    	var cs = parseInt($(".careerList font:eq(0)").text());
@@ -735,14 +705,29 @@
 	    	//console.log("성별|", gender == 3 ? "전체" : gender);
 	    	if (gender != 3) parameterData += "&gender="+gender;
 	    	
+	    	var marry = $(".marry").attr("data-civa");
+	    	
+	    	if (marry != 3) parameterData += "&marry="+marry;
+	    	
+	    	$(".army:not([data-civa=3])").each(function (i, data) {
+	    		parameterData += "&army="+$(data).attr("data-civa");
+	    	});
+	    	
+	    	if ($(".jobState").is(":checked"))
+	    		parameterData += "&jobState=1";
+	    	
 	    	console.log(parameterData);
 	    	
 	    	$.ajax({
 	    		type: "POST",
 	    		url: path+"/search/peoplesSearchList.do",
 	    		data: parameterData
-	    	})
-	    });
+	    	});
+	    	
+	    	$(".search_button > input").one("click", submit);
+	    };
+	    
+	    $(".search_button > input").one("click", submit);
 	</script>
 </body>
 </html>

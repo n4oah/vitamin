@@ -335,10 +335,14 @@
 	    							<td class="notification_info">
 		        						<div class="job_tit">
 									        <span class="prd_icon_02"></span>            
-									        <a class="str_tit" id="rec_link_32503885" onclick="s_trackApply(this, 'area_recruit', 'general');" 
-									           title="${rlist.title }" href="/zf_user/jobs/view?rec_idx=32503885&amp;adsCategoryItem=effect_bold,icon&amp;" onmousedown="Saramin.clickAds(32503885, 'ads_category=highlight_effect&amp;ads_item=effect_bold,icon')">
 									        
-									        <span>${rlist.title }</span></a>             
+									        <a class="str_tit"
+									           title="${rlist.title }" 
+									           href="${pageContext.request.contextPath}/recruit/recruitDetail.do?no=${rlist.recruitNo}">
+									        	
+									        	<span>${rlist.title }</span>
+									        
+									        </a>             
 									        
 		        						</div>
 		        						

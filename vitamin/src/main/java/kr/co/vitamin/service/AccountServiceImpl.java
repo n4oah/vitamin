@@ -75,7 +75,11 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public Account login(Account accountVO) throws Exception {
-		accountVO.setMemberType(memberMapper.selectMemberType(accountVO));
+		Integer memberType = memberMapper.selectMemberType(accountVO);
+		accountVO.setMemberType(memberType);
+		if(memberType == null) {
+			return null;
+		}
 		return memberMapper.selectLoginAccount(accountVO);
 	}
 
@@ -92,5 +96,10 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public Account getAutoSigninToToken(AutoSignin autoSignin) throws Exception {
 		return autoSigninMapper.selectAutoSignAccount(autoSignin);
+	}
+
+	@Override
+	public void logout(AutoSignin autoSignin) throws Exception {
+		autoSigninMapper.deleteAutoSignin(autoSignin);
 	}
 }

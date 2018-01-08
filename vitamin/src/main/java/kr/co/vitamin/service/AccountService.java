@@ -14,4 +14,5 @@ public interface AccountService {
 	public void setAutoSignin(AutoSignin autoSignin) throws Exception;
 	public void deleteAutoSignin(AutoSignin autoSignin) throws Exception;
 	public Account getAutoSigninToToken(AutoSignin autoSignin) throws Exception;
+	public void logout(AutoSignin autoSignin) throws Exception;
 }

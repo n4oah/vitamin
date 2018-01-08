@@ -80,14 +80,23 @@
 		LIMIT 1
 	</update>
 	
-	<select id="selectMemberType" parameterType="account" resultType="int">
+	<select id="selectMemberType" parameterType="account" resultType="Integer">
 		SELECT member_type FROM vi_account
 		WHERE id=#{id} LIMIT 1
 	</select>
 	
 	<select id="selectLoginAccount" parameterType="account" resultMap="accountMap">
-		SELECT account.*, member.* 
-		FROM vi_account AS account JOIN vi_member AS member 
+		SELECT account.*, member.*
+		FROM vi_account AS account JOIN
+		<choose>
+			<when test="memberType == 1">
+		 		vi_member
+		 	</when>
+		 	<when test="memberType == 2">
+		 		vi_company
+		 	</when>
+		</choose> 
+		AS member
 		WHERE (account.id=#{id} AND account.pwd=#{pwd}) AND account.account_no = member.account_no;
 	</select>
 	

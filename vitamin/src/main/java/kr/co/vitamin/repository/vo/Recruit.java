@@ -1,6 +1,9 @@
 package kr.co.vitamin.repository.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,23 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
  *
  */
 public class Recruit {
-	
-	private MultipartFile attachFile;
-	
-	private String formServiceName; 
-	
-	private String subName;
-	private String name;
-	private String graduateState;
-
-	public String getGraduateState() {
-		return graduateState;
-	}
-
-	public void setGraduateState(String graduateState) {
-		this.graduateState = graduateState;
-	}
-
 	@Override
 	public String toString() {
 		return "Recruit [attachFile=" + attachFile + ", formServiceName=" + formServiceName + ", subName=" + subName
@@ -35,10 +21,104 @@ public class Recruit {
 				+ companyNo + ", title=" + title + ", careerState=" + careerState + ", careerStart=" + careerStart
 				+ ", careerEnd=" + careerEnd + ", schoolLevel=" + schoolLevel + ", yearPayStart=" + yearPayStart
 				+ ", yearPayEnd=" + yearPayEnd + ", ageCountStart=" + ageCountStart + ", ageCountEnd=" + ageCountEnd
-				+ ", assignedTask=" + assignedTask + ", formService=" + formService + ", major=" + major + ", 우대조건="
-				+ 우대조건 + ", recruitForm=" + recruitForm + ", recruitFormFileNo=" + recruitFormFileNo + ", addressNo="
+				+ ", assignedTask=" + assignedTask + ", formService=" + formService + ", major=" + major + 
+				  ", recruitForm=" + recruitForm + ", recruitFormFileNo=" + recruitFormFileNo + ", addressNo="
 				+ addressNo + ", dayOfWeek=" + dayOfWeek + ", master=" + master + ", phoneNumber=" + phoneNumber
 				+ ", recruitingState=" + recruitingState + "]";
+	}
+	
+	private MultipartFile attachFile;
+	
+	private String formServiceName; 
+	
+	
+	private String subName;
+	private String name;
+	private String graduateState;
+	private String address;
+
+	private Integer recruitCount;
+	private Integer gender;
+	private Integer recruitNo;
+
+    //  기업회원번호
+    private Integer companyNo;
+
+//  제목
+    private String title;
+
+    //  1이면 신입 다른것들은 -1
+    private Integer careerState;
+
+    private Integer careerStart;
+
+    private Integer careerEnd;
+
+    //  0이면 무관 1이면 고졸 2이면 대졸 3이면 석사 4이면 박사 이상
+    private Integer schoolLevel;
+
+    //  연봉 단위는 (만)
+    private Integer yearPayStart;
+
+    //  연봉 단위는 (만)
+    private Integer yearPayEnd;
+
+    //  나이 시작
+    private Integer ageCountStart;
+
+    //  나이 끝
+    private Integer ageCountEnd;
+
+
+    //  담당업무
+    private String assignedTask;
+
+    //  근무형태 (비정규직, 정규직)
+    private String formService;
+
+
+    //  전공
+    private String major;
+
+
+    //  1이면 비타민 양식 2이면 회사 이력서 방식
+    private Integer recruitForm;
+
+    //  file_no에 있는 거 참조
+    private Integer recruitFormFileNo;
+
+    //  주소
+    private Integer addressNo;
+
+    //  맨처음 월요일 0 미체크 1이면 체크
+    private String dayOfWeek;
+
+    //  담당자 이름
+    private String master;
+
+    //  문의처
+    private String phoneNumber;
+
+    //  1 이면 채용중, 2이면 채용안함
+    private Integer recruitingState;
+    
+    
+    
+	
+	public String getGraduateState() {
+		return graduateState;
+	}
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public void setGraduateState(String graduateState) {
+		this.graduateState = graduateState;
 	}
 
 	public String getSubName() {
@@ -74,19 +154,19 @@ public class Recruit {
     private Date recruitDateEnd;
 
     
-    
-	public Date getRecruitDateStart() {
-		return recruitDateStart;
+	public String getRecruitDateStart() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		
+		return sdf.format(recruitDateStart);
 	}
-
 	public void setRecruitDateStart(Date recruitDateStart) {
 		this.recruitDateStart = recruitDateStart;
 	}
-
-	public Date getRecruitDateEnd() {
-		return recruitDateEnd;
+	public String getRecruitDateEnd() {
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    	
+		return sdf.format(recruitDateEnd);
 	}
-
 	public void setRecruitDateEnd(Date recruitDateEnd) {
 		this.recruitDateEnd = recruitDateEnd;
 	}
@@ -107,13 +187,7 @@ public class Recruit {
 		this.attachFile = attachFile;
 	}
 
-	private Integer recruitCount;
-	private Integer gender;
-	private Integer recruitNo;
-
-	    //  기업회원번호
-	    private Integer companyNo;
-
+	
 	    public Integer getGender() {
 			return gender;
 		}
@@ -122,66 +196,7 @@ public class Recruit {
 			this.gender = gender;
 		}
 
-		//  제목
-	    private String title;
-
-	    //  1이면 신입 다른것들은 -1
-	    private Integer careerState;
-
-	    private Integer careerStart;
-
-	    private Integer careerEnd;
-
-	    //  0이면 무관 1이면 고졸 2이면 대졸 3이면 석사 4이면 박사 이상
-	    private Integer schoolLevel;
-
-	    //  연봉 단위는 (만)
-	    private Integer yearPayStart;
-
-	    //  연봉 단위는 (만)
-	    private Integer yearPayEnd;
-
-	    //  나이 시작
-	    private Integer ageCountStart;
-
-	    //  나이 끝
-	    private Integer ageCountEnd;
-
-
-	    //  담당업무
-	    private String assignedTask;
-
-	    //  근무형태 (비정규직, 정규직)
-	    private String formService;
-
-
-	    //  전공
-	    private String major;
-
-	    //  우대조건
-	    private String 우대조건;
-
-
-	    //  1이면 비타민 양식 2이면 회사 이력서 방식
-	    private Integer recruitForm;
-
-	    //  file_no에 있는 거 참조
-	    private Integer recruitFormFileNo;
-
-	    //  주소
-	    private Integer addressNo;
-
-	    //  맨처음 월요일 0 미체크 1이면 체크
-	    private String dayOfWeek;
-
-	    //  담당자 이름
-	    private String master;
-
-	    //  문의처
-	    private String phoneNumber;
-
-	    //  1 이면 채용중, 2이면 채용안함
-	    private Integer recruitingState;
+		
 
 	    public Integer getRecruitNo() {
 	        return recruitNo;
@@ -297,15 +312,6 @@ public class Recruit {
 	        this.major = major;
 	    }
 
-	    public String get우대조건() {
-	        return 우대조건;
-	    }
-
-	    public void set우대조건(String 우대조건) {
-	        this.우대조건 = 우대조건;
-	    }
-
-	 
 
 		public Integer getRecruitForm() {
 	        return recruitForm;
@@ -332,7 +338,18 @@ public class Recruit {
 	    }
 
 	    public String getDayOfWeek() {
-	        return dayOfWeek;
+	    	String[] week = {"월", "화", "수", "목", "금", "토", "일"};
+	    	
+	    	String result = "";
+	    	
+	    	char[] tmp = dayOfWeek.toCharArray();
+	    	for(int i = 0; i < tmp.length; i++) {
+	    		if(tmp[i] == '0')
+	    			continue;
+	    		
+	    		result += week[i];
+	    	}
+	        return result;
 	    }
 
 	    public void setDayOfWeek(String dayOfWeek) {

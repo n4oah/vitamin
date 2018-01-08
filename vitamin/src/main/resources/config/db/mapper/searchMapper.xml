@@ -49,6 +49,7 @@
 	
 	<resultMap type="recruit" id="selectRecruitMap">
 		<result column="title"  property="title" />
+		<result column="recruit_no"  property="recruitNo" />
 		<result column="company_no" property="companyNo" />
 		<result column="career_state"  property="careerState" />
 		<result column="career_end"  property="careerEnd" />
@@ -90,7 +91,9 @@
           join (select sub_name, city_code from vi_city_code) city
 		on address.city_code = city.city_code
           join (select area_code, name from vi_area_code) area
-		on address.area_code = area.area_code;
+		on address.area_code = area.area_code
+		
+		order by recruit_no desc;
 	</select>
 	
 	
@@ -100,6 +103,7 @@
         <!-- recruit -->
         (select recruit_no, title, career_state, career_start, school_level, assigned_task, form_service, recruit_date_start, recruit_date_end, address_no from vi_recruit_write
         where recruiting_state = 1 and recruit_date_end > current_date() 
+	   		
 	   		<if test="careerState != -1">
 		   		<if test="careerState != null">
 		   			and career_state = #{careerState}
@@ -206,6 +210,14 @@
          join (select area_code, name from vi_area_code) area
 		 	on address.area_code = area.area_code
 		 	
+		 	
+		 <if test="areaCode != null">
+	  		where area.area_code in 
+	   			<foreach item="aCode" index="index" collection="areaCode" 
+	   				open="(" separator="," close=")">
+	   				#{aCode}
+	   			</foreach>
+	   		</if>
 		 order by recruit_no desc
 	</select>
 </mapper>

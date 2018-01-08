@@ -23,6 +23,11 @@ public class Certificate {
 	public void setLicensingDepartmentNo(Integer licensingDepartmentNo) {
 		this.licensingDepartmentNo = licensingDepartmentNo;
 	}
+	@Override
+	public String toString() {
+		return "Certificate [certificateNo=" + certificateNo + ", name=" + name + ", licensingDepartmentNo="
+				+ licensingDepartmentNo + "]";
+	}
 	
 	
 }
