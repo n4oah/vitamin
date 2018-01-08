@@ -21,6 +21,7 @@ public class ResumeBaseInfo {
 	private Integer addressNo;
 	private Integer armyServiceNo;
 	private Integer prevCompanyNo;
+	private Integer certificationNo;
 
 	
 	public Integer getResumeNo() {
@@ -158,6 +159,16 @@ public class ResumeBaseInfo {
 	public void setPrevCompanyNo(Integer prevCompanyNo) {
 		this.prevCompanyNo = prevCompanyNo;
 	}
+
+	public Integer getCertificationNo() {
+		return certificationNo;
+	}
+
+	public void setCertificationNo(Integer certificationNo) {
+		this.certificationNo = certificationNo;
+	}
+	
+	
 	
 	
 

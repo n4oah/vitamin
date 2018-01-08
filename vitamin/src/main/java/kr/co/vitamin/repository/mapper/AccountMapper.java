@@ -11,6 +11,6 @@ public interface AccountMapper {
 	public void insertAccount(Account vo) throws Exception;
 	public void updateEmailToken(Account vo) throws Exception;
 	public Account selectLoginAccount(Account vo) throws Exception;
-	public int selectMemberType(Account vo) throws Exception;
+	public Integer selectMemberType(Account vo) throws Exception;
 	public int selectNextAutoIncrement() throws Exception;
 }

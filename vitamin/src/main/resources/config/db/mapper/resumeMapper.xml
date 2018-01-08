@@ -93,11 +93,27 @@
 	
 	
 	
+	<resultMap type="hopeBusiness" id="hopebusinessMap">
+		<result column="hope_business_no" property="hopebusinessNo"/>
+		<result column="business_no" property="businessNo"/>
+		<result column="hope_no" property="hopeNo"/>
+	</resultMap>
+	
+	
+	
+	
+	<resultMap type="majorCate" id="majorCateMap">
+		<result column="major_no" property="majorNo"/>
+		<result column="major_category" property="majorCategory"/>
+	</resultMap>
+	
+	
+	
 	
 	
 	<insert id="insertResume" parameterType="resumeBaseInfo">
-		insert into vi_resume (member_no,reg_date,title,open_state,modify_date,job_state, marry_state,bohoon_state,support_state,army_service_no,school_level_no,school_no,career_state,career_years,prev_company_no) 
-				values(#{memberNo},now(),#{resumeTitle},0,now(),#{jobState},#{marryState},#{bohoonState},#{supportState},#{armyServiceNo},#{schoolLevelNo},#{schoolNo},#{careerState},#{careerYears},#{prevCompanyNo})
+		insert into vi_resume (member_no,reg_date,title,open_state,modify_date,job_state, marry_state,bohoon_state,support_state,army_service_no,school_level_no,school_no,career_state,career_years,prev_company_no,certification_no,hope_no) 
+				values(#{memberNo},now(),#{resumeTitle},0,now(),#{jobState},#{marryState},#{bohoonState},#{supportState},#{armyServiceNo},#{schoolLevelNo},#{schoolNo},#{careerState},#{careerYears},#{prevCompanyNo},#{certificationNo},#{hopeNo})
 	</insert>
 	
 	<insert id="insertArmyService" parameterType="armyService">
@@ -173,8 +189,33 @@
 	
 	<insert id="insertPrevCompany" parameterType="prevCompany">
 		insert into vi_prev_company (prev_company_no,resume_no,prev_company_working,prev_company_start, prev_company_end, prev_company_name, prev_company_area, prev_company_position,prev_company_years, prev_company_salary,prev_company_type,prev_company_charge,prev_company_reason,prev_company_career_describe)
-		values(#{prevCompanyNo},#{resumeNo},#{prevCompanyWorking},#{prevCompanyStart},#{prevCompanyEnd},#{prevCompanyName},#{prevCompanyArea},#{prevCompanyposition},#{prevCompanyYears},#{prevCompanySalary},#{prevCompanyType},#{prevCompanyCharge},#{prevCompanyReason},#{prevCompanyCareerDescribe})
+		values(#{prevCompanyNo},#{resumeNo},#{prevCompanyWorking},#{prevCompanyStart},#{prevCompanyEnd},#{prevCompanyName},#{prevCompanyArea},#{prevCompanyPosition},#{prevCompanyYears},#{prevCompanySalary},#{prevCompanyType},#{prevCompanyCharge},#{prevCompanyReason},#{prevCompanyCareerDescribe})
 	</insert>
+	
+	<insert id="insertCertification" parameterType="resumeCertification">
+		insert into vi_resume_certification (certification_cate, certification_title, certification_office, certification_division)
+		values(#{certificationCate},#{certificationTitle},#{certificationOffice},#{certificationDivision})
+	</insert>
+	
+	<insert id="insertHope" parameterType="hope">
+		insert into vi_hope(hope_no,hope_work,hope_salary,city_code,area_code)
+		values(#{hopeNo},#{hopeWork},#{hopeSalary},#{cityCode},#{areaCode})
+	</insert>
+	
+	<insert id="insertHopeBusiness" parameterType="hopeBusiness">
+		insert into vi_hope_business(hope_business_no,business_no,hope_no)
+		values(#{hopeBusinessNo},#{businessNo},#{hopeNo})
+	</insert>
+	
+	
+	<select id="selectMajor" parameterType="string" resultMap="majorCateMap">
+		select * from vi_major_cate where major_category like CONCAT('%',#{majorCategory},'%')
+	</select>
+	
+	
+	
+	
+	
 	
 	
 	
@@ -197,6 +238,24 @@
 	<select id="selectNextAutoIncrementPrevCompany" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
 			<property name="tableName" value="vi_prev_company"/>
+		</include>
+	</select>
+	
+	<select id="selectNextAutoIncrementCertification" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_resume_certification"/>
+		</include>
+	</select>
+	
+	<select id="selectNextAutoIncrementHope" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_hope"/>
+		</include>
+	</select>
+	
+	<select id="selectNextAutoIncrementHopeBusiness" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_hope_business"/>
 		</include>
 	</select>
 	

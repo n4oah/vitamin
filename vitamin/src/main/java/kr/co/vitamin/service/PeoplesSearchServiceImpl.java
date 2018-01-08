@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import kr.co.vitamin.repository.mapper.PeoplesSearchMapper;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
+import kr.co.vitamin.repository.vo.PeopleSearch;
+import kr.co.vitamin.repository.vo.Peoples;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 
 @Service
@@ -34,5 +36,10 @@ public class PeoplesSearchServiceImpl implements PeoplesSearchService {
 	@Override
 	public List<Certificate> licenseList(String name) throws Exception {
 		return peoplesSearchMapper.licenseList(name);
+	}
+	
+	@Override
+	public List<Peoples> peoplesSearch(PeopleSearch peopleSearch) throws Exception {
+		return peoplesSearchMapper.peoplesSearch(peopleSearch);
 	}
 }

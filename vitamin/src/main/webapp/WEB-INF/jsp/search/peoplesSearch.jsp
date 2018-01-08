@@ -228,8 +228,8 @@
 				   		 </thead>
 				   		 
 				   		 
+				    	<tbody>
 				   		<c:forEach items="${recruitList }" var="rlist">
-					    	<tbody>
 								<tr class="outstand_point point_line">
 	           						<td>
 	           							<img src="https://i.imgur.com/Z4wlC9v.png" class="star">
@@ -332,9 +332,8 @@
 	        							</p>
 	    							</td>
 								</tr>    
-							</tbody>
-						
 						</c:forEach>
+						</tbody>
 					</table>
 				</div>
 			</div>

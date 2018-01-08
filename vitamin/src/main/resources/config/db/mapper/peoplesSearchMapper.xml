@@ -27,6 +27,22 @@
 		<result column="licensing_department_no" property="licensingDepartmentNo"/>
 	</resultMap>
 	
+	<resultMap type="peoples" id="peoplesMap">
+		<result column="title" property="title" />
+		<result column="member_name" property="name" />
+		<result column="gender" property="gender" />
+		<result column="graduat_state" property="graduateState" />
+		<result column="city_name" property="cityName" />
+		<result column="area_name" property="areaName" />
+		<result column="resume_no" property="resumeNo" />
+		<result column="age" property="age" />
+		<result column="career_state" property="careerState" />
+		<result column="career_years" property="careerYears" />
+		<result column="job_state" property="jobState" />
+		<collection resultMap="certificateMap" property="certificate" />
+	</resultMap>	
+	
+	<!-- 쿼리 -->
 	<select id="cityList" resultMap="cityMap">
 		select * from vi_city_code
 	</select>
@@ -47,13 +63,15 @@
 		select * from vi_certificate where name like CONCAT('%',#{name},'%')
 	</select>
 	
-	<select id="peoplesSearch" parameterType="peopleSearch">
+	<select id="peoplesSearch" parameterType="peopleSearch" resultMap="peoplesMap">
 		select * from 
 		<!-- 이력서 -->
 		(select * from vi_resume
 		<where>
+			open_state = 1
+		
 			<if test="schoolCode != null">
-				school_level_no in
+				and school_level_no in
 				<foreach collection="schoolCode" item="school" open="(" separator="," close=")">
 					#{school}
 				</foreach>
@@ -61,7 +79,7 @@
 			
 			<choose>
 				<when test="careerStart != null and careerEnd != null">
-					and career_years beteween #{careerStart} and #{careerEnd}
+					and career_years between #{careerStart} and #{careerEnd}
 				</when>
 				
 				<when test="careerStart != null">
@@ -74,7 +92,7 @@
 			</choose>
 		</where>) resume
 		<!-- 회원 -->
-		inner join (select * vi_member
+		inner join (select vi_member.*, date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 as age, name as member_name from vi_member
 		<where>
 			<if test="gender != null">
 				<choose>
@@ -101,7 +119,7 @@
 				</when>
 			</choose>
 		</where>) member
-		on resume.memeber_no = member.member_no
+		on resume.member_no = member.member_no
 		<!-- 자격증 -->
 		inner join (select * from vi_resume_certification
 		<where>
@@ -131,6 +149,15 @@
 			</if>
 		</where>) address
 		on resume.address_no = address.address_no
+		<!-- 시/도 -->
+		inner join vi_city_code
+		on address.city_code = vi_city_code.city_code
+		<!-- 시/군/구 -->
+		inner join (select area_code, name as area_name from vi_area_code) area
+		on address.area_code = area.area_code
+		<!-- 최종 학력 -->
+		inner join vi_school_level
+		on resume.school_level_no = vi_school_level.level
 	</select>
 	
 </mapper>
