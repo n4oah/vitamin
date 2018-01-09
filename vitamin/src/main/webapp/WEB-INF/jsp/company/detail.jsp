@@ -149,7 +149,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 .sumtitle:not(:last-child) {
 	border-right: 0.21vw solid gray;
 }
-.sum {display: flex; width: 65vw; background-cl}
+.sum {display: flex; width: 65vw; text-align: center;}
 .sumtitle {margin-left: auto; margin-right: auto; flex: 1 1;}
 .input-group {width: 100%}
 .plus {text-align: center; background: #e0e0e0; margin: 0; cursor: pointer;}
@@ -157,11 +157,12 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 </head>
 <body>
 <div class="top" id="header">
+	<c:if test="${logo != null }">
 	<img alt="${com.companyName}" src="../images/${logo }" class="logo">
-	
+	</c:if>
 	<span class="title">${com.companyName}</span>
 	
-	<img class="bookmark" alt="즐겨찾기" src="https://png.icons8.com/small/540/bookmark.png">
+	<img class="bookmark" alt="즐겨찾기" src="https://i.imgur.com/K3hpPeQ.png">
 </div>
 
 <div class="sum">
