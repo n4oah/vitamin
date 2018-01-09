@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.LetterMapper">
+	
+	<resultMap type="address" id="addressMap">
+		<result column="address_no" property="addressNo" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="address" property="address" />
+		<result column="post_code" property="postCode" />
+	</resultMap>
+	
+	
+</mapper>

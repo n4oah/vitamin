@@ -1,16 +1,8 @@
 package kr.co.vitamin.repository.vo;
 
 public class File {
-
     private Integer fileNo;
-
-    private String originalName;
-
-    private String systemName;
-
-    private String fileSize;
-
-    private String filePath;
+    private String originalName, systemName, fileSize, filePath;
 
     public Integer getFileNo() {
         return fileNo;

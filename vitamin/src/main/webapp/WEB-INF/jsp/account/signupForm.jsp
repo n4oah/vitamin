@@ -37,6 +37,7 @@
 				});
 			};
 		</script>
+		<script src="${pageContext.request.contextPath}/js/pattern/pattern.js"></script>
 		<script src="${pageContext.request.contextPath}/js/signupForm.js"></script>
 		<style>
 			.horizontal_table .table > tbody > tr:last-child > th, .horizontal_table .table > tbody > tr:last-child > td {

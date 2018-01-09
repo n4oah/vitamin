@@ -13,4 +13,5 @@ public interface AccountMapper {
 	public Account selectLoginAccount(Account vo) throws Exception;
 	public Integer selectMemberType(Account vo) throws Exception;
 	public int selectNextAutoIncrement() throws Exception;
+	public Account selectAccountOfId(Account id) throws Exception;
 }

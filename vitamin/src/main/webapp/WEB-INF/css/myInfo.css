@@ -221,7 +221,7 @@ input[type="file"]{
 }
 .custom-input-file:hover .uploadPhoto { display: block; }
 
-p > a.btn {
+/* p > a.btn {
 	letter-spacing: 1px;
 	text-decoration: none;
 	background: none;
@@ -240,7 +240,7 @@ p > a.btn {
 	text-transform:uppercase;
 	border: 3px solid;
 	padding:8px 20px;
-}
+} */
 
 .btn-outlined {
     border-radius: 0;

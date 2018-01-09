@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
 <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/css/myInfo.css'>
+<script src="${pageContext.request.contextPath}/js/pattern/pattern.js"></script>
 <script src='${pageContext.request.contextPath}/js/myInfo.js'></script>
 </head>
 <body>
@@ -84,25 +85,25 @@
 									                <h4 class="modal-title" id="myModalLabel">쪽지</h4>
 									            </div>
 									            <div class="modal-body">
-									                <form role="form">
+									                <form id="letter-form" role="form" method="post" action="${pageContext.request.contextPath}/letter/send.do">
 									                    <h3 style="text-align: center; font-weight: bold;">쪽지 쓰기</h3>
 									    				<div class="form-group">
-															<input type="text" class="form-control" id="name" name="name" placeholder="상대방 아이디" required>
+															<input type="text" class="form-control" id="id" name="id" placeholder="상대방 아이디">
 														</div>
 														<div class="form-group">
-															<input type="text" class="form-control" id="subject" name="subject" placeholder="제목" required>
+															<input type="text" class="form-control" id="title" name="title" placeholder="제목">
 														</div>
 									                    <div class="form-group">
-									                    <textarea class="form-control" type="textarea" id="message" placeholder="보낼 쪽지 내용" maxlength="500" rows="7"></textarea>
-									                        <span class="help-block">
-									                        <p id="characterLeft" class="help-block "></p></span>                    
+									                    <textarea class="form-control" type="textarea" id="content" name="content" placeholder="보낼 쪽지 내용" maxlength="500" rows="7"></textarea>
+								                        <span class="help-block">
+								                        <p id="characterLeft" class="help-block "></p></span>                    
 									                    </div>
 												        <!-- <button type="button" id="submit" name="submit" class="btn btn-primary pull-right">Submit Form</button> -->
 											        </form>
 									            </div>
 									            <div class="modal-footer">
 									                <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-									                <button type="button" class="btn btn-primary">쪽지 보내기</button>
+									                <button type="button" id="letter-submit" class="btn btn-primary">쪽지 보내기</button>
 									            </div>
 									        </div>
 									    </div>

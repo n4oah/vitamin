@@ -100,6 +100,10 @@
 		WHERE (account.id=#{id} AND account.pwd=#{pwd}) AND account.account_no = member.account_no;
 	</select>
 	
+	<select id="selectAccountOfId" parameterType="account" resultMap="accountMap">
+		SELECT * from vi_account WHERE id=#{id}
+	</select>
+	
 	<select id="selectNextAutoIncrement" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
 			<property name="tableName" value="vi_account"/>
