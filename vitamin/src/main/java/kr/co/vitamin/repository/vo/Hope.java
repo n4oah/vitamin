@@ -3,7 +3,7 @@ package kr.co.vitamin.repository.vo;
 public class Hope {
 	
 	private Integer hopeNo, cityCode, areaCode;
-	private String hopeWork,hopeSalary;
+	private String hopeWork,hopeSalary, hwork, hcity, harea;
 	public Integer getHopeNo() {
 		return hopeNo;
 	}
@@ -34,6 +34,25 @@ public class Hope {
 	public void setHopeSalary(String hopeSalary) {
 		this.hopeSalary = hopeSalary;
 	}
+	public String getHwork() {
+		return hwork;
+	}
+	public void setHwork(String hwork) {
+		this.hwork = hwork;
+	}
+	public String getHcity() {
+		return hcity;
+	}
+	public void setHcity(String hcity) {
+		this.hcity = hcity;
+	}
+	public String getHarea() {
+		return harea;
+	}
+	public void setHarea(String harea) {
+		this.harea = harea;
+	}
+	
 
 	
 	

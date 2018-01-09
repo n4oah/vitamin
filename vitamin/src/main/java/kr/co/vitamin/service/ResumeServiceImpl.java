@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.vitamin.repository.mapper.ResumeMapper;
+import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.ArmyService;
 import kr.co.vitamin.repository.vo.BusinessType;
@@ -20,7 +21,8 @@ import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.School;
-import kr.co.vitamin.repository.vo.account.Account;
+import kr.co.vitamin.repository.vo.SchoolLevel;
+import kr.co.vitamin.repository.vo.account.Member;
 
 @Service
 public class ResumeServiceImpl implements ResumeService {
@@ -110,9 +112,10 @@ public class ResumeServiceImpl implements ResumeService {
 		int certificationNo = mapper.selectNextAutoIncrementCertification();
 		int hopeNo = mapper.selectNextAutoIncrementHope();
 		int hopeBusinessNo = mapper.selectNextAutoIncrementHopeBusiness();
-
+		
 		
 		hopeBusiness.setHopeBusiness(hopeBusinessNo);
+		hopeBusiness.setHopeNo(hopeNo);
 		hope.setHopeNo(hopeNo);
 		resumeCertification.setCertificationNo(certificationNo);
 		armyService.setArmyServiceNo(armyNo);
@@ -141,8 +144,49 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public Account baseInfoSelect(Integer resumeNo) throws Exception {
+	public Member baseInfoSelect(Integer resumeNo) throws Exception {
 		
 		return mapper.selectBaseInfo(resumeNo);
+	}
+
+	@Override
+	public Address addressSelect(Integer resumeNo) throws Exception {
+		
+		return mapper.selectAddress(resumeNo);
+	}
+
+	@Override
+	public SchoolLevel resumeSchool(Integer resumeNo) throws Exception {
+		return mapper.selectSchool(resumeNo);
+	}
+
+	@Override
+	public PrevCompany resumePrevCompany(Integer resumeNo) throws Exception {
+		return mapper.selectPrevCompany(resumeNo);
+	}
+
+	@Override
+	public ResumeCertification resumeCertification(Integer resumeNo) throws Exception {
+		return mapper.selectResumeCertification(resumeNo);
+	}
+
+	@Override
+	public Hope resumeHope(Integer resumeNo) throws Exception {
+		return mapper.selectHope(resumeNo);
+	}
+
+	@Override
+	public String resumeHopeBusiness(Integer hopeNo) throws Exception {
+		HopeBusiness hopeBusiness = mapper.selectBusinessNo(hopeNo);
+		String[] businessNo = hopeBusiness.getBusinessNo().split("\\|");
+		String businessType="";
+		
+		for (String str : businessNo) {
+			Integer no = Integer.parseInt(str);
+			BusinessType bt = mapper.selectHopeBusiness(no);
+			businessType += bt.getBtype()+" > "+bt.getBusinessContent()+",";
+		}
+		
+		return businessType.substring(0,businessType.lastIndexOf(","));
 	}
 }

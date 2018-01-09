@@ -6,7 +6,7 @@ public class ResumeCertification {
 	private Integer certificationNo, resumeNo;
 	private Date certificationDate;
 	private String certificationCate, certificationTitle, certificationOffice,
-					certificationDivision;
+					certificationDivision, certificate, division;
 	
 	
 	public Integer getCertificationNo() {
@@ -51,6 +51,19 @@ public class ResumeCertification {
 	public void setCertificationDivision(String certificationDivision) {
 		this.certificationDivision = certificationDivision;
 	}
+	public String getCertificate() {
+		return certificate;
+	}
+	public void setCertificate(String certificate) {
+		this.certificate = certificate;
+	}
+	public String getDivision() {
+		return division;
+	}
+	public void setDivision(String division) {
+		this.division = division;
+	}
+	
 	
 	@Override
 	public String toString() {
