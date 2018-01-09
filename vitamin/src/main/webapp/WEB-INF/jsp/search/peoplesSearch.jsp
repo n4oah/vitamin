@@ -19,7 +19,7 @@
 		<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/css/waitMe.css">
 		
 		<!-- include the jQuery and jQuery UI scripts -->
-		<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		                
 		<!-- plus a jQuery UI theme, here I use "flick" -->
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
@@ -235,6 +235,11 @@
 						</section>
 					</div>
 					<!-- end wrapper -->
+				</div>
+				
+				<div class="iframe" draggable="true">
+				fsdfsdsdf
+					<iframe src="http://localhost:3030/"></iframe>
 				</div>
 				
 				<div class="recruit_list">
@@ -665,6 +670,7 @@
 	    	$(this).remove();
 	    });
 	    
+	    $(".search_button > input").one("click", submit);
 	    var submit = function () {
 	    	var parameterData = "?";
 	    	
@@ -729,7 +735,13 @@
 	    	
 	    };
 	    
-	    $(".search_button > input").one("click", submit);
+	    $(".iframe, iframe *, iframe").draggable();
+	    
+	    $(".iframe").click(function () {
+	    	console.log("asdsas")
+	    })
+	    
+	    $(".iframe").trigger("click");
 	</script>
 </body>
 </html>
