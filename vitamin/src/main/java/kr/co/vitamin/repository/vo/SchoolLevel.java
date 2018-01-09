@@ -1,6 +1,6 @@
 package kr.co.vitamin.repository.vo;
 
-public class SchoolLevel {
+public class SchoolLevel extends School{
 	Integer schoolLevelNo;
 	String graduateState;
 	Integer level;

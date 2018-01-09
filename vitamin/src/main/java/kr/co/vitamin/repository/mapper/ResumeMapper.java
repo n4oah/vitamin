@@ -2,6 +2,7 @@ package kr.co.vitamin.repository.mapper;
 
 import java.util.List;
 
+import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.ArmyService;
 import kr.co.vitamin.repository.vo.BusinessType;
@@ -15,7 +16,8 @@ import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.School;
-import kr.co.vitamin.repository.vo.account.Account;
+import kr.co.vitamin.repository.vo.SchoolLevel;
+import kr.co.vitamin.repository.vo.account.Member;
 
 public interface ResumeMapper {
 
@@ -43,7 +45,7 @@ public interface ResumeMapper {
 	public int selectNextAutoIncrementHope() throws Exception;
 	public int selectNextAutoIncrementHopeBusiness() throws Exception;
 	
-	public Account selectBaseInfo(Integer resumeNo) throws Exception;
+	public Member selectBaseInfo(Integer resumeNo) throws Exception;
 	
 	public void insertSchool(School school) throws Exception;
 	public void insertPrevCompany(PrevCompany prevCompany)throws Exception;
@@ -51,7 +53,13 @@ public interface ResumeMapper {
 	public void insertHope(Hope hope)throws Exception;
 	public List<MajorCate> selectMajor(String name)throws Exception;
 	public void insertHopeBusiness(HopeBusiness hopeBusiness) throws Exception;
-	
+	public Address selectAddress(Integer resumeNo) throws Exception;
+	public SchoolLevel selectSchool(Integer resumeNo) throws Exception;
+	public PrevCompany selectPrevCompany(Integer resumeNo) throws Exception;
+	public ResumeCertification selectResumeCertification(Integer resumeNo) throws Exception;
+	public Hope selectHope(Integer resumeNo) throws Exception;
+	public BusinessType selectHopeBusiness(Integer businessNo) throws Exception;
+	public HopeBusiness selectBusinessNo(Integer hopeNo)throws Exception;
 	
 	
 }

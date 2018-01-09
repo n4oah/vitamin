@@ -2,7 +2,7 @@ package kr.co.vitamin.repository.vo;
 
 import java.util.Date;
 
-public class School {
+public class School extends ResumeBaseInfo{
 	private Integer schoolNo, schoolLevelNo;
 	private Date schoolStartDate, schoolEndDate;
 	private String schoolTitle, major;

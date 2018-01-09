@@ -153,22 +153,44 @@ public class Recruit {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date recruitDateEnd;
 
+    private String recruitDateStringStart; 
+	private String recruitDateStringEnd;
     
-	public String getRecruitDateStart() {
+	public String getRecruitDateStringStart() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		return sdf.format(recruitDateStart);
 	}
-	public void setRecruitDateStart(Date recruitDateStart) {
-		this.recruitDateStart = recruitDateStart;
-	}
-	public String getRecruitDateEnd() {
+	public String getRecruitDateStringEnd() {
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     	
 		return sdf.format(recruitDateEnd);
 	}
+	
+	
+	
+	public Date getRecruitDateStart() {
+		return recruitDateStart;
+	}
+
+	public void setRecruitDateStart(Date recruitDateStart) {
+		this.recruitDateStart = recruitDateStart;
+	}
+
+	public Date getRecruitDateEnd() {
+		return recruitDateEnd;
+	}
+
 	public void setRecruitDateEnd(Date recruitDateEnd) {
 		this.recruitDateEnd = recruitDateEnd;
+	}
+
+	public void setRecruitDateStringStart(String recruitDateStringStart) {
+		this.recruitDateStringStart = recruitDateStringStart;
+	}
+
+	public void setRecruitDateStringEnd(String recruitDateStringEnd) {
+		this.recruitDateStringEnd = recruitDateStringEnd;
 	}
 
 	public Integer getRecruitCount() {

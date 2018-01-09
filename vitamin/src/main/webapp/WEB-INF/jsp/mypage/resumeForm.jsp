@@ -223,7 +223,7 @@
 													<option value="4" class="fa">복무중</option>
 											</select>
 												<span>면제사유</span>
-												<input type="text" class="float-control" id="armyServiceReason" name="armyServiceReason" style="width:60%">
+												<input type="text" class="float-control" id="armyServiceReason" name="armyServiceReason" disabled="disabled" style="width:60%">
 										</td>
 									</tr>
 								</tbody>
@@ -437,19 +437,18 @@
 										</tr>
 										<tr>
 											<th>퇴사사유</th>
-											<td><select class="float-control">
-													<option class="fa" value="">퇴사사유</option>
-													<option class="fa" value="1">업직종 전환</option>
-													<option class="fa" value="2">근무조건</option>
-													<option class="fa" value="3">경영악화</option>
-													<option class="fa" value="4">계약만료</option>
-													<option class="fa" value="5">출산/육아</option>
-													<option class="fa" value="6">학업</option>
-													<option class="fa" value="7">유학</option>
-													<option class="fa" value="8">개인사정</option>
-													<option class="fa" value="9">직접입력</option>
-											</select> <input type="text" class="float-control" name="prevCompanyReason" readonly="readonly">
-												<input type="checkbox"> <span class="res-cmt">직접입력</span>
+											<td><select class="float-control" name="prevCompanyReason" id="prevComanyReason">
+													<option class="fa" value="퇴사사유">퇴사사유</option>
+													<option class="fa" value="업직종 전환">업직종 전환</option>
+													<option class="fa" value="근무조건">근무조건</option>
+													<option class="fa" value="경영악화">경영악화</option>
+													<option class="fa" value="계약만료">계약만료</option>
+													<option class="fa" value="출산/육아">출산/육아</option>
+													<option class="fa" value="학업">학업</option>
+													<option class="fa" value="유학">유학</option>
+													<option class="fa" value="개인사정">개인사정</option>
+													<option class="fa" value="직접입력">직접입력</option>
+											</select> <input type="text" class="float-control" id="inputprevCompanyReason"name="prevCompanyReason" disabled="disabled" style="width:50%">
 											</td>
 										</tr>
 									</tbody>
@@ -484,10 +483,10 @@
 											<th>항목선택</th>
 											<td><select class="float-control" name="certificationCate">
 													<option class="fa" value="">항목선택</option>
-													<option class="fa" value="1">자격증/면허증</option>
+													<option class="fa" value="0">자격증</option>
 													<!-- 
-													<option class="fa" value="2">어학자격증</option>
-													<option class="fa" value="3">수상내역/공모전</option>
+													<option class="fa" value="1">어학자격증</option>
+													<option class="fa" value="2">수상내역/공모전</option>
 													 -->
 											</select></td>
 										</tr>
@@ -564,7 +563,7 @@
 														<option class="fa" value="${i}">${i}</option>
 													</c:forEach>
 													<option class="fa" value="1억원이상">1억원이상</option>
-													<option class="fa">면접후 결정</option>
+													<option class="fa" value="면접후 결정">면접후 결정</option>
 											</select>
 											</td>
 										</tr>
@@ -741,7 +740,9 @@ function sample6_execDaumPostcode() {
 
 $(document).ready(function(){
 	 $('.highschool').hide();
+	 $('.highschool').attr("disabled","disabled");
 	 $('.university').hide();
+	 $('.university').attr("disabled","disabled");
 	 $('.careerStatement').hide();
 	 
 	 $('#ch_schoolevel3').click(function(){
@@ -765,6 +766,15 @@ $(document).ready(function(){
 		 
 	 });
 	 
+	 
+	 
+	 $("#armyServiceState").on("change",function(){
+		if($('#armyServiceState').val()=="3"){
+			$('#armyServiceReason').removeAttr("disabled","disabled");
+		}else{
+			$('#armyServiceReason').attr("disabled","disabled");
+		}
+	 });
 	 
 	 
 	 
@@ -797,6 +807,16 @@ $(document).ready(function(){
 		 $('#repitation_removal').removeAttr("disabled","disabled");
 		 $('#direct_input').removeAttr("disabled","disabled");
 		 $('.careerStatement').show();
+	 });
+	 
+	 
+	 $("#prevComanyReason").on("change",function(){
+		
+		  if($("select[name='prevComanyReason']").val()=="직접입력"){
+			 $("#inputprevCompanyReason").removeAttr("disabled","disabled");
+		 }else{
+			 $("#inputprevCompanyReason").attr("disabled","disabled");
+		 } 
 	 });
 	 
 	 

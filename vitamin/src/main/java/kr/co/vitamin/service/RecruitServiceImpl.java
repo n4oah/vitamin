@@ -22,4 +22,9 @@ public class RecruitServiceImpl implements RecruitService {
 	public Recruit detailRecruit(int no) throws Exception {
 		return recruitMapper.detailRecruit(no);
 	}
+	
+	@Override
+	public int selectRecruitNo() throws Exception {
+		return recruitMapper.selectRecruitNo();
+	}
 }

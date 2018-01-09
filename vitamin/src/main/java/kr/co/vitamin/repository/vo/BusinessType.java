@@ -10,7 +10,7 @@ public class BusinessType {
 	private	String businessContent;
 	private Integer businessOrder;
 	private Integer businessCategory;
-	private String businessType;
+	private String businessType, btype;
 	
 	public Integer getBusinessNo() {
 		return businessNo;
@@ -42,6 +42,20 @@ public class BusinessType {
 	public void setBusinessType(String businessType) {
 		this.businessType = businessType;
 	}
+	public String getBtype() {
+		return btype;
+	}
+	public void setBtype(String btype) {
+		this.btype = btype;
+	}
+	@Override
+	public String toString() {
+		return "BusinessType [businessNo=" + businessNo + ", businessContent=" + businessContent + ", businessOrder="
+				+ businessOrder + ", businessCategory=" + businessCategory + ", businessType=" + businessType
+				+ ", btype=" + btype + "]";
+	}
+	
+	
 	
 	
 	

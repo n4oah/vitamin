@@ -20,10 +20,11 @@ public class CompanyController {
 	private CompanyService companyService;
 	
 	@RequestMapping("/detail.do")
-	public void companyDetail(@RequestParam(defaultValue="0") int no, Model model) throws Exception {
+	public void companyDetail(Integer no, Model model) throws Exception {
+		if (no == null) return;
 		Company com = companyService.companyDetail(no);
 		model.addAttribute("com", com);
-		if (com != null) model.addAttribute("logo", companyService.fileDetail(com.getLogoNo()));
+		if (com.getLogoNo() != null) model.addAttribute("logo", companyService.fileDetail(com.getLogoNo()));
 		Review review = new Review();
 		review.setCompanyNo(no);
 		//System.out.println(review.getPage());

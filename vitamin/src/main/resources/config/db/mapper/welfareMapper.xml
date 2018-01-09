@@ -11,9 +11,10 @@
 		<result column="welfare_content" property="welfareContent" />
 	</resultMap>
 	
-	<select id="selectWelfare" resultMap="welfareMap">
+	<select id="selectWelfare" parameterType="int" resultMap="welfareMap">
 		SELECT *
 			FROM vi_welfare
+		where recruit_no = #{no}	
 		ORDER BY welfare_no ASC
 	</select>
 	
