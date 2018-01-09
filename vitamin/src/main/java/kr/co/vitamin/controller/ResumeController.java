@@ -32,6 +32,7 @@ import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.School;
+import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.AddressService;
@@ -72,15 +73,28 @@ public class ResumeController {
 		
 		
 		ResumeBaseInfo resumeInfo =	resumeService.resumeInfo(resumeNo);
-		Account account = resumeService.baseInfoSelect(resumeNo);
+		Member member = resumeService.baseInfoSelect(resumeNo);
+		Address address = resumeService.addressSelect(resumeNo);
 		String jobState = resumeService.resumeJobState(resumeInfo.getJobState());
 		String marryState = resumeService.resumeMarryState(resumeInfo.getMarryState());
 		String bohoonState = resumeService.resumeBohoonState(resumeInfo.getBohoonState());
 		String supportState = resumeService.resumeSupportState(resumeInfo.getSupportState());
 		ArmyService armyService = resumeService.armyInfo(resumeNo);
 		String armyState = resumeService.resumeArmyState(armyService.getArmyServiceState());
-			
-		mav.addObject("account", account);
+		SchoolLevel school = resumeService.resumeSchool(resumeNo);
+		PrevCompany pCompany = resumeService.resumePrevCompany(resumeNo);
+		ResumeCertification certificate = resumeService.resumeCertification(resumeNo);
+		Hope hope = resumeService.resumeHope(resumeNo);
+		String hopeBusiness = resumeService.resumeHopeBusiness(hope.getHopeNo());
+		
+		
+		mav.addObject("hopeBusiness", hopeBusiness);
+		mav.addObject("hope", hope);
+		mav.addObject("certificate", certificate);
+		mav.addObject("pCompany", pCompany);
+		mav.addObject("school", school);
+		mav.addObject("member", member);
+		mav.addObject("address", address);
 		mav.addObject("resumeInfo", resumeInfo);
 		mav.addObject("jobState", jobState);
 		mav.addObject("marryState", marryState);
@@ -88,6 +102,8 @@ public class ResumeController {
 		mav.addObject("supportState", supportState);
 		mav.addObject("armyState", armyState);
 		mav.addObject("armyService", armyService);
+		mav.addObject("resumeInfo", resumeInfo);
+		
 		
 		return mav;
 		
@@ -151,8 +167,7 @@ public class ResumeController {
 									Hope hope, HopeBusiness hopeBusiness) throws Exception{
 
 		System.out.println("중간저장 들어옴");
-		System.out.println(hopeBusiness.getHopeBusinessNo());
-		System.out.println(hopeBusiness.getBusinessNo());
+
 		System.out.println("자격증"+resumeCertification.toString());
 		
 		school.setSchoolLevelNo(schoolLevelNoTmp[schoolLevelNoTmp.length-1]);

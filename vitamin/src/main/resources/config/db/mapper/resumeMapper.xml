@@ -1,115 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	
+
 <mapper namespace="kr.co.vitamin.repository.mapper.ResumeMapper">
 	<resultMap type="resumeBaseInfo" id="resumeMap">
-		<result column="resume_no" property="resumeNo"/>
-		<result column="member_no" property="memberNo"/>
-		<result column="reg_date" property="regDate"/>
-		<result column="title" property="resumeTitle"/>
-		<result column="open_state" property="openState"/>
-		<result column="name" property="name"/>
-		<result column="birth" property="birth"/>
-		<result column="address_no" property="postCode"/>
-		<result column="address" property="address"/>
-		<result column="phone_number" property="phoneNumber"/>
-		<result column="email" property="email"/>
-		<result column="gender" property="gender"/>
-		<result column="job_state" property="jobState"/>
-		<result column="marry_state" property="marryState"/>
-		<result column="bohoon_state" property="bohoonState"/>
-		<result column="support_state" property="supportState"/>
-		<result column="army_service_no" property="armyServiceNo"/>
-		<result column="prev_company_no" property="prevCompanyNo"/>
+		<result column="resume_no" property="resumeNo" />
+		<result column="member_no" property="memberNo" />
+		<result column="reg_date" property="regDate" />
+		<result column="title" property="resumeTitle" />
+		<result column="open_state" property="openState" />
+		<result column="job_state" property="jobState" />
+		<result column="marry_state" property="marryState" />
+		<result column="bohoon_state" property="bohoonState" />
+		<result column="support_state" property="supportState" />
+		<result column="army_service_no" property="armyServiceNo" />
+		<result column="prev_company_no" property="prevCompanyNo" />
+		<result column="certification_no" property="certificationNo" />
+		<result column="career_state" property="careerState" />
+		<result column="career_years" property="careerYears" />
+		<result column="school_no" property="schoolNo" />
+		<result column="school_level_no" property="schoolLevelNo" />
+
 	</resultMap>
-	
-	
+
+
 	<resultMap type="armyService" id="armyServiceMap">
-		<result column="army_service_no" property="armyServiceNo"/>
-		<result column="army_service_state" property="armyServiceState"/>
-		<result column="army_service_reason" property="armyServiceReason"/>
+		<result column="army_service_no" property="armyServiceNo" />
+		<result column="army_service_state" property="armyServiceState" />
+		<result column="army_service_reason" property="armyServiceReason" />
 	</resultMap>
-	
+
 	<resultMap type="city" id="cityMap">
-		<result column="city_code" property="cityCode"/>
-		<result column="name" property="name"/>
-		<result column="sub_name" property="subName"/>
+		<result column="city_code" property="cityCode" />
+		<result column="name" property="name" />
+		<result column="sub_name" property="subName" />
 	</resultMap>
-	
-	
+
+
 	<resultMap type="area" id="areaMap">
-		<result column="area_code" property="areaCode"/>
-		<result column="city_code" property="cityCode"/>
-		<result column="name" property="name"/>
+		<result column="area_code" property="areaCode" />
+		<result column="city_code" property="cityCode" />
+		<result column="name" property="name" />
 	</resultMap>
-	
+
 	<resultMap type="certificate" id="certificateMap">
-		<result column="certificate_no" property="certificateNo"/>
-		<result column="name" property="name"/>
-		<result column="licensing_department_no" property="licensingDepartmentNo"/>
+		<result column="certificate_no" property="certificateNo" />
+		<result column="name" property="name" />
+		<result column="licensing_department_no" property="licensingDepartmentNo" />
 	</resultMap>
-	
+
 	<resultMap type="licensingDepartment" id="licensingDepartmentMap">
-		<result column="licensing_department_no" property="licensingDepartmentNo"/>
-		<result column="name" property="name"/>
+		<result column="licensing_department_no" property="licensingDepartmentNo" />
+		<result column="name" property="name" />
 	</resultMap>
-	
+
 	<resultMap type="businessType" id="businessTypeMap">
-		<result column="business_no" property="businessNo"/>
-		<result column="business_content" property="businessContent"/>
-		<result column="business_order" property="businessOrder"/>
-		<result column="business_category" property="businessCategory"/>
-		<result column="business_type" property="businessType"/>
+		<result column="business_no" property="businessNo" />
+		<result column="business_content" property="businessContent" />
+		<result column="business_order" property="businessOrder" />
+		<result column="business_category" property="businessCategory" />
+		<result column="business_type" property="businessType" />
+		<result column="btype" property="btype" />
 	</resultMap>
-	
-	<resultMap type="school" id="schoolMap">
-		<result column="school_no" property="schoolNo"/>
-		<result column="school_level_no" property="schoolLevelNo"/>
-		<result column="school_start_date" property="schoolStartDate"/>
-		<result column="school_end_date" property="schoolEndDate"/>
-		<result column="school_title" property="schoolTitle"/>
-		<result column="school_score_standard" property="schoolScoreStandard"/>
-		<result column="school_score" property="schoolScore"/>
-		<result column="major" property="major"/>
+
+	<resultMap type="school" id="schoolMap" extends="resumeMap">
+		<result column="school_no" property="schoolNo" />
+		<result column="school_level_no" property="schoolLevelNo" />
+		<result column="school_start_date" property="schoolStartDate" />
+		<result column="school_end_date" property="schoolEndDate" />
+		<result column="school_title" property="schoolTitle" />
+		<result column="school_score_standard" property="schoolScoreStandard" />
+		<result column="school_score" property="schoolScore" />
+		<result column="major" property="major" />
 	</resultMap>
-	
-	<resultMap type="prevCompany" id="prevCompanyMap">
-		<result column="prev_company_no" property="prevCompanyNo"/>
-		<result column="resume_no" property="resumeNo"/>
-		<result column="prev_company_working" property="prevCompanyWorking"/>
-		<result column="prev_company_start" property="prevCompanyStart"/>
-		<result column="prev_company_end" property="prevCompanyEnd"/>
-		<result column="prev_company_name" property="prevCompanyName"/>
-		<result column="prev_company_area" property="prevCompanyArea"/>
-		<result column="prev_company_position" property="prevCompanyPosition"/>
-		<result column="prev_company_years" property="prevCompanyYears"/>
-		<result column="prev_company_salary" property="prevCompanySalary"/>
-		<result column="prev_company_type" property="prevCompanyType"/>
-		<result column="prev_company_charge" property="prevCompanyCharge"/>
-		<result column="prev_company_reason" property="prevCompanyReason"/>
-		<result column="prev_company_career_describe" property="prevCompanyCareerDescribe"/>
+
+	<resultMap type="prevCompany" id="prevCompanyMap" extends="resumeMap">
+		<result column="prev_company_no" property="prevCompanyNo" />
+		<result column="resume_no" property="resumeNo" />
+		<result column="prev_company_working" property="prevCompanyWorking" />
+		<result column="prev_company_start" property="prevCompanyStart" />
+		<result column="prev_company_end" property="prevCompanyEnd" />
+		<result column="prev_company_name" property="prevCompanyName" />
+		<result column="prev_company_area" property="prevCompanyArea" />
+		<result column="prev_company_position" property="prevCompanyPosition" />
+		<result column="prev_company_years" property="prevCompanyYears" />
+		<result column="prev_company_salary" property="prevCompanySalary" />
+		<result column="prev_company_type" property="prevCompanyType" />
+		<result column="prev_company_charge" property="prevCompanyCharge" />
+		<result column="prev_company_reason" property="prevCompanyReason" />
+		<result column="prev_company_career_describe" property="prevCompanyCareerDescribe" />
+		<result column="prev" property="prev" />
+		<result column="prev_company_department" property="prevCompanyDepartment" />
+		<result column="city" property="prevCompanyCity" />
 	</resultMap>
-	
-	
-	
-	<resultMap type="hopeBusiness" id="hopebusinessMap">
-		<result column="hope_business_no" property="hopebusinessNo"/>
-		<result column="business_no" property="businessNo"/>
-		<result column="hope_no" property="hopeNo"/>
+
+
+
+	<resultMap type="hopeBusiness" id="hopeBusinessMap">
+		<result column="hope_business_no" property="hopeBusinessNo" />
+		<result column="business_no" property="businessNo" />
+		<result column="hope_no" property="hopeNo" />
 	</resultMap>
-	
-	
-	
-	
+
+
+
+
 	<resultMap type="majorCate" id="majorCateMap">
-		<result column="major_no" property="majorNo"/>
-		<result column="major_category" property="majorCategory"/>
+		<result column="major_no" property="majorNo" />
+		<result column="major_category" property="majorCategory" />
 	</resultMap>
-	
-	
-	
-	
+
+
+
+
 	<resultMap type="account" id="accountMap">
 		<result column="account_no" property="accountNo" />
 		<result column="id" property="id" />
@@ -122,8 +125,8 @@
 		<result column="email_token_status" property="emailTokenStatus" />
 
 		<discriminator javaType="int" column="member_type">
-			<case value="1" resultMap="memberMap"/>
-			<case value="2" resultMap="companyMap"/>
+			<case value="1" resultMap="memberMap" />
+			<case value="2" resultMap="companyMap" />
 		</discriminator>
 	</resultMap>
 
@@ -135,8 +138,8 @@
 		<result column="birth_date" property="birthDate" />
 		<result column="gender" property="gender" />
 	</resultMap>
-	
-	
+
+
 	<resultMap type="company" id="companyMap" extends="accountMap">
 		<result column="company_no" property="companyNo" />
 		<result column="account_no" property="accountNo" />
@@ -152,180 +155,301 @@
 		<result column="employee_count" property="employeeCount" />
 		<result column="logo_no" property="logoNo" />
 	</resultMap>
-	
-	
+
+
 	<resultMap type="address" id="addressMap">
-		<result column="address_no" property="addressNo"/>
-		<result column="city_code" property="cityCode"/>
-		<result column="area_code" property="areaCode"/>
-		<result column="address" property="address"/>
-		<result column="post_code" property="postCode"/>
+		<result column="address_no" property="addressNo" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="address" property="address" />
+		<result column="post_code" property="postCode" />
+	</resultMap>
+
+	<resultMap type="schoolLevel" id="schoolLevelMap" extends="schoolMap">
+		<result column="school_level_no" property="schoolLevelNo" />
+		<result column="graduate_state" property="graduateState" />
+		<result column="level" property="level" />
+	</resultMap>
+
+	
+	<resultMap type="resumeCertification" id="resumeCertificationMap">
+		<result column="certification_no" property="certificationNo"/>
+		<result column="certification_cate" property="certificationCate"/>
+		<result column="certification_title" property="certificationTitle"/>
+		<result column="certification_office" property="certificationOffice"/>
+		<result column="certification_division" property="certificationDivision"/>
+		<result column="certificate" property="certificate"/>
+		<result column="division" property="division"/>
 	</resultMap>
 	
+	<resultMap type="hope" id="hopeMap">
+		<result column="hope_no" property="hopeNo"/>
+		<result column="hope_work" property="hopeWork"/>
+		<result column="hope_salary" property="hopeSalary"/>
+		<result column="city_code" property="cityCode"/>
+		<result column="area_code" property="areaCode"/>
+		<result column="hwork" property="hwork"/>
+		<result column="hcity" property="hcity"/>
+		<result column="harea" property="harea"/>
+	</resultMap>
 	
-	
-	
+
+
+
+
+
+
 	<insert id="insertResume" parameterType="resumeBaseInfo">
-		insert into vi_resume (member_no,reg_date,title,open_state,modify_date,job_state, marry_state,bohoon_state,support_state,army_service_no,school_level_no,school_no,career_state,career_years,prev_company_no,certification_no,hope_no) 
-				values(#{memberNo},now(),#{resumeTitle},0,now(),#{jobState},#{marryState},#{bohoonState},#{supportState},#{armyServiceNo},#{schoolLevelNo},#{schoolNo},#{careerState},#{careerYears},#{prevCompanyNo},#{certificationNo},#{hopeNo})
+		insert into vi_resume
+		(member_no,reg_date,title,open_state,modify_date,job_state,
+		marry_state,bohoon_state,support_state,army_service_no,school_level_no,school_no,career_state,career_years,prev_company_no,certification_no,hope_no)
+		values(#{memberNo},now(),#{resumeTitle},0,now(),#{jobState},#{marryState},#{bohoonState},#{supportState},#{armyServiceNo},#{schoolLevelNo},#{schoolNo},#{careerState},#{careerYears},#{prevCompanyNo},#{certificationNo},#{hopeNo})
 	</insert>
-	
+
 	<insert id="insertArmyService" parameterType="armyService">
-		insert into vi_army_service(army_service_state,army_service_reason)
-			values(#{armyServiceState},#{armyServiceReason})
+		insert into
+		vi_army_service(army_service_state,army_service_reason)
+		values(#{armyServiceState},#{armyServiceReason})
 	</insert>
-	
+
 	<select id="selectResume" resultMap="resumeMap">
-		select * from vi_resume where member_no = #{memberNo}
+		select * from vi_resume
+		where member_no = #{memberNo}
 	</select>
-	
+
 	<select id="selectResumeInfo" parameterType="int" resultMap="resumeMap">
 		select * from vi_resume where resume_no = #{resumeNo}
 	</select>
-	
-	<select id="selectArmyServiceInfo" parameterType="int" resultMap="armyServiceMap">
-		select * from vi_army_service where army_service_no=(select army_service_no from vi_resume where resume_no = #{resumeNo})
+
+	<select id="selectArmyServiceInfo" parameterType="int"
+		resultMap="armyServiceMap">
+		select * from vi_army_service where army_service_no=(select
+		army_service_no from vi_resume where resume_no = #{resumeNo})
 	</select>
-	
+
 	<select id="selectJobState" parameterType="string" resultType="string">
-		select condition_section_name from vi_condition_selection where condition_type='0' and condition_section=#{jobState}
+		select condition_section_name from vi_condition_selection where
+		condition_type='0' and condition_section=#{jobState}
 	</select>
-	
+
 	<select id="selectMarryState" parameterType="string" resultType="string">
-		select condition_section_name from vi_condition_selection where condition_type='1' and condition_section=#{marryState}
+		select condition_section_name from vi_condition_selection where
+		condition_type='1' and condition_section=#{marryState}
 	</select>
-	
-	<select id="selectBohoonState" parameterType="string" resultType="string">
-		select condition_section_name from vi_condition_selection where condition_type='2' and condition_section=#{bohoonState}
+
+	<select id="selectBohoonState" parameterType="string"
+		resultType="string">
+		select condition_section_name from vi_condition_selection
+		where condition_type='2' and condition_section=#{bohoonState}
 	</select>
-	
-	<select id="selectSupportState" parameterType="string" resultType="string">
-		select condition_section_name from vi_condition_selection where condition_type='3' and condition_section=#{supportState}
+
+	<select id="selectSupportState" parameterType="string"
+		resultType="string">
+		select condition_section_name from vi_condition_selection
+		where condition_type='3' and condition_section=#{supportState}
 	</select>
-	
+
 	<update id="updateArmyService" parameterType="armyService">
-		update vi_resume set army_service_no = (select army_service_no from vi_army_service where resume_no = #{resumeNo})
+		update vi_resume
+		set army_service_no = (select army_service_no from vi_army_service
+		where resume_no = #{resumeNo})
 	</update>
-	
+
 	<select id="selectArmyState" parameterType="int" resultType="string">
-		select condition_section_name from vi_condition_selection where condition_type='4' and condition_section=#{armyServiceState}
+		select condition_section_name from vi_condition_selection where
+		condition_type='4' and condition_section=#{armyServiceState}
 	</select>
-	
+
 	<select id="selectCity" resultMap="cityMap">
 		select * from vi_city_code
 	</select>
-	
+
 	<select id="selectArea" parameterType="integer" resultMap="areaMap">
 		select * from vi_area_code where city_code = #{cityCode} order by name
 	</select>
-	
-	<select id="selectCertification" parameterType="string" resultMap="certificateMap">
-		select * from vi_certificate where name like CONCAT('%',#{name},'%')
+
+	<select id="selectCertification" parameterType="string"
+		resultMap="certificateMap">
+		select * from vi_certificate where name like
+		CONCAT('%',#{name},'%')
 	</select>
-	
-	<select id="selectLicensingDepartment" parameterType="integer" resultMap="licensingDepartmentMap">
-		select * from vi_licensing_department where licensing_department_no= #{licensingDepartmentNo} 
+
+	<select id="selectLicensingDepartment" parameterType="integer"
+		resultMap="licensingDepartmentMap">
+		select * from vi_licensing_department where
+		licensing_department_no= #{licensingDepartmentNo}
 	</select>
-	
+
 	<select id="selectBusinessType" resultMap="businessTypeMap">
-		select * from vi_business_type
+		select * from
+		vi_business_type
 	</select>
-	
-	<select id="chooseBusinessType" parameterType="integer" resultMap="businessTypeMap">
-		select business_content, (select business_content from vi_business_type where business_category = (select business_category from vi_business_type where business_no = #{businessNo}) and business_order=0) as business_type 
+
+	<select id="chooseBusinessType" parameterType="integer"
+		resultMap="businessTypeMap">
+		select business_content, (select business_content from
+		vi_business_type where business_category = (select business_category
+		from vi_business_type where business_no = #{businessNo}) and
+		business_order=0) as business_type
 		from vi_business_type where business_no = #{businessNo}
 	</select>
-	
+
 	<insert id="insertSchool" parameterType="school">
-		insert into vi_school (school_no,school_start_date,school_end_date,school_title,school_score_standard,school_score,major,school_level_no)
+		insert into vi_school
+		(school_no,school_start_date,school_end_date,school_title,school_score_standard,school_score,major,school_level_no)
 		values(#{schoolNo},#{schoolStartDate},#{schoolEndDate},#{schoolTitle},#{schoolScoreStandard},#{schoolScore},#{major},#{schoolLevelNo})
 	</insert>
-	
+
 	<insert id="insertPrevCompany" parameterType="prevCompany">
-		insert into vi_prev_company (prev_company_no,resume_no,prev_company_working,prev_company_start, prev_company_end, prev_company_name, prev_company_area, prev_company_position,prev_company_years, prev_company_salary,prev_company_type,prev_company_charge,prev_company_reason,prev_company_career_describe)
-		values(#{prevCompanyNo},#{resumeNo},#{prevCompanyWorking},#{prevCompanyStart},#{prevCompanyEnd},#{prevCompanyName},#{prevCompanyArea},#{prevCompanyPosition},#{prevCompanyYears},#{prevCompanySalary},#{prevCompanyType},#{prevCompanyCharge},#{prevCompanyReason},#{prevCompanyCareerDescribe})
+		insert into
+		vi_prev_company
+		(prev_company_no,resume_no,prev_company_working,prev_company_start,
+		prev_company_end, prev_company_name, prev_company_area,
+		prev_company_position,prev_company_years,
+		prev_company_salary,prev_company_type,prev_company_charge,prev_company_reason,prev_company_career_describe,prev_company_department)
+		values(#{prevCompanyNo},#{resumeNo},#{prevCompanyWorking},#{prevCompanyStart},#{prevCompanyEnd},#{prevCompanyName},#{prevCompanyArea},#{prevCompanyPosition},#{prevCompanyYears},#{prevCompanySalary},#{prevCompanyType},#{prevCompanyCharge},#{prevCompanyReason},#{prevCompanyCareerDescribe},#{prevCompanyDepartment})
 	</insert>
-	
+
 	<insert id="insertCertification" parameterType="resumeCertification">
-		insert into vi_resume_certification (certification_cate, certification_title, certification_office, certification_division)
+		insert into
+		vi_resume_certification (certification_cate, certification_title,
+		certification_office, certification_division)
 		values(#{certificationCate},#{certificationTitle},#{certificationOffice},#{certificationDivision})
 	</insert>
-	
+
 	<insert id="insertHope" parameterType="hope">
-		insert into vi_hope(hope_no,hope_work,hope_salary,city_code,area_code)
+		insert into
+		vi_hope(hope_no,hope_work,hope_salary,city_code,area_code)
 		values(#{hopeNo},#{hopeWork},#{hopeSalary},#{cityCode},#{areaCode})
 	</insert>
-	
+
 	<insert id="insertHopeBusiness" parameterType="hopeBusiness">
-		insert into vi_hope_business(hope_business_no,business_no,hope_no)
+		insert into
+		vi_hope_business(hope_business_no,business_no,hope_no)
 		values(#{hopeBusinessNo},#{businessNo},#{hopeNo})
 	</insert>
-	
-	
+
+
 	<select id="selectMajor" parameterType="string" resultMap="majorCateMap">
-		select * from vi_major_cate where major_category like CONCAT('%',#{majorCategory},'%')
+		select * from vi_major_cate where major_category like
+		CONCAT('%',#{majorCategory},'%')
 	</select>
-	
-	
+
 	<select id="selectBaseInfo" parameterType="int" resultMap="accountMap">
 		SELECT account.*, member.*
-		FROM vi_account AS account 
-        JOIN vi_member AS member
-		WHERE account.account_no = member.account_no 
-        and member.member_no = (select member_no from vi_resume where resume_no = #{resumeNo});
+		FROM vi_account AS account
+		JOIN vi_member AS member
+		WHERE account.account_no = member.account_no
+		and member.member_no = (select member_no from vi_resume where resume_no =
+		#{resumeNo});
+	</select>
+
+	<select id="selectAddress" parameterType="int" resultMap="addressMap">
+		select
+		* from vi_address where address_no = (select account_no from vi_member
+		where member_no = (select member_no from vi_resume where resume_no =
+		#{resumeNo}));
+	</select>
+
+	<select id="selectSchool" parameterType="int" resultMap="schoolLevelMap">
+		select
+		s.*, l.graduate_state from vi_school s
+		inner join vi_resume r on s.school_no = r.school_no
+		inner join vi_school_level l on s.school_level_no = l.level
+		where r.resume_no=#{resumeNo};
+	</select>
+
+	<select id="selectPrevCompany" parameterType="int" resultMap="prevCompanyMap">
+		select *, 
+		(select condition_section_name from vi_condition_selection where condition_type=5 and condition_section = prev_company_working) as prev,
+		c.name as city,
+		(select condition_section_name from vi_condition_selection where condition_type=6 and condition_section = prev_company_reason) as reason
+		from vi_prev_company p
+		inner join vi_city_code c on
+		p.prev_company_area = c.city_code
+		where prev_company_no=(select
+		prev_company_no from vi_resume where resume_no=#{resumeNo})
+	</select>
+
+	<select id="selectResumeCertification" parameterType="int" resultMap="resumeCertificationMap">
+		select c.*,(select condition_section_name from vi_condition_selection where condition_type = 7 and condition_section = certification_cate) as certificate,
+		(select condition_section_name from vi_condition_selection where condition_type = 8 and condition_section = certification_division) as division
+		from vi_resume_certification c
+		inner join vi_resume r on r.certification_no = c.certification_no
+		where resume_no = #{resumeNo}
 	</select>
 	
-	<!-- <select id="selectAddress" parameterType="int" resultMap="addressMap">
-		
-	</select> -->
+	<select id="selectHope" parameterType="int" resultMap="hopeMap">
+		select h.*,(select condition_section_name from vi_condition_selection where condition_type = 9 and condition_section = hope_work) as hwork,
+		(select name from vi_city_code where city_code=h.city_code) as hcity,
+		(select name from vi_area_code where area_code=h.area_code) as harea
+		from vi_resume r
+		inner join vi_hope h on r.hope_no = h.hope_no 
+		where resume_no= #{resumeNo}
+	</select>
+	
+	<select id="selectBusinessNo" parameterType="int" resultMap="hopeBusinessMap">
+		select * from vi_hope_business where hope_no = #{hopeNo}
+	</select>
+	
+	<select id="selectHopeBusiness" parameterType="int" resultMap="businessTypeMap">
+		select (select business_content from vi_business_type where business_order=0 and business_category=b.business_category)as btype, b.business_content 
+		from vi_business_type b 
+		where b.business_no = #{businessNo}
+	</select> 
 	
 	
+
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
 	<select id="selectNextAutoIncrementArmy" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
-			<property name="tableName" value="vi_army_service"/>
+			<property name="tableName" value="vi_army_service" />
 		</include>
 	</select>
-	
-	
+
+
 	<select id="selectNextAutoIncrementSchool" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
-			<property name="tableName" value="vi_school"/>
+			<property name="tableName" value="vi_school" />
 		</include>
 	</select>
-	
+
 	<select id="selectNextAutoIncrementPrevCompany" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
-			<property name="tableName" value="vi_prev_company"/>
+			<property name="tableName" value="vi_prev_company" />
 		</include>
 	</select>
-	
+
 	<select id="selectNextAutoIncrementCertification" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
-			<property name="tableName" value="vi_resume_certification"/>
+			<property name="tableName" value="vi_resume_certification" />
 		</include>
 	</select>
-	
+
 	<select id="selectNextAutoIncrementHope" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
-			<property name="tableName" value="vi_hope"/>
+			<property name="tableName" value="vi_hope" />
 		</include>
 	</select>
-	
+
 	<select id="selectNextAutoIncrementHopeBusiness" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
-			<property name="tableName" value="vi_hope_business"/>
+			<property name="tableName" value="vi_hope_business" />
 		</include>
 	</select>
-	
-	
-	
+
+
+
+
 </mapper>

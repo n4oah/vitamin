@@ -2,6 +2,7 @@ package kr.co.vitamin.service;
 
 import java.util.List;
 
+import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.ArmyService;
 import kr.co.vitamin.repository.vo.BusinessType;
@@ -15,7 +16,8 @@ import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.School;
-import kr.co.vitamin.repository.vo.account.Account;
+import kr.co.vitamin.repository.vo.SchoolLevel;
+import kr.co.vitamin.repository.vo.account.Member;
 
 public interface ResumeService {
 	
@@ -36,7 +38,13 @@ public interface ResumeService {
 	public List<BusinessType> businessTypeSelect() throws Exception;
 	public BusinessType choiceBusiness(Integer businessNo) throws Exception;
 	public List<MajorCate> majorSelect(String name)throws Exception;
-	public Account baseInfoSelect(Integer resumeNo) throws Exception;
+	public Member baseInfoSelect(Integer resumeNo) throws Exception;
+	public Address addressSelect(Integer resumeNo) throws Exception;
+	public SchoolLevel resumeSchool(Integer resumeNo) throws Exception;
+	public PrevCompany resumePrevCompany(Integer resumeNo) throws Exception;
+	public ResumeCertification resumeCertification(Integer resumeNo)throws Exception;
+	public Hope resumeHope(Integer resumeNo)throws Exception;
+	public String resumeHopeBusiness(Integer hopeNo)throws Exception;
 	
 	
 	

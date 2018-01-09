@@ -2,16 +2,23 @@ package kr.co.vitamin.repository.vo;
 
 import java.util.Date;
 
-public class PrevCompany {
+public class PrevCompany extends ResumeBaseInfo{
 	private Integer prevCompanyNo, prevCompanyWorking, resumeNo;
 	private Date prevCompanyStart, prevCompanyEnd;
 	private String prevCompanyName, prevCompanydepartment, prevCompanyArea,
 				prevCompanyPosition, prevCompanyYears, prevCompanySalary, prevCompanyType,
-				prevCompanyCharge,prevCompanyReason,prevCompanyCareerDescribe;
+				prevCompanyCharge,prevCompanyReason,prevCompanyCareerDescribe, prev,
+				prevCompanyDepartment, prevCompanyCity;
 	
 	
 	public Integer getResumeNo() {
 		return resumeNo;
+	}
+	public String getPrev() {
+		return prev;
+	}
+	public void setPrev(String prev) {
+		this.prev = prev;
 	}
 	public void setResumeNo(Integer resumeNo) {
 		this.resumeNo = resumeNo;
@@ -99,6 +106,18 @@ public class PrevCompany {
 	}
 	public void setPrevCompanyCareerDescribe(String prevCompanyCareerDescribe) {
 		this.prevCompanyCareerDescribe = prevCompanyCareerDescribe;
+	}
+	public String getPrevCompanyDepartment() {
+		return prevCompanyDepartment;
+	}
+	public void setPrevCompanyDepartment(String prevCompanyDepartment) {
+		this.prevCompanyDepartment = prevCompanyDepartment;
+	}
+	public String getPrevCompanyCity() {
+		return prevCompanyCity;
+	}
+	public void setPrevCompanyCity(String prevCompanyCity) {
+		this.prevCompanyCity = prevCompanyCity;
 	}
 	
 	
