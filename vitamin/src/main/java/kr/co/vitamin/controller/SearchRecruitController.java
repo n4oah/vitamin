@@ -38,7 +38,7 @@ public class SearchRecruitController {
 		List<City> cityList = searchService.selectCity();
 		List<Area> areaList = searchService.selectArea();
 		List<Recruit> recruitList = searchService.selectRecruit();
-		
+		System.out.println(recruitList);
 		
 		List<SchoolLevel> schoolLevelList = schoolLevelService.getSchoolLevels();
 		List<FormService> formServiceList = formServiceService.selectFormService();

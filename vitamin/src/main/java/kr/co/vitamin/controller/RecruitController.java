@@ -1,5 +1,6 @@
 package kr.co.vitamin.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -110,15 +111,19 @@ public class RecruitController {
 		if (addressNo > -1)
 			recruit.setAddressNo(addressNo);
 
-		int recruitNo = 1;
 		
-		for (int i = 0; i < welfare.getWelfareTitleList().length; i++) {
-			welfareService.insertWelfare(new Welfare(recruitNo, welfare.getWelfareTitleList()[i], welfare.getWelfareContentList()[i]));
-		}
+	
 		
 		recruit.setCompanyNo(1);
 		
 		recruitService.insertRecruit(recruit);
+		
+		int recruitNo = recruitService.selectRecruitNo();
+		System.out.println(recruitNo);
+		
+		for (int i = 0; i < welfare.getWelfareTitleList().length; i++) {
+			welfareService.insertWelfare(new Welfare(recruitNo, welfare.getWelfareTitleList()[i], welfare.getWelfareContentList()[i]));
+		}
 
 		System.out.println(recruit);
 		System.out.println(welfare);
@@ -131,8 +136,15 @@ public class RecruitController {
 	
 	@RequestMapping("/recruit/recruitDetail.do")
 	public void recruitDetail(@RequestParam("no") Integer no, Model model) throws Exception{
+		List<Welfare> welfareList = new ArrayList<>();
 		
 		Recruit recruit = recruitService.detailRecruit(no);
+		
+		welfareList = welfareService.selectWelfare(no);
+		
+		if(!welfareList.isEmpty())
+			model.addAttribute("welfareList", welfareList);
+		
 		model.addAttribute("recruit",recruit);
 	}
 }

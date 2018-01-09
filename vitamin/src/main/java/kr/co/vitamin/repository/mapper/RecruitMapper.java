@@ -7,4 +7,5 @@ import kr.co.vitamin.repository.vo.Recruit;
 public interface RecruitMapper {
 	public void insertRecruit(Recruit recruit) throws Exception;
 	public Recruit detailRecruit(int no) throws Exception;
+	public int selectRecruitNo() throws Exception;
 }
