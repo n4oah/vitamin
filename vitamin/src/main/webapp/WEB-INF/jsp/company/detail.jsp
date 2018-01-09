@@ -152,7 +152,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 .sum {display: flex; width: 65vw; background-cl}
 .sumtitle {margin-left: auto; margin-right: auto; flex: 1 1;}
 .input-group {width: 100%}
-.plus {text-align: center; background: #e0e0e0; margin: 0;}
+.plus {text-align: center; background: #e0e0e0; margin: 0; cursor: pointer;}
 </style>
 </head>
 <body>
