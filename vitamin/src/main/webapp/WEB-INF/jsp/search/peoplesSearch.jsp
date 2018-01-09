@@ -25,6 +25,8 @@
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.10.4/themes/flick/jquery-ui.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery-ui-slider-pips.css">
 		<script src="${pageContext.request.contextPath}/js/jquery-ui-slider-pips.js"></script>
+		<link rel="stylesheet" href="../css/mCalendar.css">
+		<script src="../js/mCalendar.js"></script>
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
@@ -289,6 +291,7 @@
 	
 	
 	<script>
+		$.mCalendar(".cal", "2018-01-01", "2018-02-02")
 		$(document).ajaxStart(function () {waitEffect();})
 		.ajaxStop(function () {$("body").waitMe("hide");});
 		
