@@ -4,8 +4,12 @@ import java.util.Arrays;
 
 public class Welfare {
 	
+	public Welfare() {
+	}
 	
-	  public Welfare(Integer recruitNo, String welfareTitle,
+
+	
+	 public Welfare(Integer recruitNo, String welfareTitle,
 			String welfareContent) {
 		super();
 		this.recruitNo = recruitNo;

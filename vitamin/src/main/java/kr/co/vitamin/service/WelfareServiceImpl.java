@@ -20,8 +20,8 @@ public class WelfareServiceImpl implements WelfareService {
 	}
 	
 	@Override
-	public List<Welfare> selectWelfare() throws Exception {
-		return welfareMapper.selectWelfare();
+	public List<Welfare> selectWelfare(int no) throws Exception {
+		return welfareMapper.selectWelfare(no);
 	}
 	
 }

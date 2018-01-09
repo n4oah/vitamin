@@ -67,6 +67,9 @@
 	</select>
 	
 	
+	<select id="selectRecruitNo" resultType="int">
+		select LAST_INSERT_ID()
+	</select>
 	
 	
 	<insert id="insertRecruit" parameterType="recruit">
@@ -76,7 +79,7 @@
 			company_no,
 			career_state, 
 			career_start, 
-			career_end, 
+			career_end,
 			school_level, 
 			year_pay_start,
 			year_pay_end, 
