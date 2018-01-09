@@ -372,7 +372,8 @@
 	</select>
 
 	<select id="selectResumeCertification" parameterType="int" resultMap="resumeCertificationMap">
-		select c.*,(select condition_section_name from vi_condition_selection where condition_type = 7 and condition_section = certification_cate) as certificate,
+		select c.*,
+		(select condition_section_name from vi_condition_selection where condition_type = 7 and condition_section = certification_cate) as certificate,
 		(select condition_section_name from vi_condition_selection where condition_type = 8 and condition_section = certification_division) as division
 		from vi_resume_certification c
 		inner join vi_resume r on r.certification_no = c.certification_no
@@ -380,12 +381,13 @@
 	</select>
 	
 	<select id="selectHope" parameterType="int" resultMap="hopeMap">
-		select h.*,(select condition_section_name from vi_condition_selection where condition_type = 9 and condition_section = hope_work) as hwork,
-		(select name from vi_city_code where city_code=h.city_code) as hcity,
-		(select name from vi_area_code where area_code=h.area_code) as harea
-		from vi_resume r
+		select h.*,
+			   (select condition_section_name from vi_condition_selection where condition_type = 9 and condition_section = hope_work) as hwork,
+			   (select name from vi_city_code where city_code=h.city_code) as hcity,
+			   (select name from vi_area_code where area_code=h.area_code) as harea
+		from   vi_resume r
 		inner join vi_hope h on r.hope_no = h.hope_no 
-		where resume_no= #{resumeNo}
+		where  resume_no= #{resumeNo}
 	</select>
 	
 	<select id="selectBusinessNo" parameterType="int" resultMap="hopeBusinessMap">
