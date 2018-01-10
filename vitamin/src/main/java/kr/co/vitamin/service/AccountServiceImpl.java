@@ -12,7 +12,7 @@ import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.AutoSignin;
 import kr.co.vitamin.repository.vo.EmailToken;
 import kr.co.vitamin.repository.vo.account.Account;
-import kr.co.vitamin.repository.vo.account.AccountSignup;
+import kr.co.vitamin.repository.vo.account.AccountInfo;
 import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.repository.vo.account.Member;
 
@@ -34,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
 	
 	@Override
 	@Transactional(rollbackFor=Exception.class)
-	public void signupMember(AccountSignup actionVO, Address address, EmailToken emailTok) throws Exception {
+	public void signupMember(AccountInfo actionVO, Address address, EmailToken emailTok) throws Exception {
 		int addressNo = addressMapper.selectNextAutoIncrement();
 		address.setAddressNo(addressNo);
 		actionVO.setAddressNo(addressNo);

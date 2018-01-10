@@ -20,6 +20,11 @@
 	
 	<select id="selectEmailChageAuth" parameterType="emailChangeAuth" resultMap="emailChangeAuthMap">
 		SELECT * FROM vi_email_change_auth
-		WHERE account_no=#{accountNo} AND authToken=#{authToken} LIMIT 1
+		WHERE account_no=#{accountNo} AND auth_token=#{authToken} LIMIT 1
 	</select>
+	
+	<delete id="deleteEmailChageAuth" parameterType="emailChangeAuth">
+		DELETE FROM vi_email_change_auth
+		WHERE account_no=#{accountNo} AND auth_token=#{authToken} LIMIT 1
+	</delete>
 </mapper>

@@ -4,11 +4,11 @@ import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.AutoSignin;
 import kr.co.vitamin.repository.vo.EmailToken;
 import kr.co.vitamin.repository.vo.account.Account;
-import kr.co.vitamin.repository.vo.account.AccountSignup;
+import kr.co.vitamin.repository.vo.account.AccountInfo;
 
 public interface AccountService {
 	public boolean getOverlapIdCheck(Account accountVO) throws Exception;
-	public void signupMember(AccountSignup accountSignupVO, Address address, EmailToken emailTok) throws Exception;
+	public void signupMember(AccountInfo accountSignupVO, Address address, EmailToken emailTok) throws Exception;
 	public void emailCertify(EmailToken emailTok) throws Exception;
 	public Account login(Account accountVO) throws Exception;
 	public void setAutoSignin(AutoSignin autoSignin) throws Exception;

@@ -2,7 +2,7 @@ package kr.co.vitamin.repository.vo;
 
 public class Address {
 	private Integer addressNo, cityCode, areaCode;
-	private String address, postCode;
+	private String address, postCode, addressSub;
 	private String cityName;
 	private String areaName;
 	private String addressMain;
@@ -80,6 +80,7 @@ public class Address {
 	}
 
 	public void setAddress1(String address1) {
+		setAddressMain(address1);
 		this.address1 = address1;
 	}
 
@@ -88,6 +89,7 @@ public class Address {
 	}
 
 	public void setAddress2(String address2) {
+		setAddressSub(address2);
 		this.address2 = address2;
 	}
 	
@@ -103,19 +105,28 @@ public class Address {
 		setAddress(address1 +" "+ address2);
 		setAddressMain(address1);
 		
-		int cityCode = Integer.parseInt(sigunguCode.substring(0, 2));
-		int areaCode = Integer.parseInt(sigunguCode);
+		if(sigunguCode != "-1") {
+			int cityCode = Integer.parseInt(sigunguCode.substring(0, 2));
+			int areaCode = Integer.parseInt(sigunguCode);
+			setCityCode(cityCode);
+			setAreaCode(areaCode);
+		}
 		
-		setCityCode(cityCode);
-		setAreaCode(areaCode);
+	}
+
+	public String getAddressSub() {
+		return addressSub;
+	}
+
+	public void setAddressSub(String addressSub) {
+		this.addressSub = addressSub;
 	}
 
 	@Override
 	public String toString() {
 		return "Address [addressNo=" + addressNo + ", cityCode=" + cityCode + ", areaCode=" + areaCode + ", address="
-				+ address + ", postCode=" + postCode + ", cityName=" + cityName + ", areaName=" + areaName
-				+ ", address1=" + address1 + ", address2=" + address2 + ", sigunguCode=" + sigunguCode + "]";
+				+ address + ", postCode=" + postCode + ", addressSub=" + addressSub + ", cityName=" + cityName
+				+ ", areaName=" + areaName + ", addressMain=" + addressMain + ", address1=" + address1 + ", address2="
+				+ address2 + ", sigunguCode=" + sigunguCode + "]";
 	}
-
-	
 }

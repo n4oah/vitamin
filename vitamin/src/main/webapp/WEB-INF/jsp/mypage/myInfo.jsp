@@ -197,10 +197,12 @@
 						                <div class="form-group">
 						                	<c:choose>
 						                		<c:when test="${sessionScope.user.memberType == 1}">
-						                			<c:set var="profileImgName" value="프로필 사진"></c:set>
+													<c:set var="profileImgName" value="프로필 사진"></c:set>
+													<c:set var="addressTitleName" value="주소"></c:set>
 						                		</c:when>
 						                		<c:when test="${sessionScope.user.memberType == 2}">
-						                			<c:set var="profileImgName" value="회사 로고"></c:set>						                			
+													<c:set var="profileImgName" value="회사 로고"></c:set>
+													<c:set var="addressTitleName" value="회사 주소"></c:set>				                			
 						                		</c:when>
 						                	</c:choose>
 						                	<c:set var="user" value="${sessionScope.user}"></c:set>
@@ -237,24 +239,79 @@
 						                <div class="form-group">
 						                    <label for="nickName" class="col-sm-2 control-label">이메일</label>
 						                    <div class="col-sm-10">
-												<input type="text" class="form-control" id="email" value="${user.email}" readonly="readonly">
+												<input type="text" class="form-control" name="email" id="email" value="${user.email}" readonly="readonly">
 											</div>
-						                </div>
-						                <div class="form-group">
-						                    <label for="newPassword" class="col-sm-2 control-label">New password</label>
-						                    <div class="col-sm-10">
-						                        <input type="password" class="form-control" name="newPassword" id="newPassword">
-						                    </div>
-						                </div>
-						                <div class="form-group">
-						                    <label for="confirmPassword" class="col-sm-2 control-label">Confirm password</label>
-						                    <div class="col-sm-10">
-						                        <input type="password" class="form-control" name="confirmPassword" id="confirmPassword">
-						                    </div>
-						                </div>
+										</div>
+										<div class="form-group">
+											<label for="sample6_postcode" class="col-sm-2 control-label"><c:out value="${addressTitleName}"></c:out></label>
+											<div class="col-sm-8">
+												<input name="address.postCode" value="${address.postCode}" type="text" class="form-control" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
+												
+											</div>
+											<div class="col-sm-2">
+												<span class="input-group-btn">
+													<button class="btn btn-secondary" type="button" onclick="sample6_execDaumPostcode()" style="">우편번호 찾기</button>
+												</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="sample6_address" class="col-sm-2 control-label">주소</label>
+											<div class="col-sm-10">
+												<input name="address.address1" type="text" class="form-control" value="${address.addressMain}" id="sample6_address" placeholder="주소" readonly="readonly">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="sample6_address2" class="col-sm-2 control-label">상세주소</label>
+											<div class="col-sm-10">
+												<input name="address.address2" type="text" class="form-control" value="${address.addressSub}" id="sample6_address2" placeholder="상세주소">
+												<input type="text" name="address.sigunguCode" class="hide" id="sample6_sigunguCode" value="-1"/>
+											</div>
+										</div>
+										<c:choose>
+											<c:when test="${user.memberType == 1}">
+												<div class="form-group">
+													<label for="phoneNumber" class="col-sm-2 control-label">휴대전화</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control bfh-phone" value="${user.phoneNumber}" name="member.phoneNumber" id="phoneNumber" maxlength="19" data-format="+82 (ddd) dddd-dddd">
+													</div>
+												</div>
+											</c:when>
+											<c:when test="${user.memberType == 2}">
+												<div class="form-group">
+													<label for="phoneNumber" class="col-sm-2 control-label">회사 이름</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" value="${user.companyName}" readonly="readonly" id="company-input-licenseNumber">
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="phoneNumber" class="col-sm-2 control-label">사업자 등록번호</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control bfh-phone" data-format="ddd-dd-ddddd" maxlength="12" placeholder="사업자 등록번호" readonly="readonly" id="company-input-licenseNumber">
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="phoneNumber" class="col-sm-2 control-label">대표 전화</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control bfh-phone" name="company.telNumber" value="${user.telNumber}" data-format="+82 (ddd) dddd-dddd" maxlength="19" placeholder="대표 전화" id="company-input-phoneNumber">
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="phoneNumber" class="col-sm-2 control-label">기업 형태</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" readonly="readonly" placeholder="기업 이름" >
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="phoneNumber" class="col-sm-2 control-label">기업 형태</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" readonly="readonly" placeholder="기업 이름" >
+													</div>
+												</div>
+											</c:when>
+										</c:choose>
 						                <div class="form-group">
 						                    <div class="col-sm-offset-2 col-sm-10">
-						                        <button class="btn btn-primary btn-circle text-uppercase" type="submit" id="submit">Save changes</button>
+						                        <button class="btn btn-primary btn-circle text-uppercase" type="submit" id="submit">저장</button>
 						                    </div>
 						                </div>
 						            </form>
@@ -295,7 +352,7 @@
 						</div>
 						<div class="modal-footer">
 							<div>
-								<button type="button" class="btn btn-primary btn-lg btn-block">확인</button>
+								<button type="submit" class="btn btn-primary btn-lg btn-block">확인</button>
 							</div>
 						</div>
 					</form>
