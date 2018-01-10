@@ -386,7 +386,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 			var sdf = new simpleDateFormat("yyyy-MM-dd");
 			comment.regDate = sdf.format(date);
 			
-			var div = $("<div>").addClass("input-group comment").attr("data-no", comment.reviewNo).append($("<span>").addClass("regDate").text(comment.regDate)).append($("<span>").addClass("content").text(comment.content));
+			var div = $("<div>").addClass("input-group comment").attr("data-no", comment.reviewNo).append($("<span>").addClass("regDate").text(comment.regDate)).append($("<span>").addClass("content").text(" "+comment.content));
 			
 			if (i == 1)
 				$(".commentList").prepend(div);
@@ -416,13 +416,14 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 		
 		data += "&content="+$(".commentContent").val();
 		
-		data += "&companyNo=${param.no}";
+		data += "&companyNo=${param.no}&memberNo=${user.accountNo}";
 		
 		$.ajax({
 			type: "post",
 			url: path+"/company/reviewWrite.do",
 			data: data,
 			success: function (data) {
+				console.log('${user.accountNo}');
 				$(".heart").removeClass("selected");
 				$(".commentContent").val("");
 				abcd(data, 1);

@@ -1,4 +1,4 @@
-$(document).ready(function(){ 
+$(document).ready(function() {
 	var max = 500;
     $('#characterLeft').text(max + '자 남음');
     $('#message').keydown(function () {
@@ -59,18 +59,28 @@ $(function() {
         event.preventDefault();
     });
 
-    $('form#myInfoModify #email').click(function(event) {
-        $('#email-change-modal').modal('show');
-
-        event.preventDefault();
-    });
-
     var $changeForm = $('#email-change-input');
     var $authForm = $('#email-change-auth');
     var $divForms = $('#div-forms');
     var $modalAnimateTime = 300;
     var $msgAnimateTime = 150;
     var $msgShowTime = 2000;
+
+    $('form#myInfoModify #email').click(function(event) {
+        $('#email-change-modal').modal('show');
+
+        var status = $authForm.css('display');
+        console.log(status);
+        if(status == 'block') {
+            $('changeEmail').text('');
+            $('authToken').text('');
+
+            $changeForm.fadeToggle();
+            $authForm.fadeToggle();
+        }
+
+        event.preventDefault();
+    });
 
     $('#login_lost_btn').click( function () { modalAnimate($changeForm, $authForm); });
     $('#lost_login_btn').click( function () { modalAnimate($authForm, $changeForm); });
@@ -103,14 +113,21 @@ $(function() {
             dataType: "json",
             data: param,
             success: function(email) {
-                console.log(email);
-                $('email').val(email);
+                if(email == 'undefined') {
+                    alert('인증번호가 틀렷습니다.');
+                } else {
+                    console.log(email);
+                    $('#email').val(email);
+                }
+                $('#email-change-modal').modal('hide');
                 waitingDialog.hide();
             }
         });
 
         event.preventDefault();
     });
+
+
     
     function modalAnimate ($oldForm, $newForm) {
         var $oldH = $oldForm.height();

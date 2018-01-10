@@ -12,7 +12,7 @@ div.mCalendar {
 }
 
 div.mCalendar > div {
-    flex: 1 0 auto;
+    flex: 1 1;
 }
 
 div.mCalendar div.title {
@@ -67,20 +67,27 @@ div.mCalendar div.day.select {
     font-weight: bold;
 }
 
-div.mCalendar div.day.select > div {
+div.mCalendar div.day.select  {
     /* border: 1px solid black;
     border-radius: 100%; */
     width: 2.2em;
     height: 2.2em;
     background: skyblue;
-    line-height: 2.2em;
+    line-height: 2.0em;
 }
 
-div.mCalendar div.day.start > div, div.mCalendar div.day.end > div {
+/* div.mCalendar div.day.start > div, div.mCalendar div.day.end > div {
     width: 2.5em;
     height: 2.5em;
     line-height: 2.5em;
-    border-radius: 100%;
+} */
+
+div.mCalendar div.day.start {
+    border-radius: 100% 0 0 100%;
+}
+
+div.mCalendar div.day.end {
+    border-radius: 0 100% 100% 0;
 }
 
 div.mCalendar div.day.prev {
@@ -95,6 +102,10 @@ div.mCalendar div.day.sat {
     color: blue;
 }
 
-div.mCalendar div.day.now > div {
+div.mCalendar div.day.now {
     border: 3px solid green;
+}
+
+div.mCalendar div.day:hover {
+    background: #c4bebe;
 }

@@ -3,7 +3,6 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 매퍼 연결 -->
 <mapper namespace="kr.co.vitamin.repository.mapper.AddressMapper">
-	
 	<resultMap type="address" id="addressMap">
 		<result column="address_no" property="addressNo" />
 		<result column="city_code" property="cityCode" />
@@ -11,13 +10,14 @@
 		<result column="address" property="address" />
 		<result column="address_main" property="addressMain" />
 		<result column="post_code" property="postCode" />
+		<result column="address_sub" property="addressSub" />
 	</resultMap>
 	
 	<insert id="insertAddress" parameterType="address">
 		INSERT INTO vi_address
-		(address_no,address_main, city_code, area_code, address, post_code)
+		(address_no, city_code, area_code, address, post_code, address_main, address_sub)
 		VALUES
-		(#{addressNo},#{addressMain}, #{cityCode}, #{areaCode}, #{address}, #{postCode})
+		(#{addressNo}, #{cityCode}, #{areaCode}, #{address}, #{postCode}, #{addressMain}, #{addressSub})
 	</insert>
 	
 	<select id="selectAddress" parameterType="address" resultMap="addressMap">

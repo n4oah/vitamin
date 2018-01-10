@@ -50,7 +50,7 @@ import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.Terms;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.repository.vo.account.Account;
-import kr.co.vitamin.repository.vo.account.AccountSignup;
+import kr.co.vitamin.repository.vo.account.AccountInfo;
 import kr.co.vitamin.service.AccountService;
 import kr.co.vitamin.service.ResumeService;
 import kr.co.vitamin.service.SchoolLevelService;
@@ -122,7 +122,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/signup.do", method=RequestMethod.POST)
-	public String signup(AccountSignup accountSignupVO, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
+	public String signup(AccountInfo accountSignupVO, Model model, HttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
 		String resultUrl = null;
 		System.out.println(accountSignupVO);
 		

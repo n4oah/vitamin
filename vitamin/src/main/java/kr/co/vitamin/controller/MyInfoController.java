@@ -6,12 +6,15 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.vitamin.common.EmailSender;
+import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.EmailChangeAuth;
 import kr.co.vitamin.repository.vo.account.Account;
+import kr.co.vitamin.service.AddressService;
 import kr.co.vitamin.service.EmailAuthService;
 
 @Controller
@@ -20,11 +23,15 @@ public class MyInfoController {
 	@Autowired
 	EmailAuthService emailAuthService;
 	@Autowired
+	AddressService addressService;
+	@Autowired
 	EmailSender emailSend;
 	
 	@RequestMapping("/myInfo.do")
-	public void myInfo() throws Exception {
-		
+	public void myInfo(HttpSession session, Model model) throws Exception {
+		Address address = new Address();
+		address.setAddressNo(((Account)session.getAttribute("user")).getAddressNo());
+		model.addAttribute("address", addressService.selectAddress(address));
 	}
 	
 	@RequestMapping("/emailAuthSend.do")
@@ -45,7 +52,12 @@ public class MyInfoController {
 	@ResponseBody
 	public String emailAuth(HttpSession session, EmailChangeAuth changeAuth) throws Exception {
 		changeAuth.setAccountNo(((Account)session.getAttribute("user")).getAccountNo());
-		changeAuth = emailAuthService.selectEmailChangeAuth(changeAuth);
-		return changeAuth.getChangeEmail();
+		changeAuth = emailAuthService.getEmailChangeAuth(changeAuth);
+
+		String result = "undefined";
+		if(changeAuth != null) {
+			result = changeAuth.getChangeEmail();
+		}
+		return result;
 	}
 }

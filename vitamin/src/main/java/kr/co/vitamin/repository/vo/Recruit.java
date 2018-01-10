@@ -2,11 +2,11 @@ package kr.co.vitamin.repository.vo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import kr.co.vitamin.repository.vo.account.Company;
 

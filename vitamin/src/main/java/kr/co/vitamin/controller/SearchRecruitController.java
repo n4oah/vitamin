@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.City;
@@ -53,10 +55,8 @@ public class SearchRecruitController {
 	
 	@ResponseBody
 	@RequestMapping("/searchWork.do") 
-	public List<Recruit> searchWork(SearchRecruit searchRecruit) throws Exception {
+	public String searchWork(SearchRecruit searchRecruit) throws Exception {
 		System.out.println(searchRecruit);
-		System.out.println(searchService.selectSearchCondition(searchRecruit));
-		
-		return searchService.selectSearchCondition(searchRecruit); 
+		return new Gson().toJson(searchService.selectSearchCondition(searchRecruit)); 
 	}
 }

@@ -19,7 +19,11 @@ public class EmailAuthServiceImpl implements EmailAuthService {
 	}
 
 	@Override
-	public EmailChangeAuth selectEmailChangeAuth(EmailChangeAuth changeAuth) throws Exception {
-		return emailAuthMapper.selectEmailChageAuth(changeAuth);
+	public EmailChangeAuth getEmailChangeAuth(EmailChangeAuth changeAuth) throws Exception {
+		EmailChangeAuth result = emailAuthMapper.selectEmailChageAuth(changeAuth);
+		if(result != null) {
+			emailAuthMapper.deleteEmailChageAuth(changeAuth);
+		}
+		return result;
 	}
 }
