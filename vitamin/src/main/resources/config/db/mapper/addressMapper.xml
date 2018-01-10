@@ -31,6 +31,13 @@
 		on city.city_code = area.city_code
 	</select>
 	
+	<update id="updateAddress" parameterType="address">
+		UPDATE vi_address SET
+		city_code=#{cityCode}, area_code=#{areaCode}, address=#{address},
+		post_code=#{postCode}, address_main=#{addressMain}, address_sub=#{addressSub}
+		WHERE address_no = #{addressNo} LIMIT 1
+	</update>
+	
 	<select id="selectNextAutoIncrement" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
 			<property name="tableName" value="vi_address"/>

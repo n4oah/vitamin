@@ -53,4 +53,10 @@ public class File {
         this.fileSize = param.getFileSize();
         this.filePath = param.getFilePath();
     }
+
+	@Override
+	public String toString() {
+		return "File [fileNo=" + fileNo + ", originalName=" + originalName + ", systemName=" + systemName
+				+ ", fileSize=" + fileSize + ", filePath=" + filePath + "]";
+	}
 }

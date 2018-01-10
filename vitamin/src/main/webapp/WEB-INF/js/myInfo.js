@@ -127,8 +127,6 @@ $(function() {
         event.preventDefault();
     });
 
-
-    
     function modalAnimate ($oldForm, $newForm) {
         var $oldH = $oldForm.height();
         var $newH = $newForm.height();
@@ -159,4 +157,22 @@ $(function() {
             $iconTag.removeClass($iconClass + " " + $divClass);
   		}, $msgShowTime);
     }
+
+    $("input#profileImg").on("change", function(event) {
+	    let file = event.target.files[0];
+        let fileName = file.name;
+
+        console.log(file);
+        console.log(fileName);
+
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+            console.log(reader.result);
+            console.log('#eee url(' + reader.result + ');');
+            $('div.custom-input-file.profile-image').css('background-image', 'url(\'' + reader.result + '\')');
+        }
+        reader.readAsDataURL(this.files[0]);
+    });
+
 });

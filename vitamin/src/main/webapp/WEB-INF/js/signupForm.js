@@ -96,7 +96,9 @@ $(function() {
 					e.preventDefault();
 					break;
 				}
-			}
+            }
+            
+            waitingDialog.show();
 		} catch (err) {
 			console.log(err);
 			err['ptn'].id.focus();

@@ -3,6 +3,7 @@ package kr.co.vitamin.service;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.AutoSignin;
 import kr.co.vitamin.repository.vo.EmailToken;
+import kr.co.vitamin.repository.vo.File;
 import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.repository.vo.account.AccountInfo;
 
@@ -15,4 +16,5 @@ public interface AccountService {
 	public void deleteAutoSignin(AutoSignin autoSignin) throws Exception;
 	public Account getAutoSigninToToken(AutoSignin autoSignin) throws Exception;
 	public void logout(AutoSignin autoSignin) throws Exception;
+	public Account modifyAccount(Account accountVO, Address address, File file) throws Exception;
 }

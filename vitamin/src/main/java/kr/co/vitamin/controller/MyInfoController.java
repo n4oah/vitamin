@@ -8,12 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.vitamin.common.EmailSender;
+import kr.co.vitamin.common.FileUpload;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.EmailChangeAuth;
+import kr.co.vitamin.repository.vo.File;
 import kr.co.vitamin.repository.vo.account.Account;
+import kr.co.vitamin.repository.vo.account.AccountInfo;
+import kr.co.vitamin.service.AccountService;
 import kr.co.vitamin.service.AddressService;
 import kr.co.vitamin.service.EmailAuthService;
 
@@ -25,7 +31,11 @@ public class MyInfoController {
 	@Autowired
 	AddressService addressService;
 	@Autowired
+	AccountService accountService;
+	@Autowired
 	EmailSender emailSend;
+	@Autowired
+	FileUpload fileUpload;
 	
 	@RequestMapping("/myInfo.do")
 	public void myInfo(HttpSession session, Model model) throws Exception {
@@ -59,5 +69,38 @@ public class MyInfoController {
 			result = changeAuth.getChangeEmail();
 		}
 		return result;
+	}
+	
+	@RequestMapping("/myInfoModify.do")
+	@ResponseBody
+	public void myInfoModify(HttpSession session, AccountInfo accountInfo, @RequestParam("profileImg")MultipartFile profileImg) throws Exception {
+		Account user = ((Account)session.getAttribute("user"));
+		
+		accountInfo.setAccountNo(user.getAccountNo());
+		
+		Account accountVO = null;
+		if(user.getMemberType() == 1) {
+			accountVO = accountInfo.getMember();
+		} else if(user.getMemberType() == 2) {
+			accountVO = accountInfo.getCompany();
+		}
+		accountVO.setMemberType(user.getMemberType());
+		accountVO.setEmail(accountInfo.getEmail());
+		accountVO.setAddressNo(user.getAddressNo());
+		if(accountInfo.getPwd().length() > 4) {
+			accountVO.setShaPwd(accountInfo.getPwd());			
+		}
+		
+		Address address = accountInfo.getAddress();
+		if(address.getSigunguCode().equals("-1")) {
+			address = null;
+		} else {
+			address.setAddressNo(user.getAddressNo());
+			address.parseData();
+		}
+		System.out.println(accountVO);
+		File file = fileUpload.makeFile(profileImg, FileUpload.getProfileImage());
+		Account acc = accountService.modifyAccount(accountVO, address, file);
+		session.setAttribute("user", acc);
 	}
 }

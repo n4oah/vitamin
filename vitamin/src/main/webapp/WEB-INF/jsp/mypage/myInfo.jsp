@@ -193,7 +193,7 @@
 						        
 						        </div>
 						        <div class="tab-pane" id="account-setting">
-						            <form action="${pageContext.request.contextPath}/mypage/myInfoModify.do" method="post" class="form-horizontal" id="myInfoModify" role="form">
+						            <form action="${pageContext.request.contextPath}/mypage/myInfoModify.do" method="post" enctype="multipart/form-data" class="form-horizontal" id="myInfoModify" role="form">
 						                <div class="form-group">
 						                	<c:choose>
 						                		<c:when test="${sessionScope.user.memberType == 1}">
@@ -202,16 +202,16 @@
 						                		</c:when>
 						                		<c:when test="${sessionScope.user.memberType == 2}">
 													<c:set var="profileImgName" value="회사 로고"></c:set>
-													<c:set var="addressTitleName" value="회사 주소"></c:set>				                			
+													<c:set var="addressTitleName" value="회사 주소"></c:set>
 						                		</c:when>
 						                	</c:choose>
 						                	<c:set var="user" value="${sessionScope.user}"></c:set>
 						                    <label for="avatar" class="col-sm-2 control-label"><c:out value="${profileImgName}"></c:out></label>
 						                    <div class="col-sm-10">
-						                        <div class="custom-input-file">
+						                        <div class="custom-input-file profile-image">
 						                            <label class="uploadPhoto">
 						                                Edit
-						                                <input type="file" class="change-profile-img" name="profileImg" id="profileImg">
+						                                <input type="file" class="change-profile-img" name="profileImg" id="profileImg" accept="image/png, image/jpeg, image/gif, image/jpg">
 						                            </label>
 						                        </div>
 						                    </div>
@@ -233,6 +233,18 @@
 												<label for="name" class="col-sm-2 control-label">이름</label>
 												<div class="col-sm-10">
 													<input type="text" class="form-control" name="member.name" id="name" placeholder="이름을 입력해주세요." value="${user.name}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="name" class="col-sm-2 control-label">성별</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" id="gender" value="${user.genderName}" readonly="readonly">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="name" class="col-sm-2 control-label">나이</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" id="age" value="${user.age}세" readonly="readonly">
 												</div>
 											</div>
 										</c:if>
@@ -286,7 +298,7 @@
 												<div class="form-group">
 													<label for="phoneNumber" class="col-sm-2 control-label">사업자 등록번호</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control bfh-phone" data-format="ddd-dd-ddddd" maxlength="12" placeholder="사업자 등록번호" readonly="readonly" id="company-input-licenseNumber">
+														<input type="text" class="form-control bfh-phone" data-format="ddd-dd-ddddd" maxlength="12" value="${user.licenseNumber}" placeholder="사업자 등록번호" readonly="readonly" id="company-input-licenseNumber">
 													</div>
 												</div>
 												<div class="form-group">
@@ -298,13 +310,7 @@
 												<div class="form-group">
 													<label for="phoneNumber" class="col-sm-2 control-label">기업 형태</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" readonly="readonly" placeholder="기업 이름" >
-													</div>
-												</div>
-												<div class="form-group">
-													<label for="phoneNumber" class="col-sm-2 control-label">기업 형태</label>
-													<div class="col-sm-10">
-														<input type="text" class="form-control" readonly="readonly" placeholder="기업 이름" >
+														<input type="text" class="form-control" readonly="readonly" placeholder="기업 형태" value="${user.companyType}" >
 													</div>
 												</div>
 											</c:when>

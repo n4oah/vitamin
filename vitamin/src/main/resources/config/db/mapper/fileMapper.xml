@@ -12,9 +12,21 @@
 		<result column="file_path" property="filePath" />
 	</resultMap>
 	
+	<resultMap type="profileImage" id="profileImageMap">
+		<result column="profile_no" property="profileNo" />
+		<result column="account_no" property="accountNo" />
+		<result column="file_no" property="fileNo" />
+		<result column="profile_type" property="profileType" />
+	</resultMap>
+	
 	<insert id="insertFile" parameterType="file">
 		insert into vi_file(original_name, system_name, file_size, file_path)
 		values(#{originalName}, #{systemName}, #{fileSize}, #{filePath})
+	</insert>
+	
+	<insert id="insertFile2" parameterType="file">
+		insert into vi_file(file_no, original_name, system_name, file_size, file_path)
+		values(#{fileNo}, #{originalName}, #{systemName}, #{fileSize}, #{filePath})
 	</insert>
 	
 	<select id="selectLastNo" resultType="int">
@@ -23,5 +35,30 @@
 	
 	<select id="selectFile" parameterType="int" resultMap="fileMap">
 		select * from vi_file where file_no = #{no}
+	</select>
+	
+	<select id="selectAccountProfile" parameterType="profileImage" resultMap="profileImageMap">
+		SELECT * FROM vi_profile_image
+		WHERE account_no=#{accountNo} AND profile_type=0
+	</select>
+	
+	<insert id="insertProfile" parameterType="profileImage">
+		INSERT INTO vi_profile_image
+		(account_no, file_no, profile_type)
+		VALUES
+		(#{accountNo}, #{fileNo}, #{profileType})
+	</insert>
+	
+	<update id="updateFile" parameterType="file">
+		UPDATE vi_file SET
+		original_name=#{originalName}, system_name=#{systemName},
+		file_size=#{fileSize}, file_path=#{filePath}
+		WHERE file_no=#{fileNo}
+	</update>
+	
+	<select id="selectNextAutoIncrement" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_file"/>
+		</include>
 	</select>
 </mapper>

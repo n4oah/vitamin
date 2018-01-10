@@ -3,6 +3,27 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+
+<c:if test="${!empty sessionScope.user}">
+	<script>
+		$(function() {
+			let id = $('.profile-image')[0];
+
+			//$.ajax
+
+
+			for(let tag of id) {
+				console.log(tag.tagName);
+				if(tag.tagName == 'IMG') {
+					$(tag).attr('src', )
+				} else {
+
+				}
+			}
+		});
+	</script>
+</c:if>
+
 <script>
 	$(function() {
 		var uri = "${requestScope['javax.servlet.forward.request_uri']}"

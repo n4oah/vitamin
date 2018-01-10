@@ -15,10 +15,8 @@ public class AccountInfo extends Account {
 		super.setAccountNo(accountNo);
 		if(member != null) {
 			member.setAccountNo(accountNo);
-			System.out.println("맘 배");
 		} else if(company != null) {
-			company.setAccountNo(accountNo);			
-			System.out.println("룬루");
+			company.setAccountNo(accountNo);
 		}
 	}
 

@@ -104,6 +104,45 @@
 		SELECT * from vi_account WHERE id=#{id}
 	</select>
 	
+	<update id="updateAccount" parameterType="account">
+		UPDATE vi_account AS account,
+		<if test="memberType == 1">
+			vi_member
+		</if>
+		<if test="memberType == 2">
+			vi_company
+		</if>
+		AS member
+		<set>
+			<if test="pwd != null">
+				account.pwd=#{pwd},
+			</if>
+			account.email=#{email},
+			<if test="memberType == 1">
+				member.name=#{name}, member.phone_number=#{phoneNumber},
+			</if>
+			<if test="memberType == 2">
+				
+			</if>
+		</set>
+		WHERE account.account_no=${accountNo} AND account.account_no = member.account_no
+	</update>
+	
+	<select id="selectAccountOfNo" parameterType="account" resultMap="accountMap">
+		SELECT account.*, member.*
+		FROM vi_account AS account JOIN
+		<choose>
+			<when test="memberType == 1">
+		 		vi_member
+		 	</when>
+		 	<when test="memberType == 2">
+		 		vi_company
+		 	</when>
+		</choose> 
+		AS member
+		WHERE account.account_no=#{accountNo} AND member.account_no=#{accountNo};
+	</select>
+	
 	<select id="selectNextAutoIncrement" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
 			<property name="tableName" value="vi_account"/>
