@@ -60,6 +60,9 @@ public interface ResumeMapper {
 	public Hope selectHope(Integer resumeNo) throws Exception;
 	public BusinessType selectHopeBusiness(Integer businessNo) throws Exception;
 	public HopeBusiness selectBusinessNo(Integer hopeNo)throws Exception;
+	public void deleteResume(Integer resumeNo) throws Exception;
+	public void updateOpenState(ResumeBaseInfo resumeBaseInfo) throws Exception;
+	public void updateAllOpenState(ResumeBaseInfo resumeBaseInfo) throws Exception;
 	
 	
 }

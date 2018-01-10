@@ -8,7 +8,7 @@ public class ResumeBaseInfo {
 	private Integer memberNo;
 	private Date regDate;
 	private String resumeTitle;
-	private String openState;
+	private Integer openState;
 	private String jobState;
 	private String marryState;
 	private String bohoonState;
@@ -56,12 +56,12 @@ public class ResumeBaseInfo {
 		this.resumeTitle = resumeTitle;
 	}
 
-	public String getOpenState() {
+	public Integer getOpenState() {
 		return openState;
 	}
 
-	public void setOpenState(String openState) {
-		this.openState = openState;
+	public void setOpenState(Integer openState2) {
+		this.openState = openState2;
 	}
 
 	public String getJobState() {

@@ -30,7 +30,7 @@ public interface ResumeService {
 	public String resumeMarryState(String marryState) throws Exception;
 	public String resumeBohoonState(String bohoonState) throws Exception;
 	public String resumeSupportState(String supportState) throws Exception;
-	public String resumeArmyState(int armyServiceState) throws Exception;
+	public String resumeArmyState(Integer armyServiceState) throws Exception;
 	public List<City> citySelect() throws Exception;
 	public List<Area> areaSelect(Integer cityCode) throws Exception;
 	public List<Certificate> certificationSelect(String name) throws Exception;
@@ -45,6 +45,8 @@ public interface ResumeService {
 	public ResumeCertification resumeCertification(Integer resumeNo)throws Exception;
 	public Hope resumeHope(Integer resumeNo)throws Exception;
 	public String resumeHopeBusiness(Integer hopeNo)throws Exception;
+	public void deleteResume(Integer resumeNo) throws Exception;
+	public void updateOpenState(ResumeBaseInfo resumeBaseInfo) throws Exception;
 	
 	
 	

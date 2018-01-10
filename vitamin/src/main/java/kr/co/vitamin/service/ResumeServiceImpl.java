@@ -63,7 +63,7 @@ public class ResumeServiceImpl implements ResumeService {
 	}
 
 	@Override
-	public String resumeArmyState(int armyServiceState) throws Exception {
+	public String resumeArmyState(Integer armyServiceState) throws Exception {
 		return mapper.selectArmyState(armyServiceState);
 	}
 
@@ -189,4 +189,22 @@ public class ResumeServiceImpl implements ResumeService {
 		
 		return businessType.substring(0,businessType.lastIndexOf(","));
 	}
+
+	@Override
+	public void deleteResume(Integer resumeNo) throws Exception {
+			mapper.deleteResume(resumeNo);
+	}
+
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void updateOpenState(ResumeBaseInfo resumeBaseInfo) throws Exception {
+		mapper.updateOpenState(resumeBaseInfo);
+		mapper.updateAllOpenState(resumeBaseInfo);
+		
+		
+		
+	}
+
+	
 }

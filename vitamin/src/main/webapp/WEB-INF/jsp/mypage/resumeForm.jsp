@@ -681,7 +681,7 @@
 
 
 
-function sample6_execDaumPostcode() {
+/* function sample6_execDaumPostcode() {
     new daum.Postcode({
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -736,7 +736,7 @@ function sample6_execDaumPostcode() {
 			console.log("시/군/구", sigungu[sigungu.length - 1]);
 		}
 		}).open();
-}
+} */
 
 $(document).ready(function(){
 	 $('.highschool').hide();
@@ -811,8 +811,7 @@ $(document).ready(function(){
 	 
 	 
 	 $("#prevComanyReason").on("change",function(){
-		
-		  if($("select[name='prevComanyReason']").val()=="직접입력"){
+		  if($("#prevComanyReason").val()=="직접입력"){
 			 $("#inputprevCompanyReason").removeAttr("disabled","disabled");
 		 }else{
 			 $("#inputprevCompanyReason").attr("disabled","disabled");

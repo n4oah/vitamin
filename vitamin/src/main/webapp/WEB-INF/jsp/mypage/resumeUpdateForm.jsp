@@ -24,9 +24,6 @@
 <script src="${pageContext.request.contextPath}/js/resumeInfo.js"></script>
 <style type="text/css">
 
-	.infocontainer{
-		width:80%;
-	}
 </style>
 </head>
 <body>
@@ -38,7 +35,7 @@
 				<div class="row">
 					<div class="top">
 						<div class="top_title">
-							<h2>이력서 관리</h2>
+							<h2>이력서 수정 폼</h2>
 						</div>
 					</div>
 

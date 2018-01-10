@@ -193,6 +193,7 @@
 		<result column="harea" property="harea"/>
 	</resultMap>
 	
+	
 
 
 
@@ -214,7 +215,7 @@
 
 	<select id="selectResume" resultMap="resumeMap">
 		select * from vi_resume
-		where member_no = #{memberNo}
+		where member_no = #{memberNo} order by resume_no desc
 	</select>
 
 	<select id="selectResumeInfo" parameterType="int" resultMap="resumeMap">
@@ -385,9 +386,9 @@
 			   (select condition_section_name from vi_condition_selection where condition_type = 9 and condition_section = hope_work) as hwork,
 			   (select name from vi_city_code where city_code=h.city_code) as hcity,
 			   (select name from vi_area_code where area_code=h.area_code) as harea
-		from   vi_resume r
-		inner join vi_hope h on r.hope_no = h.hope_no 
-		where  resume_no= #{resumeNo}
+				from   vi_resume r
+				inner join vi_hope h on r.hope_no = h.hope_no 
+				where  resume_no= #{resumeNo}
 	</select>
 	
 	<select id="selectBusinessNo" parameterType="int" resultMap="hopeBusinessMap">
@@ -399,6 +400,19 @@
 		from vi_business_type b 
 		where b.business_no = #{businessNo}
 	</select> 
+	
+	
+	<delete id="deleteResume">
+		delete from vi_resume where resume_no = #{resumeNo}
+	</delete>
+	
+	<update id="updateOpenState" parameterType="resumeBaseInfo">
+		update vi_resume set open_state = #{openState} where resume_no = #{resumeNo}
+	</update>
+	
+	<update id="updateAllOpenState">
+		update vi_resume set open_state = 0 where resume_no != #{resumeNo};
+	</update>
 	
 	
 

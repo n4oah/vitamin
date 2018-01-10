@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.Service;
 
+import org.apache.ibatis.javassist.expr.Instanceof;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -178,8 +179,54 @@ public class ResumeController {
 		resumeService.resumeInsert(resumeBaseInfo, armyService, school, prevCompany, resumeCertification, hope, hopeBusiness);
 		return "redirect:/mypage/resumeList.do";
 
-
 	}
+	
+	@RequestMapping("/resumeUpdateForm.do")
+	public ModelAndView updateResume(HttpSession session,Integer resumeNo) throws Exception{
+		System.out.println("이력서 수정폼 들어옴");
+		ModelAndView mav = new ModelAndView();
+		
+		Member user = (Member)session.getAttribute("user");
+		
+		
+		ResumeBaseInfo resumeInfo =	resumeService.resumeInfo(resumeNo);
+		Member member = resumeService.baseInfoSelect(resumeNo);
+		Address address = resumeService.addressSelect(resumeNo);
+		String jobState = resumeService.resumeJobState(resumeInfo.getJobState());
+		String marryState = resumeService.resumeMarryState(resumeInfo.getMarryState());
+		String bohoonState = resumeService.resumeBohoonState(resumeInfo.getBohoonState());
+		String supportState = resumeService.resumeSupportState(resumeInfo.getSupportState());
+		ArmyService armyService = resumeService.armyInfo(resumeNo);
+		String armyState = resumeService.resumeArmyState(armyService.getArmyServiceState());
+		SchoolLevel school = resumeService.resumeSchool(resumeNo);
+		PrevCompany pCompany = resumeService.resumePrevCompany(resumeNo);
+		ResumeCertification certificate = resumeService.resumeCertification(resumeNo);
+		Hope hope = resumeService.resumeHope(resumeNo);
+		String hopeBusiness = resumeService.resumeHopeBusiness(hope.getHopeNo());
+		
+		
+		mav.addObject("hopeBusiness", hopeBusiness);
+		mav.addObject("hope", hope);
+		mav.addObject("certificate", certificate);
+		mav.addObject("pCompany", pCompany);
+		mav.addObject("school", school);
+		mav.addObject("member", member);
+		mav.addObject("address", address);
+		mav.addObject("resumeInfo", resumeInfo);
+		mav.addObject("jobState", jobState);
+		mav.addObject("marryState", marryState);
+		mav.addObject("bohoonState", bohoonState);
+		mav.addObject("supportState", supportState);
+		mav.addObject("armyState", armyState);
+		mav.addObject("armyService", armyService);
+		mav.addObject("resumeInfo", resumeInfo);
+		
+		
+		return mav;
+		
+	}
+	
+	
 	
 	@RequestMapping("/areaSelect.do")
 	@ResponseBody
@@ -223,6 +270,29 @@ public class ResumeController {
 	public List<MajorCate> majorSelect(String majorCategory) throws Exception{
 		List<MajorCate> mc = resumeService.majorSelect(majorCategory);
 		return mc;
+	}
+	
+	@RequestMapping("/deleteResume.do")
+	@ResponseBody
+	public void deleteResume(Integer resumeNo) throws Exception{
+		resumeService.deleteResume(resumeNo);
+	}
+	
+	
+	@RequestMapping("/openState.do")
+	@ResponseBody
+	public void openState(Integer resumeNo, Integer openState) throws Exception{
+		System.out.println("openState들어옴");
+		ResumeBaseInfo resumeBaseInfo = new ResumeBaseInfo();
+		Integer open = openState%2;
+		if(open == 1) {
+			open = 0;
+		}else if(open == 0) {
+			open = 1;
+		}
+		resumeBaseInfo.setResumeNo(resumeNo);
+		resumeBaseInfo.setOpenState(open);
+		resumeService.updateOpenState(resumeBaseInfo);
 	}
 	
 	
