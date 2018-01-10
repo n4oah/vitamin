@@ -27,14 +27,12 @@ public class CompanyController {
 		if (com.getLogoNo() != null) model.addAttribute("logo", companyService.fileDetail(com.getLogoNo()));
 		Review review = new Review();
 		review.setCompanyNo(no);
-		//System.out.println(review.getPage());
 		model.addAttribute("commentList", companyService.commentDetail(review));
 	}
 	
 	@ResponseBody
 	@RequestMapping("/reviewWrite.do")
 	public List<Review> reviewWrite(Review review) throws Exception {
-		review.setMemberNo(0);
 		companyService.commentWrite(review);
 		review.setReviewNo(companyService.lastAi());
 		return companyService.newCommentDetail(review);
