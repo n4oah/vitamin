@@ -76,32 +76,50 @@
 		<result column="sub_name" property="subName" />
 		<result column="name" property="name" />
 		<result column="graduate_state" property="graduateState" />
+		<collection resultMap="companyMap" property="company"></collection>
+	</resultMap>
+	
+	<resultMap type="company" id="companyMap">
+		<result column="company_no" property="companyNo" />
+		<result column="account_no" property="accountNo" />
+		<result column="license_number" property="licenseNumber" />
+		<result column="company_name" property="companyName" />
+		<result column="boss_name" property="bossName" />
+		<result column="company_type" property="companyType" />
+		<result column="buildup_date" property="buildupDate" />
+		<result column="buisiness_no" property="businessNo" />
+		<result column="tel_number" property="telNumber" />
+		<result column="homepage" property="homepage" />
+		<result column="employee_count" property="employeeCount" />
+		<result column="business_content" property="businessContent" />
+		<result column="logo_no" property="logoNo" />
 	</resultMap>
 	
 	<select id="selectRecruit" resultMap="selectRecruitMap">
-	select school_level, recruit_no, title, career_state, career_start, assigned_task, recruit_date_start, recruit_date_end, form_service_name, graduate_state, sub_name, name
-        from (select recruit_no, title, career_state, career_start, school_level, assigned_task,
-		form_service, recruit_date_start, recruit_date_end, address_no from vi_recruit_write where recruiting_state = 1 and recruit_date_end > current_date()) recruit
-		  join (select form_service_name, form_service_type from vi_form_service) form_service
+	select *
+        from (select * from vi_recruit_write where recruiting_state = 1 and recruit_date_end > current_date()) recruit
+		  join (select * from vi_form_service) form_service
 		on recruit.form_service = form_service.form_service_type
-		  join (select graduate_state, level from vi_school_level) school
+		  join (select * from vi_school_level) school
 		on recruit.school_level = school.level
-		  join (select address_no, city_code, area_code from vi_address) address
+		  join (select * from vi_address) address
 		on recruit.address_no = address.address_no
-          join (select sub_name, city_code from vi_city_code) city
+          join (select * from vi_city_code) city
 		on address.city_code = city.city_code
-          join (select area_code, name from vi_area_code) area
+          join (select * from vi_area_code) area
 		on address.area_code = area.area_code
+		  join vi_company
+	  	on recruit.company_no = vi_company.company_no 
 		
-		order by recruit_no desc;
+		order by recruit_no desc
 	</select>
 	
 	
 	<select id="selectSearchCondition" parameterType="searchRecruit" resultMap="selectRecruitMap">
-		select recruit_no, title, career_state, career_start ,assigned_task, recruit_date_start, recruit_date_end, form_service_name, graduate_state, sub_name, name
+		select *
         from
         <!-- recruit -->
-        (select recruit_no, title, career_state, career_start, school_level, assigned_task, form_service, recruit_date_start, recruit_date_end, address_no from vi_recruit_write
+        (select * from vi_recruit_write
         where recruiting_state = 1 and recruit_date_end > current_date() 
 	   		
 	   		<if test="careerState != -1">
@@ -209,7 +227,10 @@
         <!-- area -->
          join (select area_code, name from vi_area_code) area
 		 	on address.area_code = area.area_code
-		 	
+		
+		<!-- company -->
+		 join vi_company
+	  	on recruit.company_no = vi_company.company_no  	
 		 	
 		 <if test="areaCode != null">
 	  		where area.area_code in 

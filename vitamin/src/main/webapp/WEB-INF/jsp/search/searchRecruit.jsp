@@ -328,7 +328,7 @@
 	        						</td>
 	        						
 	        						<td class="company_nm">
-	        							<a class="str_tit" onclick="s_trackApply(this, 'area_recruit', 'general');" title="(주)회사명" href="/zf_user/jobs/view?rec_idx=32503885"><span>(주)회사명</span></a>                         
+	        							<a class="str_tit"><span class="company_name">${rlist.company.companyName }</span></a>                         
 	        							<div class="icon"></div>
 	    							</td>
 	    							
@@ -700,6 +700,7 @@
 		$('input[type="button"]').one("click", searchFn);
 			
 		function searchFn() {
+			console.log( $("<form>").css("display", "none").appendTo("body").append($("input").clone()).serialize())
 			$.ajax({
 				type:"post",
 				data: $("<form>").css("display", "none").appendTo("body").append($("input").clone()).serialize(),
@@ -715,8 +716,8 @@
 						tr.append($("<td>").append($("<img>").addClass("star").attr("src", "https://i.imgur.com/Z4wlC9v.png")));
 						
 						tr.append($("<td>").addClass("company_nm")
-							.append($("<a>").addClass("str_tit").attr({"title": "(주)회사명"})
-								.append($("<span>").text("(주)회사명")))
+							.append($("<a>").addClass("str_tit").attr({"title": recruit.company.companyName, "class": "company_name"})
+								.append($("<span>").text(company.companyName)))
 							.append($("<div>").addClass("icon")));
 						
 						tr.append($("<td>").addClass("notification_info")

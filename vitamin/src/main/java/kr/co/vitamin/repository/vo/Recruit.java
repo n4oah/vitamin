@@ -8,25 +8,16 @@ import java.util.Map;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.vitamin.repository.vo.account.Company;
+
 /**
  * @author kang
  *
  */
 public class Recruit {
-	@Override
-	public String toString() {
-		return "Recruit [attachFile=" + attachFile + ", formServiceName=" + formServiceName + ", subName=" + subName
-				+ ", name=" + name + ", recruitDateStart=" + recruitDateStart + ", recruitDateEnd=" + recruitDateEnd
-				+ ", recruitCount=" + recruitCount + ", gender=" + gender + ", recruitNo=" + recruitNo + ", companyNo="
-				+ companyNo + ", title=" + title + ", careerState=" + careerState + ", careerStart=" + careerStart
-				+ ", careerEnd=" + careerEnd + ", schoolLevel=" + schoolLevel + ", yearPayStart=" + yearPayStart
-				+ ", yearPayEnd=" + yearPayEnd + ", ageCountStart=" + ageCountStart + ", ageCountEnd=" + ageCountEnd
-				+ ", assignedTask=" + assignedTask + ", formService=" + formService + ", major=" + major + 
-				  ", recruitForm=" + recruitForm + ", recruitFormFileNo=" + recruitFormFileNo + ", addressNo="
-				+ addressNo + ", dayOfWeek=" + dayOfWeek + ", master=" + master + ", phoneNumber=" + phoneNumber
-				+ ", recruitingState=" + recruitingState + "]";
-	}
-	
+
+	private Company company;
+
 	private MultipartFile attachFile;
 	
 	private String formServiceName; 
@@ -36,6 +27,15 @@ public class Recruit {
 	private String name;
 	private String graduateState;
 	private String address;
+	private String addressMain;
+
+	public String getAddressMain() {
+		return addressMain;
+	}
+
+	public void setAddressMain(String addressMain) {
+		this.addressMain = addressMain;
+	}
 
 	private Integer recruitCount;
 	private Integer gender;
@@ -105,6 +105,13 @@ public class Recruit {
     
     
 	
+    public Company getCompany() {
+    	return company;
+    }
+    
+    public void setCompany(Company company) {
+    	this.company = company;
+    }
 	public String getGraduateState() {
 		return graduateState;
 	}
@@ -426,5 +433,21 @@ public class Recruit {
 	        this.phoneNumber = param.getPhoneNumber();
 	        this.recruitingState = param.getRecruitingState();
 	    }
+	    
+	    @Override
+		public String toString() {
+			return "Recruit [company=" + company + ", attachFile=" + attachFile + ", formServiceName=" + formServiceName
+					+ ", subName=" + subName + ", name=" + name + ", graduateState=" + graduateState + ", address="
+					+ address + ", addressMain=" + addressMain + ", recruitCount=" + recruitCount + ", gender=" + gender
+					+ ", recruitNo=" + recruitNo + ", companyNo=" + companyNo + ", title=" + title + ", careerState="
+					+ careerState + ", careerStart=" + careerStart + ", careerEnd=" + careerEnd + ", schoolLevel="
+					+ schoolLevel + ", yearPayStart=" + yearPayStart + ", yearPayEnd=" + yearPayEnd + ", ageCountStart="
+					+ ageCountStart + ", ageCountEnd=" + ageCountEnd + ", assignedTask=" + assignedTask + ", formService="
+					+ formService + ", major=" + major + ", recruitForm=" + recruitForm + ", recruitFormFileNo="
+					+ recruitFormFileNo + ", addressNo=" + addressNo + ", dayOfWeek=" + dayOfWeek + ", master=" + master
+					+ ", phoneNumber=" + phoneNumber + ", recruitingState=" + recruitingState + ", recruitDateStart="
+					+ recruitDateStart + ", recruitDateEnd=" + recruitDateEnd + ", recruitDateStringStart="
+					+ recruitDateStringStart + ", recruitDateStringEnd=" + recruitDateStringEnd + "]";
+		}
 
 }

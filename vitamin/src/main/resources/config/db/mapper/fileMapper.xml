@@ -3,6 +3,14 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 매퍼 연결 -->
 <mapper namespace="kr.co.vitamin.repository.mapper.FileMapper">
+
+	<resultMap type="file" id="fileMap">
+		<result column="file_no" property="fileNo" />
+		<result column="original_name" property="originalName" />
+		<result column="system_name" property="systemName" />
+		<result column="file_size" property="fileSize" />
+		<result column="file_path" property="filePath" />
+	</resultMap>
 	
 	<insert id="insertFile" parameterType="file">
 		insert into vi_file(original_name, system_name, file_size, file_path)
@@ -11,5 +19,9 @@
 	
 	<select id="selectLastNo" resultType="int">
 		select LAST_INSERT_ID()
+	</select>
+	
+	<select id="selectFile" parameterType="int" resultMap="fileMap">
+		select * from vi_file where file_no = #{no}
 	</select>
 </mapper>

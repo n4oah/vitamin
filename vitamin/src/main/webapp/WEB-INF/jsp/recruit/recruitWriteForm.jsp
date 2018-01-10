@@ -403,6 +403,7 @@
 												<input type="text" name="postCode" id="sample6_postcode" placeholder="우편번호" readonly="readonly">
 												<button type="button" onclick="sample6_execDaumPostcode()" style="height: 34px;">주소 찾기</button>
 											</div>
+											
 											<div>
 												<input type="text" name="address1" id="sample6_address" placeholder="주소 " style="width:50%;" readonly="readonly">
 												<input type="text" name="address2" id="sample6_address2"  value="상세주소" placeholder="상세주소">
@@ -758,7 +759,7 @@
 		}
 		
 		return true;
-	})
+	});
 
 	
 </script>

@@ -15,7 +15,10 @@
 		<script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruitDetail.css">
-		
+		<!-- <link rel="stylesheet" href="../css/mCalendar.css">
+      	<script src="../js/mCalendar.js"></script> -->
+      	
+      	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c8a57785909f4fa93e71b789edfa01d6&libraries=services,clusterer,drawing"></script>
 		<style>
 /* 접수기간 달력 */
 .calendar {
@@ -278,9 +281,11 @@
 }		
 		</style>
 	</head>
+	<link rel="stylesheet" href="../css/mCalendar.css">
+    <script src="../js/mCalendar.js"></script>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
-		
+	
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container" style="margin-bottom: 100px;">
 			<div class="top">
@@ -291,7 +296,7 @@
 			      </div> 
 			      <div class="col-xs-12 col-md-4 col-lg-3">
 			        <div class="top_right_wrap">
-			          <p>접수기간 ~<span>${recruit.recruitDateEnd }</span> </p>
+			          <p>접수마감일 : <span>${recruit.recruitDateStringEnd }</span> </p>
 			          <a href="#" class="disabled_btn apply_btn">지원</a>
 			        </div>  <!--/.top_right_wrap -->
 			      </div> <!--/.col-xs-12.col-md-3-->
@@ -500,12 +505,19 @@
 									<td class="recruit_form">
 										<c:choose>
 											<c:when test="${recruit.recruitForm eq 1}">
-												비타민 이력서 양식
+												<span>비타민 이력서 양식</span>
 											</c:when>
 											
 											<c:when test="${recruit.recruitForm eq 2 }">
-												회사 이력서 양식
+												<span>회사 이력서 양식 </span>
+												
+												<span class="attach_file">
+													<label for="file"  class="file_label">${file.originalName }</label>
+													<a id="file"  style="display:none;" href="${pageContext.request.contextPath }/${file.filePath }/${file.systemName }"></a>
+												</span>
+												
 											</c:when>
+											
 										</c:choose>
 									</td>
 								</tr>
@@ -514,8 +526,7 @@
 						</table>
 						
 						<div>
-							<div class="calendar calendar1" style="float:left"></div>
-							<div class="calendar calendar2" ></div>
+							<div class="calendar"></div>
 						</div>
 						<!--/.table-->
 					</div>
@@ -574,14 +585,17 @@
 								
 								<tr>
 									<th>회사주소</th>
-									<td>
+									<td class="address">
 										${recruit.address }
 									</td>
 								</tr>
 							</tbody>
 						</table>
 						<!--/.table-->
+						
+						<div id="map" style="width:100%;height:400px;"></div>
 					</div>
+					
 			     </div>
 			     
 			     <div class="btn_panel">
@@ -589,14 +603,70 @@
 				  </div>
 				  
 				  <div>
-				    <a href="/enterprise/276/recruit" class="pull-right default_btn btn">목록</a>
+				    <a href="${pageContext.request.contextPath}/search/searchRecruit.do" class="pull-right default_btn btn">목록</a>
 				  </div>
 				     
 		</section>
 	</div>
 	
-	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
-	<script src="${pageContext.request.contextPath}/js/recruit-detail.js"></script>		
+										 
 	
+	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
+	
+	
+	<script src="${pageContext.request.contextPath}/js/recruit-detail.js"></script>		
+
+
+	<script>
+		$('label.file_label').click(function () {
+			console.log('asdgsadg');
+			//$('a#file').on('click');
+			document.getElementById('file').click();
+		});
+		
+		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center: new daum.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+			level: 3 //지도의 레벨(확대, 축소 정도)
+		};
+		
+		var map = new daum.maps.Map(container, options); //지도 생성 및 객체 리턴
+		
+		
+		
+		var geocoder = new daum.maps.services.Geocoder();
+		
+		var address = '${recruit.addressMain }';
+		
+		geocoder.addressSearch(address, function(result, status) {
+		
+			 // 정상적으로 검색이 완료됐으면 
+		     if (status === daum.maps.services.Status.OK) {
+	
+		        var coords = new daum.maps.LatLng(result[0].y, result[0].x);
+	
+		        // 결과값으로 받은 위치를 마커로 표시합니다
+		        var marker = new daum.maps.Marker({
+		            map: map,
+		            position: coords
+		        });
+	
+		        // 인포윈도우로 장소에 대한 설명을 표시합니다
+		        
+		         
+		        var infowindow = new daum.maps.InfoWindow({
+		            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+address+'</div>'
+		        });
+		        infowindow.open(map, marker);
+	
+		        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		        map.setCenter(coords);
+		   	 } 
+		});
+		
+	    map.setZoomable(false);    
+		
+		
+	</script>
 </body>
 </html>

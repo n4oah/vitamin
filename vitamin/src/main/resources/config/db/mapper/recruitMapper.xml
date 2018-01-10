@@ -35,19 +35,17 @@
 		<result column="graduate_state" property="graduateState" />
 		<result column="address_no"  property="addressNo" />
 		<result column="address"  property="address" />
+		<result column="address_main"  property="addressMain" />
 	</resultMap>
 	
 	<select id="detailRecruit" parameterType="int" resultMap="detailRecruitMap">
-	select assigned_task,recruit_no, form_service_name, recruit_count, career_state,career_start, career_end, school_level, year_pay_start, year_pay_end, age_count_start,age_count_end,
-		gender, recruit_date_start, recruit_date_end, recruit_form, day_of_week, master, phone_number, 
-        address
+	select *
         from 
         (
 			 select *
-				from vi_recruit_write as recruit
+				from vi_recruit_write recruit
 				
-            where recruiting_state = 1 and recruit_date_end > current_date()
-            
+            where recruit_no = #{no} and recruiting_state = 1 and recruit_date_end > current_date()
 		) recruit
 		 
          join (select form_service_name, form_service_type from vi_form_service) form_service
@@ -60,9 +58,6 @@
 		on address.city_code = city.city_code
           join (select area_code, name from vi_area_code) area
 		on address.area_code = area.area_code
-        
-		
-	where recruit_no = #{no};
 		
 	</select>
 	

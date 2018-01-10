@@ -5,8 +5,19 @@ public class Address {
 	private String address, postCode;
 	private String cityName;
 	private String areaName;
-	
+	private String addressMain;
+
 	private String address1, address2, sigunguCode;
+	
+	
+	public String getAddressMain() {
+		return addressMain;
+	}
+
+	public void setAddressMain(String address1) {
+		this.addressMain = address1;
+	}
+
 
 	public String getCityName() {
 		return cityName;
@@ -90,6 +101,7 @@ public class Address {
 
 	public void parseData() {
 		setAddress(address1 +" "+ address2);
+		setAddressMain(address1);
 		
 		int cityCode = Integer.parseInt(sigunguCode.substring(0, 2));
 		int areaCode = Integer.parseInt(sigunguCode);

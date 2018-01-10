@@ -139,12 +139,14 @@ public class RecruitController {
 		List<Welfare> welfareList = new ArrayList<>();
 		
 		Recruit recruit = recruitService.detailRecruit(no);
-		
+
 		welfareList = welfareService.selectWelfare(no);
 		
 		if(!welfareList.isEmpty())
 			model.addAttribute("welfareList", welfareList);
 		
 		model.addAttribute("recruit",recruit);
+		if (recruit.getRecruitFormFileNo() != null)
+			model.addAttribute("file", fileService.selectFile(recruit.getRecruitFormFileNo()));
 	}
 }

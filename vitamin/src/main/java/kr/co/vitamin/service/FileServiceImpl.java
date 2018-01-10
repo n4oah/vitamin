@@ -22,4 +22,9 @@ public class FileServiceImpl implements FileService{
 	public int selectLastNo() throws Exception {
 		return fileMapper.selectLastNo();
 	}
+	
+	@Override
+	public File selectFile(int no) throws Exception {
+		return fileMapper.selectFile(no);
+	}
 }

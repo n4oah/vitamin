@@ -9,14 +9,15 @@
 		<result column="city_code" property="cityCode" />
 		<result column="area_code" property="areaCode" />
 		<result column="address" property="address" />
+		<result column="address_main" property="addressMain" />
 		<result column="post_code" property="postCode" />
 	</resultMap>
 	
 	<insert id="insertAddress" parameterType="address">
 		INSERT INTO vi_address
-		(address_no, city_code, area_code, address, post_code)
+		(address_no,address_main, city_code, area_code, address, post_code)
 		VALUES
-		(#{addressNo}, #{cityCode}, #{areaCode}, #{address}, #{postCode})
+		(#{addressNo},#{addressMain}, #{cityCode}, #{areaCode}, #{address}, #{postCode})
 	</insert>
 	
 	<select id="selectAddress" parameterType="address" resultMap="addressMap">

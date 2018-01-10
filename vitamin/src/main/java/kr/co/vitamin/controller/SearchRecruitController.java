@@ -55,6 +55,7 @@ public class SearchRecruitController {
 	@RequestMapping("/searchWork.do") 
 	public List<Recruit> searchWork(SearchRecruit searchRecruit) throws Exception {
 		System.out.println(searchRecruit);
+		System.out.println(searchService.selectSearchCondition(searchRecruit));
 		
 		return searchService.selectSearchCondition(searchRecruit); 
 	}
