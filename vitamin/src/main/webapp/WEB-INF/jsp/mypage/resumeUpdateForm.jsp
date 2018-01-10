@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>이력서 정보</title>
+<title>이력서 수정</title>
 <%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/basic.css">
@@ -118,39 +118,61 @@
 									<tr>
 										<th>구직상태</th>
 										<td>
-											<p>${jobState}</p>
-											
+											<select class="float-control" id="jobState" name="jobState">
+													<option value="${resumeInfo.jobState}" class="fa">${jobState}</option>
+													<option value="0" class="fa">구직준비중(재학생)</option>
+													<option value="1" class="fa">구직중</option>
+													<option value="2" class="fa">재직중</option>
+											</select>
 										</td>
 									</tr>
 									<tr>
 										<th>결혼여부</th>
 										<td>
-											<p>${marryState}</p>
+											<select class="float-control" id="marryState" name="marryState">
+													<option value="${resumeInfo.marryState}" class="fa">${marryState}</option>
+													<option value="0" class="fa">미혼</option>
+													<option value="1" class="fa">기혼</option>
+											</select>
 										</td>
 									</tr>
 									<tr>
 										<th>보훈대상</th>
 										<td>
-										<p>${bohoonState}</p>
-											
+										<select class="float-control" id="bohonState" name="bohoonState">
+												<option value="${resumeInfo.bohoonState}" class="fa">${bohoonState}</option>
+												<option value="0" class="fa">비대상</option>
+												<option value="1" class="fa">대상</option>
+										</select>
 										</td>
 									</tr>
 									<tr>
 										<th>고용지원금대상</th>
 										<td>
-										<p>${supportState}</p>
-											
+										<select class="float-control" id="supportState" name="supportState">
+												<option value="${resumeInfo.supportState}" class="fa">${supportState}</option>
+												<option value="0" class="fa">비대상</option>
+												<option value="1" class="fa">대상</option>
+												<option value="2" class="fa">재직중</option>
+										</select>
 										</td>
 									</tr>
 									<tr>
 										<th>병역대상</th>
 										<td>
-										<p>${armyState}</p>
+										<select class="float-control" id="armyServiceState" name="armyServiceState"style="width: 10%">
+													<option value="${armyService.armyServiceState}" class="fa">${armyState}</option>
+													<option value="0" class="fa">비대상</option>
+													<option value="1" class="fa">군필</option>
+													<option value="2" class="fa">미필</option>
+													<option value="3" class="fa">면제</option>
+													<option value="4" class="fa">복무중</option>
+											</select>
 											<c:if test="${armyState eq '면제'}">
 												<span>면제사유</span>
-												<%-- <input type="text" class="float-control" id="armyServiceReason" style="width:60%" 
-												value="${armyService.armyServiceReason}"> --%>
-												<span>:&nbsp${armyService.armyServiceReason}</span>
+												<input type="text" class="float-control" id="armyServiceReason" style="width:60%" 
+												value="${armyService.armyServiceReason}">>
+												<!-- <span>:&nbsp${armyService.armyServiceReason}</span> -->
 											</c:if>
 										</td>
 									</tr>
@@ -453,7 +475,7 @@
 	</form>
 	<%-- <%@ include file="/WEB-INF/jsp/include/footer.jsp"%> --%>
 <script>
-	
+
 </script>
 </body>
 </html>

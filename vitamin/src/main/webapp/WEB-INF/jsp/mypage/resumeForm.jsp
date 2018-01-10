@@ -585,14 +585,6 @@
 											<td>
 												<input type="text" id="hope_bussiness" class="float-control" readonly="readonly" style="width:80%">
 												<input type="text" name="businessNo" id="hope_bussiness_no" style="display:none;" readonly="readonly">
-												<!-- 
-													hope_bussiness_no 파라미터로 
-													254|242|248
-													이런식으로 비지니스 no
-													넘어가니까
-													split으로 잘라서 쓰면 되요 형
-													ㅇㅋㅇㅋㅇㅋㅇㅋ
-												 -->
 											</td>
 										</tr>
 									</tbody>
