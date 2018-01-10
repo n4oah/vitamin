@@ -50,7 +50,6 @@ import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.Terms;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.repository.vo.account.Account;
-import kr.co.vitamin.repository.vo.account.AccountSignup;
 import kr.co.vitamin.service.AccountService;
 import kr.co.vitamin.service.ResumeService;
 import kr.co.vitamin.service.SchoolLevelService;
