@@ -3,7 +3,7 @@ package kr.co.vitamin.repository.vo.account;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.EmailToken;
 
-public class AccountSignup extends Account {
+public class AccountInfo extends Account {
 	private Address address;
 	private EmailToken emailTok;
 	private String email1, email2;
