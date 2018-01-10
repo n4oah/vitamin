@@ -18,6 +18,9 @@
 		<result column="homepage" property="homepage" />
 		<result column="employee_count" property="employeeCount" />
 		<result column="logo_no" property="logoNo" />
+		<collection resultMap="fileMap" property="file" />
+		<collection resultMap="recruitMap" property="recruitList" javaType="java.util.ArrayList" />
+		<collection resultMap="addressMap" property="address" />
 	</resultMap>
 	
 	<resultMap type="review" id="reviewMap">
@@ -61,7 +64,32 @@
 		<result column="master" property="master" />
 		<result column="phone_number" property="phoneNumber" />
 		<result column="recruiting_state" property="recruitingState" />
-		<result column="recruiting_state" property="recruitingState" />
+		<result column="year_pay_start" property="yearPayStart" />
+		<result column="year_pay_end" property="yearPayEnd" />
+	</resultMap>
+	
+	<resultMap id="areaMap" type="area">
+		<result column="vi_area_code.area_code" property="areaCode" />
+		<result column="vi_area_code.city_code" property="cityCode" />
+		<result column="vi_area_code.name" property="name" />
+	</resultMap>
+	
+	<resultMap id="cityMap" type="city">
+		<result column="vi_city_code.city_code" property="cityCode" />
+		<result column="vi_city_code.name" property="name" />
+		<result column="vi_city_code.sub_name" property="subName" />
+	</resultMap>
+	
+	<resultMap type="address" id="addressMap">
+		<result column="address_no" property="addressNo" />
+		<result column="city_code" property="cityCode" />
+		<result column="area_code" property="areaCode" />
+		<result column="address" property="address" />
+		<result column="address_main" property="addressMain" />
+		<result column="post_code" property="postCode" />
+		<result column="address_sub" property="addressSub" />
+		<collection resultMap="cityMap" property="city"></collection>
+		<collection resultMap="areaMap" property="area"></collection>
 	</resultMap>
 	
 	<insert id="commentWrite" parameterType="review">
@@ -87,22 +115,26 @@
 	<update id="commentModify" parameterType="review">
 		update vi_review set
 		score = #{score}, content = #{content}
-		where member_no = #{member_no} and review_no = #{review_no}
+		where member_no = #{memberNo} and review_no = #{reviewNo}
 	</update>
 	
 	<delete id="commentDelete" parameterType="review">
 		delete from vi_review
-		where member_no = #{member_no} and review_no = #{review_no}
+		where member_no = #{memberNo} and review_no = #{reviewNo}
 	</delete>
 	
 	<select id="companyDetail" parameterType="int" resultMap="companyMap">
-		select
-		company_name, boss_name, company_type, buildup_date, business_content, tel_number, homepage, employee_count, logo_no
-		from vi_company where company_no = #{no}
-	</select>
-	
-	<select id="fileDetail" parameterType="int" resultType="String">
-		select system_name from vi_file where file_no = #{no}
+		select * from (select * from vi_company where company_no = #{no}) company
+		left join vi_file
+		on company.logo_no = vi_file.file_no
+		left join vi_recruit_write
+		on company.company_no = vi_recruit_write.company_no
+		inner join vi_address
+		on vi_recruit_write.address_no = vi_address.address_no
+		inner join vi_city_code
+		on vi_address.city_code = vi_city_code.city_code
+		inner join vi_area_code
+		on vi_address.area_code = vi_area_code.area_code
 	</select>
 	
 	<select id="recruitList" parameterType="int" resultMap="recruitMap">
@@ -113,6 +145,14 @@
 	
 	<select id="lastAi" resultType="int">
 		select LAST_INSERT_ID()
+	</select>
+	
+	<select id="reviewInsertChk" parameterType="review" resultType="Integer">
+		select max(review_no) from vi_review where member_no = #{memberNo} and company_no = #{companyNo}
+	</select>
+	
+	<select id="reviewOneDetail" parameterType="int" resultMap="reviewMap">
+		select * from vi_review where review_no = #{reviewNo}
 	</select>
 	
 </mapper>

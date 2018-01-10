@@ -291,7 +291,6 @@
 	
 	
 	<script>
-		$.mCalendar(".cal", "2018-01-01", "2018-02-02")
 		$(document).ajaxStart(function () {waitEffect();})
 		.ajaxStop(function () {$("body").waitMe("hide");});
 		

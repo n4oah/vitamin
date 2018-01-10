@@ -61,4 +61,14 @@ public class CompanyServiceImpl implements CompanyService {
 	public int lastAi() throws Exception {
 		return companyMapper.lastAi();
 	};
+	
+	@Override
+	public Integer reviewInsertChk(Review review) throws Exception {
+		return companyMapper.reviewInsertChk(review);
+	}
+	
+	@Override
+	public Review reviewOneDetail(int no) throws Exception {
+		return companyMapper.reviewOneDetail(no);
+	}
 }

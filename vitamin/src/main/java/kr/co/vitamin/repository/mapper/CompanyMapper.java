@@ -21,4 +21,8 @@ public interface CompanyMapper {
 	public List<Recruit> recruitList(int no) throws Exception;
 	
 	public int lastAi() throws Exception;
+	
+	public Integer reviewInsertChk(Review review) throws Exception;
+	
+	public Review reviewOneDetail(int no) throws Exception;
 }

@@ -6,6 +6,26 @@ public class Address {
 	private String cityName;
 	private String areaName;
 	private String addressMain;
+	private City city;
+	private Area area;
+	
+	
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
+
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
+	}
 
 	private String address1, address2, sigunguCode;
 	
