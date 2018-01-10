@@ -1,12 +1,46 @@
 package kr.co.vitamin.repository.vo.account;
 
 import java.util.Date;
+import java.util.List;
+
+import kr.co.vitamin.repository.vo.Address;
+import kr.co.vitamin.repository.vo.File;
+import kr.co.vitamin.repository.vo.Recruit;
 
 
 public class Company extends Account {
 	private Integer companyNo, employeeCount, logoNo, businessNo;
 	private String licenseNumber, companyName, bossName, companyType, telNumber, homepage, businessContent;
 	private Date buildupDate;
+    
+    private File file;
+    private List<Recruit> recruitList;
+    private Address address;
+    
+
+    public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public List<Recruit> getRecruitList() {
+		return recruitList;
+	}
+
+	public void setRecruitList(List<Recruit> recruitList) {
+		this.recruitList = recruitList;
+	}
+
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
 
 	public String getBusinessContent() {
 		return businessContent;

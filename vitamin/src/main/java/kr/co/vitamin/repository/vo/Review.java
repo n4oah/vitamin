@@ -22,7 +22,8 @@ public class Review {
     //  작성 날짜
     private Date regDate;
 
-    public Integer getPage() {
+
+	public Integer getPage() {
 		return page;
 	}
 
@@ -91,6 +92,6 @@ public class Review {
     
     @Override
     public String toString() {
-    	return companyNo+" "+score+" "+content;
+    	return companyNo+" "+memberNo+" "+content;
     }
 }

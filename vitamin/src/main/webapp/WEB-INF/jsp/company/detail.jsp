@@ -153,6 +153,19 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 .sumtitle {margin-left: auto; margin-right: auto; flex: 1 1;}
 .input-group {width: 100%}
 .plus {text-align: center; background: #e0e0e0; margin: 0; cursor: pointer;}
+.remove, .update {
+cursor: pointer;
+display: inline-block;
+    height: 15px;
+    background-repeat: no-repeat;}
+   .remove {
+   width: 15px;
+   background-size: 15px;
+    background-image: url(http://www.iconarchive.com/download/i83718/custom-icon-design/mono-general-4/trash.ico);}
+    .update {
+    width: 18px;
+    background-size: 18px;
+    background-image: url(http://cursa.ihmc.us/rid=1NFBMP4WN-2066WQJ-27ZQ/change-management-logo.png);}
 </style>
 </head>
 <body>
@@ -169,7 +182,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 	<div class="sumtitle">
 		<div>회사 유형</div>
 		<hr>
-		<div>${com.companyType}</div>
+		<div>${com.companyType }</div>
 	</div>
 	<div class="sumtitle">
 		<div>사업 내용</div>
@@ -189,7 +202,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 	<div class="sumtitle">
 		<div>회사 규모</div>
 		<hr>
-		<div>대기업</div>
+		<div>${com.companyType }</div>
 	</div>
 </div>
 
@@ -210,20 +223,20 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 
 <div class="recruitList">
 	<div class="prev"><img src="https://i.imgur.com/oLfh9Tj.png"></div>
-	<c:forEach begin="0" end="5" var="i">
+	<c:forEach items="${com.recruitList }" var="recruit" varStatus="i">
 		<div class="recruit" 
-		<c:if test="${i >= 3 }">
+		<c:if test="${i.index >= 3 }">
 			style="display: none;"
 		</c:if>
 		>
-			<div class="recTitle">${i }년 신입 및 경력사원 모집</div>
+			<div class="recTitle">${recruit.title }</div>
 			<div class="recContent">
-				<div>연봉 | 1만원</div>
-				<div>지역 | 서울 외</div>
+				<div>연봉 | ${recruit.yearPayStart }00</div>
+				<div>지역 | ${recruit.address.city.name }</div>
 			</div>
 			<div class="recContent">
-				<div>필요 | JSP 외</div>
-				<div>업종 | 기술</div>
+				<div>우대 | ${recruit.assignedTask }</div>
+				<div>담당 | ${recruit.master }</div>
 			</div>
 			<div class="recDate">
 				<div>12/19~12/22</div>
@@ -236,12 +249,12 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 <div class="detail">
 	<div>
 		<span class="detailTitle">기업명</span>
-		<span>NHN</span>
+		<span>${com.companyName }</span>
 	</div>
 	
 	<div>
 		<span class="detailTitle">대표자명</span>
-		<span>아무개</span>
+		<span>${com.bossName }</span>
 	</div>
 	
 	<div>
@@ -256,12 +269,13 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 	
 	<div>
 		<span class="detailTitle">설립일</span>
-		<span>2006년</span>
+		<span><fmt:formatDate value="${com.buildupDate }" pattern="yyyy년 MM월 dd일"/></span>
 	</div>
 </div>
 
 <div class="comment">
 	<div class="commentTitle">회사 후기</div>
+	<c:if test="${user ne null}">
 	<div class="row">
 	  <div class="col-lg-6">
 	    <div class="input-group">
@@ -275,6 +289,7 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 	    </div><!-- /input-group -->
 	  </div><!-- /.col-lg-6 -->
   	</div>
+  	</c:if>
   	<div class="row">
 	  <div class="col-lg-6 commentList">
 	  <c:forEach items="${commentList }" var="comment">
@@ -285,6 +300,9 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 	      <span class="content">
 	      	${comment.content }
 	      </span>
+	      <c:if test="${user.accountNo eq comment.memberNo }">
+	      	<span class="remove"></span>
+	      </c:if>
 	    </div><!-- /input-group -->
 	   </c:forEach>
 	  </div><!-- /.col-lg-6 -->
@@ -378,15 +396,19 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 		}, 500); */
 	});
 	
+	let sdf = new simpleDateFormat("yyyy-MM-dd");
+	var userNo = "${user.accountNo}";
+	
 	function abcd(data, i) {
 		data = JSON.parse(data);
 		
 		data.forEach(function (comment) {
 			var date = new Date(comment.regDate);
-			var sdf = new simpleDateFormat("yyyy-MM-dd");
 			comment.regDate = sdf.format(date);
 			
 			var div = $("<div>").addClass("input-group comment").attr("data-no", comment.reviewNo).append($("<span>").addClass("regDate").text(comment.regDate)).append($("<span>").addClass("content").text(" "+comment.content));
+			
+			if (comment.memberNo == userNo) div.append($("<span>").addClass("remove"));
 			
 			if (i == 1)
 				$(".commentList").prepend(div);
@@ -408,6 +430,22 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 		
 	});
 	
+	
+	$(".remove").click(function () {
+		var parent = $(this).parent();
+		if(confirm("삭제하시겠습니까?")) {
+			$.ajax({
+				type: "post",
+				url: path+"/company/reviewDelete.do",
+				data: {reviewNo: parent.attr("data-no"), memberNo: userNo},
+				success: function () {
+					parent.remove();
+					alert("삭제가 완료되었습니다.");
+				}
+			});
+		}
+	});
+	
 	$(".commentWrite").click(function () {
 		var data = "score=";
 		
@@ -416,17 +454,43 @@ body > div {margin-bottom: 4vh; margin-left: auto; margin-right: auto;}
 		
 		data += "&content="+$(".commentContent").val();
 		
-		data += "&companyNo=${param.no}&memberNo=${user.accountNo}";
-		
+		data += "&companyNo=${param.no}&memberNo="+userNo;
+
 		$.ajax({
 			type: "post",
-			url: path+"/company/reviewWrite.do",
+			url: path+"/company/reviewInsertChk.do",
 			data: data,
-			success: function (data) {
-				console.log('${user.accountNo}');
-				$(".heart").removeClass("selected");
-				$(".commentContent").val("");
-				abcd(data, 1);
+			success: function (reviewNo) {
+				reviewNo = parseInt(reviewNo);
+				if (reviewNo > -1) {					
+					alert("이미 작성하신 글이 있습니다.");
+					if (confirm("기존 글의 내용을 업데이트 하시겠습니까?")) {
+						$.ajax({
+							type: "post",
+							url: path+"/company/reviewUpdate.do",
+							data: data+"&reviewNo="+reviewNo,
+							dataType: "json",
+							success: function (data) {
+								$(".heart").removeClass("selected");
+								$(".commentContent").val("");
+								var prev = $("div.comment[data-no='"+data.reviewNo+"']");
+								prev.find(".regDate").text(sdf.format(new Date(data.regDate)));
+								prev.find(".content").text(" "+data.content);								
+							}
+						});
+					}
+				} else {
+					$.ajax({
+						type: "post",
+						url: path+"/company/reviewWrite.do",
+						data: data,
+						success: function (data) {
+							$(".heart").removeClass("selected");
+							$(".commentContent").val("");
+							abcd(data, 1);
+						}
+					});
+				}
 			}
 		});
 	});
