@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
 <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/css/myInfo.css'>
+<link rel='stylesheet' href="${pageContext.request.contextPath}/css/loadingBar/loadingBar.css"></link>
+<script src="${pageContext.request.contextPath}/js/loadingBar/loadingBar.js"></script>
 <script src="${pageContext.request.contextPath}/js/pattern/pattern.js"></script>
 <script src='${pageContext.request.contextPath}/js/myInfo.js'></script>
 </head>
@@ -76,7 +78,7 @@
 				            <div class="logout">
 				                <p>
 		                            <a href="#" class="btn btn-outlined btn-theme" data-wow-delay="0.7s" data-toggle="modal" data-target="#largeModal">쪽지쓰기</a>
-		                            
+		                            <!-- id="letter-mdodal" -->
 									<div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
 									    <div class="modal-dialog modal-lg">
 									        <div class="modal-content">
@@ -191,35 +193,52 @@
 						        
 						        </div>
 						        <div class="tab-pane" id="account-setting">
-						            <form action="#" method="post" class="form-horizontal" id="accountSetForm" role="form">
+						            <form action="${pageContext.request.contextPath}/mypage/myInfoModify.do" method="post" class="form-horizontal" id="myInfoModify" role="form">
 						                <div class="form-group">
-						                    <label for="avatar" class="col-sm-2 control-label">Avatar</label>
+						                	<c:choose>
+						                		<c:when test="${sessionScope.user.memberType == 1}">
+						                			<c:set var="profileImgName" value="프로필 사진"></c:set>
+						                		</c:when>
+						                		<c:when test="${sessionScope.user.memberType == 2}">
+						                			<c:set var="profileImgName" value="회사 로고"></c:set>						                			
+						                		</c:when>
+						                	</c:choose>
+						                	<c:set var="user" value="${sessionScope.user}"></c:set>
+						                    <label for="avatar" class="col-sm-2 control-label"><c:out value="${profileImgName}"></c:out></label>
 						                    <div class="col-sm-10">
 						                        <div class="custom-input-file">
 						                            <label class="uploadPhoto">
 						                                Edit
-						                                <input type="file" class="change-avatar" name="avatar" id="avatar">
+						                                <input type="file" class="change-profile-img" name="profileImg" id="profileImg">
 						                            </label>
 						                        </div>
 						                    </div>
 						                </div>
 						                <div class="form-group">
-						                    <label for="name" class="col-sm-2 control-label">Name</label>
+						                    <label for="id" class="col-sm-2 control-label">아이디</label>
 						                    <div class="col-sm-10">
-						                        <input type="text" class="form-control" name="name" id="name" placeholder="Vilma palma">
+						                        <input type="text" class="form-control" id="id" value="${user.id}" readonly="readonly">
 						                    </div>
 						                </div>
 						                <div class="form-group">
-						                    <label for="nickName" class="col-sm-2 control-label">Nick name</label>
+						                    <label for="pwd" class="col-sm-2 control-label">비밀번호</label>
 						                    <div class="col-sm-10">
-						                        <input type="text" class="form-control" name="nickName" id="nickName" placeholder="Vilma">
+						                        <input type="text" class="form-control" name="pwd" id="pwd">
 						                    </div>
-						                </div>
+										</div>
+										<c:if test="${user.memberType == 1}">
+											<div class="form-group">
+												<label for="name" class="col-sm-2 control-label">이름</label>
+												<div class="col-sm-10">
+													<input type="text" class="form-control" name="member.name" id="name" placeholder="이름을 입력해주세요." value="${user.name}">
+												</div>
+											</div>
+										</c:if>
 						                <div class="form-group">
-						                    <label for="email" class="col-sm-2 control-label">Email</label>
+						                    <label for="nickName" class="col-sm-2 control-label">이메일</label>
 						                    <div class="col-sm-10">
-						                        <input type="email" class="form-control" name="email" id="email" placeholder="vilma@mail.com">
-						                    </div>
+												<input type="text" class="form-control" id="email" value="${user.email}" readonly="readonly">
+											</div>
 						                </div>
 						                <div class="form-group">
 						                    <label for="newPassword" class="col-sm-2 control-label">New password</label>
@@ -247,6 +266,44 @@
 			</div>
 		</section>
 	</div>
+
+	<div class="modal fade" id="email-change-modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header" align="center">
+					<img class="img-circle" id="img_logo" src="http://bootsnipp.com/img/logo.jpg">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+					</button>
+				</div>
+				
+				<div id="div-forms">
+					<form id="email-change-input" action="${pageContext.request.contextPath}/mypage/emailAuthSend.do" method="post">
+						<div class="modal-body">
+							<input id="changeEmail" name="changeEmail" class="form-control" type="text" placeholder="이메일을 입력해주세요." required>
+						</div>
+						<div class="modal-footer">
+							<div>
+								<button type="submit" class="btn btn-primary btn-lg btn-block">인증번호 요청</button>
+							</div>
+						</div>
+					</form>
+
+					<form id="email-change-auth" action="${pageContext.request.contextPath}/mypage/emailAuth.do" style="display:none;">
+						<div class="modal-body">
+							<input id="authToken" name="authToken" class="form-control" type="text" placeholder="인증번호를 입력해주세요" required>
+						</div>
+						<div class="modal-footer">
+							<div>
+								<button type="button" class="btn btn-primary btn-lg btn-block">확인</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp"%>
 </body>
 </html>

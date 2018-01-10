@@ -4,13 +4,20 @@
 <!-- 매퍼 연결 -->
 <mapper namespace="kr.co.vitamin.repository.mapper.LetterMapper">
 	
-	<resultMap type="address" id="addressMap">
-		<result column="address_no" property="addressNo" />
-		<result column="city_code" property="cityCode" />
-		<result column="area_code" property="areaCode" />
-		<result column="address" property="address" />
-		<result column="post_code" property="postCode" />
+	<resultMap type="letter" id="letterMap">
+		<result column="letter_no" property="letterNo" />
+		<result column="send_account_no" property="sendAccountNo" />
+		<result column="recv_account_no" property="recvAccountNo" />
+		<result column="read" property="read" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="send_date" property="sendDate" />
 	</resultMap>
 	
-	
+	<insert id="insertLetter" parameterType="letter">
+		INSERT INTO vi_letter
+		(send_account_no, recv_account_no, title, content)
+		VALUES
+		(#{sendAccountNo}, #{recvAccountNo}, #{title}, #{content})
+	</insert>
 </mapper>

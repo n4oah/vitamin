@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 매퍼 연결 -->
+<mapper namespace="kr.co.vitamin.repository.mapper.EmailAuthMapper">
+	<resultMap type="emailChangeAuth" id="emailChangeAuthMap">
+		<result column="account_no" property="accountNo" />
+		<result column="email_change_token_no" property="emailChangeTokenNo" />
+		<result column="auth_token" property="authToken" />
+		<result column="change_email" property="changeEmail" />
+		<result column="delete_date" property="deleteDate" />
+	</resultMap>
+	
+	<insert id="insertEmailChageAuth" parameterType="emailChangeAuth">
+		INSERT INTO vi_email_change_auth
+		(account_no, auth_token, delete_date, change_email)
+		VALUES
+		(#{accountNo}, #{authToken}, DATE_ADD(NOW(), INTERVAL 3 MINUTE) , #{changeEmail})
+	</insert>
+	
+	<select id="selectEmailChageAuth" parameterType="emailChangeAuth" resultMap="emailChangeAuthMap">
+		SELECT * FROM vi_email_change_auth
+		WHERE account_no=#{accountNo} AND authToken=#{authToken} LIMIT 1
+	</select>
+</mapper>

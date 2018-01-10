@@ -35,6 +35,10 @@ public class Member extends Account {
 	public Character getGender() {
 		return gender;
 	}
+	
+	public String getGenderName() {
+		return getGender() == 'm' ? "남성" : "여성";
+	}
 
 	public void setGender(Character gender) {
 		this.gender = gender;

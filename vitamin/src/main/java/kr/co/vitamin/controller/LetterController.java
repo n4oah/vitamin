@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.vitamin.common.EmailSender;
 import kr.co.vitamin.repository.vo.Letter;
 import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.service.LetterService;
