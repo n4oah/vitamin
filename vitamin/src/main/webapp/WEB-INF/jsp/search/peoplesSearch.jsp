@@ -241,7 +241,7 @@
 				
 				<div class="iframe">
 					<div class="moveBar">여기를 잡고 움직이세요.</div>
-					<iframe src="http://192.168.0.146:3030/?memberNo=${user.accountNo}" width="500" height="300" name="iframe"></iframe>
+					<iframe src="http://192.168.0.146:3030/?memberNo=${user.accountNo}&password=${user.pwd}" width="500" height="300" name="iframe"></iframe>
 				</div>
 				
 				<div class="recruit_list">
