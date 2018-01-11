@@ -66,8 +66,8 @@
 	</delete>
 	
 	<select id="selectAutoSignAccount" parameterType="autoSignin" resultMap="accountMap">
-		SELECT account.*, member.*
-		FROM vi_account AS account JOIN vi_member AS member JOIN vi_auto_signin AS auto_signin 
-		WHERE auto_signin.auth_token=#{authToken} AND account.account_no = auto_signin.account_no AND account.account_no = member.account_no;
+		SELECT account.*
+		FROM vi_account AS account JOIN vi_auto_signin AS auto_signin 
+		WHERE auto_signin.auth_token=#{authToken} AND account.account_no = auto_signin.account_no;
 	</select>
 </mapper>

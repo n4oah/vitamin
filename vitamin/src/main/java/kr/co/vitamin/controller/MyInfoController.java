@@ -98,9 +98,16 @@ public class MyInfoController {
 			address.setAddressNo(user.getAddressNo());
 			address.parseData();
 		}
-		System.out.println(accountVO);
+		
 		File file = fileUpload.makeFile(profileImg, FileUpload.getProfileImage());
 		Account acc = accountService.modifyAccount(accountVO, address, file);
+
 		session.setAttribute("user", acc);
 	}
+	
+	/*@RequestMapping("/myProfileAndLogo.do")
+	@ResponseBody
+	public void myProfileAndLogo(HttpSession session) {
+		
+	}*/
 }

@@ -211,7 +211,10 @@
 						                        <div class="custom-input-file profile-image">
 						                            <label class="uploadPhoto">
 						                                Edit
-						                                <input type="file" class="change-profile-img" name="profileImg" id="profileImg" accept="image/png, image/jpeg, image/gif, image/jpg">
+														<input type="file" class="change-profile-img" name="profileImg" id="profileImg" accept="image/png, image/jpeg, image/gif, image/jpg">
+														<c:if test="${user.memberType == 2}">
+															<input type="text" style="display:none;" value="${user.logoNo}" name="company.logoNo">
+														</c:if>
 						                            </label>
 						                        </div>
 						                    </div>
@@ -290,29 +293,54 @@
 											</c:when>
 											<c:when test="${user.memberType == 2}">
 												<div class="form-group">
-													<label for="phoneNumber" class="col-sm-2 control-label">회사 이름</label>
+													<label for="companyName" class="col-sm-2 control-label">회사 이름</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" value="${user.companyName}" readonly="readonly" id="company-input-licenseNumber">
+														<input type="text" class="form-control" value="${user.companyName}" readonly="readonly" id="company-input-companyName">
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="phoneNumber" class="col-sm-2 control-label">사업자 등록번호</label>
+													<label for="licenseNumber" class="col-sm-2 control-label">사업자 등록번호</label>
 													<div class="col-sm-10">
 														<input type="text" class="form-control bfh-phone" data-format="ddd-dd-ddddd" maxlength="12" value="${user.licenseNumber}" placeholder="사업자 등록번호" readonly="readonly" id="company-input-licenseNumber">
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="phoneNumber" class="col-sm-2 control-label">대표 전화</label>
+													<label for="bossName" class="col-sm-2 control-label">대표자 이름</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control bfh-phone" name="company.telNumber" value="${user.telNumber}" data-format="+82 (ddd) dddd-dddd" maxlength="19" placeholder="대표 전화" id="company-input-phoneNumber">
+														<input type="text" class="form-control" name="company.bossName" value="${user.bossName}" placeholder="대표자 이름" id="company-input-bossName">
 													</div>
 												</div>
 												<div class="form-group">
-													<label for="phoneNumber" class="col-sm-2 control-label">기업 형태</label>
+													<label for="telNumber" class="col-sm-2 control-label">대표 전화</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" readonly="readonly" placeholder="기업 형태" value="${user.companyType}" >
+														<input type="text" class="form-control bfh-phone" name="company.telNumber" value="${user.telNumber}" data-format="+82 (ddd) dddd-dddd" maxlength="19" placeholder="대표 전화" id="company-input-telNumber">
 													</div>
 												</div>
+												<div class="form-group">
+													<label for="companyType" class="col-sm-2 control-label">기업 형태</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" readonly="readonly" placeholder="기업 형태" value="${user.companyType}" id="company-input-companyType" >
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="employeeCount" class="col-sm-2 control-label">사원수</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" name="company.employeeCount" placeholder="사원수" value="${user.employeeCount}" id="company-input-employeeCount" >
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="homepage" class="col-sm-2 control-label">홈페이지</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" name="company.homepage" placeholder="홈페이지 주소" value="${user.homepage}" id="company-input-homepage" >
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="businessContent" class="col-sm-2 control-label">사업내용</label>
+													<div class="col-sm-10">
+														<input type="text" class="form-control" readonly="readonly" placeholder="사원수" value="${user.businessContent}" id="company-input-businessContent" >
+													</div>
+												</div>
+
 											</c:when>
 										</c:choose>
 						                <div class="form-group">
