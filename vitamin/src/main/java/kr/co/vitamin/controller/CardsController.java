@@ -41,7 +41,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.google.gson.Gson;
+
 import kr.co.vitamin.common.EmailSender;
+import kr.co.vitamin.repository.vo.Activity;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.AutoSignin;
 import kr.co.vitamin.repository.vo.BusinessType;
@@ -51,14 +54,32 @@ import kr.co.vitamin.repository.vo.Terms;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.service.AccountService;
+import kr.co.vitamin.service.ActivityService;
 import kr.co.vitamin.service.ResumeService;
 import kr.co.vitamin.service.SchoolLevelService;
 
 @Controller
 @RequestMapping("/cards")
 public class CardsController {
+	@Autowired
+	private ActivityService ActivityService;
+	
 	@RequestMapping("/cards.do")
-	public void cards(Model model) throws Exception {}
+	public void cards(Model model, HttpSession session, Activity activity, Member member) throws Exception {
+		Gson gson = new Gson();
+		member = (Member)session.getAttribute("user");
+		
+		//임시 처리; 파라미터로 받을 예정
+		activity = ActivityService.selectActivityByMemberNo(member.getMemberNo());
+		
+		model.addAttribute("activity",gson.toJson(activity));
+	}
 	@RequestMapping("/iframe.do")
 	public void iframe(Model model) throws Exception {}
+	
+	@ResponseBody
+	@RequestMapping("/test.do")
+	public String test(Model model, HttpSession session, Activity activity) throws Exception {
+		return "test 작동중";
+	}
 }

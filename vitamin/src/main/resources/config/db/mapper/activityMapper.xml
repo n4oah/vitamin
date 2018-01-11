@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.vitamin.repository.mapper.ActivityMapper">
+	<resultMap type="activity" id="activityMap">
+		<result column="activity_no" property="activityNo" />
+		<result column="member_no" property="memberNo" />
+		<result column="activity_name" property="activityName" />
+		<result column="activity_perm" property="activityPerm" />
+		<result column="activity_background" property="activityBackground" />
+		<result column="activity_askagain" property="activityAskagain" />
+	</resultMap>
+	
+	<select id="selectActivityByMemberNo" parameterType="int" resultMap="activityMap">
+		select * from vi_activity
+		where member_no = #{memberNo}
+	</select>
+	
+	<insert id="insertActivityInitial" parameterType="activity">
+	</insert>
+	
+	<update id="updateActivityName" parameterType="activity">
+	</update>
+	<update id="updateActivityPerm" parameterType="activity">
+	</update>
+	<update id="updateActivityBackground" parameterType="activity">
+	</update>
+	<update id="updateActivityAskagain" parameterType="activity">
+	</update>
+	
+</mapper>
