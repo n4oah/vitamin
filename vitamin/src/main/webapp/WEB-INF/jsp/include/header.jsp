@@ -33,7 +33,7 @@
 	*/
 </script>
 </c:if>
-<img src="${pageContext.request.contextPath}/common/fileDown.do?fileNo=${sessionScope.user.logoNo}" style="width: 100%; height:100%"/>
+<img src="${pageContext.request.contextPath}/common/fileDown.do?fileNo=${sessionScope.user.logoNo}" style="width: 10%; height:10%"/>
 <script>
 	$(function() {
 		var uri = "${requestScope['javax.servlet.forward.request_uri']}"
