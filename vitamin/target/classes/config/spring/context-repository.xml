@@ -44,16 +44,6 @@
  
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	
-	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
-		<property name="messageConverters">
-		<list>
-			<bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
-			<bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
-			<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
-		</list>
-		</property>
-	</bean>
-	
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />

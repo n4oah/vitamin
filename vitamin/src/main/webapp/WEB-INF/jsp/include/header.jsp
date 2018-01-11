@@ -6,7 +6,7 @@
 
 <c:if test="${!empty sessionScope.user}">
 	<script>
-		$(function() {
+/* 		$(function() {
 			let id = $('.profile-image')[0];
 
 			//$.ajax
@@ -20,7 +20,7 @@
 
 				}
 			}
-		});
+		}); */
 	</script>
 </c:if>
 
