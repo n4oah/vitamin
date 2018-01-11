@@ -437,13 +437,56 @@
 			</div>
 			
 			<div class="center-block">
+			<c:if test="${pageResult.count != 0 }">
 				<ul class="pagination">
-				  <li><a href="#">1</a></li>
-				  <li><a href="#">2</a></li>
-				  <li><a href="#">3</a></li>
-				  <li><a href="#">4</a></li>
-				  <li><a href="#">5</a></li>
+					<li>
+						<c:choose>
+							<c:when test="${pageResult.prev}">
+								<a href="${pageContext.request.contextPath }/search/searchRecruit.do?pageNo=${data.beginPage - 1}">
+									<span class="glyphicon glyphicon-chevron-left"></span>
+								</a>
+							</c:when>
+								
+							<c:otherwise>
+								<a href="#1">
+									<span class="glyphicon glyphicon-chevron-left"></span>
+								</a>
+							</c:otherwise>
+						</c:choose>
+					</li>
+				 
+				 
+				  <c:forEach var="i" begin="${pageResult.beginPage }" end="${pageResult.endPage }" >
+				  	<c:choose>
+				  		<c:when test="${i eq pageResult.pageNo }">
+				  			<li class="active"><a href="#${i }">${i }</a></li>
+						</c:when>	
+						<c:otherwise>
+		    				<li><a href="?pageNo=${i }">${i}</a></li>
+    					</c:otherwise>	  
+				  	</c:choose>
+				
+				    </c:forEach>
+				  
+					<li>
+						<c:choose>
+							<c:when test="${pageResult.next}">
+								<a href="${pageContext.request.contextPath }/search/searchRecruit.do?pageNo=${data.endPage + 1}">
+									<span class="glyphicon glyphicon-chevron-right"></span>
+								</a>
+							</c:when>
+								
+							<c:otherwise>
+								<a href="#1">
+									<span class="glyphicon glyphicon-chevron-right"></span>
+								</a>
+							</c:otherwise>
+						</c:choose>
+					</li>
+				
 				</ul>
+				
+			</c:if>
 			</div>
 			
 		</section>
@@ -698,11 +741,18 @@
 		
 		
 		$('input[type="button"]').one("click", searchFn);
+		
+		$(".pagination").on("click", ".pageButton", function (e) {
+			searchFn(e, $(this).text());
+		});
 			
-		function searchFn() {
+		function searchFn(e, page) {
+			var data = $("<form>").css("display", "none").appendTo("body").append($("input").clone()).serialize();
+			if (page) data += "&pageNo="+page;
+						
 			$.ajax({
 				type:"post",
-				data: $("<form>").css("display", "none").appendTo("body").append($("input").clone()).serialize(),
+				data: data,
 				url: path + "/search/searchWork.do",
 				success: function (result) {
 					result = JSON.parse(result);
@@ -752,9 +802,14 @@
 							
 							
 						$("tbody").append(tr);
-					})
+					});
 					
-					$('input[type="button"]').one("click", searchFn);
+					$("ul.pagination > li:not(:first-child):not(:last-child)").each(function (i, li) {
+						$(this).remove();
+					});
+					
+					if (!page)
+						$('input[type="button"]').one("click", searchFn);
 				}
 			});
 		};	

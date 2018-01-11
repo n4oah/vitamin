@@ -6,14 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import kr.co.vitamin.common.PageResult;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.FormService;
+import kr.co.vitamin.repository.vo.Page;
 import kr.co.vitamin.repository.vo.Recruit;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.SearchRecruit;
@@ -36,15 +39,30 @@ public class SearchRecruitController {
 	private SearchService searchService;
 	
 	@RequestMapping("/searchRecruit.do")
-	public void searchRecruit(Model model) throws Exception {
+	public void searchRecruit(Model model,
+			@RequestParam(name="pageNo", defaultValue="1") int pageNo) throws Exception {
 		List<City> cityList = searchService.selectCity();
 		List<Area> areaList = searchService.selectArea();
-		List<Recruit> recruitList = searchService.selectRecruit();
+		
+		
+		int recruitCount = searchService.selectRecruitCount();
+		
+		Page page = new Page(pageNo); 
+		
+		PageResult pageResult = new PageResult(pageNo, recruitCount);
+			
+
+		List<Recruit> recruitList = searchService.selectRecruit(page);
 		System.out.println(recruitList);
 		
 		List<SchoolLevel> schoolLevelList = schoolLevelService.getSchoolLevels();
 		List<FormService> formServiceList = formServiceService.selectFormService();
 		
+	
+		
+		
+	
+		model.addAttribute("pageResult", pageResult);
 		model.addAttribute("schoolLevelList", schoolLevelList);
 		model.addAttribute("formServiceList", formServiceList);
 		
@@ -57,6 +75,7 @@ public class SearchRecruitController {
 	@RequestMapping("/searchWork.do") 
 	public String searchWork(SearchRecruit searchRecruit) throws Exception {
 		System.out.println(searchRecruit);
+		System.out.println(searchRecruit.getPageNo());
 		return new Gson().toJson(searchService.selectSearchCondition(searchRecruit)); 
 	}
 }

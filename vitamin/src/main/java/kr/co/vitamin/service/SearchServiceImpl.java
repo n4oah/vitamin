@@ -9,6 +9,7 @@ import kr.co.vitamin.repository.mapper.SearchMapper;
 import kr.co.vitamin.repository.vo.Area;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.CityAndArea;
+import kr.co.vitamin.repository.vo.Page;
 import kr.co.vitamin.repository.vo.Recruit;
 import kr.co.vitamin.repository.vo.SearchRecruit;
 
@@ -29,9 +30,9 @@ public class SearchServiceImpl implements SearchService{
 	}
 	
 	@Override
-	public List<Recruit> selectRecruit() throws Exception {
-		System.out.println(searchMapper.selectRecruit());
-		return searchMapper.selectRecruit();
+	public List<Recruit> selectRecruit(Page page) throws Exception {
+		System.out.println(searchMapper.selectRecruit(page));
+		return searchMapper.selectRecruit(page);
 	}
 	
 	@Override
@@ -42,7 +43,11 @@ public class SearchServiceImpl implements SearchService{
 	@Override
 	public List<Recruit> selectSearchCondition(SearchRecruit searchRecruit) throws Exception {
 		System.out.println("selectSearchCondition " + searchMapper.selectSearchCondition(searchRecruit).size());
-		
 		return searchMapper.selectSearchCondition(searchRecruit);
+	}
+	
+	@Override
+	public int selectRecruitCount() throws Exception {
+		return searchMapper.selectRecruitCount();
 	}
 }

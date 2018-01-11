@@ -62,7 +62,7 @@
 								<div class="at-button at-background-revert">되돌려</div>
 								
 						</div>
-						<div class="at-menu-item at-menu-board">삭제시 팝업 활성
+						<div class="at-menu-item at-menu-board">추가, 삭제시 다시 묻기
 							<input type="checkbox" class="at-delblock-dialog" checked>
 						</div>
 						<div class="at-menu-item mtt">아</div>
@@ -98,52 +98,8 @@
 </body>
 <script>
 	///ready
-	
-	var $boardListDraggable = {
-		handle: ".at-board-list-header",
-		addClasses: false,
-		scroll: false,
-		classes:{
-			"ui-draggable-handle": "at-sanic",
-			"ui-draggable-dragging": "at-gottagofast"
-		},
-		create:function(e,u){$(".ui-draggable-handle").removeClass("ui-draggable-handle")},
-		start:function(e,u){$(".ui-draggable-dragging").removeClass("ui-draggable-dragging")},
-		stop: function(e,u){
-			if($(this).position().top < 0 && $(this).position().left < 0){
-				$(this).animate({top:0,left:0},200,"easeOutExpo",function(){})
-			}
-			else if($(this).position().left < 0){
-				$(this).animate({left:0},200,"easeOutExpo",function(){})
-			}   
-			else if($(this).position().top < 0){
-				$(this).animate({top:0},200,"easeOutExpo",function(){})
-			}
-		} 
-	};
-	var $listItemDraggable = {
-		addClasses: false,
-		scroll: false,
-		classes:{
-			"ui-draggable-handle": "at-sanic",
-			"ui-draggable-dragging": "at-gottagofast"
-		},
-		create:function(e,u){$(".ui-draggable-handle").removeClass("ui-draggable-handle")},
-		start:function(e,u){
-			$(".ui-draggable-dragging").removeClass("ui-draggable-dragging")
-		},
-		stop: function(e,u){
-			if($(this).position().top < 0 && $(this).position().left < 0){
-				$(this).animate({top:0,left:0},200,"easeOutExpo",function(){})
-			}
-			else if($(this).position().left < 0){
-				$(this).animate({left:0},200,"easeOutExpo",function(){})
-			}   
-			else if($(this).position().top < 0){
-				$(this).animate({top:0},200,"easeOutExpo",function(){})
-			}
-		}
-	};
+	var $activity = JSON.parse('${activity}');
+	var $activityPerm = {"A":"전체공개","B":"지원기업공개","C":"비공개"}
 	
 	$(document).ready(function() {
 		$(document).on('dragover drop', function(e) {
@@ -151,10 +107,28 @@
 		    e.stopPropagation();
 		});
 		
+		//불러오기
+		$(".at-activity-name").text($activity.activityName);
+		$("html").css({
+			"background":$activity.activityBackground,
+			"background-size":"cover"
+		});
+		$(".at-activity-perm").text($activityPerm[$activity.activityPerm]);
+		
+		
+		
+		$.ajax({
+			url:"test.do",
+			success:function(d){
+				console.log(d);
+			}
+		});
+		
 		//임시 리스트 불러오기
 		var testlistlist = JSON.parse('{'
 			+'"0": {"name": "aaa", "top": 500, "left": 300},'
 			+'"1": {"name": "bbb", "top": 300, "left": 700}}');
+		
 		for ( var testlist in testlistlist) {
 			
 			$("<div>").addClass("at-board-list").html(
@@ -181,6 +155,52 @@
 		
 		modal('아이디:${sessionScope.user.id}',1);
 	});
+	
+	var $boardListDraggable = {
+			handle: ".at-board-list-header",
+			addClasses: false,
+			scroll: false,
+			classes:{
+				"ui-draggable-handle": "at-sanic",
+				"ui-draggable-dragging": "at-gottagofast"
+			},
+			create:function(e,u){$(".ui-draggable-handle").removeClass("ui-draggable-handle")},
+			start:function(e,u){$(".ui-draggable-dragging").removeClass("ui-draggable-dragging")},
+			stop: function(e,u){
+				if($(this).position().top < 0 && $(this).position().left < 0){
+					$(this).animate({top:0,left:0},200,"easeOutExpo",function(){})
+				}
+				else if($(this).position().left < 0){
+					$(this).animate({left:0},200,"easeOutExpo",function(){})
+				}   
+				else if($(this).position().top < 0){
+					$(this).animate({top:0},200,"easeOutExpo",function(){})
+				}
+			} 
+		};
+	var $listItemDraggable = {
+		addClasses: false,
+		scroll: false,
+		classes:{
+			"ui-draggable-handle": "at-sanic",
+			"ui-draggable-dragging": "at-gottagofast"
+		},
+		create:function(e,u){$(".ui-draggable-handle").removeClass("ui-draggable-handle")},
+		start:function(e,u){
+			$(".ui-draggable-dragging").removeClass("ui-draggable-dragging")
+		},
+		stop: function(e,u){
+			if($(this).position().top < 0 && $(this).position().left < 0){
+				$(this).animate({top:0,left:0},200,"easeOutExpo",function(){})
+			}
+			else if($(this).position().left < 0){
+				$(this).animate({left:0},200,"easeOutExpo",function(){})
+			}   
+			else if($(this).position().top < 0){
+					$(this).animate({top:0},200,"easeOutExpo",function(){})
+			}
+		}
+	};
 	
 	///메뉴
 	//버튼그룹
