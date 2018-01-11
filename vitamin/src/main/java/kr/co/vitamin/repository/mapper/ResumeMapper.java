@@ -46,7 +46,6 @@ public interface ResumeMapper {
 	public int selectNextAutoIncrementHopeBusiness() throws Exception;
 	
 	public Member selectBaseInfo(Integer resumeNo) throws Exception;
-	
 	public void insertSchool(School school) throws Exception;
 	public void insertPrevCompany(PrevCompany prevCompany)throws Exception;
 	public void insertCertification(ResumeCertification resumeCertification) throws Exception;

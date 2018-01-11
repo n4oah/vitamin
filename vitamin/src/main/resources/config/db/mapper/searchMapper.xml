@@ -95,10 +95,25 @@
 		<result column="logo_no" property="logoNo" />
 	</resultMap>
 	
-	<select id="selectRecruit" resultMap="selectRecruitMap">
-	select *
-        from (select * from vi_recruit_write where recruiting_state = 1 and recruit_date_end > current_date()) recruit
-		  join (select * from vi_form_service) form_service
+	
+	<select id="selectRecruitCount" resultType="int">
+	select count(*)
+		from vi_recruit_write
+	</select>
+	
+	<select id="selectRecruit" resultMap="selectRecruitMap" parameterType="page">
+	 select *
+        from (
+        
+        select @rownum := @rownum + 1 as rownum, vi_recruit_write.* 
+			from vi_recruit_write,
+            (select @rownum := 0) R
+        where recruiting_state = 1 and recruit_date_end > current_date()
+         order by vi_recruit_write.recruit_no desc
+        ) recruit
+		 
+         
+         join (select * from vi_form_service) form_service
 		on recruit.form_service = form_service.form_service_type
 		  join (select * from vi_school_level) school
 		on recruit.school_level = school.level
@@ -110,6 +125,8 @@
 		on address.area_code = area.area_code
 		  join vi_company
 	  	on recruit.company_no = vi_company.company_no 
+        
+		where recruit.rownum between #{begin} and #{end}
 		
 		order by recruit_no desc
 	</select>

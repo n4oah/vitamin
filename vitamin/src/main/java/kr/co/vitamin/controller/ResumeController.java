@@ -56,7 +56,8 @@ public class ResumeController {
 		System.out.println("resumeList 들어옴");
 		ModelAndView mav = new ModelAndView();
 		List<ResumeBaseInfo> rlist = resumeService.resumeList(MemberNo);
-		System.out.println(rlist + "sadgsdg");
+	
+		
 		for (ResumeBaseInfo resumeBaseInfo : rlist) {
 			resumeBaseInfo.getResumeTitle();
 		}

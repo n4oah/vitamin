@@ -146,7 +146,9 @@ public class Address {
 	public String toString() {
 		return "Address [addressNo=" + addressNo + ", cityCode=" + cityCode + ", areaCode=" + areaCode + ", address="
 				+ address + ", postCode=" + postCode + ", addressSub=" + addressSub + ", cityName=" + cityName
-				+ ", areaName=" + areaName + ", addressMain=" + addressMain + ", address1=" + address1 + ", address2="
-				+ address2 + ", sigunguCode=" + sigunguCode + "]";
+				+ ", areaName=" + areaName + ", addressMain=" + addressMain + ", city=" + city + ", area=" + area
+				+ ", address1=" + address1 + ", address2=" + address2 + ", sigunguCode=" + sigunguCode + "]";
 	}
+
+	
 }

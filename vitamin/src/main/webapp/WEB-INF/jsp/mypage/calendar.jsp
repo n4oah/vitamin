@@ -21,7 +21,7 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				
-				$.mCalendar("#calendar", "2010-01-01", "2011-12-02");
+				$.mCalendar("#calendar", "2010-01-01", "2018-12-02");
 				
 				
 		/* 	    $('#calendar').fullCalendar({

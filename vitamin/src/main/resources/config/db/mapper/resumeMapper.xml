@@ -20,6 +20,7 @@
 		<result column="career_years" property="careerYears" />
 		<result column="school_no" property="schoolNo" />
 		<result column="school_level_no" property="schoolLevelNo" />
+		<result column="term" property="term"/>
 
 	</resultMap>
 
@@ -214,8 +215,8 @@
 	</insert>
 
 	<select id="selectResume" resultMap="resumeMap">
-		select * from vi_resume
-		where member_no = #{memberNo} order by resume_no desc
+		select *,TO_DAYS(now()) - TO_DAYS(reg_date) AS term from vi_resume 
+		where member_no = #{memberNo} order by resume_no desc;
 	</select>
 
 	<select id="selectResumeInfo" parameterType="int" resultMap="resumeMap">

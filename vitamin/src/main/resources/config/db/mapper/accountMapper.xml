@@ -82,7 +82,7 @@
 	
 	<select id="selectMemberType" parameterType="account" resultType="Integer">
 		SELECT member_type FROM vi_account
-		WHERE id=#{id} LIMIT 1
+		WHERE id=#{id} OR account_no=#{accountNo} LIMIT 1
 	</select>
 	
 	<select id="selectLoginAccount" parameterType="account" resultMap="accountMap">
@@ -95,9 +95,9 @@
 		 	<when test="memberType == 2">
 		 		vi_company
 		 	</when>
-		</choose> 
+		</choose>
 		AS member
-		WHERE (account.id=#{id} AND account.pwd=#{pwd}) AND account.account_no = member.account_no;
+		WHERE (account.id=#{id} AND account.pwd=#{pwd}) AND account.account_no = member.account_no
 	</select>
 	
 	<select id="selectAccountOfId" parameterType="account" resultMap="accountMap">
@@ -122,10 +122,12 @@
 				member.name=#{name}, member.phone_number=#{phoneNumber},
 			</if>
 			<if test="memberType == 2">
+				member.tel_number=#{telNumber}, member.boss_name=#{bossName}, member.logo_no=#{logoNo},
+				member.employee_count=#{employeeCount}, member.homepage=#{homepage},
 				
 			</if>
 		</set>
-		WHERE account.account_no=${accountNo} AND account.account_no = member.account_no
+		WHERE account.account_no=#{accountNo} AND account.account_no = member.account_no
 	</update>
 	
 	<select id="selectAccountOfNo" parameterType="account" resultMap="accountMap">

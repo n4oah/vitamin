@@ -28,6 +28,18 @@ public class Recruit {
 	private String graduateState;
 	private String address;
 	private String addressMain;
+	
+	private Address addressVO;
+	
+	
+
+	public Address getAddressVO() {
+		return addressVO;
+	}
+
+	public void setAddressVO(Address addressVO) {
+		this.addressVO = addressVO;
+	}
 
 	public String getAddressMain() {
 		return addressMain;
@@ -433,21 +445,26 @@ public class Recruit {
 	        this.phoneNumber = param.getPhoneNumber();
 	        this.recruitingState = param.getRecruitingState();
 	    }
-	    
-	    @Override
+
+		@Override
 		public String toString() {
 			return "Recruit [company=" + company + ", attachFile=" + attachFile + ", formServiceName=" + formServiceName
 					+ ", subName=" + subName + ", name=" + name + ", graduateState=" + graduateState + ", address="
-					+ address + ", addressMain=" + addressMain + ", recruitCount=" + recruitCount + ", gender=" + gender
-					+ ", recruitNo=" + recruitNo + ", companyNo=" + companyNo + ", title=" + title + ", careerState="
-					+ careerState + ", careerStart=" + careerStart + ", careerEnd=" + careerEnd + ", schoolLevel="
-					+ schoolLevel + ", yearPayStart=" + yearPayStart + ", yearPayEnd=" + yearPayEnd + ", ageCountStart="
-					+ ageCountStart + ", ageCountEnd=" + ageCountEnd + ", assignedTask=" + assignedTask + ", formService="
-					+ formService + ", major=" + major + ", recruitForm=" + recruitForm + ", recruitFormFileNo="
-					+ recruitFormFileNo + ", addressNo=" + addressNo + ", dayOfWeek=" + dayOfWeek + ", master=" + master
-					+ ", phoneNumber=" + phoneNumber + ", recruitingState=" + recruitingState + ", recruitDateStart="
-					+ recruitDateStart + ", recruitDateEnd=" + recruitDateEnd + ", recruitDateStringStart="
-					+ recruitDateStringStart + ", recruitDateStringEnd=" + recruitDateStringEnd + "]";
+					+ address + ", addressMain=" + addressMain + ", addressVO=" + addressVO + ", recruitCount="
+					+ recruitCount + ", gender=" + gender + ", recruitNo=" + recruitNo + ", companyNo=" + companyNo
+					+ ", title=" + title + ", careerState=" + careerState + ", careerStart=" + careerStart
+					+ ", careerEnd=" + careerEnd + ", schoolLevel=" + schoolLevel + ", yearPayStart=" + yearPayStart
+					+ ", yearPayEnd=" + yearPayEnd + ", ageCountStart=" + ageCountStart + ", ageCountEnd=" + ageCountEnd
+					+ ", assignedTask=" + assignedTask + ", formService=" + formService + ", major=" + major
+					+ ", recruitForm=" + recruitForm + ", recruitFormFileNo=" + recruitFormFileNo + ", addressNo="
+					+ addressNo + ", dayOfWeek=" + dayOfWeek + ", master=" + master + ", phoneNumber=" + phoneNumber
+					+ ", recruitingState=" + recruitingState + ", recruitDateStart=" + recruitDateStart
+					+ ", recruitDateEnd=" + recruitDateEnd + ", recruitDateStringStart=" + recruitDateStringStart
+					+ ", recruitDateStringEnd=" + recruitDateStringEnd + "]";
 		}
+
+		
+	    
+	    
 
 }

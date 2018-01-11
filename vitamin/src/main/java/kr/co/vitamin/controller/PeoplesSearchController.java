@@ -44,4 +44,10 @@ public class PeoplesSearchController {
 		System.out.println(peopleSearch);
 		System.out.println(peoplesSearchService.peoplesSearch(peopleSearch));
 	}
+	
+	@ResponseBody
+	@RequestMapping("/test.do")
+	public void test(String msg) throws Exception {
+		System.out.println(msg);
+	}
 }
