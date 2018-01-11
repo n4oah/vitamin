@@ -5,35 +5,36 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
 
 <c:if test="${!empty sessionScope.user}">
-<script>
-	/*
-	$(function() {
-		let id = $('.profile-image')[0];
+	<c:if test="${sessionScope.user.memberType == 1}">
+		<c:set var="profileNo" value="${sessionScope.user.logoNo}"></c:set>
+	</c:if>
+	<c:if test="${sessionScope.user.memberType == 2}">
+			<!-- <c:set var="profileNo" value="${sessionScope.user.logoNo}"></c:set> -->
+	</c:if>
+	<script>
+		$(function() {
+			let id = $('.profile-image');
+			let fileNo = '${profileNo}';
 
-		// url = '${pageContext.request.contextPath}/mypage/myProfileAndLogo.do';
-		// $.ajax({
-		// 	type:"POST",
-		// 	url:url,
-		// 	success:function() {
+			let url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
 
-		// 	}
-		// });
+			for(let tag of id) {
+				if(fileNo == '') {
+					
+					$(tag).attr('class', 'glyphicon glyphicon-user icon-size' + $(tag).attr('class'));
+				} else {
+					if(tag.tagName == 'IMG') {
+						$(tag).attr('src', url)
+					} else {
+						$(tag).css('background-image', 'url(' + url + ')');
+					}
+				}
 
-
-
-		for(let tag of id) {
-			console.log(tag.tagName);
-			if(tag.tagName == 'IMG') {
-				$(tag).attr('src', )
-			} else {
-
+				//glyphicon glyphicon-user icon-size
 			}
-		}
-	});
-	*/
-</script>
+		});
+	</script>
 </c:if>
-<img src="${pageContext.request.contextPath}/common/fileDown.do?fileNo=${sessionScope.user.logoNo}" style="width: 10%; height:10%"/>
 <script>
 	$(function() {
 		var uri = "${requestScope['javax.servlet.forward.request_uri']}"
@@ -77,7 +78,7 @@
 						<a href="#">채용 정보</a>
 					</li>
 					<li>
-						<a href="${pageContext.request.contextPath}/search/searchRecruit.do">채용 정보 검색</a>
+						<a href="${pageContext.request.contextPath}/search/searchRecruit.do">채용기업 검색</a>
 					</li>
 					<c:if test="${sessionScope.user.memberType == 2}">
 						<li>
@@ -96,7 +97,7 @@
 					<c:choose>
 						<c:when test="${!empty sessionScope.user}">
 							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span> 
+								data-toggle="dropdown"> <span class="glyphicon glyphicon-user"></span>
 									<strong><c:out value="${userName}"></c:out></strong> <span
 									class="glyphicon glyphicon-chevron-down"></span>
 							</a>
@@ -106,7 +107,7 @@
 											<div class="row">
 												<div class="col-lg-4">
 													<p class="text-center">
-														<span class="glyphicon glyphicon-user icon-size"></span>
+														<span class="glyphicon glyphicon-user icon-size profile-image"></span>
 													</p>
 												</div>
 												<div class="col-lg-8">

@@ -55,7 +55,7 @@
 									class="icon-bar"></span>
 							</button>
 							
-							<span class="aa glyphicon glyphicon-user icon-size"></span>
+							<span class="aa profile-image"></span>
 							<span class="site-name"><b><c:out value="${userName}"></c:out></b></span>
 							<span class="site-description"><c:out value="${memberType}"></c:out></span>
 						</div>
