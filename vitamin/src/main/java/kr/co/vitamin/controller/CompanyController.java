@@ -27,7 +27,7 @@ public class CompanyController {
 		Company com = companyService.companyDetail(no);
 		model.addAttribute("com", com);
 		for (Recruit r: com.getRecruitList()) {
-			System.out.println(r.getTitle());
+			System.out.println(r);
 		}
 		// if (com.getLogoNo() != null) model.addAttribute("logo", companyService.fileDetail(com.getLogoNo()));
 		Review review = new Review();

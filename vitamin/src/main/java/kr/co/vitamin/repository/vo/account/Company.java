@@ -15,17 +15,6 @@ public class Company extends Account {
     
     private File file;
     private List<Recruit> recruitList;
-    private Address address;
-    
-
-    public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
 	public List<Recruit> getRecruitList() {
 		return recruitList;
 	}
@@ -143,11 +132,11 @@ public class Company extends Account {
 		return "Company [companyNo=" + companyNo + ", employeeCount=" + employeeCount + ", logoNo=" + logoNo
 				+ ", businessNo=" + businessNo + ", licenseNumber=" + licenseNumber + ", companyName=" + companyName
 				+ ", bossName=" + bossName + ", companyType=" + companyType + ", telNumber=" + telNumber + ", homepage="
-				+ homepage + ", businessContent=" + businessContent + ", buildupDate=" + buildupDate
-				+ ", getAccountNo()=" + getAccountNo() + ", getAddressNo()=" + getAddressNo() + ", getEmailTokenNo()="
-				+ getEmailTokenNo() + ", getMemberType()=" + getMemberType() + ", getEmailTokenStatus()="
-				+ getEmailTokenStatus() + ", getId()=" + getId() + ", getPwd()=" + getPwd() + ", getEmail()="
-				+ getEmail() + ", getRegDate()=" + getRegDate() + ", toString()=" + super.toString() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + "]";
+				+ homepage + ", businessContent=" + businessContent + ", buildupDate=" + buildupDate + ", file=" + file
+				+ ", recruitList=" + recruitList + "]";
 	}
+
+
+
+	
 }

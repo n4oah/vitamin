@@ -29,7 +29,7 @@
 		<script src="../js/mCalendar.js"></script>
 	</head>
 <body>
-	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
+	<%-- <%@ include file="/WEB-INF/jsp/include/header.jsp" %> --%>
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container">
 			<div class="row">
@@ -239,9 +239,9 @@
 					<!-- end wrapper -->
 				</div>
 				
-				<div class="iframe" draggable="true">
-				fsdfsdsdf
-					<iframe src="http://localhost:3030/"></iframe>
+				<div class="iframe">
+					<div class="moveBar">여기를 잡고 움직이세요.</div>
+					<iframe src="http://192.168.0.146:3030/?memberNo=${user.accountNo}" width="500" height="300" name="iframe"></iframe>
 				</div>
 				
 				<div class="recruit_list">
@@ -736,14 +736,17 @@
 	    	});
 	    	
 	    };
-	    
-	    $(".iframe, iframe *, iframe").draggable();
-	    
-	    $(".iframe").click(function () {
-	    	console.log("asdsas")
-	    })
+	    $(".iframe").draggable();
 	    
 	    $(".iframe").trigger("click");
+
+	    /* document.origin = "http://192.168.0.146:3030"; */
+	    /* iframe=document.querySelector('iframe');
+	    iframe.contentDocument.origin = "http://192.168.0.146:3030";
+	    console.dir(iframe.contentDocument)
+	    console.dir(document) */
+	    
+	    console.log($(document.querySelector('iframe')));
 	</script>
 </body>
 </html>
