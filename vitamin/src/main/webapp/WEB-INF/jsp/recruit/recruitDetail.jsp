@@ -12,7 +12,6 @@
 		 
 		<script src="https://use.fontawesome.com/942e94bfdb.js"></script>
 		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
-		<script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruitDetail.css">
 		<!-- <link rel="stylesheet" href="../css/mCalendar.css">
