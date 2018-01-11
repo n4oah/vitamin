@@ -45,6 +45,10 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.gif</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
 		<url-pattern>*.ttf</url-pattern>
 	</servlet-mapping>
 	

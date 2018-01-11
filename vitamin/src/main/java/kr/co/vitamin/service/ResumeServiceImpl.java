@@ -99,6 +99,7 @@ public class ResumeServiceImpl implements ResumeService {
 
 	@Override
 	public List<ResumeBaseInfo> resumeList(Integer memberNo) throws Exception {
+		
 		return mapper.selectResume(memberNo);
 	}
 

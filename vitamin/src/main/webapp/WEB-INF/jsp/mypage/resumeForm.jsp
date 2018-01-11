@@ -14,14 +14,14 @@
 	href="${pageContext.request.contextPath}/css/basic.css">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/resume.css">
 <!-- <link rel="stylesheet"
 	href="path/to/font-awesome/css/font-awesome.min.css"> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- <script src="https://use.fontawesome.com/942e94bfdb.js"></script> -->
-<script src="${pageContext.request.contextPath}/js/resumeInfo.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/js/resumeInfo.js"></script> --%>
 <script src="${pageContext.request.contextPath}/js/resumeForm.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript"
@@ -128,7 +128,7 @@
 									</tr>
 									<tr>
 										<th>생년월일</th>
-										<td><input type="text" class="float-control" id="birth"
+										<td><input type="text" class="float-control" id="birthDate"
 											style="width: 20%" value="<fmt:formatDate value="${user.birthDate}" pattern="yyyy-MM-dd" />"placeholder="생년월일" readonly="readonly"></td>
 									</tr>
 									<tr>
@@ -358,11 +358,11 @@
 										<tr>
 											<td>
 												<div>
-													<input type="checkbox" id="repitation_removal" disabled="disabled">중복기간 빼기&nbsp 
+													<!-- <input type="checkbox" id="repitation_removal" disabled="disabled">중복기간 빼기&nbsp --> 
 													<input type="checkbox" id="direct_input" disabled="disabled">직접입력
+													<input type="text" maxlength="2" class="float-control" name="careerYears" id="careerYears" style="width: 50px" disabled="disabled"> 
+													<span>년</span> 
 												</div>
-												<input type="text" maxlength="2" class="float-control" name="careerYears" id="emyear" style="width: 50px" disabled="disabled"> 
-												<span>년</span> 
 												<!-- <input type="text" maxlength="2" class="float-control" id="emmonth" style="width: 50px" disabled="disabled"> 
 												<span>개월</span> -->
 											</td>
@@ -382,14 +382,14 @@
 										<tr>
 											<th>근무기간</th>
 											<td>
-											<select class="float-control" name="prevCompanyWorking">
+											<select class="float-control" id="prevCompanyWorking" name="prevCompanyWorking">
 												<option class="fa" value="">근무여부</option>
 												<option class="fa" value="0">퇴사</option>
 												<option class="fa" value="1">재직중</option>
-											</select> <input class="float-control" type="date" name="prevCompanyStart" id="work_start"
+											</select> <input class="float-control" type="date" name="prevCompanyStart" id="prevCompanyStart"
 												style="width: 150px" placeholder="입사일"> 
 												<span>~</span>
-												<input class="float-control" type="date" name="prevCompanyEnd" id="work_end"
+												<input class="float-control" type="date" name="prevCompanyEnd" id="prevCompanyEnd"
 												style="width: 150px" placeholder="퇴사일"></td>
 										</tr>
 										<tr>
@@ -420,10 +420,10 @@
 										</tr>
 										<tr>
 											<th>연봉</th>
-											<td><input class="float-control" type="text" id="salary" name="prevCompanySalary"
-												style="width: 100px"> <input class="float-control"
+											<td><input class="float-control" maxlength="5" type="text" id="prevCompanySalary" name="prevCompanySalary"
+												style="width: 100px"> <span>만원<span><!-- <input class="float-control"
 												type="text" style="width: 60px" value="만원"
-												readonly="readonly"></td>
+												readonly="readonly"> --></td>
 										</tr>
 										<tr>
 											<th>직종</th>
@@ -481,17 +481,20 @@
 									<tbody>
 										<tr>
 											<th>항목선택</th>
-											<td><select class="float-control" name="certificationCate">
+											<td>
+											<input type="text" class="float-control" name="certificationCate" value="자격증" readonly="readonly">
+											<!-- 
+											<select class="float-control" name="certificationCate">
 													<option class="fa" value="">항목선택</option>
 													<option class="fa" value="0">자격증</option>
-													<!-- 
 													<option class="fa" value="1">어학자격증</option>
 													<option class="fa" value="2">수상내역/공모전</option>
+											</select>
 													 -->
-											</select></td>
+											</td>
 										</tr>
 										<tr>
-											<th>자격증/면허증</th>
+											<th>자격증</th>
 											<td>
 											
 												<input type="text" class="float-control" name="certificationTitle" id="certification" style="width: 50%">
@@ -599,9 +602,9 @@
 						<%-- <a href="${pageContext.request.contextPath}/mypage/intermediateSave.do" class="disabled_btn apply_btn"  onclick="validation()">등록</a> --%>
 					</div> 
 					
-					<div>
+					<!-- <div>
 						<a href="#" class="pull-right default_btn btn">목록</a>
-					</div>
+					</div> -->
 				</form>
 				</div>
 			</section>
@@ -778,20 +781,26 @@ $(document).ready(function(){
 		 $('#direct_input').removeAttr("checked","checked");
 		 $('#repitation_removal').attr("disabled","disabled");
 		 $('#direct_input').attr("disabled","disabled");
-		 $('#emyear').val("");
+		 $('#careerYears').val("");
 		 $('#emmonth').val("");
-		 $('#emyear').attr("disabled","disabled");
+		 $('#careerYears').attr("disabled","disabled");
 		 $('#emmonth').attr("disabled","disabled");
 		 $('.careerStatement').hide();
 	 });
 	 
 	 $('#direct_input').click(function(){
 			if($("#direct_input").prop('checked')==true){
-				$('#emyear').removeAttr("disabled","disabled");
+				$('#careerYears').removeAttr("disabled","disabled");
 				$('#emmonth').removeAttr("disabled","disabled");
+				$('#prevCompanyStart').attr("disabled","disabled");
+				$('#prevCompanyEnd').attr("disabled","disabled");
+				$('#prevCompanyStart').val("");
+				$('#prevCompanyEnd').val("");
 			}else{
-				$('#emyear').attr("disabled","disabled");
+				$('#careerYears').attr("disabled","disabled");
 				$('#emmonth').attr("disabled","disabled");
+				$('#prevCompanyStart').removeAttr("disabled","disabled");
+				$('#prevCompanyEnd').removeAttr("disabled","disabled");
 			}
 	 });
 	 
@@ -931,6 +940,59 @@ $(document).ready(function(){
                },
         minLength: 2
     });
+	
+	
+	
+	
+	 $('#prevCompanyEnd').change(function(){
+		 
+		 var workStart = new Date($("#prevCompanyStart").val());
+		 var workEnd= new Date($(this).val());
+		 var year= 1000*60*60*24*30*12;
+		 console.log(workStart);
+		 console.log(workEnd);
+		 var workTerm = (workEnd-workStart)/year;
+		 if(!isNaN(workStart)){
+			 
+			 $('#careerYears').val(Math.floor(workTerm));
+		 }
+		
+	 });
+	 
+	$('#prevCompanyStart').change(function(){
+		 
+		 var workStart = new Date($(this).val());
+		 var workEnd = new Date($("#prevCompanyEnd").val());
+		 var year= 1000*60*60*24*30*12;
+		 console.log(workStart);
+		 console.log(workEnd);
+		 var workTerm = (workEnd-workStart)/year;
+		 if(!isNaN(workEnd)){
+				 
+				$('#careerYears').val(Math.floor(workTerm));
+		 }
+	
+	 });
+	
+	
+	
+	/* $('#prevCompanyWorking').change(function(){
+		if($(this).val()==1){
+			Number.prototype.to2 = function(){return this<10?'0'+this:this;} 
+			Date.prototype.getYMD = function(s){ 
+			         s=s||'-'; 
+			         return this.getFullYear() + s 
+			              + (this.getMonth()-1).to2() + s 
+			              + this.getDate().to2(); 
+			} 
+			$('#prevCompanyEnd').val(new Date().getYMD());
+		}
+	}); */
+	 
+	 
+	
+	
+	
 	
 	
 	

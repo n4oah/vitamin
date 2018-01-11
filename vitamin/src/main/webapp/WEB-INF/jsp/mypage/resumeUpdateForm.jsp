@@ -41,7 +41,7 @@
 
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">이력서제목</h4>
-						<p>${resumeInfo.resumeTitle}</p>
+						<input type="text" class="float-control" name="resumeTitle" value="${resumeInfo.resumeTitle}">
 					</div>
 
 					<div class="edit_content">

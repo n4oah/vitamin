@@ -16,6 +16,9 @@
 		.resumeTitle{
 			cursor: pointer;
 		}
+		img.deleteimg{
+			cursor: pointer;
+		}
 		.btn_smaller_type01 {
 		    display: inline-block;
 		    height: 23px;
@@ -75,6 +78,9 @@
 				       <tr>
 				        <td>
 					        <span attr="${resume.resumeNo}" class="resumeTitle" >${resume.resumeTitle}</span>
+					        <c:if test="${resume.term < 1}">
+					        	<img alt="" src="../image/mypage/new.gif">
+					        </c:if> 
 					        <img class="deleteimg"  attr="${resume.resumeNo}" alt="" src="../image/mypage/delete.jpg">
 					        <a attr="${resume.resumeNo}" href="${pageContext.request.contextPath}/mypage/resumeUpdateForm.do?resumeNo=${resume.resumeNo}"
 					        style="align-content: right" class="btn_smaller_type01">수정</a>
@@ -97,7 +103,7 @@
 				       		</c:choose>
   							</div>
 				        </td>
-				        <td><fmt:formatDate value="${resume.regDate}" pattern="yyyy-MM-dd"/></td>
+				        <td class="regDate"><fmt:formatDate value="${resume.regDate}" pattern="yyyy-MM-dd"/></td>
 				      </tr>
 				      </c:forEach>
 				    </tbody>
@@ -150,30 +156,58 @@
 		$("#myModal").modal("show");
 		$(".modal-body").load("${pageContext.request.contextPath}/mypage/resumeInfo.do?resumeNo="+$(this).attr("attr"));
 	});
+	 
 	
+	 
+	 
 	$(document).ready(function(){
 		$("#regResume").click(function(){
-			location.href="${pageContext.request.contextPath}/mypage/resumeForm.do";
+			var count = $("span.resumeTitle").length;
+			if(count<=4){
+				location.href="${pageContext.request.contextPath}/mypage/resumeForm.do";
+			}else{
+				alert("이력서 최대 갯수는 5개입니다.");
+			}
 		});
 		
 		$( function() {
 		    $( ".selectable" ).selectable({
 		      stop: function() {
 		        $( ".ui-selected", this ).each(function() {
+		          var spanThis = this;	
 		          var state = $( ".selectable span" ).index( this );
 		        $.ajax({
 		        	url:"${pageContext.request.contextPath}/mypage/openState.do?resumeNo="+$(this).attr("attr")+"&&openState="+state,
 		        	success:function(data){
 		        		
 		        		/* $(this).addClass("ui-selected"); */
-		        		location.href="${pageContext.request.contextPath}/mypage/resumeList.do";
+		        		/* location.href="${pageContext.request.contextPath}/mypage/resumeList.do"; */
+		        		console.dir($(spanThis))
+// 		        		$(this).addClass("ui-selected");
+		        		var attrNo = $(spanThis).attr("attr")
+		        		$("span[attr].ui-widget-content").each(function () {
+		        			if (attrNo != $(this).attr("attr")) {
+		        				var date = new Date();
+			        			if ($(this).hasClass("open")) $(this).removeClass("ui-selected");
+			        			if ($(this).hasClass("nonopen")) $(this).addClass("ui-selected");
+		        			}
+		        		})
+		        		
 		        	}
 		        });
 		          
 		        });
 		      }
 		    });
+		    
+	
+		  
+		   
+		   
+		    
+		    
 		  });
+		
 		
 		
 		
