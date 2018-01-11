@@ -2,17 +2,8 @@ package kr.co.vitamin.repository.vo;
 
 import java.util.Arrays;
 
-public class SearchRecruit {
-	
-	@Override
-	public String toString() {
-		return "SearchRecruit [cityCode=" + Arrays.toString(cityCode) + ", areaCode=" + Arrays.toString(areaCode)
-				+ ", careerState=" + careerState + ", careerStart=" + careerStart + ", careerEnd=" + careerEnd
-				+ ", schoolLevelStart=" + schoolLevelStart + ", schoolLevelEnd=" + schoolLevelEnd + ", schoolLevelNone="
-				+ schoolLevelNone + ", yearPayStart=" + yearPayStart + ", yearPayEnd=" + yearPayEnd + ", yearPayNone="
-				+ yearPayNone + ", ageCountStart=" + ageCountStart + ", ageCountEnd=" + ageCountEnd + ", ageNone="
-				+ ageNone + ", gender=" + gender + "]";
-	}
+
+public class SearchRecruit extends Page {
 
 	private Integer[] cityCode, areaCode;
 	
@@ -163,6 +154,16 @@ public class SearchRecruit {
 
 	public void setGender(Integer gender) {
 		this.gender = gender;
+	}
+
+	@Override
+	public String toString() {
+		return "SearchRecruit [cityCode=" + Arrays.toString(cityCode) + ", areaCode="
+				+ Arrays.toString(areaCode) + ", careerState=" + careerState + ", careerStart=" + careerStart
+				+ ", careerEnd=" + careerEnd + ", careerOnly=" + careerOnly + ", schoolLevelStart=" + schoolLevelStart
+				+ ", schoolLevelEnd=" + schoolLevelEnd + ", schoolLevelNone=" + schoolLevelNone + ", yearPayStart="
+				+ yearPayStart + ", yearPayEnd=" + yearPayEnd + ", yearPayNone=" + yearPayNone + ", ageCountStart="
+				+ ageCountStart + ", ageCountEnd=" + ageCountEnd + ", ageNone=" + ageNone + ", gender=" + gender + "]";
 	}
 	
 	

@@ -100,7 +100,8 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public Account getAutoSigninToToken(AutoSignin autoSignin) throws Exception {
-		return autoSigninMapper.selectAutoSignAccount(autoSignin);
+		Account account = autoSigninMapper.selectAutoSignAccount(autoSignin);
+		return memberMapper.selectLoginAccount(account);
 	}
 
 	@Override
@@ -111,12 +112,15 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	@Transactional(rollbackFor=Exception.class)
 	public Account modifyAccount(Account accountVO, Address address, File file) throws Exception {
+		boolean logoChk = false;
+		
 		if(accountVO.getMemberType() == 2) {
 			if(((Company)accountVO).getLogoNo() == null) {
 				Integer fileNo = fileMapper.selectNextAutoIncrement();
 				file.setFileNo(fileNo);
 				
 				((Company)accountVO).setLogoNo(fileNo);
+				logoChk = true;
 			}
 		}
 		
@@ -126,12 +130,12 @@ public class AccountServiceImpl implements AccountService {
 			addressMapper.updateAddress(address);
 		}
 		if(file != null) {
+			Integer fileNo = null;
 			if(accountVO.getMemberType() == 1) {
 				ProfileImage profile = new ProfileImage();
 				profile.setAccountNo(accountVO.getAccountNo());
 				profile = fileMapper.selectAccountProfile(profile);
 				
-				Integer fileNo = null;
 				if(profile == null) {
 					fileNo = fileMapper.selectNextAutoIncrement();
 					
@@ -146,6 +150,18 @@ public class AccountServiceImpl implements AccountService {
 					fileMapper.insertFile2(file);
 				} else {
 					file.setFileNo(profile.getFileNo());
+					fileMapper.updateFile(file);
+				}
+			} else if(accountVO.getMemberType() == 2) {
+				Integer logoNo = ((Company)accountVO).getLogoNo();
+				if(logoChk == true) {
+					System.out.println("인서트");
+					fileNo = fileMapper.selectNextAutoIncrement();
+					file.setFileNo(fileNo);
+					fileMapper.insertFile2(file);
+				} else {
+					System.out.println("업뎃");
+					file.setFileNo(logoNo);
 					fileMapper.updateFile(file);
 				}
 			}

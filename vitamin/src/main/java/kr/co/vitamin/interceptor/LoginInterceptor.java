@@ -31,7 +31,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if(cookie != null) {
 			AutoSignin autoSignin = new AutoSignin();
 			autoSignin.setAuthToken(cookie.getValue());
-			
+
 			Account accountVO2 = accountService.getAutoSigninToToken(autoSignin);
 			
 			if(accountVO2 != null) {

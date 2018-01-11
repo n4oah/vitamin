@@ -229,17 +229,30 @@ display: inline-block;
 			style="display: none;"
 		</c:if>
 		>
-			<div class="recTitle">${recruit.title }</div>
+			<a href="${pageContext.request.contextPath }/recruit/recruitDetail.do?no=${recruit.recruitNo}">
+				<div class="recTitle">${recruit.title }</div>
+			</a>
 			<div class="recContent">
-				<div>연봉 | ${recruit.yearPayStart }00</div>
-				<div>지역 | ${recruit.address.city.name }</div>
+				<c:choose>
+					<c:when test="${recruit.yearPayStart != '-1' }">
+						<div>연봉 | ${recruit.yearPayStart }00 ~</div>
+					</c:when>
+					<c:otherwise>
+						<div>연봉 | 회사 내규에 따름</div>
+					</c:otherwise>
+				</c:choose>
+				<div>지역 | ${recruit.addressVO.city.subName }</div>
 			</div>
 			<div class="recContent">
 				<div>우대 | ${recruit.assignedTask }</div>
 				<div>담당 | ${recruit.master }</div>
 			</div>
 			<div class="recDate">
-				<div>12/19~12/22</div>
+				<div>
+				<fmt:formatDate value="${recruit.recruitDateStart }" pattern="yyyy-MM-dd"/>
+				 ~ 
+				<fmt:formatDate value="${recruit.recruitDateEnd }" pattern="yyyy-MM-dd"/>
+				</div>
 			</div>
 		</div>
 	</c:forEach>
