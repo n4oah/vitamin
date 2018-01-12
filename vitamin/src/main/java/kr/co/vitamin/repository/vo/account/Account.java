@@ -5,9 +5,17 @@ import java.util.Date;
 import org.springframework.security.core.token.Sha512DigestUtils;
 
 public class Account {
-	private Integer accountNo, addressNo, emailTokenNo, memberType, emailTokenStatus;
+	private Integer accountNo, addressNo, emailTokenNo, memberType, emailTokenStatus, logoNo;
 	private String id, pwd, email;
 	private Date regDate;
+
+	public Integer getLogoNo() {
+		return logoNo;
+	}
+
+	public void setLogoNo(Integer logoNo) {
+		this.logoNo = logoNo;
+	}
 
 	public Integer getAccountNo() {
 		return accountNo;

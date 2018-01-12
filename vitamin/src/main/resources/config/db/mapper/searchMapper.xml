@@ -98,7 +98,10 @@
 	
 	<select id="selectRecruitCount" resultType="int">
 	select count(*)
-		from vi_recruit_write
+		from vi_recruit_write 
+		
+	where recruiting_state = 1 and recruit_date_end > current_date()
+		
 	</select>
 	
 	<select id="selectRecruit" resultMap="selectRecruitMap" parameterType="page">
