@@ -20,8 +20,8 @@ public class PageResult {
 		beginPage = (currTab -1) * tabSize + 1;
 		endPage = (currTab * tabSize > lastPage) ? lastPage
 												 : currTab * tabSize;
-		prev = beginPage != 1;
-		next = endPage != lastPage;
+		prev = (beginPage != 1);
+		next = (endPage != lastPage);
 	}
 
 	public int getPageNo() {

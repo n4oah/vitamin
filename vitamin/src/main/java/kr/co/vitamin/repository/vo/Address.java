@@ -8,8 +8,6 @@ public class Address {
 	private String addressMain;
 	private City city;
 	private Area area;
-	
-	
 
 	public City getCity() {
 		return city;

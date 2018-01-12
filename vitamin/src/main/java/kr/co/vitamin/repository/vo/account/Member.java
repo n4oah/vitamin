@@ -7,10 +7,20 @@ import java.util.Locale;
 import org.apache.tomcat.jni.Local;
 
 public class Member extends Account {
-	private Integer memberNo;
+	private Integer memberNo, logoNo;
 	private String name, phoneNumber;
 	private Date birthDate;
 	private Character gender;
+	
+	
+
+	public Integer getLogoNo() {
+		return logoNo;
+	}
+
+	public void setLogoNo(Integer logoNo) {
+		this.logoNo = logoNo;
+	}
 
 	public Integer getMemberNo() {
 		return memberNo;
