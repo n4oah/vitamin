@@ -22,6 +22,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -152,7 +153,7 @@ public class AccountController {
 			
 			accountService.signupMember(accountSignupVO, address, emailTok);
 			
-			model.addAttribute("n", "n");
+			redirectAttributes.addAttribute("user", (Account)accountSignupVO);
 			resultUrl = "redirect:/account/signupSuccess.do";
 		} else {
 			redirectAttributes.addFlashAttribute("errorMsg", "");
@@ -161,9 +162,10 @@ public class AccountController {
 		return resultUrl;
 	}
 	
-	@RequestMapping("signupSuccess.do")
-	public void singupSuc() throws Exception {
-		
+	@RequestMapping("/signupSuccess.do")
+	public void signupSuccess(HttpServletRequest request) {
+		System.out.println(request.getAttribute("user"));
+		//System.out.println(((Account)request.getAttribute("user")).toString());
 	}
 	
 	@RequestMapping("/idOverlapChk.do")
@@ -238,7 +240,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value = "/logout.do", method=RequestMethod.GET)
-	public String logout(HttpServletRequest request, HttpSession session) throws Exception {
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 		String referer = request.getHeader("Referer");
 		Account accountVO = (Account)session.getAttribute("user");
 		
@@ -248,7 +250,11 @@ public class AccountController {
 				AutoSignin autoSignin = new AutoSignin();
 				autoSignin.setAuthToken(cookie.getValue());
 				
+				cookie.setMaxAge(0);
+				cookie.setPath("/");
+				
 				accountService.logout(autoSignin);
+				response.addCookie(cookie);
 			}
 		}
 		session.invalidate();

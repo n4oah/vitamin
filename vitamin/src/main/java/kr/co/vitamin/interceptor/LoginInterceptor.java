@@ -21,6 +21,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		HttpSession session = request.getSession();
 		Account accountVO = (Account)session.getAttribute("user");
+		System.out.println(accountVO);
 		if(accountVO != null) {
 			if(accountVO.getEmailTokenStatus() == 2) {
 				return true;
@@ -33,7 +34,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			autoSignin.setAuthToken(cookie.getValue());
 
 			Account accountVO2 = accountService.getAutoSigninToToken(autoSignin);
-			
+			System.out.println(accountVO2);
 			if(accountVO2 != null) {
 				session.setAttribute("user", accountVO2);
 				return true;

@@ -76,11 +76,6 @@ public class Member extends Account {
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", name=" + name + ", phoneNumber=" + phoneNumber + ", birthDate="
-				+ birthDate + ", gender=" + gender + ", getAccountNo()=" + getAccountNo() + ", getAddressNo()="
-				+ getAddressNo() + ", getEmailTokenNo()=" + getEmailTokenNo() + ", getMemberType()=" + getMemberType()
-				+ ", getEmailTokenStatus()=" + getEmailTokenStatus() + ", getId()=" + getId() + ", getPwd()=" + getPwd()
-				+ ", getEmail()=" + getEmail() + ", getRegDate()=" + getRegDate() + ", getMemberTypeName()="
-				+ getMemberTypeName() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
-				+ ", hashCode()=" + hashCode() + "]";
+				+ birthDate + ", gender=" + gender + "]";
 	}
 }

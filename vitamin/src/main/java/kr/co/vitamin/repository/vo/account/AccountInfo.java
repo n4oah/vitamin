@@ -78,15 +78,4 @@ public class AccountInfo extends Account {
 		this.parseData();
 		return (Account) this;
 	}
-
-	@Override
-	public String toString() {
-		return "AccountSignup [address=" + address + ", emailTok=" + emailTok + ", email1=" + email1 + ", email2="
-				+ email2 + ", member=" + member + ", company=" + company + ", getAccountNo()=" + getAccountNo()
-				+ ", getAddressNo()=" + getAddressNo() + ", getEmailTokenNo()=" + getEmailTokenNo()
-				+ ", getMemberType()=" + getMemberType() + ", getEmailTokenStatus()=" + getEmailTokenStatus()
-				+ ", getId()=" + getId() + ", getPwd()=" + getPwd() + ", getEmail()=" + getEmail() + ", getRegDate()="
-				+ getRegDate() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + ", hashCode()="
-				+ hashCode() + "]";
-	}
 }
