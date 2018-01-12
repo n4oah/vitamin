@@ -442,7 +442,7 @@
 					<li>
 						<c:choose>
 							<c:when test="${pageResult.prev}">
-								<a href="${pageContext.request.contextPath }/search/searchRecruit.do?pageNo=${data.beginPage - 1}">
+								<a href="${pageContext.request.contextPath }/search/searchRecruit.do?pageNo=${pageResult.beginPage - 1}">
 									<span class="glyphicon glyphicon-chevron-left"></span>
 								</a>
 							</c:when>
@@ -471,7 +471,7 @@
 					<li>
 						<c:choose>
 							<c:when test="${pageResult.next}">
-								<a href="${pageContext.request.contextPath }/search/searchRecruit.do?pageNo=${data.endPage + 1}">
+								<a href="${pageContext.request.contextPath }/search/searchRecruit.do?pageNo=${pageResult.endPage + 1}">
 									<span class="glyphicon glyphicon-chevron-right"></span>
 								</a>
 							</c:when>
@@ -742,13 +742,15 @@
 		
 		$('input[type="button"]').one("click", searchFn);
 		
-		$(".pagination").on("click", ".pageButton", function (e) {
+		$(".pagination").on("click", "li", function (e) {
+			console.log("aadsadsass")
 			searchFn(e, $(this).text());
 		});
 			
 		function searchFn(e, page) {
-			var data = $("<form>").css("display", "none").appendTo("body").append($("input").clone()).serialize();
-			if (page) data += "&pageNo="+page;
+			var data = $("<form>").css("display", "none").appendTo("body").append($("input").clone()).serialize()+"&pageNo=";
+			if (page) data += page;
+			else data += 1;
 						
 			$.ajax({
 				type:"post",
@@ -760,7 +762,7 @@
 					
 					$("form").remove();
 					$(".recruit_table > tbody").empty();
-					result.forEach(function (recruit) {
+					result.recruitList.forEach(function (recruit) {
 						var tr = $("<tr>")
 						tr.append($("<td>").append($("<img>").addClass("star").attr("src", "https://i.imgur.com/Z4wlC9v.png")));
 						

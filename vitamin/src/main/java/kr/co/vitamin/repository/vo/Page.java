@@ -1,16 +1,23 @@
 package kr.co.vitamin.repository.vo;
 
+
 public class Page {
-	private int pageNo;
+	private Integer pageNo;
 	public Page() {}
-	public Page(int pageNo) {
-		this.pageNo = pageNo;
+	public Page(Integer pageNo) {
+		if (pageNo != null)
+			this.pageNo = pageNo;
+		else this.pageNo = 1;
 	}
-	public int getPageNo() {
+	public Integer getPageNo() {
+		if (pageNo == null)
+			return 1;
 		return pageNo;
 	}
-	public void setPageNo(int pageNo) {
-		this.pageNo = pageNo;
+	public void setPageNo(Integer pageNo) {
+		if (pageNo != null)
+			this.pageNo = pageNo;
+		else this.pageNo = 1;
 	}
 	
 	

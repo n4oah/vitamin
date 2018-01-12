@@ -19,7 +19,8 @@ public interface SearchService {
 	
 	
 	public int selectRecruitCount() throws Exception;
-	
+	public int selectSearchConditionCount(SearchRecruit searchRecruit) throws Exception; 
+
 	public List<Recruit> selectSearchCondition(SearchRecruit searchRecruit) throws Exception;
 	
 }

@@ -1,6 +1,8 @@
 package kr.co.vitamin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,6 +78,16 @@ public class SearchRecruitController {
 	public String searchWork(SearchRecruit searchRecruit) throws Exception {
 		System.out.println(searchRecruit);
 		System.out.println(searchRecruit.getPageNo());
-		return new Gson().toJson(searchService.selectSearchCondition(searchRecruit)); 
+
+		int count = searchService.selectSearchConditionCount(searchRecruit);
+				
+		PageResult pageResult = new PageResult(searchRecruit.getPageNo(), count);
+			
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("pageResult", pageResult);
+		map.put("recruitListCount", pageResult);
+		
+		return new Gson().toJson(map);
 	}
 }
