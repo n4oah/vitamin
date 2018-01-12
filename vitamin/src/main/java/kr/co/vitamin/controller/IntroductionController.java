@@ -48,7 +48,8 @@ public class IntroductionController {
 	}
 	
 	@RequestMapping("/introductionSave")
-	public void introductionSave(HttpSession session, Introduction introduction, IntroductionCate introductionCate)throws Exception{
+	public void introductionSave(HttpSession session, Introduction introduction, IntroductionCate introductionCate
+			,String[] introductionCateTemp, String[] introductionCententTemp)throws Exception{
 		System.out.println("introductionSave 들어옴");
 		Member user = (Member)session.getAttribute("user");
 		introduction.setMemberNo(user.getMemberNo());

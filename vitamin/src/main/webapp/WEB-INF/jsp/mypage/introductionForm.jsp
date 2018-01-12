@@ -47,6 +47,7 @@
 	
 	}
 	
+	
 </style>
 </head>
 <body>
@@ -83,7 +84,7 @@
 														<tr>
 															<td>
 																<span>자기소개</span>
-																<input type="hidden" class="self"name="introductionCate" value="자기소개"/>
+																<input type="hidden" class="self" name="introductionCateTemp" value="자기소개"/>
 															</td>
 														</tr>
 														<tr>
@@ -96,7 +97,7 @@
 											</div>
 											</th>
 											<td>
-												<textarea class="textarea-control col-md-12" name="introductionContent" rows="10" cols="80%"></textarea>
+												<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"></textarea>
 											</td>
 										</tr>
 										<tr>
@@ -114,7 +115,7 @@
 														<tr>
 															<td>
 																<span>성격의 장단점</span>
-																<input type="hidden" class="personality"name="introductionCate" value="성격의 장단점"/>
+																<input type="hidden" class="personality"name="introductionCateTemp" value="성격의 장단점"/>
 															</td>
 														</tr>
 														<tr>
@@ -127,7 +128,7 @@
 												</div>
 											</th>
 											<td>
-											<textarea class="textarea-control col-md-12" name="introductionContent" rows="10" cols="80%"></textarea>
+											<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"></textarea>
 											</td>
 										</tr>
 										<tr>
@@ -145,7 +146,7 @@
 														<tr>
 															<td>
 																<span>지원동기 및 입사후 포부</span>
-																<input type="hidden" class="ambition"name="introductionCate" value="지원동기 및 입사후 포부"/>
+																<input type="hidden" class="ambition"name="introductionCateTemp" value="지원동기 및 입사후 포부"/>
 															</td>
 														</tr>
 														<tr>
@@ -158,7 +159,7 @@
 												</div>
 											</th>
 											<td>
-												<textarea class="textarea-control col-md-12" name="introductionContent" rows="10" cols="80%"></textarea>
+												<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"></textarea>
 											</td>
 										</tr>
 										<tr>
@@ -176,7 +177,7 @@
 														<tr>
 															<td>
 																<span>직무관련경험</span>
-																<input type="hidden" class="experience" name="introductionCate" value="직무관련경험"/>
+																<input type="hidden" class="experience" name="introductionCateTemp" value="직무관련경험"/>
 															</td>
 														</tr>
 														<tr>
@@ -189,7 +190,7 @@
 												</div>
 											</th>
 											<td>
-											<textarea class="textarea-control col-md-12" name="introductionContent" rows="10" cols="80%"></textarea>
+											<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"></textarea>
 											</td>
 										</tr>
 										<tr>
