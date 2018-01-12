@@ -16,4 +16,5 @@ public interface AccountMapper {
 	public Account selectAccountOfId(Account id) throws Exception;
 	public void updateAccount(Account accountVO) throws Exception;
 	public Account selectAccountOfNo(Account account) throws Exception;
+	public Integer selectProfileNo(Account account) throws Exception;
 }
