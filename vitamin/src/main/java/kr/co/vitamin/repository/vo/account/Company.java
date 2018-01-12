@@ -135,8 +135,4 @@ public class Company extends Account {
 				+ homepage + ", businessContent=" + businessContent + ", buildupDate=" + buildupDate + ", file=" + file
 				+ ", recruitList=" + recruitList + "]";
 	}
-
-
-
-	
 }

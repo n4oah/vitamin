@@ -63,8 +63,9 @@
 							<ul class="nav main-menu navbar-nav">
 								<li><a href="#"><i class="fa fa-home"></i> HOME</a></li>
 								<li><a href="${pageContext.request.contextPath}/mypage/resumeList.do">이력서 목록</a></li>
+								<li><a href="${pageContext.request.contextPath}/mypage/introductionList.do">자기소개서 목록</a></li>
 								<li><a href="${pageContext.request.contextPath}/">즐겨찾기 기업</a></li>
-								<li><a href="${pageContext.request.contextPath}/">트롤로</a></li>
+								<li><a href="${pageContext.request.contextPath}/cards/cards.do">트롤로</a></li>
 							</ul>
 						</div>
 					</nav>
@@ -198,7 +199,7 @@
 						                	<c:choose>
 						                		<c:when test="${sessionScope.user.memberType == 1}">
 													<c:set var="profileImgName" value="프로필 사진"></c:set>
-													<c:set var="addressTitleName" value="주소"></c:set>
+													<c:set var="addressTitleName" value="우편 번호"></c:set>
 						                		</c:when>
 						                		<c:when test="${sessionScope.user.memberType == 2}">
 													<c:set var="profileImgName" value="회사 로고"></c:set>

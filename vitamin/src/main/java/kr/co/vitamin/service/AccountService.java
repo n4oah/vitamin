@@ -17,4 +17,5 @@ public interface AccountService {
 	public Account getAutoSigninToToken(AutoSignin autoSignin) throws Exception;
 	public void logout(AutoSignin autoSignin) throws Exception;
 	public Account modifyAccount(Account accountVO, Address address, File file) throws Exception;
+	public Integer getProfileNo(Account accountVO) throws Exception;
 }

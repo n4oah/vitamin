@@ -25,10 +25,9 @@ public class CompanyController {
 	public void companyDetail(Integer no, Model model, HttpServletRequest request) throws Exception {
 		if (no == null) return;
 		Company com = companyService.companyDetail(no);
+		System.out.println(com);
 		model.addAttribute("com", com);
-		for (Recruit r: com.getRecruitList()) {
-			System.out.println(r);
-		}
+
 		// if (com.getLogoNo() != null) model.addAttribute("logo", companyService.fileDetail(com.getLogoNo()));
 		Review review = new Review();
 		review.setCompanyNo(no);

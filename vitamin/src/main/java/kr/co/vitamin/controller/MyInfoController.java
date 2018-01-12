@@ -19,6 +19,7 @@ import kr.co.vitamin.repository.vo.EmailChangeAuth;
 import kr.co.vitamin.repository.vo.File;
 import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.repository.vo.account.AccountInfo;
+import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.AccountService;
 import kr.co.vitamin.service.AddressService;
 import kr.co.vitamin.service.EmailAuthService;
@@ -103,6 +104,21 @@ public class MyInfoController {
 		Account acc = accountService.modifyAccount(accountVO, address, file);
 
 		session.setAttribute("user", acc);
+	}
+	
+	@RequestMapping("/myProfile.do")
+	@ResponseBody
+	public Integer myProfile(HttpSession session) throws Exception {
+		Integer profileNo = -1;
+		
+		Account member = (Account)session.getAttribute("user");
+		if(member.getMemberType() == 1) {
+			profileNo = accountService.getProfileNo(member);
+			if(profileNo == null) {
+				profileNo = -1;
+			}
+		}
+		return profileNo;
 	}
 	
 	/*@RequestMapping("/myProfileAndLogo.do")

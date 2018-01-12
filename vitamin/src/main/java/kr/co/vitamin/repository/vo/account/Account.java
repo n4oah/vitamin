@@ -88,7 +88,7 @@ public class Account {
 	public String getMemberTypeName() {
 		return getMemberType() == 1 ? "개인회원" : "기업회원";
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Account [accountNo=" + accountNo + ", addressNo=" + addressNo + ", emailTokenNo=" + emailTokenNo

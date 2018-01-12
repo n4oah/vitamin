@@ -6,22 +6,40 @@
 
 <c:if test="${!empty sessionScope.user}">
 	<c:if test="${sessionScope.user.memberType == 1}">
-		<c:set var="profileNo" value="${user.logoNo}"></c:set>
+			<c:set var="profileNo" value="-1"></c:set>
 	</c:if>
 	<c:if test="${sessionScope.user.memberType == 2}">
-			<!-- <c:set var="profileNo" value="${sessionScope.user.logoNo}"></c:set> -->
+		<c:set var="profileNo" value="${sessionScope.user.logoNo}"></c:set>
 	</c:if>
 	<script>
 		$(function() {
 			let id = $('.profile-image');
 			let fileNo = '${profileNo}';
+			var url;
 
-			let url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
+			if(fileNo == -1) {
+				$.ajax({
+					url: '${pageContext.request.contextPath}/mypage/myProfile.do',
+					success: function(no) {
+						if(no != -1) {
+							fileNo = no;
 
+							url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
+							makeProfile(url, id);
+						} else {
+							makeProfile(-1, id);
+						}
+					}
+				})
+			} else {
+				url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
+				makeProfile(url, id);
+			}
+		});
+		function makeProfile(url, id) {
 			for(let tag of id) {
-				if(fileNo == '') {
-					
-					$(tag).attr('class', 'glyphicon glyphicon-user icon-size' + $(tag).attr('class'));
+				if(url == -1) {
+					$(tag).attr('class', 'glyphicon glyphicon-user icon-size ' + $(tag).attr('class'));
 				} else {
 					if(tag.tagName == 'IMG') {
 						$(tag).attr('src', url)
@@ -29,10 +47,8 @@
 						$(tag).css('background-image', 'url(' + url + ')');
 					}
 				}
-
-				//glyphicon glyphicon-user icon-size
 			}
-		});
+		}
 	</script>
 </c:if>
 <script>
@@ -83,6 +99,9 @@
 					<c:if test="${sessionScope.user.memberType == 2}">
 						<li>
 							<a href="${pageContext.request.contextPath}/search/peoplesSearch.do">인재 검색</a>
+						</li>
+						<li>
+							<a href="${pageContext.request.contextPath}/recruit/recruitWriteForm.do">공고 글쓰기</a>
 						</li>
 					</c:if>
 					<!-- <li class="dropdown">

@@ -135,8 +135,9 @@
 	</select>
 	
 	
-	<select id="selectSearchCondition" parameterType="searchRecruit" resultMap="selectRecruitMap">
-		select *
+	<select id="selectSearchConditionCount" resultType="int">
+	
+	select count(*)
         from
         <!-- recruit -->
         (select * from vi_recruit_write
@@ -259,6 +260,139 @@
 	   				#{aCode}
 	   			</foreach>
 	   		</if>
+		 order by recruit_no desc
+	
+	</select>
+	
+	
+	
+	<select id="selectSearchCondition" parameterType="searchRecruit" resultMap="selectRecruitMap">
+		select *
+        from
+    
+        (select @rownum:= @rownum + 1 as rownum , vi_recruit_write.* from vi_recruit_write, (select @rownum := 0) R
+        where recruiting_state = 1 and recruit_date_end > current_date() 
+	   		
+	   		<if test="careerState != -1">
+		   		<if test="careerState != null">
+		   			and career_state = #{careerState}
+		   		</if>
+		   		
+		   		<choose>
+		   			<when test="careerOnly == 1 and careerStart == -1">
+		   				and career_start >= 1
+		   			</when>
+			   		<when test="careerStart != -1">
+			   			and career_start >= #{careerStart}
+			   		</when>
+		   		</choose>
+		   		
+		   		<choose>
+		   			<when test="careerOnly == 1 and careerEnd == -1">
+		   			</when>
+			   		<when test="careerEnd != -1">
+			   			and career_end &lt;= #{careerEnd}
+			   		</when>
+		   		</choose>
+	   		</if>
+	   		
+	   		
+	   		<if test="schoolLevelStart != -1 or schoolLevelEnd != -1">
+				<choose>
+					<when test="schoolLevelStart != -1 and schoolLevelEnd  == -1">
+						and school_level >= #{schoolLevelStart}
+					</when>
+					
+					<when test="schoolLevelStart == -1 and schoolLevelEnd  != -1">
+						and school_level &lt;= #{schoolLevelEnd}
+					</when>
+					 
+					<otherwise>
+						and school_level between #{schoolLevelStart} and #{schoolLevelEnd}
+					</otherwise>
+				</choose>
+			</if>	
+			
+			
+	   		<if test="yearPayStart != -1 or yearPayEnd != -1">
+				<choose>
+					<when test="yearPayStart != -1 and yearPayEnd  == -1">
+						and year_pay_start >= #{yearPayStart}
+					</when>
+					
+					<when test="yearPayStart == -1 and yearPayEnd  != -1">
+						and year_pay_End &lt;= #{yearPayEnd}
+					</when>
+					
+					<otherwise>
+						and year_pay_start >= #{yearPayStart}
+						and year_pay_End &lt;= #{yearPayEnd}
+					</otherwise>
+				</choose>
+			</if>	
+			
+			<if test="ageCountStart != -1 or ageCountEnd != -1">
+				<choose>
+					<when test="ageCountStart != -1 and ageCountEnd  == -1">
+						and age_count_start >= #{ageCountStart}
+					</when>
+					
+					<when test="ageCountStart == -1 and ageCountEnd  != -1">
+						and age_count_end &lt;= #{ageCountEnd}
+					</when>
+					
+					<otherwise>
+						and age_count_start >= #{ageCountStart}
+						and age_count_end &lt;= #{ageCountEnd}
+					</otherwise>
+				</choose>
+			</if>	
+			
+			<if test="gender != -1">
+				and gender = #{gender} 
+				
+			</if>
+			 
+			
+			
+        ) recruit
+        
+        
+		
+		<!-- form_service -->
+		 join (select form_service_name, form_service_type from vi_form_service) form_service
+			on recruit.form_service = form_service.form_service_type
+		
+		<!-- school -->
+		 join (select graduate_state, level as school_level from vi_school_level) school
+			on recruit.school_level = school.school_level
+		 
+		<!-- address -->
+		 join (select address_no, city_code, area_code from vi_address) address
+			on recruit.address_no = address.address_no
+        
+        <!-- city -->
+		 join (select sub_name, city_code from vi_city_code) city
+		 	on address.city_code = city.city_code
+         
+        <!-- area -->
+         join (select area_code, name from vi_area_code) area
+		 	on address.area_code = area.area_code
+		
+		<!-- company -->
+		 join vi_company
+	  	on recruit.company_no = vi_company.company_no  	
+		 	
+            
+            where recruit.rownum between #{begin} and #{end}
+		 <if test="areaCode != null">
+	  		and area.area_code in 
+	   			<foreach item="aCode" index="index" collection="areaCode" 
+	   				open="(" separator="," close=")">
+	   				#{aCode}
+	   			</foreach>
+	   		</if>
+		
 		 order by recruit_no desc
 	</select>
 </mapper>

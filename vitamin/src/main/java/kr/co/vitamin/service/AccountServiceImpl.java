@@ -101,6 +101,9 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public Account getAutoSigninToToken(AutoSignin autoSignin) throws Exception {
 		Account account = autoSigninMapper.selectAutoSignAccount(autoSignin);
+		if(account == null) {
+			return null;
+		}
 		return memberMapper.selectLoginAccount(account);
 	}
 
@@ -155,17 +158,20 @@ public class AccountServiceImpl implements AccountService {
 			} else if(accountVO.getMemberType() == 2) {
 				Integer logoNo = ((Company)accountVO).getLogoNo();
 				if(logoChk == true) {
-					System.out.println("인서트");
 					fileNo = fileMapper.selectNextAutoIncrement();
 					file.setFileNo(fileNo);
 					fileMapper.insertFile2(file);
 				} else {
-					System.out.println("업뎃");
 					file.setFileNo(logoNo);
 					fileMapper.updateFile(file);
 				}
 			}
 		}
 		return memberMapper.selectAccountOfNo(accountVO);
+	}
+
+	@Override
+	public Integer getProfileNo(Account accountVO) throws Exception {
+		return memberMapper.selectProfileNo(accountVO);
 	}
 }

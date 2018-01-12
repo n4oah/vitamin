@@ -50,4 +50,9 @@ public class SearchServiceImpl implements SearchService{
 	public int selectRecruitCount() throws Exception {
 		return searchMapper.selectRecruitCount();
 	}
+	
+	@Override
+	public int selectSearchConditionCount(SearchRecruit searchRecruit) throws Exception {
+		return searchMapper.selectSearchConditionCount(searchRecruit);
+	}
 }

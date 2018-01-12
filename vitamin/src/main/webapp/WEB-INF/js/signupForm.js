@@ -94,7 +94,7 @@ $(function() {
 				if($($terms[i]).is(':checked') == false) {
 					alert('약관을 동의해주세요.');
 					e.preventDefault();
-					break;
+					return;
 				}
             }
             
