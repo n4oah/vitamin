@@ -29,17 +29,22 @@
 	
 	<resultMap type="peoples" id="peoplesMap">
 		<result column="title" property="title" />
+		<result column="resume_no" property="resumeNo" />
+		<result column="member_no" property="memberNo" />
 		<result column="member_name" property="name" />
 		<result column="gender" property="gender" />
-		<result column="graduat_state" property="graduateState" />
-		<result column="city_name" property="cityName" />
+		<result column="graduate_state" property="graduateState" />
+		<result column="sub_name" property="cityName" />
 		<result column="area_name" property="areaName" />
 		<result column="resume_no" property="resumeNo" />
 		<result column="age" property="age" />
 		<result column="career_state" property="careerState" />
 		<result column="career_years" property="careerYears" />
 		<result column="job_state" property="jobState" />
-		<collection resultMap="certificateMap" property="certificate" />
+		<result column="army_service_state" property="armyServiceState" />
+		<result column="army_service_reason" property="armyServiceReason" />
+		<result column="reg_date" property="regDate" />
+		<collection resultMap="certificateMap" javaType="java.util.ArrayList" property="certificate" />
 	</resultMap>	
 	
 	<!-- 쿼리 -->
@@ -70,6 +75,10 @@
 		<where>
 			open_state = 0
 			<!-- open_state = 1 -->
+			
+			<if test="lastNo != null">
+				and resume_no &lt; #{lastNo}
+			</if>
 			
 			<if test="marry != null">
 				and marry_state = #{marry}
@@ -102,10 +111,10 @@
 		</where>) resume
 		
 		<!-- 최종 학력 -->
-		inner join vi_school_level
+		left join vi_school_level
 		on resume.school_level_no = vi_school_level.level
 		
-		inner join (select * from vi_army_service
+		left join (select * from vi_army_service
 		<if test="army != null">
 			<where>
 				army_service_state in
@@ -117,7 +126,7 @@
 		on resume.army_service_no = army.army_service_no
 		
 		<!-- 회원 -->
-		inner join (select vi_member.*, date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 as age, name as member_name from vi_member
+		left join (select vi_member.*, date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 as age, name as member_name from vi_member
 		<where>
 			<if test="gender != null">
 				<choose>
@@ -146,9 +155,12 @@
 		</where>) member
 		on resume.member_no = member.member_no
 		
+		left join (select * from vi_account) account
+		on member.account_no = account.account_no
+		
 		<!-- 자격증 -->
 		<if test="licenseCode != null">
-		inner join (select * from vi_resume_certification
+		left join (select * from vi_resume_certification
 		<where>
 				certification_title in
 				<foreach collection="licenseName" item="license" open="(" separator="," close=")">
@@ -159,7 +171,7 @@
 		</if>
 		
 		<!-- 주소 -->
-		inner join (select * from vi_address
+		left join (select * from vi_address
 		<where>
 			<if test="cityCode != null">
 				city_code in
@@ -175,14 +187,18 @@
 				</foreach>
 			</if>
 		</where>) address
-		on resume.address_no = address.address_no
+		on account.address_no = address.address_no
 		
 		<!-- 시/도 -->
-		inner join vi_city_code
-		on address.city_code = vi_city_code.city_code
+		left join (select * from vi_city_code) city
+		on address.city_code = city.city_code
 		<!-- 시/군/구 -->
-		inner join (select area_code, name as area_name from vi_area_code) area
+		left join (select area_code, name as area_name from vi_area_code) area
 		on address.area_code = area.area_code
+		
+		order by resume.resume_no desc
+		
+		limit 0, 10
 	</select>
 	
 </mapper>

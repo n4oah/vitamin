@@ -127,14 +127,15 @@
 		select * from (select * from vi_company where company_no = #{no}) company
 		left join vi_file
 		on company.logo_no = vi_file.file_no
-		left join vi_recruit_write
-		on company.company_no = vi_recruit_write.company_no
-		inner join vi_address
+		left join
+        (select vi_recruit_write.*, vi_city_code.sub_name, vi_area_code.name from vi_recruit_write
+        inner join vi_address
 		on vi_recruit_write.address_no = vi_address.address_no
-		inner join vi_city_code
+        inner join vi_city_code
 		on vi_address.city_code = vi_city_code.city_code
-		inner join vi_area_code
-		on vi_address.area_code = vi_area_code.area_code
+        inner join vi_area_code
+		on vi_address.area_code = vi_area_code.area_code) recruit
+		on company.company_no = recruit.company_no
 	</select>
 	
 	<select id="recruitList" parameterType="int" resultMap="recruitMap">

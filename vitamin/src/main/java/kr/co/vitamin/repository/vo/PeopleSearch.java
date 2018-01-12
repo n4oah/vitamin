@@ -5,8 +5,22 @@ import java.util.List;
 public class PeopleSearch {
 	private List<Integer> cityCode, areaCode, licenseCode, schoolCode, army;
 	private List<String> licenseName;
-	private Integer careerStart, careerEnd, ageStart, ageEnd, gender, marry, jobState;
+	private Integer careerStart, careerEnd, ageStart, ageEnd, gender, marry, jobState, page = 1, lastNo;
 	
+	
+	public Integer getPage() {
+		System.out.println((page-1)*10);
+		return (page-1)*10;
+	}
+	public void setPage(Integer page) {
+		this.page = page;
+	}
+	public Integer getlastNo() {
+		return lastNo;
+	}
+	public void setlastNo(Integer lastNo) {
+		this.lastNo = lastNo;
+	}
 	public List<Integer> getArmy() {
 		return army;
 	}
