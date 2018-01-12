@@ -215,13 +215,15 @@
 	</insert>
 
 	<select id="selectResume" resultMap="resumeMap">
-		select *,TO_DAYS(now()) - TO_DAYS(reg_date) AS term from vi_resume 
-		where member_no = #{memberNo} order by resume_no desc;
-	</select>
+		select *,TIMESTAMPDIFF(hour,reg_date,now()) AS term from vi_resume
+	   where member_no= #{memberNo} order by resume_no desc;
+	 </select>
+
 
 	<select id="selectResumeInfo" parameterType="int" resultMap="resumeMap">
 		select * from vi_resume where resume_no = #{resumeNo}
 	</select>
+
 
 	<select id="selectArmyServiceInfo" parameterType="int"
 		resultMap="armyServiceMap">
@@ -465,8 +467,6 @@
 			<property name="tableName" value="vi_hope_business" />
 		</include>
 	</select>
-
-
 
 
 </mapper>

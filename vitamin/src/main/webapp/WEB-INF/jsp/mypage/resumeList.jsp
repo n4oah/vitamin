@@ -78,9 +78,10 @@
 				       <tr>
 				        <td>
 					        <span attr="${resume.resumeNo}" class="resumeTitle" >${resume.resumeTitle}</span>
-					        <c:if test="${resume.term < 1}">
+					        <c:if test="${resume.term < 24}">
 					        	<img alt="" src="../image/mypage/new.gif">
 					        </c:if> 
+					        
 					        <img class="deleteimg"  attr="${resume.resumeNo}" alt="" src="../image/mypage/delete.jpg">
 					        <a attr="${resume.resumeNo}" href="${pageContext.request.contextPath}/mypage/resumeUpdateForm.do?resumeNo=${resume.resumeNo}"
 					        style="align-content: right" class="btn_smaller_type01">수정</a>

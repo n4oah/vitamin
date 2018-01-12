@@ -112,7 +112,7 @@ public class ResumeController {
 		
 	}
 	
-	@RequestMapping("/introductionList.do")
+	/*@RequestMapping("/introductionList.do")
 	public void introductionList() throws Exception{
 		System.out.println("introductionList 들어옴");
 		
@@ -122,7 +122,7 @@ public class ResumeController {
 	@RequestMapping("/introductionDetail.do")
 	public void introductionDetail() throws Exception{
 		System.out.println("introductionDetail 들어옴");
-	}
+	}*/
 	
 	
 	@RequestMapping("/calendar.do")

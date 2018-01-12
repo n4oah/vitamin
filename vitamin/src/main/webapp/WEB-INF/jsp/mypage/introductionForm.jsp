@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>이력서 정보</title>
+<title>자기소개서 정보</title>
 <%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/basic.css">
