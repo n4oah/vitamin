@@ -2,5 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 매퍼 연결 -->
-<mapper namespace="kr.co.vitamin.repository.mapper.introductionMapper">
+<mapper namespace="kr.co.vitamin.repository.mapper.IntroductionMapper">
+
+	<resultMap type="introduction" id="introductionMap">
+		<result column="introduction_no" property="introductionNo"/>
+		<result column="member_no" property="memberNo"/>
+		<result column="introduction_title" property="introductionTitle"/>
+		<result column="introduction_cate" property="introductionCate"/>
+		<result column="introduction_content" property="introductionContent"/>
+		<result column="introduction_reg_date" property="intorductionRegDate"/>
+		<result column="term" property="term"/>
+	</resultMap>
+
+	<insert id="insertInroduction" parameterType="integer">
+		insert into vi_introduction (member_no,introduction_title,introduction_reg_date)
+		values(#{memberNo},#{introductionTitle},#{introductionRegDate});
+	</insert>
+	
+	<insert id="insertIntroductionCate" parameterType="integer">
+		insert into vi_introduction_cate(introduction_no,introduction_cate,introduction_content)
+		value(#{introductionNo},#{introductionCate},#{introductionContent});
+	</insert>
+	
+	<select id="selectIntroductionList" parameterType="int" resultMap="introductionMap">
+		select *,TIMESTAMPDIFF(hour,introduction_reg_date,now()) AS term 
+		from vi_introduction where member_no = #{memberNo} order by introduction_no desc
+	
+	</select>
+	
+	
+	
+	<select id="selectNextAutoIncrementIntroduction" resultType="int">
+		<include refid="CommonMapper.getNextAutoIncrement">
+			<property name="tableName" value="vi_introduction" />
+		</include>
+	</select>
 </mapper>
