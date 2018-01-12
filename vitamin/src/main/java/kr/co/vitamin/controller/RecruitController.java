@@ -112,7 +112,7 @@ public class RecruitController {
 			recruit.setAddressNo(addressNo);
 
 		
-	
+		
 		
 		recruit.setCompanyNo(1);
 		
