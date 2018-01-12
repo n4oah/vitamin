@@ -269,8 +269,8 @@
 	<select id="selectSearchCondition" parameterType="searchRecruit" resultMap="selectRecruitMap">
 		select *
         from
-        <!-- recruit -->
-        (select * from vi_recruit_write
+    
+        (select @rownum:= @rownum + 1 as rownum , vi_recruit_write.* from vi_recruit_write, (select @rownum := 0) R
         where recruiting_state = 1 and recruit_date_end > current_date() 
 	   		
 	   		<if test="careerState != -1">
@@ -383,13 +383,16 @@
 		 join vi_company
 	  	on recruit.company_no = vi_company.company_no  	
 		 	
+            
+            where recruit.rownum between #{begin} and #{end}
 		 <if test="areaCode != null">
-	  		where area.area_code in 
+	  		and area.area_code in 
 	   			<foreach item="aCode" index="index" collection="areaCode" 
 	   				open="(" separator="," close=")">
 	   				#{aCode}
 	   			</foreach>
 	   		</if>
+		
 		 order by recruit_no desc
 	</select>
 </mapper>

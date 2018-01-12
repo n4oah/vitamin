@@ -79,10 +79,14 @@ public class SearchRecruitController {
 		System.out.println(searchRecruit);
 		System.out.println(searchRecruit.getPageNo());
 
+		Page page = new Page(searchRecruit.getPageNo());
 		int count = searchService.selectSearchConditionCount(searchRecruit);
 		
 		
 		PageResult pageResult = new PageResult(searchRecruit.getPageNo(), count);
+		
+		System.out.println(searchRecruit.getBegin());
+		System.out.println(searchRecruit.getEnd());
 		
 		Map<String, Object> map = new HashMap<>();
 		
