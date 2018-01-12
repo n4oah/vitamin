@@ -62,10 +62,12 @@
 						<div class="collapse navbar-collapse" id="mainNav">
 							<ul class="nav main-menu navbar-nav">
 								<li><a href="#"><i class="fa fa-home"></i> HOME</a></li>
-								<li><a href="${pageContext.request.contextPath}/mypage/resumeList.do">이력서 목록</a></li>
-								<li><a href="${pageContext.request.contextPath}/mypage/introductionList.do">자기소개서 목록</a></li>
-								<li><a href="${pageContext.request.contextPath}/">즐겨찾기 기업</a></li>
-								<li><a href="${pageContext.request.contextPath}/cards/cards.do">트롤로</a></li>
+								<c:if test="${user.memberType == 1}">
+									<li><a href="${pageContext.request.contextPath}/mypage/resumeList.do">이력서 목록</a></li>
+									<li><a href="${pageContext.request.contextPath}/mypage/introductionList.do">자기소개서 목록</a></li>
+									<li><a href="${pageContext.request.contextPath}/">즐겨찾기 기업</a></li>
+									<li><a href="${pageContext.request.contextPath}/cards/cards.do">트롤로</a></li>
+								</c:if>
 							</ul>
 						</div>
 					</nav>
