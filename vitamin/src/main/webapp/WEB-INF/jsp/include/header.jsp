@@ -35,20 +35,6 @@
 				url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
 				makeProfile(url, id);
 			}
-
-			// let url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
-			// for(let tag of id) {
-			// 	if(fileNo == '') {
-					
-			// 		$(tag).attr('class', 'glyphicon glyphicon-user icon-size' + $(tag).attr('class'));
-			// 	} else {
-			// 		if(tag.tagName == 'IMG') {
-			// 			$(tag).attr('src', url)
-			// 		} else {
-			// 			$(tag).css('background-image', 'url(' + url + ')');
-			// 		}
-			// 	}
-			// }
 		});
 		function makeProfile(url, id) {
 			for(let tag of id) {
@@ -113,6 +99,9 @@
 					<c:if test="${sessionScope.user.memberType == 2}">
 						<li>
 							<a href="${pageContext.request.contextPath}/search/peoplesSearch.do">인재 검색</a>
+						</li>
+						<li>
+							<a href="${pageContext.request.contextPath}/recruit/recruitWriteForm.do">공고 글쓰기</a>
 						</li>
 					</c:if>
 					<!-- <li class="dropdown">
