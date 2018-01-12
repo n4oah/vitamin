@@ -6,7 +6,7 @@
 
 <c:if test="${!empty sessionScope.user}">
 	<c:if test="${sessionScope.user.memberType == 1}">
-		<c:set var="profileNo" value="${sessionScope.user.logoNo}"></c:set>
+		<c:set var="profileNo" value="${user.logoNo}"></c:set>
 	</c:if>
 	<c:if test="${sessionScope.user.memberType == 2}">
 			<!-- <c:set var="profileNo" value="${sessionScope.user.logoNo}"></c:set> -->
