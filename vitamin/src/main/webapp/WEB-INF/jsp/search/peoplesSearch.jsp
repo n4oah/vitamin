@@ -27,9 +27,10 @@
 		<script src="${pageContext.request.contextPath}/js/jquery-ui-slider-pips.js"></script>
 		<link rel="stylesheet" href="../css/mCalendar.css">
 		<script src="../js/mCalendar.js"></script>
+		<script src="../js/simpledateformat.js"></script>
 	</head>
 <body>
-	<%-- <%@ include file="/WEB-INF/jsp/include/header.jsp" %> --%>
+	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container">
 			<div class="row">
@@ -239,10 +240,10 @@
 					<!-- end wrapper -->
 				</div>
 				
-				<div class="iframe">
+				<%-- <div class="iframe">
 					<div class="moveBar">여기를 잡고 움직이세요.</div>
 					<iframe src="http://192.168.0.146:3030/?memberNo=${user.accountNo}&password=${user.pwd}" width="500" height="300" name="iframe"></iframe>
-				</div>
+				</div> --%>
 				
 				<div class="recruit_list">
 					<table class="recruit_table table" >
@@ -258,13 +259,12 @@
 						
 						<thead>
 					    	<tr>
-				                <th class="col-md-1"></th>
-				                <th class="col-md-2">이름</th>
-						        <th class="col-md-4">제목</th>
-						        <th class="col-md-1">지원자격</th>
-						        <th class="col-md-1">근무조건</th>
-						        <th class="col-md-1">접수일·마감일</th>
-						        <th align="center" class="col-md-1">즉시지원</th>
+				                <th class="col-md-1">이름</th>
+						        <th class="col-md-3">이력서 제목</th>
+						        <th class="col-md-1">군필</th>
+						        <th class="col-md-1">경력/학력</th>
+						        <th class="col-md-1">지역</th>
+						        <th class="col-md-1">생년월일</th>
 					    	</tr>
 				   		 </thead>
 				   		 
@@ -273,18 +273,7 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
-			
-			<div class="center-block">
-				<ul class="pagination">
-				  <li><a href="#">1</a></li>
-				  <li><a href="#">2</a></li>
-				  <li><a href="#">3</a></li>
-				  <li><a href="#">4</a></li>
-				  <li><a href="#">5</a></li>
-				</ul>
-			</div>
-			
+			</div>			
 		</section>
 	</div>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
@@ -672,79 +661,120 @@
 	    	$(this).remove();
 	    });
 	    
-	    $(".search_button > input").one("click", submit);
-	    var submit = function () {
+	    var submitChk = false;
+	    
+	    var submit = function (e, scroll) {
+	    	if (!scroll) submitChk = true;
 	    	var parameterData = "?";
 	    	
 	    	var cs = parseInt($(".careerList font:eq(0)").text());
 	    	var ce = parseInt($(".careerList font:eq(1)").text());
-	    	
-	    	//console.log("경력 시작|",  cs ? cs : "신입");
-	    	if (cs) parameterData += "&careerStart="+cs;
-	    	
-	    	//console.log("경력 종료|",  ce ? ce : "신입");
-	    	if (ce != 20) parameterData += "&careerEnd="+ce;
-	    	
+	    	if (cs) parameterData += "&careerStart="+cs;	    	
+	    	if (ce != 20) parameterData += "&careerEnd="+ce;	    	
 	    	$(".lic").each(function (i, data) {
-	    		//console.log("자격증|", $(data).attr("data-civa"));
 	    		parameterData += "&licenseCode="+$(data).attr("data-civa");
 	    		parameterData += "&licenseName="+$(data).text();
 	    	});
 	    	$(".sch").each(function (i, data) {
-	    		//console.log("학력|", $(data).attr("data-civa"));
 	    		parameterData += "&schoolCode="+$(data).attr("data-civa");
 	    	});
 	    	$(".addrList font").each(function (i, data) {
-	    		//console.log(($(data).attr("data-city") ? "시/도" : "시/군/구")+"|", $(data).attr("data-civa"));
 	    		parameterData += "&"+($(data).attr("data-city") ? "cityCode" : "areaCode")+"="+$(data).attr("data-civa");
-	    	});
-	    	
+	    	});	    	
 	    	var as = parseInt($(".ageStart").text());
-	    	var ae = parseInt($(".ageEnd").text());
-	    	
-	    	//console.log("나이 시작|",  as ? as : "전체");
-	    	if (as) parameterData += "&ageStart="+as;
-	    	
-	    	//console.log("나이 종료|",  ae ? ae : "전체");
-	    	if (ae) parameterData += "&ageEnd="+ae;
-	    	
+	    	var ae = parseInt($(".ageEnd").text());	    	
+	    	if (as) parameterData += "&ageStart="+as;	    	
+	    	if (ae) parameterData += "&ageEnd="+ae;	    	
 	    	var gender = $(".gender").attr("data-civa");
-	    	
-	    	//console.log("성별|", gender == 3 ? "전체" : gender);
 	    	if (gender != 3) parameterData += "&gender="+gender;
-	    	
 	    	var marry = $(".marry").attr("data-civa");
-	    	
 	    	if (marry != 3) parameterData += "&marry="+marry;
-	    	
 	    	$(".army:not([data-civa=3])").each(function (i, data) {
 	    		parameterData += "&army="+$(data).attr("data-civa");
 	    	});
-	    	
-	    	if ($(".jobState").is(":checked"))
-	    		parameterData += "&jobState=1";
-	    	
+	    	if ($(".jobState").is(":checked")) parameterData += "&jobState=1";
+	    	if (scroll) {
+		    	var lastNo = $(".lastTr .job_tit > .str_tit").attr("data-civa");
+		    	if (lastNo) parameterData += "&lastNo="+lastNo;	    		
+	    	}
 	    	console.log(parameterData);
 	    	
 	    	$.ajax({
 	    		type: "POST",
 	    		url: path+"/search/peoplesSearchList.do",
 	    		data: parameterData,
-	    		success: function () {	    			
-			    	$(".search_button > input").one("click", submit);
+	    		dataType: "JSON",
+	    		success: function (data) {
+	    			console.log(data)
+	    			if (!scroll) $("tbody").empty()
+	    			data.forEach(function (human, i) {
+						var tr = $("<tr>");
+
+						if (data.length-1 == i) tr.addClass("lastTr")
+						
+						tr.append($("<td>").addClass("recruit_nm")
+							.append($("<a>").addClass("str_tit nameAjax")
+									.attr({"title": human.name, "data-civa": human.memberNo})
+								.append($("<span>").text(human.name+"("+human.age+"세)")))
+							.append($("<div>").addClass("icon")));
+						
+						tr.append($("<td>").addClass("notification_info")
+							.append($("<div>").addClass("job_tit")
+								.append($("<a>").addClass("str_tit").attr({"title": human.title,
+									"href": path+"/mypage/resumeInfo.do?no="+human.resumeNo,									"data-civa": human.resumeNo})
+									.append($("<span>").text(human.title)))
+								.append($("<p>").addClass("job_sector")
+									.append($("<span>").text(human.armyServiceState)))));
+						
+						var army;
+						
+						switch (human.armyServiceState) {
+							case 0 :
+								army = "미필"
+								break;
+							case 1 :
+								army = "군필"
+								break;
+							case 2 :
+								army = "면제"
+								break;
+						}
+						
+						tr.append($('<td>').addClass('army_condition')
+								.append($('<p>').addClass('armyAjax').text(army))
+								.append($('<p>').addClass('armyAjax').text(human.armyServiceReason ? human.armyServiceReason : "")));
+						
+						tr.append($('<td>').addClass('recruit_condition')
+							.append($('<p>').addClass('careerAjax').text(human.careerYears ? human.careerYears+"년차" : "신입"))	
+							.append($('<p>').addClass('educationAjax').text(human.graduateState)));
+						
+						tr.append($('<td>').addClass('company_info')
+							.append($('<p>').addClass('employment_typeAjax').text(human.cityName))
+							.append($('<p>').addClass('work_placeAjax').text(human.areaName)));
+							
+						var sdf = new simpleDateFormat("yyyy-MM-dd");
+							
+						tr.append($('<td>').addClass('support_infoAjax')
+							.append($('<p>').addClass('recruit_date_startAjax').css("padding-left", "2px").text(sdf.format(new Date(human.regDate)))));
+							
+						$("tbody").append(tr);
+					});
+					
+	    			if (!scroll) $(".search_button > input").one("click", submit);
 	    		}
 	    	});
 	    	
 	    };
-	    $(".iframe").draggable();
 	    
-	    $(".iframe").trigger("click");
-
-	    /* document.origin = "http://192.168.0.146:3030"; */
-	    /* iframe=document.querySelector('iframe');
-	    iframe.contentDocument.origin = "http://192.168.0.146:3030";
-	    console.dir(iframe.contentDocument)
-	    console.dir(document) */
+	    $(".search_button > input").one("click", submit);
+	    
+	    $(window).scroll(function (e) {
+	    	if (submitChk && $(this).scrollTop() == $(document).height() - $(window).height()) {
+	    		submit(e, true);
+	    	}
+	    })
+	    
+	    $(".iframe").draggable();
 	    
 	    console.log($(document.querySelector('iframe')));
 	</script>

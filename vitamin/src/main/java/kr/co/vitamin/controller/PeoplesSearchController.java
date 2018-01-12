@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.PeopleSearch;
+import kr.co.vitamin.repository.vo.Peoples;
 import kr.co.vitamin.service.PeoplesSearchService;
 
 @Controller
@@ -40,9 +41,9 @@ public class PeoplesSearchController {
 	
 	@ResponseBody
 	@RequestMapping("/peoplesSearchList.do")
-	public void peoplesSearchList(PeopleSearch peopleSearch) throws Exception {
+	public List<Peoples> peoplesSearchList(PeopleSearch peopleSearch) throws Exception {
 		System.out.println(peopleSearch);
-		System.out.println(peoplesSearchService.peoplesSearch(peopleSearch));
+		return peoplesSearchService.peoplesSearch(peopleSearch);
 	}
 	
 	@ResponseBody

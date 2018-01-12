@@ -1,10 +1,39 @@
 package kr.co.vitamin.repository.vo;
 
+import java.util.Date;
+import java.util.List;
+
 public class Peoples {
-	private String title, name, gender, graduateState, cityName, areaName; 
-	private Integer resumeNo, age, careerState, careerYears, jobState;
-	private Certificate certificate;
+	private String title, name, gender, graduateState, cityName, areaName, armyServiceReason; 
+	private Integer memberNo, resumeNo, age, careerState, careerYears, jobState, armyServiceState;
+	private List<Certificate> certificate;
+	private Date regDate;
 	
+	
+	public String getArmyServiceReason() {
+		return armyServiceReason;
+	}
+	public void setArmyServiceReason(String armyServiceReason) {
+		this.armyServiceReason = armyServiceReason;
+	}
+	public Date getRegDate() {
+		return regDate;
+	}
+	public void setRegDate(Date regDate) {
+		this.regDate = regDate;
+	}
+	public Integer getArmyServiceState() {
+		return armyServiceState;
+	}
+	public void setArmyServiceState(Integer armyServiceState) {
+		this.armyServiceState = armyServiceState;
+	}
+	public Integer getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(Integer memberNo) {
+		this.memberNo = memberNo;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -71,18 +100,19 @@ public class Peoples {
 	public void setJobState(Integer jobState) {
 		this.jobState = jobState;
 	}
-	public Certificate getCertificate() {
+	public List<Certificate> getCertificate() {
 		return certificate;
 	}
-	public void setCertificate(Certificate certificate) {
+	public void setCertificate(List<Certificate> certificate) {
 		this.certificate = certificate;
 	}
 	
 	@Override
 	public String toString() {
 		return "Peoples [title=" + title + ", name=" + name + ", gender=" + gender + ", graduateState=" + graduateState
-				+ ", cityName=" + cityName + ", areaName=" + areaName + ", resumeNo=" + resumeNo + ", age=" + age
-				+ ", careerState=" + careerState + ", careerYears=" + careerYears + ", jobState=" + jobState
-				+ ", certificate=" + certificate + "]";
+				+ ", cityName=" + cityName + ", areaName=" + areaName + ", memberNo=" + memberNo + ", resumeNo="
+				+ resumeNo + ", age=" + age + ", careerState=" + careerState + ", careerYears=" + careerYears
+				+ ", jobState=" + jobState + ", armyServiceState=" + armyServiceState + ", certificate=" + certificate
+				+ "]";
 	}
 }

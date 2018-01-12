@@ -170,8 +170,8 @@ display: inline-block;
 </head>
 <body>
 <div class="top" id="header">
-	<c:if test="${logo != null }">
-	<img alt="${com.companyName}" src="../images/${logo }" class="logo">
+	<c:if test="${com.file != null }">
+	<img alt="${com.companyName}" src="${pageContext.request.contextPath}${com.file.filePath }/${com.file.systemName}" class="logo">
 	</c:if>
 	<span class="title">${com.companyName}</span>
 	
@@ -220,7 +220,7 @@ display: inline-block;
 	</div>
 </div>
 
-
+<c:if test="${com.recruitList[0].company != null }">
 <div class="recruitList">
 	<div class="prev"><img src="https://i.imgur.com/oLfh9Tj.png"></div>
 	<c:forEach items="${com.recruitList }" var="recruit" varStatus="i">
@@ -258,6 +258,7 @@ display: inline-block;
 	</c:forEach>
 	<div class="next"><img src="https://i.imgur.com/XQJb8Kq.png"></div>
 </div>
+</c:if>
 
 <div class="detail">
 	<div>
