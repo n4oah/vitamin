@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -21,6 +22,8 @@ import kr.co.vitamin.repository.vo.FormService;
 import kr.co.vitamin.repository.vo.Recruit;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.Welfare;
+import kr.co.vitamin.repository.vo.account.Account;
+import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.File;
 import kr.co.vitamin.service.AddressService;
@@ -61,7 +64,10 @@ public class RecruitController {
 	}
 	
 	@RequestMapping(value="/recruit/recruitWrite.do", method=RequestMethod.POST)
-	public String recruitWrtie(Recruit recruit, Welfare welfare, Address address) throws Exception {
+	public String recruitWrtie(Recruit recruit, Welfare welfare, Address address, HttpSession session) throws Exception {
+		Company company = (Company)session.getAttribute("user");
+		
+		
 		String filePath = "C:\\kang\\project\\vitamin\\src\\main\\webapp\\WEB-INF\\resumeFile";
 		int fileNo = -1;
 
@@ -112,9 +118,9 @@ public class RecruitController {
 			recruit.setAddressNo(addressNo);
 
 		
-	
 		
-		recruit.setCompanyNo(1);
+		
+		recruit.setCompanyNo(company.getCompanyNo());
 		
 		recruitService.insertRecruit(recruit);
 		

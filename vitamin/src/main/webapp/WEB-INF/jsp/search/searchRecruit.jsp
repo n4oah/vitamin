@@ -328,7 +328,8 @@
 	        						</td>
 	        						
 	        						<td class="company_nm">
-	        							<a class="str_tit"><span class="company_name">${rlist.company.companyName }</span></a>                         
+	        							<a class="str_tit" href="${pageContext.request.contextPath }/company/detail.do?no=${rlist.companyNo}">
+	        								<span class="company_name">${rlist.company.companyName }</span></a>                         
 	        							<div class="icon"></div>
 	    							</td>
 	    							
