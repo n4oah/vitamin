@@ -27,7 +27,6 @@ public class FileDownload {
 	@RequestMapping("/fileDown.do")
 	public void fileDown(HttpServletResponse response, kr.co.vitamin.repository.vo.File file) throws Exception {
 		file = fileService.selectFile(file.getFileNo());
-		System.out.println("afpsajdfgpoisajdoij");
 		
 		if(file != null) {
 			File f = new File(servletContext.getRealPath("/upload" + file.getFilePath() + "/" + file.getSystemName()));

@@ -145,6 +145,11 @@
 		WHERE account.account_no=#{accountNo} AND member.account_no=#{accountNo};
 	</select>
 	
+	<select id="selectProfileNo" parameterType="account" resultType="int">
+		SELECT file_no FROM vi_profile_image
+		WHERE account_no = #{accountNo} AND profile_type = 0 LIMIT 1
+	</select>
+	
 	<select id="selectNextAutoIncrement" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
 			<property name="tableName" value="vi_account"/>

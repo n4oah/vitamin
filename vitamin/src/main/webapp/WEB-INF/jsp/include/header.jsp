@@ -6,22 +6,54 @@
 
 <c:if test="${!empty sessionScope.user}">
 	<c:if test="${sessionScope.user.memberType == 1}">
-		<c:set var="profileNo" value="${user.logoNo}"></c:set>
+			<c:set var="profileNo" value="-1"></c:set>
 	</c:if>
 	<c:if test="${sessionScope.user.memberType == 2}">
-			<!-- <c:set var="profileNo" value="${sessionScope.user.logoNo}"></c:set> -->
+		<c:set var="profileNo" value="${sessionScope.user.logoNo}"></c:set>
 	</c:if>
 	<script>
 		$(function() {
 			let id = $('.profile-image');
 			let fileNo = '${profileNo}';
+			var url;
 
-			let url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
+			if(fileNo == -1) {
+				$.ajax({
+					url: '${pageContext.request.contextPath}/mypage/myProfile.do',
+					success: function(no) {
+						if(no != -1) {
+							fileNo = no;
 
-			for(let tag of id) {
-				if(fileNo == '') {
+							url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
+							makeProfile(url, id);
+						} else {
+							makeProfile(-1, id);
+						}
+					}
+				})
+			} else {
+				url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
+				makeProfile(url, id);
+			}
+
+			// let url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
+			// for(let tag of id) {
+			// 	if(fileNo == '') {
 					
-					$(tag).attr('class', 'glyphicon glyphicon-user icon-size' + $(tag).attr('class'));
+			// 		$(tag).attr('class', 'glyphicon glyphicon-user icon-size' + $(tag).attr('class'));
+			// 	} else {
+			// 		if(tag.tagName == 'IMG') {
+			// 			$(tag).attr('src', url)
+			// 		} else {
+			// 			$(tag).css('background-image', 'url(' + url + ')');
+			// 		}
+			// 	}
+			// }
+		});
+		function makeProfile(url, id) {
+			for(let tag of id) {
+				if(url == -1) {
+					$(tag).attr('class', 'glyphicon glyphicon-user icon-size ' + $(tag).attr('class'));
 				} else {
 					if(tag.tagName == 'IMG') {
 						$(tag).attr('src', url)
@@ -29,10 +61,8 @@
 						$(tag).css('background-image', 'url(' + url + ')');
 					}
 				}
-
-				//glyphicon glyphicon-user icon-size
 			}
-		});
+		}
 	</script>
 </c:if>
 <script>

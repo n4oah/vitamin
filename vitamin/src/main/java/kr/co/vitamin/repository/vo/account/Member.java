@@ -7,20 +7,10 @@ import java.util.Locale;
 import org.apache.tomcat.jni.Local;
 
 public class Member extends Account {
-	private Integer memberNo, logoNo;
+	private Integer memberNo;
 	private String name, phoneNumber;
 	private Date birthDate;
 	private Character gender;
-	
-	
-
-	public Integer getLogoNo() {
-		return logoNo;
-	}
-
-	public void setLogoNo(Integer logoNo) {
-		this.logoNo = logoNo;
-	}
 
 	public Integer getMemberNo() {
 		return memberNo;
@@ -89,7 +79,8 @@ public class Member extends Account {
 				+ birthDate + ", gender=" + gender + ", getAccountNo()=" + getAccountNo() + ", getAddressNo()="
 				+ getAddressNo() + ", getEmailTokenNo()=" + getEmailTokenNo() + ", getMemberType()=" + getMemberType()
 				+ ", getEmailTokenStatus()=" + getEmailTokenStatus() + ", getId()=" + getId() + ", getPwd()=" + getPwd()
-				+ ", getEmail()=" + getEmail() + ", getRegDate()=" + getRegDate() + ", toString()=" + super.toString()
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+				+ ", getEmail()=" + getEmail() + ", getRegDate()=" + getRegDate() + ", getMemberTypeName()="
+				+ getMemberTypeName() + ", toString()=" + super.toString() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + "]";
 	}
 }
