@@ -742,9 +742,15 @@
 		
 		$('input[type="button"]').one("click", searchFn);
 		
-		$(".pagination").on("click", "li", function (e) {
-			console.log("aadsadsass")
+		
+		
+		
+		$(".pagination").on("click", ".pageButton", function (e) {
+			console.log("sdfsdf", $(this).text());
+			
 			searchFn(e, $(this).text());
+			
+			
 		});
 			
 		function searchFn(e, page) {
@@ -758,22 +764,28 @@
 				url: path + "/search/searchWork.do",
 				success: function (result) {
 					result = JSON.parse(result);
-					console.log(result);
+					console.log("result", result);
+					console.log(result.pageResult.beginPage);
+					console.log(result.pageResult.endPage);
 					
 					$("form").remove();
 					$(".recruit_table > tbody").empty();
 					result.recruitList.forEach(function (recruit) {
+						
+						
 						var tr = $("<tr>")
 						tr.append($("<td>").append($("<img>").addClass("star").attr("src", "https://i.imgur.com/Z4wlC9v.png")));
 						
 						tr.append($("<td>").addClass("company_nm")
-							.append($("<a>").addClass("str_tit").attr({"title": recruit.company.companyName, "class": "company_name"})
+							.append($("<a>").addClass("str_tit company_name")
+									.attr("title", recruit.company.companyName)
 								.append($("<span>").text(recruit.company.companyName)))
 							.append($("<div>").addClass("icon")));
 						
 						tr.append($("<td>").addClass("notification_info")
 							.append($("<div>").addClass("job_tit")
-								.append($("<a>").addClass("str_tit").attr("title", recruit.title)
+								.append($("<a>").addClass("str_tit").attr({"title": recruit.title,
+									"href": "${pageContext.request.contextPath}/recruit/recruitDetail.do?no=" + recruit.recruitNo})
 									.append($("<span>").text(recruit.title)))
 								.append($("<p>").addClass("job_sector")
 									.append($("<span>").text(recruit.assignedTask)))));
@@ -804,14 +816,39 @@
 							
 							
 						$("tbody").append(tr);
-					});
+					}); 
 					
-					$("ul.pagination > li:not(:first-child):not(:last-child)").each(function (i, li) {
-						$(this).remove();
-					});
+					$("ul.pagination").empty();
 					
-					if (!page)
-						$('input[type="button"]').one("click", searchFn);
+					var beginPage = result.pageResult.beginPage;
+					var endPage = result.pageResult.endPage;
+					
+					$('<li>').append($('<a>').append($('<span>').addClass("glyphicon glyphicon-chevron-left"))).appendTo($('ul.pagination')); 
+					
+					for(var i = beginPage; i<= endPage; i++) {		
+						if(result.pageResult.pageNo == i)
+							$('<li>').addClass("pageButton active").append($('<a>').attr("id",i).text(i)).appendTo($('ul.pagination'));
+						else
+							$('<li>').addClass("pageButton").append($('<a>').attr("id",i).text(i)).appendTo($('ul.pagination'));
+					}
+					
+					$('<li>').append($('<a>').append($('<span>').addClass("glyphicon glyphicon-chevron-right"))).appendTo($('ul.pagination'));  
+					
+					if (!page) $('input[type="button"]').one("click", searchFn);
+				
+					
+					/* for(var i = beginPage; i<= endPage; i++) {	
+						if(result.pageResult.pageNo != i) {
+							$('ul.pagination > li > a').eq(i).click(function() {
+								
+								searchFn();
+							}) ;
+						}
+					}
+					 */
+					
+					
+					
 				}
 			});
 		};	

@@ -80,13 +80,14 @@ public class SearchRecruitController {
 		System.out.println(searchRecruit.getPageNo());
 
 		int count = searchService.selectSearchConditionCount(searchRecruit);
-				
+		
+		
 		PageResult pageResult = new PageResult(searchRecruit.getPageNo(), count);
-			
+		
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("pageResult", pageResult);
-		map.put("recruitListCount", pageResult);
+		map.put("recruitList", searchService.selectSearchCondition(searchRecruit));
 		
 		return new Gson().toJson(map);
 	}
