@@ -73,39 +73,22 @@
 				        <th style="width:5%">관리</th>
 				        <th style="width:5%">등록날짜</th>
 				      </tr>
-				      <c:forEach var="resume" items="${rlist}">
+				      <c:forEach var="introduction" items="${ilist}">
 				      
 				       <tr>
 				        <td>
-					        <span attr="${resume.resumeNo}" class="resumeTitle" >${resume.resumeTitle}</span>
-					        <c:if test="${resume.term < 24}">
+					        <span attr="${introduction.introductionNo}" class="introductionTitle" >${introduction.introductionTitle}</span>
+					        <c:if test="${introduction.term < 24}">
 					        	<img alt="" src="../image/mypage/new.gif">
 					        </c:if> 
-					        
-					        <img class="deleteimg"  attr="${resume.resumeNo}" alt="" src="../image/mypage/delete.jpg">
-					        <a attr="${resume.resumeNo}" href="${pageContext.request.contextPath}/mypage/resumeUpdateForm.do?resumeNo=${resume.resumeNo}"
-					        style="align-content: right" class="btn_smaller_type01">수정</a>
-					        
 				        </td>
 				        <td>
-				        	
-				       		<%-- <input name="openstate" type="checkbox" <c:if test="${resume.openState eq 1}">checked="checked"</c:if>> --%>
-				       		<%-- <div class="selectable">
-				       				
-				       		<c:choose>
-				       			<c:when test="${resume.openState eq 1}">
-					       			<span attr="${resume.resumeNo}" class="ui-widget-content  ui-selected open">공개</span>
-					       			<span attr="${resume.resumeNo}" class="ui-widget-content nonopen">비공개</span>
-				       			</c:when>
-				       			<c:otherwise>
-					       			<span attr="${resume.resumeNo}" class="ui-widget-content open">공개</span>
-					       			<span attr="${resume.resumeNo}" class="ui-widget-content ui-selected nonopen">비공개</span>
-				       			</c:otherwise>
-				       		</c:choose>
-  							</div> --%>
-  							
+					        <a attr="${introduction.introductionNo}" href="#" class="deleteintroduction"
+					        style="align-content: right" class="btn_smaller_type01">삭제</a>
+					        <a attr="${introduction.introductionNo}" href="${pageContext.request.contextPath}/mypage/resumeUpdateForm.do?resumeNo=${introduction.introductionNo}"
+					        style="align-content: right" class="btn_smaller_type01">수정</a>
 				        </td>
-				        <td class="regDate"><fmt:formatDate value="${resume.regDate}" pattern="yyyy-MM-dd"/></td>
+				        <td class="regDate"><fmt:formatDate value="${introduction.introductionregDate}" pattern="yyyy-MM-dd"/></td>
 				      </tr>
 				      </c:forEach>
 				    </tbody>
@@ -137,13 +120,13 @@
 	<script>
 	
 	
-	$('.deleteimg').click(function(){
+	$('.deleteintroduction').click(function(){
 		var chk = confirm("정말 삭제하시겠습니까?");
 		if(chk == true){
 		  $.ajax({
-             url: "${pageContext.request.contextPath}/mypage/deleteResume.do?resumeNo="+$(this).attr("attr"),
+             url: "${pageContext.request.contextPath}/mypage/deleteIntroduction.do?introductionNo="+$(this).attr("attr"),
              success: function(data) {
-             	location.href="${pageContext.request.contextPath}/mypage/resumeList.do";
+             	location.href="${pageContext.request.contextPath}/mypage/introductionList.do";
              	}
              }); 
 		}
