@@ -96,7 +96,7 @@
 											</div>
 											</th>
 											<td>
-												<textarea class="textarea-control" name="introductionContent" rows="10" cols="80%"></textarea>
+												<textarea class="textarea-control col-md-12" name="introductionContent" rows="10" cols="80%"></textarea>
 											</td>
 										</tr>
 										<tr>
@@ -127,7 +127,7 @@
 												</div>
 											</th>
 											<td>
-											<textarea class="textarea-control" name="introductionContent" rows="10" cols="80%"></textarea>
+											<textarea class="textarea-control col-md-12" name="introductionContent" rows="10" cols="80%"></textarea>
 											</td>
 										</tr>
 										<tr>
@@ -158,7 +158,7 @@
 												</div>
 											</th>
 											<td>
-												<textarea class="textarea-control" name="introductionContent" rows="10" cols="80%"></textarea>
+												<textarea class="textarea-control col-md-12" name="introductionContent" rows="10" cols="80%"></textarea>
 											</td>
 										</tr>
 										<tr>
@@ -189,7 +189,7 @@
 												</div>
 											</th>
 											<td>
-											<textarea class="textarea-control" name="introductionContent" rows="10" cols="80%"></textarea>
+											<textarea class="textarea-control col-md-12" name="introductionContent" rows="10" cols="80%"></textarea>
 											</td>
 										</tr>
 										<tr>
