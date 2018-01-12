@@ -153,7 +153,7 @@ public class AccountController {
 			
 			accountService.signupMember(accountSignupVO, address, emailTok);
 			
-			redirectAttributes.addAttribute("user", (Account)accountSignupVO);
+			redirectAttributes.addFlashAttribute("user", (Account)accountSignupVO);
 			resultUrl = "redirect:/account/signupSuccess.do";
 		} else {
 			redirectAttributes.addFlashAttribute("errorMsg", "");
@@ -163,8 +163,8 @@ public class AccountController {
 	}
 	
 	@RequestMapping("/signupSuccess.do")
-	public void signupSuccess(HttpServletRequest request) {
-		System.out.println(request.getAttribute("user"));
+	public void signupSuccess(/*HttpServletRequest request*/) {
+		//System.out.println(request.getAttribute("user"));
 		//System.out.println(((Account)request.getAttribute("user")).toString());
 	}
 	

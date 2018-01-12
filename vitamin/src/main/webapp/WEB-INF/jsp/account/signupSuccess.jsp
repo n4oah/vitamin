@@ -16,8 +16,8 @@
 		<section class="container">
 			<div class="row">
 				<div class="col-md-12">
-					${user}
-					bb
+					${user.id} 회원가입 성공
+					<a href="${pageContext.request.contextPath}/main.do">홈</a>
 				</div>
 			</div>
 		</section>
