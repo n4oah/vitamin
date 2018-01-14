@@ -69,7 +69,13 @@
 									</div>
 								</div>
 							</div>
-							
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="form-group signup-btn-wrapper">
+							<input type="button" class="btn btn-primary btn-lg col-md-12" src="${pageContext.request.contextPath}/account/signupForm.do" value="회원가입">
+							<input type="button" class="btn btn-primary btn-lg col-md-12" src="" value="네이버로 로그인">
+							<input type="button" class="btn btn-primary btn-lg col-md-12" src="" value="구글로 로그인">
 						</div>
 					</div>
 				</div>

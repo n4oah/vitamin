@@ -1,5 +1,7 @@
 package kr.co.vitamin.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +19,7 @@ import kr.co.vitamin.common.FileUpload;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.EmailChangeAuth;
 import kr.co.vitamin.repository.vo.File;
+import kr.co.vitamin.repository.vo.Letter;
 import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.repository.vo.account.AccountInfo;
 import kr.co.vitamin.repository.vo.account.Member;

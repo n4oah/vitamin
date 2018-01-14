@@ -263,3 +263,7 @@ form.sign-form label.hint {
 label.form-check-label {
 	margin: auto 10px;	
 }
+
+div.signup-btn-wrapper > input {
+	margin-bottom: 20px;
+}

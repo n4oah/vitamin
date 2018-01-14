@@ -36,6 +36,8 @@
 					}
 				});
 			};
+			
+			
 		</script>
 		<script src="${pageContext.request.contextPath}/js/pattern/pattern.js"></script>
 		<script src="${pageContext.request.contextPath}/js/signupForm.js"></script>

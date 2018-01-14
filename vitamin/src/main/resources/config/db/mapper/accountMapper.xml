@@ -150,6 +150,16 @@
 		WHERE account_no = #{accountNo} AND profile_type = 0 LIMIT 1
 	</select>
 	
+	<select id="selectAccount" parameterType="int" resultMap="accountMap">
+	    select a.*, b.*, c.*
+	      from vi_account a
+	      left JOIN vi_member b
+	        on a.account_no = b.account_no
+	      left JOIN vi_company c
+	        on a.account_no = c.account_no    
+	     WHERE (a.account_no = #{accountNo})
+	</select>
+	
 	<select id="selectNextAutoIncrement" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
 			<property name="tableName" value="vi_account"/>

@@ -4,17 +4,19 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Insert title here</title>
-<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
-<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/css/myInfo.css'>
-<link rel='stylesheet' href="${pageContext.request.contextPath}/css/loadingBar/loadingBar.css"></link>
-<script src="${pageContext.request.contextPath}/js/loadingBar/loadingBar.js"></script>
-<script src="${pageContext.request.contextPath}/js/pattern/pattern.js"></script>
-<script src='${pageContext.request.contextPath}/js/myInfo.js'></script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Insert title here</title>
+	<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
+	<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/myInfo.css'>
+	<link rel='stylesheet' href="${pageContext.request.contextPath}/css/loadingBar/loadingBar.css"></link>
+	<script src="${pageContext.request.contextPath}/js/loadingBar/loadingBar.js"></script>
+	<script src="${pageContext.request.contextPath}/js/pattern/pattern.js"></script>
+	<script src='${pageContext.request.contextPath}/js/myInfo.js'></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script>
 </head>
 <body>
 	<c:set var="memberType" value="${sessionScope.user.memberTypeName}"></c:set>
@@ -133,6 +135,20 @@
 						                <h4 class="reviews text-capitalize">일정표</h4>
 						            </a>
 						        </li>
+						        <c:if test="${user.memberType == 1}">
+						       		<li>
+							            <a href="#my-apply-resu" role="tab" data-toggle="tab">
+							                <h4 class="reviews text-capitalize">내가 지원한 공고</h4>
+							            </a>
+							        </li>
+						        </c:if>
+						        <c:if test="${user.memberType == 2}">
+						       		<li>
+							            <a href="#apply-list" role="tab" data-toggle="tab">
+							                <h4 class="reviews text-capitalize">지원목록</h4>
+							            </a>
+							        </li>
+						        </c:if>
 						        <li>
 						            <a href="#account-setting" role="tab" data-toggle="tab">
 						                <h4 class="reviews text-capitalize">내정보</h4>
@@ -142,10 +158,9 @@
 						    <div class="tab-content">
 						        <div class="tab-pane active" id="letter-recv">
 						            <ul class="media-list">
+						            	<!-- media-list
 						                <li class="media">
-						                    <a class="pull-left" href="#">
-						                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg" alt="profile">
-						                    </a>
+					                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg" alt="profile">
 						                    <div class="media-body">
 						                        <div class="well well-lg">
 						                            <h4 class="media-heading text-uppercase reviews">Marco </h4>
@@ -163,7 +178,7 @@
 						                                <span class="glyphicon glyphicon-share-alt"></span> 답장</a>
 						                        </div>
 						                    </div>
-						                </li>
+						                </li> -->
 						            </ul>
 						        </div>
 						        <div class="tab-pane" id="letter-send">
@@ -231,7 +246,7 @@
 						                <div class="form-group">
 						                    <label for="pwd" class="col-sm-2 control-label">비밀번호</label>
 						                    <div class="col-sm-10">
-						                        <input type="text" class="form-control" name="pwd" id="pwd">
+						                        <input type="password" class="form-control" name="pwd" id="pwd">
 						                    </div>
 										</div>
 										<c:if test="${user.memberType == 1}">
@@ -343,7 +358,6 @@
 														<input type="text" class="form-control" readonly="readonly" placeholder="사원수" value="${user.businessContent}" id="company-input-businessContent" >
 													</div>
 												</div>
-
 											</c:when>
 										</c:choose>
 						                <div class="form-group">

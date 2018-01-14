@@ -174,4 +174,9 @@ public class AccountServiceImpl implements AccountService {
 	public Integer getProfileNo(Account accountVO) throws Exception {
 		return memberMapper.selectProfileNo(accountVO);
 	}
+
+	@Override
+	public Account getAccount(Integer accountNo) throws Exception {
+		return memberMapper.selectAccount(accountNo);
+	}
 }

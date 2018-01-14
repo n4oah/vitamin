@@ -174,5 +174,60 @@ $(function() {
         }
         reader.readAsDataURL(this.files[0]);
     });
-
+    
+    
+    
+    recvList(-1);
 });
+function recvList(lastRecvNo = -1) {
+    let url = '/vitamin/letter/recvLetterList.do';
+    let data = {'lastLetterNo': lastRecvNo};
+    
+    console.log("asafgjiasf");
+    
+    $.ajax({
+        url: url,
+        data: data,
+        success: function(dataList) {
+            let html = '';
+            let parent = $('ul.media-list'); 
+
+            let letterList = JSON.parse(dataList);
+
+            for(let data of letterList) {
+                html = '';
+
+                let profileNo = data['profileNo'];
+                let name = data['name'];
+                let letter = data['letter'];
+
+                let date = new Date(letter['sendDate']);
+                console.log(date);
+
+                html += `<li class="media">`;
+                html += `   <a id="profile-img-full" class="pull-left">`;
+                html += `       <img class="media-object img-circle" src="/vitamin/common/fileDown.do?fileNo=${profileNo}" alt="profile">`;
+                html += `   </a>`;
+                html += `   <div class="media-body">`;
+                html += `       <div class="well well-lg">`;
+                html += `           <h4 class="media-heading text-uppercase reviews">${name}</h4>`;
+                html += `           <ul class="media-date text-uppercase reviews list-inline">`;
+                html += `               <li class="dd">22</li>`;
+                html += `               <li class="mm">09</li>`;
+                html += `               <li class="aaaa">2014</li>`;
+                html += `           </ul>`;
+                html += `           <p class="media-title">`;
+                html += `               ${letter['title']}`;
+                html += `           </p>`;
+                html += `           <a class="btn btn-info btn-circle text-uppercase" href="#">`;
+                html += `               <span class="glyphicon glyphicon-ok"></span> 확인</a>`;
+                html += `           <a class="btn btn-warning btn-circle text-uppercase" href="#">`;
+                html += `               <span class="glyphicon glyphicon-share-alt"></span> 답장</a>`;
+                html += `       </div>`;
+                html += `   </div>`;
+                html += `</li>`;
+                parent.append(html);
+            }
+        }
+    });
+}
