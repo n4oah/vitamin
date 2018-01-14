@@ -1,5 +1,6 @@
 package kr.co.vitamin.controller;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.IntroductionCate;
@@ -20,20 +22,22 @@ public class IntroductionController {
 	
 	
 	@Autowired
-	private IntroductionService IntroductionService;
+	private IntroductionService introductionService;
 	
 	
 	@RequestMapping("/introductionList.do")
-	public List<Introduction> introductionList(HttpSession session) throws Exception{
+	public ModelAndView introductionList(HttpSession session) throws Exception{
 		
 		System.out.println("introductionList 들어옴");
 		Member user = (Member)session.getAttribute("user");
+		List<Introduction> ilist = introductionService.selectIntroductionList(user.getMemberNo()); 
+		for (Introduction introduction : ilist) {
+			System.out.println(introduction.getIntroductionTitle());
+		}
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("ilist", ilist);
 		
-		
-		List<Introduction> ilist = IntroductionService.selectIntroductionList(user.getMemberNo()); 
-		
-		
-		return ilist;
+		return mav;
 		
 	}
 	
@@ -43,20 +47,31 @@ public class IntroductionController {
 	}
 	
 	@RequestMapping("/introductionForm.do")
-	public void introductionForm() throws Exception{
+	public ModelAndView introductionForm(HttpSession session) throws Exception{
 		System.out.println("introductionForm 들어옴");
+		Member user = (Member)session.getAttribute("user");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("user", user);
+		return mav;
 	}
 	
 	@RequestMapping("/introductionSave")
-	public void introductionSave(HttpSession session, Introduction introduction, IntroductionCate introductionCate
-			,String[] introductionCateTemp, String[] introductionCententTemp)throws Exception{
+	public String introductionSave(HttpSession session, Introduction introduction, IntroductionCate introductionCate
+			,String[] introductionCateTemp, String[] introductionContentTemp)throws Exception{
 		System.out.println("introductionSave 들어옴");
 		Member user = (Member)session.getAttribute("user");
 		introduction.setMemberNo(user.getMemberNo());
 		
+		for(int i = 0 ;i<introductionCateTemp.length;i++) {
+			introductionCate.setIntroductionCate(introductionCateTemp[i]);
+			introductionCate.setIntroductionContent(introductionContentTemp[i]);
+			introductionService.insertIntroductionCate(introductionCate);
+		}
 		
+		introductionService.insertIntroduction(introduction);
 		
-		IntroductionService.insertIntroduction(introduction, introductionCate);
+		return "redirect:/mypage/introductionList.do";
+		
 	}
 
 }

@@ -10,16 +10,16 @@
 		<result column="introduction_title" property="introductionTitle"/>
 		<result column="introduction_cate" property="introductionCate"/>
 		<result column="introduction_content" property="introductionContent"/>
-		<result column="introduction_reg_date" property="intorductionRegDate"/>
+		<result column="introduction_reg_date" property="introductionRegDate"/>
 		<result column="term" property="term"/>
 	</resultMap>
 
-	<insert id="insertInroduction" parameterType="integer">
-		insert into vi_introduction (member_no,introduction_title,introduction_reg_date)
-		values(#{memberNo},#{introductionTitle},#{introductionRegDate});
+	<insert id="insertIntroduction" parameterType="introduction">
+		insert into vi_introduction (introduction_no,member_no,introduction_title,introduction_reg_date)
+		values(#{introductionNo},#{memberNo},#{introductionTitle},now());
 	</insert>
 	
-	<insert id="insertIntroductionCate" parameterType="integer">
+	<insert id="insertIntroductionCate" parameterType="introductionCate">
 		insert into vi_introduction_cate(introduction_no,introduction_cate,introduction_content)
 		value(#{introductionNo},#{introductionCate},#{introductionContent});
 	</insert>

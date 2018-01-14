@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>자기소개서 정보</title>
+<title>자기소개서 작성</title>
 <%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/basic.css">
@@ -52,7 +52,7 @@
 </head>
 <body>
 	 <%@ include file="/WEB-INF/jsp/include/header.jsp"%>
-	<form class="form-horizontal" action="${pageContext.request.contextPath}/mypage/introductionSave.do?memberNo=">
+	<form class="form-horizontal" action="${pageContext.request.contextPath}/mypage/introductionSave.do?memberNo=${user.memberNo}" method="post">
 		<div id="wrapper" style="margin-top: 0px;">
 			<section class="container infocontainer" style="margin-bottom: 100px;">
 				<div class="row">

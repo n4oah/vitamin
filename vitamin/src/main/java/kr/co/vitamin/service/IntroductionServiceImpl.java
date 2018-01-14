@@ -17,18 +17,24 @@ public class IntroductionServiceImpl implements IntroductionService{
 	private IntroductionMapper mapper;
 
 	@Override
-	@Transactional(rollbackFor = Exception.class)
-	public void insertIntroduction(Introduction introduction, IntroductionCate introductionCate) throws Exception {
+	public void insertIntroduction(Introduction introduction) throws Exception {
 		Integer introductionNo = mapper.selectNextAutoIncrementIntroduction();
-		
-		mapper.insertIntroductionCate(introductionNo);
-		mapper.insertIntroduction(introduction.getMemberNo());
+		introduction.setIntroductionNo(introductionNo);
+		mapper.insertIntroduction(introduction);
 	}
 
 	@Override
 	public List<Introduction> selectIntroductionList(Integer memberNo) throws Exception {
 
 		return mapper.selectIntroductionList(memberNo);
+	}
+
+	@Override
+	public void insertIntroductionCate(IntroductionCate introductionCate) throws Exception {
+		Integer introductionNo = mapper.selectNextAutoIncrementIntroduction();
+		introductionCate.setIntroductionNo(introductionNo);
+		mapper.insertIntroductionCate(introductionCate);
+		
 	}
 
 }

@@ -3,6 +3,7 @@ package kr.co.vitamin.repository.mapper;
 import java.util.List;
 
 import kr.co.vitamin.repository.vo.Introduction;
+import kr.co.vitamin.repository.vo.IntroductionCate;
 
 public interface IntroductionMapper {
 
@@ -12,7 +13,7 @@ public interface IntroductionMapper {
 
 	public int selectNextAutoIncrementIntroduction() throws Exception;
 
-	public void insertIntroductionCate(Integer introductionNo) throws Exception;
+	public void insertIntroductionCate(IntroductionCate introductionCate) throws Exception;
 
-	public void insertIntroduction(Integer memberNo) throws Exception;
+	public void insertIntroduction(Introduction introduction) throws Exception;
 }

@@ -74,7 +74,6 @@
 				        <th style="width:5%">등록날짜</th>
 				      </tr>
 				      <c:forEach var="introduction" items="${ilist}">
-				      
 				       <tr>
 				        <td>
 					        <span attr="${introduction.introductionNo}" class="introductionTitle" >${introduction.introductionTitle}</span>
@@ -83,12 +82,12 @@
 					        </c:if> 
 				        </td>
 				        <td>
-					        <a attr="${introduction.introductionNo}" href="#" class="deleteintroduction"
-					        style="align-content: right" class="btn_smaller_type01">삭제</a>
-					        <a attr="${introduction.introductionNo}" href="${pageContext.request.contextPath}/mypage/resumeUpdateForm.do?resumeNo=${introduction.introductionNo}"
+					        <a attr="${introduction.introductionNo}" href="#" 
+					        style="align-content: right" class="btn_smaller_type01 deleteintroduction">삭제</a>
+					        <a attr="${introduction.introductionNo}" href="${pageContext.request.contextPath}/mypage/introductionUpdateForm.do?introductionNo=${introduction.introductionNo}"
 					        style="align-content: right" class="btn_smaller_type01">수정</a>
 				        </td>
-				        <td class="regDate"><fmt:formatDate value="${introduction.introductionregDate}" pattern="yyyy-MM-dd"/></td>
+				        <td class="regDate"><fmt:formatDate value="${introduction.introductionRegDate}" pattern="yyyy-MM-dd"/></td>
 				      </tr>
 				      </c:forEach>
 				    </tbody>
