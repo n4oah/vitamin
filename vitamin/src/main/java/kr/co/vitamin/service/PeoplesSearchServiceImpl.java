@@ -42,4 +42,9 @@ public class PeoplesSearchServiceImpl implements PeoplesSearchService {
 	public List<Peoples> peoplesSearch(PeopleSearch peopleSearch) throws Exception {
 		return peoplesSearchMapper.peoplesSearch(peopleSearch);
 	}
+	
+	@Override
+	public Integer peoplesSearchSize(PeopleSearch peopleSearch) throws Exception {
+		return peoplesSearchMapper.peoplesSearchSize(peopleSearch);
+	}
 }

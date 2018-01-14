@@ -124,6 +124,10 @@ Strong {
 	display:inline-block; width: 8%;
 }
 
+.river strong {
+	width: auto;
+}
+
 .sectionContent {
 	font-family: 'Helvetica Neue', Helvetica, Arial,sans-serif;
  	max-width: 69.5%;
@@ -600,4 +604,12 @@ input[type='text'].license {
 	cursor: move;
 	width: 100%;
 	height: 30px;
+}
+a {
+	cursor: pointer;
+}
+.listSize {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 22px;
 }

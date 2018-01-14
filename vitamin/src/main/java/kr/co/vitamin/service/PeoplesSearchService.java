@@ -14,4 +14,5 @@ public interface PeoplesSearchService {
 	public List<SchoolLevel> schList() throws Exception;
 	public List<Certificate> licenseList(String name) throws Exception;
 	public List<Peoples> peoplesSearch(PeopleSearch peopleSearch) throws Exception;
+	public Integer peoplesSearchSize(PeopleSearch peopleSearch) throws Exception;
 }
