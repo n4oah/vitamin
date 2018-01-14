@@ -72,7 +72,17 @@ public class CardsController {
 		//임시 처리; 파라미터로 받을 예정
 		activity = ActivityService.selectActivityByMemberNo(member.getMemberNo());
 		
+		if(activity == null) {
+			activity = new Activity();
+			activity.setMemberNo(member.getMemberNo());
+			activity.setActivityName(member.getName()+"의 활동");
+			ActivityService.insertActivity(activity);
+			
+			activity = ActivityService.selectActivityByMemberNo(member.getMemberNo());
+		}
+		
 		model.addAttribute("activity",gson.toJson(activity));
+		
 	}
 	@RequestMapping("/iframe.do")
 	public void iframe(Model model) throws Exception {}

@@ -16,16 +16,30 @@
 		where member_no = #{memberNo}
 	</select>
 	
-	<insert id="insertActivityInitial" parameterType="activity">
+	<insert id="insertActivity" parameterType="activity">
+		insert into vi_activity (member_no, activity_name)
+		values(#{memberNo},#{activityName})
 	</insert>
 	
 	<update id="updateActivityName" parameterType="activity">
+		update vi_activity
+		set activity_name = #{activityName}
+		where activityNo = #{activityNo}
 	</update>
 	<update id="updateActivityPerm" parameterType="activity">
+		update vi_activity
+		set activity_perm = #{activityPerm}
+		where activityNo = #{activityNo}
 	</update>
 	<update id="updateActivityBackground" parameterType="activity">
+		update vi_activity
+		set activity_background = #{activityBackground}
+		where activityNo = #{activityNo}
 	</update>
 	<update id="updateActivityAskagain" parameterType="activity">
+		update vi_activity
+		set activity_askagain = #{activityAskagain}
+		where activityNo = #{activityNo}
 	</update>
 	
 </mapper>

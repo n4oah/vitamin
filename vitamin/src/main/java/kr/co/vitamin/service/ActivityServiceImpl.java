@@ -16,4 +16,26 @@ public class ActivityServiceImpl implements ActivityService {
 	public Activity selectActivityByMemberNo(int memberNo) throws Exception {
 		return activityMapper.selectActivityByMemberNo(memberNo);
 	}
+	
+	@Override
+	public void insertActivity(Activity activity) throws Exception {
+		activityMapper.insertActivity(activity);
+	}
+	
+	@Override
+	public void updateActivityName(Activity activity) throws Exception {
+		activityMapper.updateActivityName(activity);
+	}
+	@Override
+	public void updateActivityPerm(Activity activity) throws Exception {
+		activityMapper.updateActivityPerm(activity);
+	}
+	@Override
+	public void updateActivityBackground(Activity activity) throws Exception {
+		activityMapper.updateActivityBackground(activity);
+	}
+	@Override
+	public void updateActivityAskagain(Activity activity) throws Exception {
+		activityMapper.updateActivityAskagain(activity);
+	}
 }

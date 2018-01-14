@@ -97,6 +97,20 @@
 	</div>
 </body>
 <script>
+	///TODO
+	/*
+		기본설정 수정 반영하기
+		리스트와 아이템 불러오기
+		리스트에 아이템 추가하기
+		아이템에 파일 업로드하고 불러오기
+		리스트 설정 추가하기
+		메모 추가하기
+		
+		기본설정 메뉴 완성하기
+		
+		다녀간 기업 조회하기
+	*/
+
 	///ready
 	var $activity = JSON.parse('${activity}');
 	var $activityPerm = {"A":"전체공개","B":"지원기업공개","C":"비공개"}
@@ -114,7 +128,6 @@
 			"background-size":"cover"
 		});
 		$(".at-activity-perm").text($activityPerm[$activity.activityPerm]);
-		
 		
 		
 		$.ajax({
