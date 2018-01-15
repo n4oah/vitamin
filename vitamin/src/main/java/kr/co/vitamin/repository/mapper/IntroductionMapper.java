@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.IntroductionCate;
+import kr.co.vitamin.repository.vo.account.Member;
 
 public interface IntroductionMapper {
 
@@ -32,4 +33,6 @@ public interface IntroductionMapper {
 	public void updateIntroductionCate(IntroductionCate introductionCate)throws Exception;
 
 	public Integer[] selectIntroductionCateNo(Integer introductionNo)throws Exception;
+	
+	public List<Introduction> selectIntroductionAll(Member member) throws Exception;
 }

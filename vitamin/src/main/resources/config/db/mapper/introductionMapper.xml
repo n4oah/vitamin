@@ -73,6 +73,12 @@
 		select introduction_cate_no from vi_introduction_cate where introduction_no= #{introductionNo}
 	</select>
 	
+	<select id="selectIntroductionAll" parameterType="member" resultMap="introductionMap">
+		SELECT * FROM vi_introduction
+		WHERE member_no=#{memberNo}
+		ORDER BY introduction_reg_date ASC
+	</select>
+	
 	<select id="selectNextAutoIncrementIntroduction" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
 			<property name="tableName" value="vi_introduction" />
