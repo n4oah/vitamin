@@ -109,8 +109,8 @@ public class MyInfoController {
 		session.setAttribute("user", acc);
 	}
 	
-	@RequestMapping("/myProfile.do")
 	@ResponseBody
+	@RequestMapping("/myProfile.do")
 	public Integer myProfile(HttpSession session) throws Exception {
 		Integer profileNo = -1;
 		
@@ -124,9 +124,5 @@ public class MyInfoController {
 		return profileNo;
 	}
 	
-	/*@RequestMapping("/myProfileAndLogo.do")
-	@ResponseBody
-	public void myProfileAndLogo(HttpSession session) {
-		
-	}*/
+	
 }

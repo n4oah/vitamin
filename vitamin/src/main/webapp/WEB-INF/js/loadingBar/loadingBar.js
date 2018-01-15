@@ -54,14 +54,42 @@ var waitingDialog = waitingDialog || (function ($) {
 				});
 			}
 			// Opening dialog
-			$dialog.modal();
+			//$dialog.modal();
+			showModal($dialog);
 		},
 		/**
 		 * Closes dialog
 		 */
 		hide: function () {
-			$dialog.modal('hide');
+			//$dialog.modal('hide');
+			hideModal($dialog);
 		}
 	};
 
 })(jQuery);
+
+var hideInProgress = false;
+var showModalId = '';
+
+function showModal(elementId) {
+    if (hideInProgress) {
+        showModalId = elementId;
+    } else {
+        $(elementId).modal("show");
+    }
+};
+
+function hideModal(elementId) {
+    hideInProgress = true;
+    $(elementId).on('hidden.bs.modal', hideCompleted);
+    $(elementId).modal("hide");
+
+    function hideCompleted() {
+        hideInProgress = false;
+        if (showModalId) {
+            showModal(showModalId);
+        }
+        showModalId = '';
+        $(elementId).off('hidden.bs.modal');
+    }
+};

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.vitamin.repository.mapper.CompanyApplyMapper">
+	<resultMap type="companyApply" id="companyApplyMap">
+		<result column="comapply_no" property="comapplyNo" />
+		<result column="member_no" property="memberNo" />
+		<result column="recruit_no" property="recruitNo" />
+		<result column="resume_no" property="resumeNo" />
+		<result column="introduction_no" property="introductionNo" />
+		<result column="state" property="state" />
+	</resultMap>
+	
+	<insert id="insertCompanyApply" parameterType="companyApply">
+		INSERT INTO vi_company_apply
+		(member_no, recruit_no, resume_no, introduction_no, state)
+		VALUES
+		(#{memberNo}, #{recruitNo}, #{resumeNo}, #{introductionNo}, #{state})
+	</insert>
+	
+	<select id="selectCompanyApply" parameterType="int" resultMap="companyApplyMap">
+		SELECT * FROM vi_company_apply
+		WHERE comapply_no = #{comapplyNo} LIMIT 1
+	</select>
+	
+	<select id="selectOverlapApply" parameterType="companyApply" resultMap="companyApplyMap">
+		SELECT * FROM vi_company_apply
+		WHERE member_no = #{memberNo} AND recruit_no = #{recruitNo} LIMIT 1
+	</select>
+	
+	<select id="selectRecruitList" parameterType="infiniteScrollAccount" resultMap="companyApplyMap">
+		SELECT * FROM vi_company_apply
+		WHERE member_no = #{accountNo} ORDER BY comapply_no ASC LIMIT 0, #{lastCount}
+	</select>
+</mapper>

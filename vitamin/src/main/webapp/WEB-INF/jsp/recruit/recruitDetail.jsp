@@ -608,7 +608,6 @@
 		</section>
 	</div>
 	
-	
 	<div class="modal fade" id="apply-modal" tabindex="-1" role="dialog" aria-labelledby="apply-modal" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog">
 			<div class="apply-modal-container">
@@ -616,17 +615,17 @@
 				<form id="apply-modal-form">
 					<div class="form-group">
 						<select class="selectpicker" name="resumeNo">
-							<optgroup label="공개설정 된 이력서 한 개로만 지원할 수 있습니다." class="modal-resume-blank">
-							
-							</optgroup>
+							<!-- <optgroup label="공개설정 된 이력서 한 개로만 지원할 수 있습니다." class="modal-resume-blank">
+							</optgroup> -->
 						</select>
 					</div>
 					<div class="form-group">
 						<select class="selectpicker" name="introductionNo">
-							<optgroup label="자기소개서를 선택해주세요." class="modal-introduction-blank">
-							</optgroup>
+							<!-- <optgroup label="자기소개서를 선택해주세요." class="modal-introduction-blank">
+							</optgroup> -->
 						</select>
 					</div>
+					<input type="text" style="display: none;" name="recruitNo">
 					<input type="submit" class="apply-modal-submit" value="지원하기">
 				</form>
 			</div>

@@ -115,8 +115,6 @@ $(function () {
 	var checked = false;
 
 	$('.apply_btn').click(function(event) {
-		console.log('sadogsa');
-
 		let recruitNo = $(this).attr('attr');
 		let modal = $('#apply-modal');
 
@@ -127,6 +125,8 @@ $(function () {
 			$.ajax({
 				url: url,
 				success: function(data) {
+					waitingDialog.hide();
+
 					data = JSON.parse(data);
 
 					let introList = data['introductionList'];
@@ -135,22 +135,54 @@ $(function () {
 					if(introList.length <= 0 || resumeList <= 0) {
 						alert('자기소개서나 이력서는 최소 한 개 이상씩 등록되 있어야 합니다. (공개설정)');
 					} else {
-						let introOpt = modal.find('select[name="introductionNo"] optgroup');
-						let resumeOpt = modal.find('select[name="resumeNo"] optgroup');
+						let introOpt = modal.find('select[name="introductionNo"]');
+						let resumeOpt = modal.find('select[name="resumeNo"]');
+						let recruitInp = modal.find('input[name="recruitNo"]');
 
 						for(let resume of resumeList)
 							resumeOpt.append(`<option value="${resume['resumeNo']}">${resume['resumeTitle']}</option>`);
 						for(let intro of introList) {
 							introOpt.append(`<option value="${intro['introductionNo']}">${intro['introductionTitle']}</option>`);
 						}
+						console.log(recruitInp, recruitNo);
+						recruitInp.val(recruitNo);
+
 						$(".selectpicker").selectpicker('refresh');
 
-						modal.modal('show');
+						showModal(modal);
 					}
-					waitingDialog.hide();
+					checked = true;
 				}
 			});
 		}
+		event.preventDefault();
+	});
+
+	$('#apply-modal-form').submit(function(event) {
+		let data = $(this).serialize();
+		let url = getContextPath() + '/recruitApply/apply.do';
+
+		let modal = $('#apply-modal');
+
+		waitingDialog.show();
+
+		$.ajax({
+			data: data,
+			url: url,
+			success: function(chk) {
+				chk = (chk == 'true');
+				
+				if(chk == false) {
+					alert('이미 지원한 공고입니다.');
+				} else {
+					alert('공고 지원이 완료되었습니다.');
+				}
+				
+				waitingDialog.hide();
+				hideModal(modal);
+			}
+		});
+
 		event.preventDefault();
 	});
 });

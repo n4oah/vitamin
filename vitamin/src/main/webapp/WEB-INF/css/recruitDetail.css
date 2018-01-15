@@ -131,12 +131,8 @@ p {
     text-align: center;
 }
 
-#apply-modal .dropdown-menu.open {
+#apply-modal .dropdown-menu.open, #apply-modal .dropdown-menu.inner {
     height: 50px !important;
-}
-
-.modal {
-    overflow-y: scroll !important;
 }
 
 .table_wrap {

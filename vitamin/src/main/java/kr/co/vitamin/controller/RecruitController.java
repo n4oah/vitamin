@@ -150,7 +150,7 @@ public class RecruitController {
 		
 		if(!welfareList.isEmpty())
 			model.addAttribute("welfareList", welfareList);
-		
+
 		model.addAttribute("recruit",recruit);
 		if (recruit.getRecruitFormFileNo() != null)
 			model.addAttribute("file", fileService.selectFile(recruit.getRecruitFormFileNo()));

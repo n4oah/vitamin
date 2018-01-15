@@ -36,6 +36,7 @@
 		<result column="address_no"  property="addressNo" />
 		<result column="address"  property="address" />
 		<result column="address_main"  property="addressMain" />
+		<result column="recruit_no"  property="recruitNo" />
 	</resultMap>
 	
 	<select id="detailRecruit" parameterType="int" resultMap="detailRecruitMap">

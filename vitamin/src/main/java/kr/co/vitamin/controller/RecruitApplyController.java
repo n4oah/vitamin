@@ -1,5 +1,4 @@
 package kr.co.vitamin.controller;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 
+import kr.co.vitamin.repository.vo.CompanyApply;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.RecruitApplyService;
 
@@ -19,9 +19,15 @@ public class RecruitApplyController {
 	@Autowired
 	RecruitApplyService recruitApplyService;
 	
+	@ResponseBody
 	@RequestMapping("/apply.do")
-	public void apply(HttpSession session, Integer recruitNo) {
-		//Recruit
+	public boolean apply(HttpSession session, CompanyApply companyApply) throws Exception {
+		Member memberVO = (Member)session.getAttribute("user");
+
+		companyApply.setMemberNo(memberVO.getMemberNo());
+		companyApply.setState(1);
+		
+		return recruitApplyService.recruitApply(companyApply);
 	}
 	
 	@ResponseBody

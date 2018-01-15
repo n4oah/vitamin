@@ -7,8 +7,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.vitamin.repository.mapper.CompanyApplyMapper;
 import kr.co.vitamin.repository.mapper.IntroductionMapper;
 import kr.co.vitamin.repository.mapper.ResumeMapper;
+import kr.co.vitamin.repository.vo.CompanyApply;
 import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.account.Member;
@@ -19,6 +21,8 @@ public class RecruitApplyServiceImpl implements RecruitApplyService {
 	IntroductionMapper introductionMapper;
 	@Autowired
 	ResumeMapper resumeMapper;
+	@Autowired
+	CompanyApplyMapper companyApplyMapper;
 	
 	@Override
 	public Map<String, Object> getRecruitSorceData(Member member) throws Exception {
@@ -29,5 +33,14 @@ public class RecruitApplyServiceImpl implements RecruitApplyService {
 		map.put("introductionList", introductionList);
 		map.put("resumeBaseInfoList", resumeBaseInfoList);
 		return map;
+	}
+
+	@Override
+	public boolean recruitApply(CompanyApply companyApply) throws Exception {
+		if(companyApplyMapper.selectOverlapApply(companyApply) != null)
+			return false;
+
+		companyApplyMapper.insertCompanyApply(companyApply);
+		return true;
 	}
 }
