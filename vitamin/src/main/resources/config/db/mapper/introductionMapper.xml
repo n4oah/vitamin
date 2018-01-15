@@ -59,7 +59,11 @@
 		select count(*) from vi_introduction where member_no = #{memberNo}
 	</select>
 	
-	
+	<select id="selectIntroductionAll" parameterType="member" resultMap="introductionMap">
+		SELECT * FROM vi_introduction
+		WHERE member_no=#{memberNo}
+		ORDER BY introduction_reg_date ASC
+	</select>
 	
 	<select id="selectNextAutoIncrementIntroduction" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">

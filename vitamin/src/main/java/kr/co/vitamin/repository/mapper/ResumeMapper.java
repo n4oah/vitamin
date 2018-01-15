@@ -63,5 +63,5 @@ public interface ResumeMapper {
 	public void updateOpenState(ResumeBaseInfo resumeBaseInfo) throws Exception;
 	public void updateAllOpenState(ResumeBaseInfo resumeBaseInfo) throws Exception;
 	
-	
+	public List<ResumeBaseInfo> selectResumeOpenOne(Member member) throws Exception;
 }

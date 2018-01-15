@@ -11,8 +11,6 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
 	<link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 	<link rel='stylesheet' href='${pageContext.request.contextPath}/css/myInfo.css'>
-	<link rel='stylesheet' href="${pageContext.request.contextPath}/css/loadingBar/loadingBar.css"></link>
-	<script src="${pageContext.request.contextPath}/js/loadingBar/loadingBar.js"></script>
 	<script src="${pageContext.request.contextPath}/js/pattern/pattern.js"></script>
 	<script src='${pageContext.request.contextPath}/js/myInfo.js'></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>

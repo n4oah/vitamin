@@ -110,7 +110,52 @@ $(function () {
 	
 	$('.calendar-body').html(dateHtml);
 	
+	
+	//-------------- apply -------------//
+	var checked = false;
+
+	$('.apply_btn').click(function(event) {
+		console.log('sadogsa');
+
+		let recruitNo = $(this).attr('attr');
+		let modal = $('#apply-modal');
+
+		waitingDialog.show();
+
+		if(checked == false) {
+			let url = getContextPath() + '/recruitApply/getData.do';
+			$.ajax({
+				url: url,
+				success: function(data) {
+					data = JSON.parse(data);
+
+					let introList = data['introductionList'];
+					let resumeList = data['resumeBaseInfoList'];
+
+					if(introList.length <= 0 || resumeList <= 0) {
+						alert('자기소개서나 이력서는 최소 한 개 이상씩 등록되 있어야 합니다. (공개설정)');
+					} else {
+						let introOpt = modal.find('select[name="introductionNo"] optgroup');
+						let resumeOpt = modal.find('select[name="resumeNo"] optgroup');
+
+						for(let resume of resumeList)
+							resumeOpt.append(`<option value="${resume['resumeNo']}">${resume['resumeTitle']}</option>`);
+						for(let intro of introList) {
+							introOpt.append(`<option value="${intro['introductionNo']}">${intro['introductionTitle']}</option>`);
+						}
+						$(".selectpicker").selectpicker('refresh');
+
+						modal.modal('show');
+					}
+					waitingDialog.hide();
+				}
+			});
+		}
+		event.preventDefault();
+	});
 });
 
-
-
+function getContextPath() {
+    var offset = location.href.indexOf(location.host) + location.host.length;
+    return (location.href.substring(offset, location.href.indexOf('/', offset + 1)));
+}

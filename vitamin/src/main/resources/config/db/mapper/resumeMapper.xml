@@ -218,6 +218,11 @@
 		select *,TIMESTAMPDIFF(hour,reg_date,now()) AS term from vi_resume
 	   where member_no= #{memberNo} order by resume_no desc;
 	 </select>
+	 
+	 <select id="selectResumeOpenOne" parameterType="member" resultMap="resumeMap">
+		select * from vi_resume
+		where member_no = #{memberNo} AND open_state = 1;
+	 </select>
 
 
 	<select id="selectResumeInfo" parameterType="int" resultMap="resumeMap">

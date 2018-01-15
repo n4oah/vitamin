@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="../js/jquery-3.2.1.js"></script>
+	<style>
+		/*
+			선(Line), 사각형(Rect), 호(Arc), 글자(Text), 이미지(Image)..
+			간단하게 선만
+		*/
+	
+		canvas {
+			position: relative;
+			top: 100px;
+			left: 100px;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas" width="700" height="400"
+			style="border: 3px solid black"></canvas>
+	<script>
+		// 그림 그리기 - canvas에 그림을 그리기 위해서 context 객체를 얻고 그 위에 그린다.
+		var canvas = $("#myCanvas")[0];
+		var context = canvas.getContext("2d");
+		
+		var isPress = false;
+		
+		$(canvas).on({
+			mousedown: function(event) {
+				isPress = true;
+				
+				// 패스 시작
+				context.beginPath();
+				
+				// 시작 점
+				context.moveTo(event.offsetX, event.offsetY);
+			},
+			mouseup: function(event) {
+				isPress = false;
+			},
+			mousemove: function(event) {
+				if(isPress == true) {
+					// 다음 점의 좌표
+					context.lineTo(event.offsetX, event.offsetY);
+					context.stroke();
+				}
+			}
+		});
+	</script>
+</body>
+</html>
