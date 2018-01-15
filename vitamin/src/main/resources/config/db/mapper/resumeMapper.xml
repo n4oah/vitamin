@@ -350,9 +350,9 @@
 
 	<select id="selectAddress" parameterType="int" resultMap="addressMap">
 		select
-		* from vi_address where address_no = (select account_no from vi_member
+		* from vi_address where address_no = (select address_no from  vi_account where account_no=(select account_no from vi_member
 		where member_no = (select member_no from vi_resume where resume_no =
-		#{resumeNo}));
+		#{resumeNo})))
 	</select>
 
 	<select id="selectSchool" parameterType="int" resultMap="schoolLevelMap">

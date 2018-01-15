@@ -13,7 +13,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/resume.css">
 		<script src="${pageContext.request.contextPath}/js/resumeList.js"></script>
 		<style type="text/css">
-		.resumeTitle{
+		.introductionTitle{
 			cursor: pointer;
 		}
 		img.deleteimg{
@@ -36,7 +36,12 @@
  		.selectable .ui-selecting { background: #FECA40; }
   		.selectable .ui-selected { background: #F39814; color: white; }
 		.selectable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-		.selectable span { margin: 3px; padding: 0.4em; font-size: 12px; height: 18px;cursor: pointer;}
+		.selectable span { margin: 3px; padding: 0.4em; font-size: 12px; height: 18px;cursor: pointer;
+		}
+		
+		.center-block{
+			text-align: center;
+		}
 		/* }
 		.modal {
 		  text-align: center;
@@ -93,6 +98,58 @@
 				    </tbody>
 				</table>
 			</div>
+			<div class="center-block">
+			<c:if test="${pageResult.count != 0 }">
+				<ul class="pagination">
+					<li>
+						<c:choose>
+							<c:when test="${pageResult.prev}">
+								<a href="${pageContext.request.contextPath }/search/searchRecruit.do?pageNo=${pageResult.beginPage - 1}">
+									<span class="glyphicon glyphicon-chevron-left"></span>
+								</a>
+							</c:when>
+								
+							<c:otherwise>
+								<a href="#1">
+									<span class="glyphicon glyphicon-chevron-left"></span>
+								</a>
+							</c:otherwise>
+						</c:choose>
+					</li>
+				 
+				 
+				  <c:forEach var="i" begin="${pageResult.beginPage }" end="${pageResult.endPage }" >
+				  	<c:choose>
+				  		<c:when test="${i eq pageResult.pageNo }">
+				  			<li class="active"><a href="#${i }">${i }</a></li>
+						</c:when>	
+						<c:otherwise>
+		    				<li><a href="?pageNo=${i }">${i}</a></li>
+    					</c:otherwise>	  
+				  	</c:choose>
+				
+				    </c:forEach>
+				  
+					<li>
+						<c:choose>
+							<c:when test="${pageResult.next}">
+								<a href="${pageContext.request.contextPath }/search/searchRecruit.do?pageNo=${pageResult.endPage + 1}">
+									<span class="glyphicon glyphicon-chevron-right"></span>
+								</a>
+							</c:when>
+								
+							<c:otherwise>
+								<a href="#1">
+									<span class="glyphicon glyphicon-chevron-right"></span>
+								</a>
+							</c:otherwise>
+						</c:choose>
+					</li>
+				
+				</ul>
+				
+			</c:if>
+			</div>
 		</section>
 		
 		<div class="modal fade" id="myModal" role="dialog">
@@ -136,9 +193,9 @@
 	
 	
 	
-	 $('.resumeTitle').click(function(event){
+	 $('.introductionTitle').click(function(event){
 		$("#myModal").modal("show");
-		$(".modal-body").load("${pageContext.request.contextPath}/mypage/resumeInfo.do?resumeNo="+$(this).attr("attr"));
+		$(".modal-body").load("${pageContext.request.contextPath}/mypage/introductionDetail.do?introductionNo="+$(this).attr("attr"));
 	});
 	 
 	
@@ -149,7 +206,7 @@
 			location.href="${pageContext.request.contextPath}/mypage/introductionForm.do";
 		});
 		
-		$( function() {
+	/* 	$( function() {
 		    $( ".selectable" ).selectable({
 		      stop: function() {
 		        $( ".ui-selected", this ).each(function() {
@@ -159,10 +216,9 @@
 		        	url:"${pageContext.request.contextPath}/mypage/openState.do?resumeNo="+$(this).attr("attr")+"&&openState="+state,
 		        	success:function(data){
 		        		
-		        		/* $(this).addClass("ui-selected"); */
-		        		/* location.href="${pageContext.request.contextPath}/mypage/resumeList.do"; */
+		        		
 		        		console.dir($(spanThis))
-// 		        		$(this).addClass("ui-selected");
+ 		        		$(this).addClass("ui-selected");
 		        		var attrNo = $(spanThis).attr("attr")
 		        		$("span[attr].ui-widget-content").each(function () {
 		        			if (attrNo != $(this).attr("attr")) {
@@ -185,7 +241,7 @@
 		   
 		    
 		    
-		  });
+		  }); */
 		
 		
 		

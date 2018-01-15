@@ -24,22 +24,22 @@
 	<update id="updateActivityName" parameterType="activity">
 		update vi_activity
 		set activity_name = #{activityName}
-		where activityNo = #{activityNo}
+		where activity_no = #{activityNo}
 	</update>
 	<update id="updateActivityPerm" parameterType="activity">
 		update vi_activity
 		set activity_perm = #{activityPerm}
-		where activityNo = #{activityNo}
+		where activity_no = #{activityNo}
 	</update>
 	<update id="updateActivityBackground" parameterType="activity">
 		update vi_activity
 		set activity_background = #{activityBackground}
-		where activityNo = #{activityNo}
+		where activity_no = #{activityNo}
 	</update>
 	<update id="updateActivityAskagain" parameterType="activity">
 		update vi_activity
 		set activity_askagain = #{activityAskagain}
-		where activityNo = #{activityNo}
+		where activity_no = #{activityNo}
 	</update>
 	
 </mapper>

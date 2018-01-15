@@ -83,13 +83,13 @@
 													<tbody>
 														<tr>
 															<td>
-																<span>자기소개</span>
-																<input type="hidden" class="self" name="introductionCateTemp" value="자기소개"/>
+																<span class="intro1">자기소개</span>
+																<input type="hidden" class="intro1" name="introductionCateTemp" value="자기소개"/>
 															</td>
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm self" id="firstself" value="변경"/>
+																<input type="button" class="btn-success btn-sm change" id="firstself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -114,13 +114,13 @@
 													<tbody>
 														<tr>
 															<td>
-																<span>성격의 장단점</span>
-																<input type="hidden" class="personality"name="introductionCateTemp" value="성격의 장단점"/>
+																<span class="intro2">성격의 장단점</span>
+																<input type="hidden" class="intro2"name="introductionCateTemp" value="성격의 장단점"/>
 															</td>
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm personality" id="secondself" value="변경"/>
+																<input type="button" class="btn-success btn-sm change" id="secondself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -145,13 +145,13 @@
 													<tbody>
 														<tr>
 															<td>
-																<span>지원동기 및 입사후 포부</span>
-																<input type="hidden" class="ambition"name="introductionCateTemp" value="지원동기 및 입사후 포부"/>
+																<span class="intro3">지원동기 및 입사후 포부</span>
+																<input type="hidden" class="intro3"name="introductionCateTemp" value="지원동기 및 입사후 포부"/>
 															</td>
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm ambition" id="throdself" value="변경"/>
+																<input type="button" class="btn-success btn-sm change" id="throdself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -176,13 +176,13 @@
 													<tbody>
 														<tr>
 															<td>
-																<span>직무관련경험</span>
-																<input type="hidden" class="experience" name="introductionCateTemp" value="직무관련경험"/>
+																<span class="intro4">직무관련경험</span>
+																<input type="hidden" class="intro4" name="introductionCateTemp" value="직무관련경험"/>
 															</td>
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm experience" id="forthself" value="변경"/>
+																<input type="button" class="btn-success btn-sm change" id="forthself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -212,7 +212,29 @@
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp"%>
 <script>
 
+$(".introduction").on("click", ".change", function () {
+	var siblingTr = $(this).parent().parent().siblings();
+	var intro = siblingTr.find("span").prop("class");
+	var name = siblingTr.find("input").prop("name");
+	siblingTr.empty();
+	siblingTr.append($("<input>").prop({"type": "text", "class": intro+" col-md-1", "name": name}).css("width", "100.333333%"));
+	$(this).removeClass("change").addClass("save").val("저장").text("저장");
+});
 
+$(".introduction").on("click", ".save", function () {
+	var siblingTr = $(this).parent().parent().siblings();
+	var intro = siblingTr.find("input");
+	if (!intro.val() && intro.val() == "") {
+		alert("값을 입력하세요.");
+		return;
+	}
+	intro.removeClass("col-md-1").attr("type", "hidden").css("width", null);
+	siblingTr.prepend($("<span>").addClass(intro.prop("class").split(" ")[0]).text(intro.val()));
+	$(this).removeClass("save").addClass("change").val("변경").text("변경");
+});
+
+
+/* <span class="intro3">지원동기 및 입사후 포부</span> */
 
 /* function save() { 
 	  var autoSave = new Object(); 

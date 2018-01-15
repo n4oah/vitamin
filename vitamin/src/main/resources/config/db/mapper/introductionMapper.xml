@@ -13,6 +13,14 @@
 		<result column="introduction_reg_date" property="introductionRegDate"/>
 		<result column="term" property="term"/>
 	</resultMap>
+	
+	<resultMap type="introductionCate" id="introductionCateMap">
+		<result column="introduction_cate_no" property="introductionCateNo"/>
+		<result column="introduction_no" property="introductionNo"/>
+		<result column="introduction_cate" property="introductionCate"/>
+		<result column="introduction_content" property="introductionContent"/>
+		
+	</resultMap>
 
 	<insert id="insertIntroduction" parameterType="introduction">
 		insert into vi_introduction (introduction_no,member_no,introduction_title,introduction_reg_date)
@@ -24,10 +32,31 @@
 		value(#{introductionNo},#{introductionCate},#{introductionContent});
 	</insert>
 	
-	<select id="selectIntroductionList" parameterType="int" resultMap="introductionMap">
-		select *,TIMESTAMPDIFF(hour,introduction_reg_date,now()) AS term 
-		from vi_introduction where member_no = #{memberNo} order by introduction_no desc
+	<select id="selectIntroductionList" parameterType="introduction" resultMap="introductionMap">
+		select * from (select *,TIMESTAMPDIFF(hour,introduction_reg_date,now()) AS term,@rownum := @rownum + 1 as rownum
+		from vi_introduction,(select @rownum := 0) R where member_no = #{memberNo} order by introduction_no desc) introduction 
+		where introduction.rownum between #{begin} and #{end} order by introduction_no desc
 	
+	</select>
+	
+	<select id="selectIntroduction" parameterType="int" resultMap="introductionMap">
+		select * from vi_introduction where introduction_no=#{introductionNo}
+	</select>
+	
+	<select id="selectIntroductionCate" parameterType="int" resultMap="introductionCateMap">
+		select * from vi_introduction_cate where introduction_no =#{introductionNo}
+	</select>
+	
+	<delete id="deleteIntroduction" parameterType="int">
+		delete from vi_introduction where introduction_no=#{introductionNo}
+	</delete>
+	
+	<delete id="deleteIntroductionCate" parameterType="int">
+		delete from vi_introduction_cate where introduction_no = #{introductionNo}
+	</delete>
+	
+	<select id="selectIntroductionCount" parameterType="int" resultType="int">
+		select count(*) from vi_introduction where member_no = #{memberNo}
 	</select>
 	
 	

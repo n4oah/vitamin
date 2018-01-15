@@ -1,14 +1,12 @@
 package kr.co.vitamin.repository.vo;
 
 public class Activity {
-
-
-	int activityNo;
-	int memberNo;
-	String activityName;
-	String activityBackground;
-	String activityPerm;
-	String activityAskagain;
+	private int activityNo;
+	private int memberNo;
+	private String activityName;
+	private String activityBackground;
+	private String activityPerm;
+	private String activityAskagain;
 	
 	public int getActivityNo() {return activityNo;}
 	public void setActivityNo(int activityNo) {this.activityNo = activityNo;}
