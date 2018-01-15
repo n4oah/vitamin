@@ -74,13 +74,15 @@
 			<div id="at-board">
 				<div class="at-list-item" style="position:absolute;">테스트테스트박스</div>
 				<div class="at-list-item" style="position:absolute;">테스트테스트박스2</div>
+				<!--
 				<div class="at-board-list">
 					<div class="at-board-list-header">
-						<span class="at-list-name">테스트박스</span>
+						<span class="at-list-name">ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ</span>
 						<div class="at-list-menu at-list-icon"></div>
 					</div>
 					<div class="at-board-list-content"><div>공간</div></div>
 				</div>
+				-->
 			</div>
 			<div class="at-board-menulist">
 				<div class="at-board-menu at-addblock"><span class="at-addblock-icon"></span></div>
@@ -99,13 +101,23 @@
 <script>
 	///TODO
 	/*
-		리스트 불러오기
 		리스트 상태 저장하기
+		이동:O
+		추가:DATA추가만 하면 됨
+		삭제:X
+		
 		아이템 불러오기
-		아이템 상태 저장하기
-		리스트에 아이템 추가하기
+		아이템 위치 저장하기
+		
+		아이템 상세보기
+		
+		리스트에 아이템 추가버튼
+		
+		기본설정 사진 업로드하기
 		아이템에 파일 업로드하고 불러오기
-		리스트 설정 추가하기
+		
+		리스트 설정 추가하기(이름, 고정, 공개)
+		
 		메모 추가하기
 		
 		기본설정 메뉴 완성하기
@@ -118,8 +130,8 @@
 	var $activityPerm = {"A":"전체공개","B":"지원기업공개","C":"비공개"}
 	var $activityPermInv = {"전체공개":"A","지원기업공개":"B","비공개":"C"}
 	
-	var $list = "";
-	var $listitem = "";
+	var $activityList = JSON.parse('${activityList}');
+	var $activityItem = "";
 	
 	$(document).ready(function() {
 		$(document).on('dragover drop', function(e) {
@@ -127,7 +139,15 @@
 		    e.stopPropagation();
 		});
 		
-		//불러오기
+		modal('아이디:${sessionScope.user.id}',1);
+		$.ajax({
+			url:"test.do",
+			success:function(d){
+				console.log(d);
+			}
+		});
+		
+		//설정 불러오기
 		$("html").css({
 			"background":$activity.activityBackground,
 			"background-size":"cover"
@@ -140,44 +160,36 @@
 			return $(this).text() == $activityPerm[$activity.activityPerm]
 		}).addClass("selected");
 		
-		$(".at-askagain").attr("checked",$activity.activityAskagain == "Y")
-		$.ajax({
-			url:"test.do",
-			success:function(d){
-				console.log(d);
-			}
-		});
+		$(".at-askagain").attr("checked",$activity.activityAskagain == "Y");
 		
-		//임시 리스트 불러오기
-		var testlistlist = JSON.parse('{'
-			+'"0": {"name": "aaa", "top": 500, "left": 300},'
-			+'"1": {"name": "bbb", "top": 300, "left": 700}}');
-		
-		for ( var testlist in testlistlist) {
-			
-			$("<div>").addClass("at-board-list").html(
-				'<div class="at-board-list-header">'
-					+'<span class="at-list-name">'+testlistlist[testlist].name+'</span>'
-					+'<div class="at-list-menu at-list-icon"></div>'
-				+'</div>'
-				+'<div class="at-board-list-content">'
-					
+		//리스트 불러오기
+		for (var i in $activityList) {
+			$("<div>").addClass("at-board-list")
+			.data("listNo",$activityList[i].listNo)
+			.append(
+				$("<div>").addClass("at-board-list-header")
+				.append(
+					$("<span>").addClass("at-list-name").text($activityList[i].listName)
+				).append(
+					$("<div>").addClass("at-list-menu at-list-icon")
+				)
 			).append(
 				$("<div>").addClass("at-board-list-content").html('<div>공간</div>').droppable({
 					addClasses: false,
 					accept:".at-list-item",
-					drop: function(e,u){$(this).append(u.draggable.css({"left":0,"top":0}));}
+					drop: function(e,u){
+						$(this).append(u.draggable.css({"left":0,"top":0,"position":"relative"}));
+					}
 				})
 			).css({
 				position: "absolute",
-				top: testlistlist[testlist].top,
-				left: testlistlist[testlist].left
+				top: $activityList[i].listTop,
+				left: $activityList[i].listLeft
 			}).appendTo("#at-board");
 		}
-		
 		$(".at-board-list").draggable($boardListDraggable);
 		
-		modal('아이디:${sessionScope.user.id}',1);
+		
 	});
 	
 	var $boardListDraggable = {
@@ -191,14 +203,37 @@
 			create:function(e,u){$(".ui-draggable-handle").removeClass("ui-draggable-handle")},
 			start:function(e,u){$(".ui-draggable-dragging").removeClass("ui-draggable-dragging")},
 			stop: function(e,u){
-				if($(this).position().top < 0 && $(this).position().left < 0){
+				let $listTop = $(this).position().top;
+				let $listLeft = $(this).position().left;
+				
+				if($listTop < 0 && $listLeft < 0){
+					$listTop = 0;
+					$listLeft = 0;
 					$(this).animate({top:0,left:0},200,"easeOutExpo",function(){})
 				}
-				else if($(this).position().left < 0){
+				else if($listTop < 0){
+					$listTop = 0;
+					$(this).animate({top:0},200,"easeOutExpo",function(){})
+				}
+				else if($listLeft < 0){
+					$listLeft = 0;
 					$(this).animate({left:0},200,"easeOutExpo",function(){})
 				}   
-				else if($(this).position().top < 0){
-					$(this).animate({top:0},200,"easeOutExpo",function(){})
+				
+				
+				if($(this).data("listNo")){
+					$.ajax({
+						url:"updatelist/location.do",
+						method:"post",
+						data:{
+							listNo: $(this).data("listNo"),
+							listTop: parseInt($listTop,10),
+							listLeft: parseInt($listLeft,10)
+						},
+						success:function(d){
+							console.log(d);
+						}
+					})
 				}
 			} 
 		};
@@ -214,15 +249,7 @@
 			$(".ui-draggable-dragging").removeClass("ui-draggable-dragging")
 		},
 		stop: function(e,u){
-			if($(this).position().top < 0 && $(this).position().left < 0){
-				$(this).animate({top:0,left:0},200,"easeOutExpo",function(){})
-			}
-			else if($(this).position().left < 0){
-				$(this).animate({left:0},200,"easeOutExpo",function(){})
-			}   
-			else if($(this).position().top < 0){
-					$(this).animate({top:0},200,"easeOutExpo",function(){})
-			}
+			
 		}
 	};
 	
@@ -373,30 +400,50 @@
 		$(this).removeClass("takeonme",100);
 		
 		$newlist = $("<div>")
-		.html(
-		'<div class="at-board-list-header">'
-			+'<span class="at-list-name">테스트박스</span>'
-			+'<div class="at-list-menu at-list-icon"></div>'
-		+'</div>'
-		).append(
-			$("<div>").addClass("at-board-list-content").html('<div>공간</div>').droppable({
-				addClasses: false,
-				accept:".at-list-item",
-				drop: function(e,u){$(this).append(u.draggable.css({"left":0,"top":0}));}
-			})
-		)
-		.addClass("at-board-list")
-		.css({
-			left: e.pageX,
-			top: e.pageY-30,
-			position: "absolute"
-		}).draggable($boardListDraggable)
+			.append(
+				$("<div>").addClass("at-board-list-header")
+				.append(
+					$("<span>").addClass("at-list-name").text("박스")
+				).append(
+					$("<div>").addClass("at-list-menu at-list-icon")
+				)
+			).append(
+				$("<div>").addClass("at-board-list-content").html('<div>공간</div>').droppable({
+					addClasses: false,
+					accept:".at-list-item",
+					drop: function(e,u){
+						$(this).append(u.draggable.css({"left":0,"top":0,"position":"relative"}));
+					}
+				})
+			)
+			.addClass("at-board-list")
+			.css({
+				left: e.pageX,
+				top: e.pageY-30,
+				position: "absolute"
+			}).draggable($boardListDraggable)
 		.appendTo("#at-board");
 		
 		$newlist.animate({
 			left: Math.floor(Math.random() * ($("#content").prop("scrollWidth")-$newlist.width())),
 			top: Math.floor(Math.random() * ($("#content").prop("scrollHeight")-$newlist.height()))
-		},400,"easeOutExpo");
+		},400,"easeOutExpo",function(){
+			$.ajax({
+				url:"addlist.do",
+				method:"post",
+				data:{
+					listName:"박스",
+					activityNo:$activity.activityNo,
+					listLeft:parseInt($(this).position().left,10),
+					listTop:parseInt($(this).position().top,10)
+				},
+				success: function(d){
+					console.log(d);
+				}
+			});
+			
+			console.log($(this))
+		});
 	});
 	
 	//삭제블록
@@ -439,7 +486,6 @@
 		accept:".at-list-item",
 		drop: function(e,u){
 			$(this).append(u.draggable.css({"left":0,"top":0,"position":"relative"}));
-			
 		}
 	});
 	
