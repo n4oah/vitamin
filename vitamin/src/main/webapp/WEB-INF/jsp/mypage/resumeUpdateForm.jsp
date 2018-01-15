@@ -105,7 +105,7 @@
 										<th>성별</th>
 										<td>
 											<!-- <input class="float-control" type="text" readonly="readonly" style="width:20%"> -->
-											<p>${member.gender}</p>
+											<p>${member.genderName}</p>
 										<!-- 
 											<select class="selectpicker">
 													<option class="fa">성별</option>
@@ -471,8 +471,10 @@
 				</div>
 			</section>
 		</div>
-
 	</form>
+	
+	
+	
 	<%-- <%@ include file="/WEB-INF/jsp/include/footer.jsp"%> --%>
 <script>
 
