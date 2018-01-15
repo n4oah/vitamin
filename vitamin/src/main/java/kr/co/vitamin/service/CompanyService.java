@@ -14,7 +14,7 @@ public interface CompanyService {
 	public void commentModify(Review review) throws Exception;
 	public void commentDelete(Review review) throws Exception;
 	
-	public Company companyDetail(int no) throws Exception;
+	public Company companyDetail(Review review) throws Exception;
 	public String fileDetail(int no) throws Exception;
 	
 	public List<Recruit> recruitList(int no) throws Exception;
@@ -24,4 +24,7 @@ public interface CompanyService {
 	public Integer reviewInsertChk(Review review) throws Exception;
 	
 	public Review reviewOneDetail(int no) throws Exception;
+	public Integer bookmarkChk(Review review) throws Exception;
+	public void bookmarkInsert(Review review) throws Exception;
+	public void bookmarkRemove(Review review) throws Exception;
 }

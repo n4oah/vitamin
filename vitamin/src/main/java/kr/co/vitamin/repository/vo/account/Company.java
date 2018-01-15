@@ -9,7 +9,7 @@ import kr.co.vitamin.repository.vo.Recruit;
 
 
 public class Company extends Account {
-	private Integer companyNo, employeeCount, logoNo, businessNo;
+	private Integer companyNo, employeeCount, logoNo, businessNo, bookmarkNo;
 	private String licenseNumber, companyName, bossName, companyType, telNumber, homepage, businessContent;
 	private Date buildupDate;
     
@@ -17,6 +17,14 @@ public class Company extends Account {
     private List<Recruit> recruitList;
 	public List<Recruit> getRecruitList() {
 		return recruitList;
+	}
+
+	public Integer getBookmarkNo() {
+		return bookmarkNo;
+	}
+
+	public void setBookmarkNo(Integer bookmarkNo) {
+		this.bookmarkNo = bookmarkNo;
 	}
 
 	public void setRecruitList(List<Recruit> recruitList) {

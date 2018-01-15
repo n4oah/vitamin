@@ -18,6 +18,7 @@
 		<result column="homepage" property="homepage" />
 		<result column="employee_count" property="employeeCount" />
 		<result column="logo_no" property="logoNo" />
+		<result column="bookmark_no" property="bookmarkNo" />
 		<collection resultMap="fileMap" property="file" />
 		<collection resultMap="recruitMap" property="recruitList" javaType="java.util.ArrayList" />
 	</resultMap>
@@ -123,8 +124,10 @@
 		where member_no = #{memberNo} and review_no = #{reviewNo}
 	</delete>
 	
-	<select id="companyDetail" parameterType="int" resultMap="companyMap">
-		select * from (select * from vi_company where company_no = #{no}) company
+	<select id="companyDetail" parameterType="review" resultMap="companyMap">
+		select * from (select * from vi_company where company_no = #{companyNo}) company
+		left join (select * from vi_bookmark where member_no = #{memberNo} and company_no = #{companyNo}) bookmark
+		on company.company_no = bookmark.company_no
 		left join vi_file
 		on company.logo_no = vi_file.file_no
 		left join
@@ -155,5 +158,19 @@
 	<select id="reviewOneDetail" parameterType="int" resultMap="reviewMap">
 		select * from vi_review where review_no = #{reviewNo}
 	</select>
+	
+	<select id="bookmarkChk" parameterType="review" resultType="Integer">
+		select count(*) from vi_bookmark where member_no = #{memberNo} and company_no = #{companyNo}
+	</select>
+	
+	<insert id="bookmarkInsert" parameterType="review">
+		insert into vi_bookmark (member_no, company_no)
+		values (#{memberNo}, #{companyNo})
+	</insert>
+	
+	<delete id="bookmarkRemove" parameterType="review">
+		delete from vi_bookmark
+		where member_no = #{memberNo} and company_no = #{companyNo}
+	</delete>
 	
 </mapper>

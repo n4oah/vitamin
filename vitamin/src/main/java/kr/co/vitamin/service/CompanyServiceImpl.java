@@ -43,8 +43,8 @@ public class CompanyServiceImpl implements CompanyService {
 	
 	
 	@Override
-	public Company companyDetail(int no) throws Exception {
-		return companyMapper.companyDetail(no);
+	public Company companyDetail(Review review) throws Exception {
+		return companyMapper.companyDetail(review);
 	};
 	@Override
 	public String fileDetail(int no) throws Exception {
@@ -70,5 +70,20 @@ public class CompanyServiceImpl implements CompanyService {
 	@Override
 	public Review reviewOneDetail(int no) throws Exception {
 		return companyMapper.reviewOneDetail(no);
+	}
+	
+	@Override
+	public Integer bookmarkChk(Review review) throws Exception {
+		return companyMapper.bookmarkChk(review);
+	}
+	
+	@Override
+	public void bookmarkInsert(Review review) throws Exception {
+		companyMapper.bookmarkInsert(review);
+	}
+	
+	@Override
+	public void bookmarkRemove(Review review) throws Exception {
+		companyMapper.bookmarkRemove(review);
 	}
 }

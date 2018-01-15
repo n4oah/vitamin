@@ -28,7 +28,7 @@ div.top {width: 50vw; border-bottom: 0.3vh solid black}
 div.top > .logo {width: 7.2vh}
 div.top > .title {font-size: 3.5vh; color: #5566ff; font-weight: bold}
 div.top > .bookmark {float: right; width: 3vh;}
-div.top > .bookmark:hover {background-image: url("https://i.imgur.com/PRgfqvQ.png"); background-size: 3vh}
+div.top > .bookmark:hover, div.top > .bookmark.checked {background-image: url("https://i.imgur.com/PRgfqvQ.png"); background-size: 3vh}
 .summary {background-color: pink; width: 65vw; height: 6.8vh 6.8vw; border-radius: 1vw}
 .vr {width: 0.2vw; height: 100%; background-color: gray; display: inline-block; position: absolute}
 .sumtitle {display: inline-block; overflow: hidden; margin-top: -0.3vh}
@@ -175,7 +175,11 @@ display: inline-block;
 	</c:if>
 	<span class="title">${com.companyName}</span>
 	
-	<img class="bookmark" alt="즐겨찾기" src="https://i.imgur.com/K3hpPeQ.png">
+	<img class="bookmark
+	<c:if test="${com.bookmarkNo != null }">
+	checked
+	</c:if>
+	" alt="즐겨찾기" src="https://i.imgur.com/K3hpPeQ.png">
 </div>
 
 <div class="sum">
@@ -310,6 +314,16 @@ display: inline-block;
 	    <div class="input-group comment" data-no="${comment.reviewNo }">
 	      <span class="regDate">
 	      	<fmt:formatDate value="${comment.regDate }" pattern="yyyy-MM-dd"/>
+	      	<img src="
+	      	<c:choose>
+		      	<c:when test="${comment.score == 1 }">
+		      		https://i.imgur.com/cXYLRDs.png
+		      	</c:when>
+		      	<c:otherwise>
+		      		https://i.imgur.com/ZRo8Drq.png
+		      	</c:otherwise>
+	      	</c:choose>
+	      	" width="20%">
 	      </span>
 	      <span class="content">
 	      	${comment.content }
@@ -366,12 +380,20 @@ display: inline-block;
 		resize();
 	});
 
-	$(".top > .bookmark").on("click", function () {
-		if (confirm("즐겨찾기에 추가합니다.")) {
-			
-		} else {
-			
-		}
+	$(".bookmark").on("click", function () {
+		$.ajax({
+			data: {companyNo: "${param.no}"},
+			url: path+"/company/bookmark.do",
+			success: function (data) {
+				if (data == 1) {
+					alert("즐겨찾기에 추가되었습니다.");
+					$(".top > .bookmark").addClass("checked");
+				} else {
+					alert("즐겨찾기에서 제외되었습니다.");
+					$(".top > .bookmark").removeClass("checked");
+				}
+			}
+		});
 	});
 
 	var d;
@@ -420,7 +442,10 @@ display: inline-block;
 			var date = new Date(comment.regDate);
 			comment.regDate = sdf.format(date);
 			
-			var div = $("<div>").addClass("input-group comment").attr("data-no", comment.reviewNo).append($("<span>").addClass("regDate").text(comment.regDate)).append($("<span>").addClass("content").text(" "+comment.content));
+			var div = $("<div>").addClass("input-group comment").attr("data-no", comment.reviewNo)
+			.append($("<span>").addClass("regDate").text(comment.regDate+" ")
+					.append($("<img>").prop("src", comment.score == 1 ? "https://i.imgur.com/cXYLRDs.png" : "https://i.imgur.com/ZRo8Drq.png").css("width", "20%")))
+			.append($("<span>").addClass("content").text(" "+comment.content));
 			
 			if (comment.memberNo == userNo) div.append($("<span>").addClass("remove"));
 			

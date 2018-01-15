@@ -2,7 +2,7 @@ package kr.co.vitamin.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.vitamin.repository.vo.Recruit;
 import kr.co.vitamin.repository.vo.Review;
 import kr.co.vitamin.repository.vo.account.Company;
+import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.CompanyService;
 
 @Controller
@@ -22,18 +22,17 @@ public class CompanyController {
 	private CompanyService companyService;
 	
 	@RequestMapping("/detail.do")
-	public void companyDetail(Integer no, Model model, HttpServletRequest request) throws Exception {
+	public void companyDetail(Integer no, Model model, HttpSession session) throws Exception {
 		if (no == null) return;
-		Company com = companyService.companyDetail(no);
+		Review review = new Review();
+		review.setCompanyNo(no);
+		Member member = (Member)session.getAttribute("user");
+		review.setMemberNo(member.getMemberNo());
+		Company com = companyService.companyDetail(review);
 		System.out.println(com);
 		model.addAttribute("com", com);
 
-		// if (com.getLogoNo() != null) model.addAttribute("logo", companyService.fileDetail(com.getLogoNo()));
-		Review review = new Review();
 		review.setCompanyNo(no);
-		/*HttpSession session = request.getSession();
-		Account user = (Account)session.getAttribute("user");
-		review.setMemberNo(user.getAccountNo());*/
 		model.addAttribute("commentList", companyService.commentDetail(review));
 	}
 	
@@ -69,5 +68,23 @@ public class CompanyController {
 	@RequestMapping("/reviewDelete.do")
 	public void reviewDelete(Review review) throws Exception {
 		companyService.commentDelete(review);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/bookmark.do")
+	public Integer bookmark(Integer companyNo, HttpSession session) throws Exception {
+		Review review = new Review();
+		review.setCompanyNo(companyNo);
+		Member member = (Member)session.getAttribute("user");
+		review.setMemberNo(member.getMemberNo());
+		System.out.println(companyNo);
+		System.out.println(companyService.bookmarkChk(review));
+		if (companyService.bookmarkChk(review) > 0) {
+			companyService.bookmarkRemove(review);
+			return 0;
+		} else {
+			companyService.bookmarkInsert(review);
+			return 1;
+		}
 	}
 }

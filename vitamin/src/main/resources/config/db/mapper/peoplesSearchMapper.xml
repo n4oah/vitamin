@@ -231,7 +231,7 @@
 				</when>
 				
 				<when test="careerStart != null">
-					and career_years >= #{careerStart}
+					and career_years &gt;= #{careerStart}
 				</when>
 				
 				<when test="careerEnd != null">
