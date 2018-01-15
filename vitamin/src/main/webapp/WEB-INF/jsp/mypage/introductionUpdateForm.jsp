@@ -73,6 +73,10 @@
 							<div class="horizontal_table table_wrap">
 								<h4 class="table_title">자기소개서 수정</h4>
 								<br>
+								<label style="float: right;">
+									<span style="float: right;font-weight: bold">5분자동저장</span> 
+									<input type="checkbox" class="5minSave" value="2" style="float: right">
+								</label> 
 								<c:forEach var="introductionCate" items="${iclist}">
 								<table class="table">
 									<tbody>
@@ -141,6 +145,23 @@ $(".introduction").on("click", ".save", function () {
 	intro.removeClass("col-md-1").attr("type", "hidden").css("width", null);
 	siblingTr.prepend($("<span>").addClass(intro.prop("class").split(" ")[0]).text(intro.val()));
 	$(this).removeClass("save").addClass("change").val("변경").text("변경");
+});
+
+var interval;
+
+$(".5minSave").on("change", function () {
+	if ($(this).is(":checked")) {
+		interval = setInterval(function () {
+			$.ajax({
+				url: path+"/search/introductionUpdate.do",
+				data: $("form").serialize()+"&introductionNo=${param.introductionNo}",
+				type: "post",
+				async: false
+			});
+		}, 5*60*1000);
+	} else {
+		clearInterval(interval);
+	}
 });
 
 

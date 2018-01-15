@@ -251,7 +251,6 @@ $(".5minSave").on("change", function () {
 					async: false,
 					success: function (data) {
 						introductionNo = data;
-						console.log(data, "저장");
 					}
 				});			
 			} else {
@@ -259,10 +258,7 @@ $(".5minSave").on("change", function () {
 					url: path+"/search/introductionUpdate.do",
 					data: $("form").serialize()+"&introductionNo="+introductionNo,
 					type: "post",
-					async: false,
-					success: function () {
-						console.log("수정");
-					}
+					async: false
 				});
 			}
 		}, 5*60*1000);
