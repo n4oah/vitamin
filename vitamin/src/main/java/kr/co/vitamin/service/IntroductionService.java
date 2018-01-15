@@ -7,7 +7,7 @@ import kr.co.vitamin.repository.vo.IntroductionCate;
 
 public interface IntroductionService {
 
-	public void insertIntroduction(Introduction introduction) throws Exception;
+	public Integer insertIntroduction(Introduction introduction) throws Exception;
 
 	public List<Introduction> selectIntroductionList(Introduction introduction) throws Exception;
 
@@ -20,5 +20,13 @@ public interface IntroductionService {
 	public void deleteIntroduction(Integer introductionNo)throws Exception;
 
 	public int selectIntroductionCount(Integer memberNo) throws Exception;
+
+	public void updateIntroduction(Introduction introduction)throws Exception;
+
+	public void updateIntroductionCate(IntroductionCate introductionCate)throws Exception;
+
+	public Integer[] selectIntroductionCateNo(Integer introductionNo)throws Exception;
+
+	public Integer selectNextAutoIncrementIntroduction() throws Exception;
 
 }

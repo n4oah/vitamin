@@ -18,13 +18,15 @@ import kr.co.vitamin.repository.vo.ArmyService;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.Hope;
+import kr.co.vitamin.repository.vo.Introduction;
+import kr.co.vitamin.repository.vo.IntroductionCate;
 import kr.co.vitamin.repository.vo.PeopleSearch;
-import kr.co.vitamin.repository.vo.Peoples;
 import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.account.Member;
+import kr.co.vitamin.service.IntroductionService;
 import kr.co.vitamin.service.PeoplesSearchService;
 import kr.co.vitamin.service.ResumeService;
 
@@ -36,7 +38,10 @@ public class PeoplesSearchController {
 	private PeoplesSearchService peoplesSearchService;
 	
 	@Autowired
-	private ResumeService resumeService;	
+	private ResumeService resumeService;
+	
+	@Autowired
+	private IntroductionService introductionService;
 	
 	@RequestMapping("/peoplesSearch.do")
 	public void companySearch(Model model) throws Exception {
@@ -59,11 +64,43 @@ public class PeoplesSearchController {
 	@ResponseBody
 	@RequestMapping("/peoplesSearchList.do")
 	public Map<String, Object> peoplesSearchList(PeopleSearch peopleSearch) throws Exception {
-		System.out.println(peopleSearch.getlastNo());
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", peoplesSearchService.peoplesSearch(peopleSearch));
 		map.put("listSize", peoplesSearchService.peoplesSearchSize(peopleSearch));		
 		return map;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/introductionInsert.do")
+	public Integer introductionInsert(HttpSession session, Introduction introduction, IntroductionCate introductionCate
+			,String[] introductionCateTemp, String[] introductionContentTemp) throws Exception {
+		Member user = (Member)session.getAttribute("user");
+		introduction.setMemberNo(user.getMemberNo());
+		
+		for(int i = 0 ;i<introductionCateTemp.length;i++) {
+			introductionCate.setIntroductionCate(introductionCateTemp[i]);
+			introductionCate.setIntroductionContent(introductionContentTemp[i]);
+			introductionService.insertIntroductionCate(introductionCate);
+		}
+		
+		Integer introductionNo = introductionService.insertIntroduction(introduction);
+		return introductionNo;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/introductionUpdate.do")
+	public void introductionUpdate(HttpSession session, Introduction introduction, IntroductionCate introductionCate
+			,String[] introductionCateTemp, String[] introductionContentTemp) throws Exception {		
+		Member user = (Member)session.getAttribute("user");
+		introduction.setMemberNo(user.getMemberNo());
+		
+		for(int i = 0 ;i<introductionCateTemp.length;i++) {
+			introductionCate.setIntroductionCate(introductionCateTemp[i]);
+			introductionCate.setIntroductionContent(introductionContentTemp[i]);
+			introductionService.updateIntroductionCate(introductionCate);
+		}
+		
+		introductionService.updateIntroduction(introduction);
 	}
 	
 	@ResponseBody

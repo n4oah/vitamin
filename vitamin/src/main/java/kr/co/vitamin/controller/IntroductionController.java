@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -59,7 +60,7 @@ public class IntroductionController {
 	public ModelAndView introductionDetail(Integer introductionNo) throws Exception{
 		System.out.println("introductionDetail 들어옴");
 		Introduction introduction = introductionService.selectIntroduction(introductionNo);
-		List<IntroductionCate> iclist=introductionService.selectIntroductionCate(introductionNo);
+		List<IntroductionCate> iclist= introductionService.selectIntroductionCate(introductionNo);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("introduction", introduction);
 		mav.addObject("iclist", iclist);
@@ -102,5 +103,35 @@ public class IntroductionController {
 		introductionService.deleteIntroduction(introductionNo);
 		
 	}
-
+	
+	
+	@RequestMapping("/introductionUpdateForm.do")
+	public void introductionUpdateForm(Model model, Integer introductionNo) throws Exception{
+		System.out.println("introductionUpdateForm들어옴");
+		
+		Introduction introduction = introductionService.selectIntroduction(introductionNo);
+		List<IntroductionCate> iclist= introductionService.selectIntroductionCate(introductionNo);
+		
+		model.addAttribute("introduction", introduction);
+		model.addAttribute("iclist", iclist);
+		
+	}
+	
+	@RequestMapping("/introductionUpdate.do")
+	public String introductionUpdate(String[] introductionCateTemp, String[] introductionContentTemp, Introduction introduction, IntroductionCate introductionCate) throws Exception{
+		System.out.println("introductionUpdate들어옴");
+		Integer[] introductionCateNo= introductionService.selectIntroductionCateNo(introductionCate.getIntroductionNo());
+		for(int i = 0 ;i<introductionCateTemp.length;i++) {
+			introductionCate.setIntroductionCate(introductionCateTemp[i]);
+			introductionCate.setIntroductionContent(introductionContentTemp[i]);
+			introductionCate.setIntroductionCateNo(introductionCateNo[i]);
+			
+			
+			introductionService.updateIntroductionCate(introductionCate);
+		}
+		
+		introductionService.updateIntroduction(introduction);
+		
+		return "redirect:/mypage/introductionList.do";
+	}
 }

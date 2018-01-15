@@ -17,10 +17,11 @@ public class IntroductionServiceImpl implements IntroductionService{
 	private IntroductionMapper mapper;
 
 	@Override
-	public void insertIntroduction(Introduction introduction) throws Exception {
+	public Integer insertIntroduction(Introduction introduction) throws Exception {
 		Integer introductionNo = mapper.selectNextAutoIncrementIntroduction();
 		introduction.setIntroductionNo(introductionNo);
 		mapper.insertIntroduction(introduction);
+		return introductionNo;
 	}
 
 	@Override
@@ -59,4 +60,25 @@ public class IntroductionServiceImpl implements IntroductionService{
 		return mapper.selectIntroductionCount(memberNo);
 	}
 
+	@Override
+	public void updateIntroduction(Introduction introduction) throws Exception {
+		mapper.updateIntroduction(introduction);
+		
+	}
+
+	@Override
+	public void updateIntroductionCate(IntroductionCate introductionCate) throws Exception {
+		mapper.updateIntroductionCate(introductionCate);
+		
+	}
+
+	@Override
+	public Integer[] selectIntroductionCateNo(Integer introductionNo) throws Exception {
+		return mapper.selectIntroductionCateNo(introductionNo);
+	}
+	
+	@Override
+	public Integer selectNextAutoIncrementIntroduction() throws Exception {
+		return mapper.selectNextAutoIncrementIntroduction();
+	}
 }
