@@ -32,14 +32,14 @@
 	<select id="selectPageRecvLetterList" parameterType="map" resultMap="letterMap">
 		<![CDATA[
 		SELECT vi_letter.* FROM vi_letter, (SELECT send_date as last_date FROM vi_letter WHERE letter_no = #{lastLetterNo} AND recv_account_no = #{accountNo} LIMIT 1) AS oo
-		WHERE oo.last_date < vi_letter.send_date AND vi_letter.recv_account_no = #{accountNo} ORDER BY vi_letter.send_date ASC LIMIT 0, 10
+		WHERE oo.last_date <= vi_letter.send_date AND vi_letter.recv_account_no = #{accountNo} ORDER BY vi_letter.send_date ASC LIMIT 0, #{lastCount}
 		]]>
 	</select>
 	
 	<select id="selectPageSendLetterList" parameterType="map" resultMap="letterMap">
 		<![CDATA[
 		SELECT vi_letter.* FROM vi_letter, (SELECT send_date as last_date FROM vi_letter WHERE letter_no = #{lastLetterNo} AND send_account_no = #{accountNo} LIMIT 1) AS oo
-		WHERE oo.last_date < vi_letter.send_date AND vi_letter.send_account_no = #{accountNo} ORDER BY vi_letter.send_date ASC LIMIT 0, 10
+		WHERE oo.last_date <= vi_letter.send_date AND vi_letter.send_account_no = #{accountNo} ORDER BY vi_letter.send_date ASC LIMIT 0, #{lastCount}
 		]]>
 	</select>
 </mapper>

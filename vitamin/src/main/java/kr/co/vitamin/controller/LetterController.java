@@ -47,14 +47,18 @@ public class LetterController {
 	public List<LetterRes> recvLetterList(HttpSession session, Integer lastLetterNo) throws Exception {
 		Account account = (Account)session.getAttribute("user");
 		
+		boolean chkecked = false;
+		
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("accountNo", account.getAccountNo());
+		map.put("lastCount", 5);
 			
 		if(lastLetterNo == -1 || lastLetterNo == null) {
 			letterService.getPageRecvLetterList(map);
 			map.put("lastLetterNo", letterService.getPageRecvFirstLetter(account.getAccountNo()));
 		} else {
 			map.put("lastLetterNo", lastLetterNo);
+			chkecked = true;
 		}
 		
 		List<LetterRes> resultList = new ArrayList<>();
@@ -74,28 +78,63 @@ public class LetterController {
 					letterRes.setProfileNo(((Company)sendAcc).getLogoNo());
 					letterRes.setName(((Company)sendAcc).getCompanyName());
 				}
+				letterRes.setId(sendAcc.getId());
 			}
 			resultList.add(letterRes);
 		}
+		
+		if(chkecked == true) {
+			resultList.remove(0);
+		}
+		
 		return resultList;
 	}
 	
 	@ResponseBody
 	@RequestMapping("/sendLetterList.do")
-	public Map<String, List<Letter>> sendLetterList(HttpSession session, Integer lastLetterNo) throws Exception {
+	public List<LetterRes> sendLetterList(HttpSession session, Integer lastLetterNo) throws Exception {
 		Account account = (Account)session.getAttribute("user");
+		
+		boolean chkecked = false;
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("accountNo", account.getAccountNo());
+		map.put("lastCount", 5);
 			
 		if(lastLetterNo == -1 || lastLetterNo == null) {
-			letterService.getPageRecvLetterList(map);
+			letterService.getPageSendLetterList(map);
 			map.put("lastLetterNo", letterService.getPageSendFirstLetter(account.getAccountNo()));
 		} else {
 			map.put("lastLetterNo", lastLetterNo);
+			chkecked = true;
 		}
 		
+		List<LetterRes> resultList = new ArrayList<>();
 		List<Letter> letterList = letterService.getPageSendLetterList(map);
-		return null;
+		
+		for(Letter let : letterList) {
+			LetterRes letterRes = new LetterRes();
+			
+			letterRes.setLetter(let);
+			
+			Account sendAcc = accountService.getAccount(let.getSendAccountNo());
+			if(sendAcc != null) {
+				if(sendAcc.getMemberType() == 1) {
+					letterRes.setProfileNo(accountService.getProfileNo(sendAcc));
+					letterRes.setName(((Member)sendAcc).getName());
+				} else if(sendAcc.getMemberType() == 2) {
+					letterRes.setProfileNo(((Company)sendAcc).getLogoNo());
+					letterRes.setName(((Company)sendAcc).getCompanyName());
+				}
+				letterRes.setId(sendAcc.getId());
+			}
+			resultList.add(letterRes);
+		}
+		
+		if(chkecked == true) {
+			resultList.remove(0);
+		}
+		
+		return resultList;
 	}
 }

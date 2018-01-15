@@ -158,55 +158,40 @@
 						    <div class="tab-content">
 						        <div class="tab-pane active" id="letter-recv">
 						            <ul class="media-list">
-						            	<!-- media-list
-						                <li class="media">
-					                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg" alt="profile">
-						                    <div class="media-body">
-						                        <div class="well well-lg">
-						                            <h4 class="media-heading text-uppercase reviews">Marco </h4>
-						                            <ul class="media-date text-uppercase reviews list-inline">
-						                                <li class="dd">22</li>
-						                                <li class="mm">09</li>
-						                                <li class="aaaa">2014</li>
-						                            </ul>
-						                            <p class="media-title">
-						                                Great snippet! Thanks for sharing.
-						                            </p>
-						                            <a class="btn btn-info btn-circle text-uppercase" href="#">
-						                                <span class="glyphicon glyphicon-ok"></span> 확인</a>
-						                            <a class="btn btn-warning btn-circle text-uppercase" href="#">
-						                                <span class="glyphicon glyphicon-share-alt"></span> 답장</a>
-						                        </div>
-						                    </div>
-						                </li> -->
 						            </ul>
 						        </div>
 						        <div class="tab-pane" id="letter-send">
 						            <ul class="media-list">
-						                <li class="media">
-						                    <a class="pull-left" href="#">
-						                        <img class="media-object img-circle" src="https://s3.amazonaws.com/uifaces/faces/twitter/dancounsell/128.jpg" alt="profile">
-						                    </a>
-						                    <div class="media-body">
-						                        <div class="well well-lg">
-						                            <h4 class="media-heading text-uppercase reviews">Marco </h4>
-						                            <ul class="media-date text-uppercase reviews list-inline">
-						                                <li class="dd">22</li>
-						                                <li class="mm">09</li>
-						                                <li class="aaaa">2014</li>
-						                            </ul>
-						                            <p class="media-title">
-						                                Great snippet! Thanks for sharing.
-						                            </p>
-						                            <a class="btn btn-info btn-circle text-uppercase" href="#">
-						                                <span class="glyphicon glyphicon-ok"></span> 확인</a>
-						                            <a class="btn btn-warning btn-circle text-uppercase" href="#">
-						                                <span class="glyphicon glyphicon-share-alt"></span> 답장</a>
-						                        </div>
-						                    </div>
-						                </li>
 						            </ul>
 						        </div>
+						        <div class="modal fade" id="letter-read-modal" tabindex="-2" role="dialog" aria-labelledby="letter-read-modal" aria-hidden="true">
+								    <div class="modal-dialog modal-lg">
+								        <div class="modal-content">
+								            <div class="modal-header">
+								                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+								                <h4 class="modal-title" id="myModalLabel">쪽지</h4>
+								            </div>
+								            <div class="modal-body">
+								                <form id="letter-form" role="form" method="post" action="${pageContext.request.contextPath}/letter/send.do">
+								                    <h3 name="title" style="text-align: center; font-weight: bold;"></h3>
+								    				<div class="form-group">
+														<input type="text" class="form-control" name="id" readonly="readonly">
+													</div>
+								    				<div class="form-group">
+														<input type="text" class="form-control" name="name" readonly="readonly">
+													</div>
+								                    <div class="form-group">
+														<textarea class="form-control" type="textarea" name="content" rows="7" readonly="readonly"></textarea>                 
+								                    </div>
+										        </form>
+								            </div>
+								            <div class="modal-footer">
+								                <button type="button" class="btn btn-default" data-dismiss="modal">확인</button>
+								                <button type="button" class="btn btn-primary show-letter-reply">답장</button>
+								            </div>
+								        </div>
+								    </div>
+								</div>
 						        <div class="tab-pane" id="diary">
 						        
 						        </div>

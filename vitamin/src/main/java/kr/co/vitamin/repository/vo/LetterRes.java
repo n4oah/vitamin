@@ -1,10 +1,9 @@
 package kr.co.vitamin.repository.vo;
 
-import java.util.List;
-
 public class LetterRes {
 	Integer profileNo;
 	String name;
+	String id;
 	Letter letter;
 
 	public Integer getProfileNo() {
@@ -31,8 +30,16 @@ public class LetterRes {
 		this.name = name;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
-		return "LetterRes [profileNo=" + profileNo + ", name=" + name + ", letter=" + letter + "]";
+		return "LetterRes [profileNo=" + profileNo + ", name=" + name + ", id=" + id + ", letter=" + letter + "]";
 	}
 }
