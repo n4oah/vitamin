@@ -72,8 +72,10 @@
 							<div class="horizontal_table table_wrap">
 								<h4 class="table_title">자기소개서 작성</h4>
 								<br>
-								<span style="float: right;font-weight: bold">5분자동저장</span> 
-								<input type="checkbox" onclick="save()" value="2" style="float: right"> 
+								<label style="float: right;">
+									<span style="float: right;font-weight: bold">5분자동저장</span> 
+									<input type="checkbox" class="5minSave" value="2" style="float: right">
+								</label> 
 								<table class="table">
 									<tbody>
 										<tr>
@@ -211,6 +213,7 @@
 	</form>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp"%>
 <script>
+var path = "${pageContext.request.contextPath}";
 
 $(".introduction").on("click", ".change", function () {
 	var siblingTr = $(this).parent().parent().siblings();
@@ -234,8 +237,39 @@ $(".introduction").on("click", ".save", function () {
 	$(this).removeClass("save").addClass("change").val("변경").text("변경");
 });
 
+var introductionNo;
+var interval;
 
-
+$(".5minSave").on("change", function () {
+	if ($(this).is(":checked")) {
+		interval = setInterval(function () {
+			if (!introductionNo) {
+				$.ajax({
+					url: path+"/search/introductionInsert.do",
+					data: $("form").serialize(),
+					type: "post",
+					async: false,
+					success: function (data) {
+						introductionNo = data;
+						console.log(data, "저장");
+					}
+				});			
+			} else {
+				$.ajax({
+					url: path+"/search/introductionUpdate.do",
+					data: $("form").serialize()+"&introductionNo="+introductionNo,
+					type: "post",
+					async: false,
+					success: function () {
+						console.log("수정");
+					}
+				});
+			}
+		}, 5*60*1000);
+	} else {
+		clearInterval(interval);
+	}
+});
 
 
 /* <span class="intro3">지원동기 및 입사후 포부</span> */
