@@ -1,3 +1,23 @@
+var letters = new Array();
+class Letter {
+    constructor(letterNo, id, name, title, content, date) {
+        this.letterNo = letterNo;
+        this.id = id;
+        this.name = name;
+        this.title = title;
+        this.content = content;
+        this.date = date;
+    }
+
+    static searchLetter(letters, letterNo) {
+        for(let letter of letters) {
+            if(letter.letterNo == letterNo) {
+                return letter;
+            }
+        }
+    }
+}
+
 $(document).ready(function() {
 	var max = 500;
     $('#characterLeft').text(max + '자 남음');
@@ -174,23 +194,57 @@ $(function() {
         }
         reader.readAsDataURL(this.files[0]);
     });
+
+    $('ul.media-list').on('click', '.show-letter', function(event) {
+        let parent = $(this).closest('li.media');
+        let letterNo = parent.attr('attr');
+
+        let letter = Letter.searchLetter(letters, letterNo);
+
+        let modal = $('#letter-read-modal');
+
+        modal.find('input[name="id"]').val(letter.id);
+        modal.find('input[name="name"]').val(letter.name);
+        modal.find('h3[name="title"]').text(letter.title);
+        modal.find('textarea[name="content"]').val(letter.content);
+        modal.find('button.show-letter-reply').attr('attr', letter.letterNo);
+
+        modal.modal('show');
+        event.preventDefault();
+    });
+
+    $('#wrapper').on('click', '.show-letter-reply', function(event) {
+        let modals = $('div.modal');
+        for(let mod of modals) {
+            $(mod).modal('hide');
+        }
+
+        let letterNo = $(this).attr('attr');
+        let modal = $('#largeModal');
+
+        let letter = Letter.searchLetter(letters, letterNo);
+
+        modal.find('input[name="id"]').val(letter.id);
+        modal.find('input[name="title"]').focus();
+
+        modal.modal('show');
+        event.preventDefault();
+    });
     
-    
-    
-    recvList(-1);
+    recvList();
+    sendList();
 });
+
 function recvList(lastRecvNo = -1) {
     let url = '/vitamin/letter/recvLetterList.do';
     let data = {'lastLetterNo': lastRecvNo};
-    
-    console.log("asafgjiasf");
     
     $.ajax({
         url: url,
         data: data,
         success: function(dataList) {
             let html = '';
-            let parent = $('ul.media-list'); 
+            let parent = $('div#letter-recv ul.media-list');
 
             let letterList = JSON.parse(dataList);
 
@@ -199,35 +253,80 @@ function recvList(lastRecvNo = -1) {
 
                 let profileNo = data['profileNo'];
                 let name = data['name'];
+                let id = data['id'];
                 let letter = data['letter'];
 
                 let date = new Date(letter['sendDate']);
-                console.log(date);
+                
+                letters.push(new Letter(letter['letterNo'], id, name, letter['title'], letter['content'], date));
 
-                html += `<li class="media">`;
-                html += `   <a id="profile-img-full" class="pull-left">`;
-                html += `       <img class="media-object img-circle" src="/vitamin/common/fileDown.do?fileNo=${profileNo}" alt="profile">`;
-                html += `   </a>`;
-                html += `   <div class="media-body">`;
-                html += `       <div class="well well-lg">`;
-                html += `           <h4 class="media-heading text-uppercase reviews">${name}</h4>`;
-                html += `           <ul class="media-date text-uppercase reviews list-inline">`;
-                html += `               <li class="dd">22</li>`;
-                html += `               <li class="mm">09</li>`;
-                html += `               <li class="aaaa">2014</li>`;
-                html += `           </ul>`;
-                html += `           <p class="media-title">`;
-                html += `               ${letter['title']}`;
-                html += `           </p>`;
-                html += `           <a class="btn btn-info btn-circle text-uppercase" href="#">`;
-                html += `               <span class="glyphicon glyphicon-ok"></span> 확인</a>`;
-                html += `           <a class="btn btn-warning btn-circle text-uppercase" href="#">`;
-                html += `               <span class="glyphicon glyphicon-share-alt"></span> 답장</a>`;
-                html += `       </div>`;
-                html += `   </div>`;
-                html += `</li>`;
+                html = letterForm(profileNo, id, letter['letterNo'], name, letter['title'], date);
                 parent.append(html);
             }
         }
     });
+}
+
+function sendList(lastSendNo = -1) {
+    let url = '/vitamin/letter/sendLetterList.do';
+    let data = {'lastLetterNo': lastSendNo};
+    
+    $.ajax({
+        url: url,
+        data: data,
+        success: function(dataList) {
+            let html = '';
+            let parent = $('div#letter-send ul.media-list');
+
+            let letterList = JSON.parse(dataList);
+
+            for(let data of letterList) {
+                html = '';
+
+                let profileNo = data['profileNo'];
+                let name = data['name'];
+                let id = data['id'];
+                let letter = data['letter'];
+
+                let date = new Date(letter['sendDate']);
+
+                letters.push(new Letter(letter['letterNo'], id, name, letter['title'], letter['content'], date));
+
+                html = letterForm(profileNo, id, letter['letterNo'], name, letter['title'], date);
+                parent.append(html);
+            }
+        }
+    });
+}
+
+function letterForm(profileNo, id, letterNo, name, title, date) {
+    let html = '';
+
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    html += `<li class="media" attr="${letterNo}">`;
+    html += `   <a id="profile-img-full" class="pull-left">`;
+    html += `       <img class="media-object img-circle" src="/vitamin/common/fileDown.do?fileNo=${profileNo}" alt="profile">`;
+    html += `   </a>`;
+    html += `   <div class="media-body">`;
+    html += `       <div class="well well-lg">`;
+    html += `           <h4 class="media-heading text-uppercase reviews">${name}</h4>`;
+    html += `           <ul class="media-date text-uppercase reviews list-inline">`;
+    html += `               <li class="aaaa">${year}</li>`;
+    html += `               <li class="mm">${month}</li>`;
+    html += `               <li class="dd">${day}</li>`;
+    html += `           </ul>`;
+    html += `           <p class="media-title">`;
+    html += `               ${title}`;
+    html += `           </p>`;
+    html += `           <a class="btn btn-info btn-circle text-uppercase show-letter">`;
+    html += `               <span class="glyphicon glyphicon-ok"></span> 확인</a>`;
+    html += `           <a class="btn btn-warning btn-circle text-uppercase show-letter-reply" attr="${letterNo}">`;
+    html += `               <span class="glyphicon glyphicon-share-alt"></span> 답장</a>`;
+    html += `       </div>`;
+    html += `   </div>`;
+    html += `</li>`;
+    return html;
 }
