@@ -1,11 +1,9 @@
 package kr.co.vitamin.repository.mapper;
 
 import java.util.List;
-import java.util.Map;
 
 import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.IntroductionCate;
-import kr.co.vitamin.repository.vo.account.Member;
 
 public interface IntroductionMapper {
 
@@ -28,6 +26,10 @@ public interface IntroductionMapper {
 	public void deleteIntroductionCate(Integer introductionNo)throws Exception;
 
 	public int selectIntroductionCount(Integer memberNo)throws Exception;
-	
-	public List<Introduction> selectIntroductionAll(Member member) throws Exception;
+
+	public void updateIntroduction(Introduction introduction)throws Exception;
+
+	public void updateIntroductionCate(IntroductionCate introductionCate)throws Exception;
+
+	public Integer[] selectIntroductionCateNo(Integer introductionNo)throws Exception;
 }
