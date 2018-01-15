@@ -2,7 +2,6 @@ package kr.co.vitamin.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.vitamin.repository.mapper.ActivityMapper;
 import kr.co.vitamin.repository.vo.Activity;

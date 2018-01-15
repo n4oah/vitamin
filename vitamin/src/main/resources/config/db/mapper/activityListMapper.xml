@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.vitamin.repository.mapper.ActivityListMapper">
+	<resultMap type="activityList" id="activityListMap">
+		<result column="list_no" property="listNo" />
+		<result column="activity_no" property="activityNo" />
+		<result column="list_name" property="listName" />
+		<result column="list_top" property="listTop"/>
+		<result column="list_left" property="listLeft"/>
+		<result column="list_perm" property="listPerm" />
+		<result column="list_fix" property="listFix" />
+	</resultMap>
+	
+	<select id="selectActivityListByActivityNo" parameterType="int" resultMap="activityListMap">
+		select * from vi_activity_list
+		where activity_no = #{activityNo}
+		order by list_no
+	</select>
+	
+	<insert id="insertActivityList" parameterType="activityList">
+		insert into vi_activity_list(list_name, activity_no, list_left, list_top)
+		values (#{listName},#{activityNo},#{listLeft},#{listTop})
+	</insert>
+	
+	<update id="updateActivityListLocation" parameterType="activityList">
+		update vi_activity_list
+		set list_top = #{listTop}, list_left = #{listLeft}
+		where list_no = #{listNo}
+	</update>
+</mapper>

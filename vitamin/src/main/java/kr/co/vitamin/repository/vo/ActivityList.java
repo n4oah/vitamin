@@ -2,28 +2,55 @@ package kr.co.vitamin.repository.vo;
 
 public class ActivityList {
 	
-	private int list_no;
-	private int activity_no;
-	private int list_left;
-	private int list_top;
-	private int list_perm;
-	private int list_fix;
+	private int listNo;
+	private int activityNo;
+	private String listName;
+	private int listLeft;
+	private int listTop;
+	private String listPerm;
+	private String listFix;
 	
-	public int getList_no() {return list_no;}
-	public void setList_no(int list_no) {this.list_no = list_no;}
+	public int getListNo() {
+		return listNo;
+	}
+	public void setListNo(int listNo) {
+		this.listNo = listNo;
+	}
+	public int getActivityNo() {
+		return activityNo;
+	}
+	public void setActivityNo(int activityNo) {
+		this.activityNo = activityNo;
+	}
+	public String getListName() {
+		return listName;
+	}
+	public void setListName(String listName) {
+		this.listName = listName;
+	}
+	public int getListLeft() {
+		return listLeft;
+	}
+	public void setListLeft(int listLeft) {
+		this.listLeft = listLeft;
+	}
+	public int getListTop() {
+		return listTop;
+	}
+	public void setListTop(int listTop) {
+		this.listTop = listTop;
+	}
+	public String getListPerm() {
+		return listPerm;
+	}
+	public void setListPerm(String listPerm) {
+		this.listPerm = listPerm;
+	}
+	public String getListFix() {
+		return listFix;
+	}
+	public void setListFix(String listFix) {
+		this.listFix = listFix;
+	}
 	
-	public int getActivity_no() {return activity_no;}
-	public void setActivity_no(int activity_no) {this.activity_no = activity_no;}
-	
-	public int getList_left() {return list_left;}
-	public void setList_left(int list_left) {this.list_left = list_left;}
-	
-	public int getList_top() {return list_top;}
-	public void setList_top(int list_top) {this.list_top = list_top;}
-	
-	public int getList_perm() {return list_perm;}
-	public void setList_perm(int list_perm) {this.list_perm = list_perm;}
-	
-	public int getList_fix() {return list_fix;}
-	public void setList_fix(int list_fix) {this.list_fix = list_fix;}
 }

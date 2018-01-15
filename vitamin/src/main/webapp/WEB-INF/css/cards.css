@@ -188,6 +188,14 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	border-bottom:1px solid white;
 	background:rgba(32,32,32,0.9);
 }
+.at-list-name{
+	display:inline-block;
+	max-width:90%;
+	
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
 .at-board-list-content{
 	display:flex;
 	flex-direction:column;
@@ -200,6 +208,7 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	background: rgba(224,224,224,0.2);
 	border-radius: 2px;
 	
+	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
 }
