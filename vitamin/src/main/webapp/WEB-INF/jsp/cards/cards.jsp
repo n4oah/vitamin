@@ -101,11 +101,6 @@
 <script>
 	///TODO
 	/*
-		리스트 상태 저장하기
-		이동:O
-		추가:DATA추가만 하면 됨
-		삭제:X
-		
 		아이템 불러오기
 		아이템 위치 저장하기
 		
@@ -130,8 +125,10 @@
 	var $activityPerm = {"A":"전체공개","B":"지원기업공개","C":"비공개"}
 	var $activityPermInv = {"전체공개":"A","지원기업공개":"B","비공개":"C"}
 	
-	var $activityList = JSON.parse('${activityList}');
-	var $activityItem = "";
+	var $activityList = {};
+	var $activityItem = {};
+	if('${activityList}'){$activityList = JSON.parse('${activityList}');}
+	if('${activityItem}'){$activityItem = JSON.parse('${activityItem}');}
 	
 	$(document).ready(function() {
 		$(document).on('dragover drop', function(e) {
@@ -233,7 +230,7 @@
 						success:function(d){
 							console.log(d);
 						}
-					})
+					});
 				}
 			} 
 		};
@@ -399,7 +396,7 @@
 		$(this).addClass("takeonme");
 		$(this).removeClass("takeonme",100);
 		
-		$newlist = $("<div>")
+		let $newlist = $("<div>")
 			.append(
 				$("<div>").addClass("at-board-list-header")
 				.append(
@@ -438,24 +435,33 @@
 					listTop:parseInt($(this).position().top,10)
 				},
 				success: function(d){
-					console.log(d);
+					$newlist.data("listNo",d);
+					console.log($newlist.data("listNo")," 생성됨")
 				}
 			});
-			
-			console.log($(this))
 		});
 	});
 	
 	//삭제블록
 	$(".at-delblock").droppable({
 		addClasses: false,
-		accept: ".at-board-list, .at-list-item",
+		accept: ".at-board-list",
 		over: function(e,u){u.draggable.addClass("faster")},
 		out: function(e,u){u.draggable.removeClass("faster")},
 		drop: function(e,u){
 			let $delblock = function(){
 				$(".at-delblock").addClass("takeonme");
 				$(".at-delblock").removeClass("takeonme",1000);
+				
+				$.ajax({
+					url:"deletelist.do",
+					method:"post",
+					data:{listNo:u.draggable.data("listNo")},
+					success:function(d){
+						console.log(d);
+					}
+				});
+				
 				u.draggable.remove();
 			}
 			

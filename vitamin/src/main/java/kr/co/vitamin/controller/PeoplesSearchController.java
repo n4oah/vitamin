@@ -109,6 +109,10 @@ public class PeoplesSearchController {
 		System.out.println(msg);
 	}
 	
+	@RequestMapping("/calendar.do")
+	public void calendar() throws Exception {
+	}
+	
 	@RequestMapping("/resumeInfo.do")
 	public ModelAndView resumeInfo(HttpSession session, Integer resumeNo) throws Exception{
 		ModelAndView mav = new ModelAndView();
