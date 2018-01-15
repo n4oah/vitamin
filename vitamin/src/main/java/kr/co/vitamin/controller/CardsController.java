@@ -33,7 +33,7 @@ public class CardsController {
 	
 	@ResponseBody
 	@RequestMapping("/test.do")
-	public String test(Model model, HttpSession session, Activity activity) throws Exception {
+	public String test() throws Exception {
 		return "test 작동중";
 	}
 	
@@ -88,15 +88,22 @@ public class CardsController {
 	
 	@ResponseBody
 	@RequestMapping("/addlist.do")
-	public String addList(ActivityList activityList) throws Exception {
+	public int addList(ActivityList activityList) throws Exception {
 		ActivityListService.insertList(activityList);
-		return "생성됨";
+		return activityList.getListNo();
 	}
+	
+	@ResponseBody
+	@RequestMapping("/deletelist.do")
+	public String deleteList(int listNo) throws Exception {
+		ActivityListService.deleteList(listNo);
+		return "삭제됨";
+	} 
 	
 	@ResponseBody
 	@RequestMapping("/updatelist/location.do")
 	public String updateListLocation(ActivityList activityList) throws Exception {
 		ActivityListService.updateListLocation(activityList);
-		return "변경됨";
+		return "위치 변경됨";
 	}
 }

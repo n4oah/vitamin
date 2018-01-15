@@ -27,4 +27,11 @@ public class ActivityListServiceImpl implements ActivityListService {
 	public void updateListLocation(ActivityList activityList) throws Exception {
 		activityListMapper.updateActivityListLocation(activityList);
 	}
+
+	@Override
+	public void deleteList(int listNo) throws Exception {
+		activityListMapper.deleteActivityList(listNo);
+	}
+	
+	
 }

@@ -10,4 +10,6 @@ public interface ActivityListService {
 	public void insertList(ActivityList activityList) throws Exception;
 	
 	public void updateListLocation(ActivityList activityList) throws Exception;
+	
+	public void deleteList(int listNo) throws Exception;
 }

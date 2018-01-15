@@ -10,4 +10,6 @@ public interface ActivityListMapper {
 	public void insertActivityList(ActivityList activityList) throws Exception;
 	
 	public void updateActivityListLocation(ActivityList activityList) throws Exception;
+	
+	public void deleteActivityList(int listNo) throws Exception;
 }
