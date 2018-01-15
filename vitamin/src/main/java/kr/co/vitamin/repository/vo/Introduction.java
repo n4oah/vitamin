@@ -2,7 +2,7 @@ package kr.co.vitamin.repository.vo;
 
 import java.util.Date;
 
-public class Introduction {
+public class Introduction extends Page{
 	
 	private Integer introductionNo, memberNo, term;
 	private String introductionTitle, introductionCate, introductionContent;
@@ -49,6 +49,7 @@ public class Introduction {
 	public void setTerm(Integer term) {
 		this.term = term;
 	}
+	
 	
 	
 	

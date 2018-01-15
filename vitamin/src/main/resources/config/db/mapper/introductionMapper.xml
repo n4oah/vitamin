@@ -32,9 +32,10 @@
 		value(#{introductionNo},#{introductionCate},#{introductionContent});
 	</insert>
 	
-	<select id="selectIntroductionList" parameterType="int" resultMap="introductionMap">
-		select *,TIMESTAMPDIFF(hour,introduction_reg_date,now()) AS term 
-		from vi_introduction where member_no = #{memberNo} order by introduction_no desc
+	<select id="selectIntroductionList" parameterType="introduction" resultMap="introductionMap">
+		select * from (select *,TIMESTAMPDIFF(hour,introduction_reg_date,now()) AS term,@rownum := @rownum + 1 as rownum
+		from vi_introduction,(select @rownum := 0) R where member_no = #{memberNo} order by introduction_no desc) introduction 
+		where introduction.rownum between #{begin} and #{end} order by introduction_no desc
 	
 	</select>
 	
@@ -53,6 +54,10 @@
 	<delete id="deleteIntroductionCate" parameterType="int">
 		delete from vi_introduction_cate where introduction_no = #{introductionNo}
 	</delete>
+	
+	<select id="selectIntroductionCount" parameterType="int" resultType="int">
+		select count(*) from vi_introduction where member_no = #{memberNo}
+	</select>
 	
 	
 	

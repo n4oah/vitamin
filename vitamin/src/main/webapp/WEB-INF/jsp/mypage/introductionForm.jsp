@@ -89,7 +89,7 @@
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm intro1" id="firstself" value="변경"/>
+																<input type="button" class="btn-success btn-sm change" id="firstself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -120,7 +120,7 @@
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm intro2" id="secondself" value="변경"/>
+																<input type="button" class="btn-success btn-sm change" id="secondself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -151,7 +151,7 @@
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm intro3" id="throdself" value="변경"/>
+																<input type="button" class="btn-success btn-sm change" id="throdself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -182,7 +182,7 @@
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm intro4" id="forthself" value="변경"/>
+																<input type="button" class="btn-success btn-sm change" id="forthself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -212,6 +212,29 @@
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp"%>
 <script>
 
+$(".introduction").on("click", ".change", function () {
+	var siblingTr = $(this).parent().parent().siblings();
+	var intro = siblingTr.find("span").prop("class");
+	var name = siblingTr.find("input").prop("name");
+	siblingTr.empty();
+	siblingTr.append($("<input>").prop({"type": "text", "class": intro+" col-md-1", "name": name}).css("width", "100.333333%"));
+	$(this).removeClass("change").addClass("save").val("저장").text("저장");
+});
+
+$(".introduction").on("click", ".save", function () {
+	var siblingTr = $(this).parent().parent().siblings();
+	var intro = siblingTr.find("input");
+	if (!intro.val() && intro.val() == "") {
+		alert("값을 입력하세요.");
+		return;
+	}
+	intro.removeClass("col-md-1").attr("type", "hidden").css("width", null);
+	siblingTr.prepend($("<span>").addClass(intro.prop("class").split(" ")[0]).text(intro.val()));
+	$(this).removeClass("save").addClass("change").val("변경").text("변경");
+});
+
+
+/* <span class="intro3">지원동기 및 입사후 포부</span> */
 
 /* function save() { 
 	  var autoSave = new Object(); 

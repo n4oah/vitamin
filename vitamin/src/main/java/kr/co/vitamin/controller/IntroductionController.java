@@ -7,11 +7,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import kr.co.vitamin.common.PageResult;
 import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.IntroductionCate;
+import kr.co.vitamin.repository.vo.Page;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.IntroductionService;
 
@@ -26,15 +29,26 @@ public class IntroductionController {
 	
 	
 	@RequestMapping("/introductionList.do")
-	public ModelAndView introductionList(HttpSession session) throws Exception{
+	public ModelAndView introductionList(HttpSession session,@RequestParam(name="pageNo", defaultValue="1") int pageNo) throws Exception{
 		
 		System.out.println("introductionList 들어옴");
 		Member user = (Member)session.getAttribute("user");
-		List<Introduction> ilist = introductionService.selectIntroductionList(user.getMemberNo()); 
-		for (Introduction introduction : ilist) {
-			System.out.println(introduction.getIntroductionTitle());
-		}
+		Integer memberNo =user.getMemberNo();
+		Introduction introduction = new  Introduction();
+		introduction.setPageNo(pageNo);
+		introduction.setMemberNo(user.getMemberNo());
+		List<Introduction> ilist = introductionService.selectIntroductionList(introduction);
+
+		int introductionCount = introductionService.selectIntroductionCount(memberNo);
+		
 		ModelAndView mav = new ModelAndView();
+		Page page = new Page(pageNo); 
+		
+		PageResult pageResult = new PageResult(pageNo, introductionCount);
+		
+		
+		
+		mav.addObject("pageResult", pageResult);
 		mav.addObject("ilist", ilist);
 		
 		return mav;

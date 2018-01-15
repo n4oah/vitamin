@@ -9,7 +9,7 @@ public interface IntroductionMapper {
 
 	public void insertInroduction(Integer memberNo) throws Exception;
 
-	public List<Introduction> selectIntroductionList(Integer memberNo) throws Exception;
+	public List<Introduction> selectIntroductionList(Introduction introduction) throws Exception;
 
 	public int selectNextAutoIncrementIntroduction() throws Exception;
 
@@ -24,4 +24,6 @@ public interface IntroductionMapper {
 	public void deleteIntroduction(Integer introductionNo)throws Exception;
 
 	public void deleteIntroductionCate(Integer introductionNo)throws Exception;
+
+	public int selectIntroductionCount(Integer memberNo)throws Exception;
 }

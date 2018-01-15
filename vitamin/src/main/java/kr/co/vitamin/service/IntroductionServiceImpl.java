@@ -24,9 +24,9 @@ public class IntroductionServiceImpl implements IntroductionService{
 	}
 
 	@Override
-	public List<Introduction> selectIntroductionList(Integer memberNo) throws Exception {
+	public List<Introduction> selectIntroductionList(Introduction introduction) throws Exception {
 
-		return mapper.selectIntroductionList(memberNo);
+		return mapper.selectIntroductionList(introduction);
 	}
 
 	@Override
@@ -52,6 +52,11 @@ public class IntroductionServiceImpl implements IntroductionService{
 	public void deleteIntroduction(Integer introductionNo) throws Exception {
 		mapper.deleteIntroduction(introductionNo);
 		mapper.deleteIntroductionCate(introductionNo);
+	}
+
+	@Override
+	public int selectIntroductionCount(Integer memberNo) throws Exception {
+		return mapper.selectIntroductionCount(memberNo);
 	}
 
 }
