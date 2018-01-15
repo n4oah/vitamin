@@ -43,7 +43,7 @@
 						<div class="at-menu-item at-menu-perm">
 							<div class="at-menu-item-label">공개상태 설정</div>
 							<div class="at-button-group">
-								<div class="at-button at-activity-perm-button selected">전체공개</div>
+								<div class="at-button at-activity-perm-button">전체공개</div>
 								<div class="at-button at-activity-perm-button">지원기업공개</div>
 								<div class="at-button at-activity-perm-button">비공개</div>
 							</div>
@@ -62,8 +62,8 @@
 								<div class="at-button at-background-revert">되돌려</div>
 								
 						</div>
-						<div class="at-menu-item at-menu-board">추가, 삭제시 다시 묻기
-							<input type="checkbox" class="at-delblock-dialog" checked>
+						<div class="at-menu-item at-menu-askagain">
+							추가, 삭제시 다시 묻기<input type="checkbox" class="at-askagain" checked>
 						</div>
 						<div class="at-menu-item mtt">아</div>
 					</div>
@@ -72,8 +72,8 @@
 		</div>
 		<div id="content">
 			<div id="at-board">
-				<div class="at-list-item">테스트테스트박스</div>
-				<div class="at-list-item">테스트테스트박스2</div>
+				<div class="at-list-item" style="position:absolute;">테스트테스트박스</div>
+				<div class="at-list-item" style="position:absolute;">테스트테스트박스2</div>
 				<div class="at-board-list">
 					<div class="at-board-list-header">
 						<span class="at-list-name">테스트박스</span>
@@ -99,8 +99,10 @@
 <script>
 	///TODO
 	/*
-		기본설정 수정 반영하기
-		리스트와 아이템 불러오기
+		리스트 불러오기
+		리스트 상태 저장하기
+		아이템 불러오기
+		아이템 상태 저장하기
 		리스트에 아이템 추가하기
 		아이템에 파일 업로드하고 불러오기
 		리스트 설정 추가하기
@@ -114,6 +116,10 @@
 	///ready
 	var $activity = JSON.parse('${activity}');
 	var $activityPerm = {"A":"전체공개","B":"지원기업공개","C":"비공개"}
+	var $activityPermInv = {"전체공개":"A","지원기업공개":"B","비공개":"C"}
+	
+	var $list = "";
+	var $listitem = "";
 	
 	$(document).ready(function() {
 		$(document).on('dragover drop', function(e) {
@@ -122,14 +128,19 @@
 		});
 		
 		//불러오기
-		$(".at-activity-name").text($activity.activityName);
 		$("html").css({
 			"background":$activity.activityBackground,
 			"background-size":"cover"
 		});
+		
+		$(".at-activity-name").text($activity.activityName);
+		
 		$(".at-activity-perm").text($activityPerm[$activity.activityPerm]);
+		$(".at-activity-perm-button").filter(function(){
+			return $(this).text() == $activityPerm[$activity.activityPerm]
+		}).addClass("selected");
 		
-		
+		$(".at-askagain").attr("checked",$activity.activityAskagain == "Y")
 		$.ajax({
 			url:"test.do",
 			success:function(d){
@@ -235,6 +246,37 @@
 		$(this).addClass("hide",200)
 	});
 	
+	$(".at-menu").on("keydown",".at-activity-name-input",function(e){
+		if(e.keyCode == 13){$(".at-activity-name-button").trigger("click");}
+	});
+	$(".at-menu").on("click",".at-activity-name-button", function(){
+		$(".at-activity-name").text($(".at-activity-name-input").val());
+		$.ajax({
+			url:"updateactivity/name.do",
+			method:"post",
+			data:{
+				activityNo:$activity.activityNo,
+				value:$(".at-activity-name-input").val()
+			},
+			success:function(d){
+				console.log(d);
+			}
+		});
+	});
+	$(".at-menu").on("click",".at-activity-perm-button", function(){
+		$(".at-activity-perm").text($(this).text());
+		$.ajax({
+			url:"updateactivity/perm.do",
+			method:"post",
+			data:{
+				activityNo:$activity.activityNo,
+				value:$activityPermInv[$(this).text()]
+			},
+			success:function(d){
+				console.log(d);
+			}
+		});
+	});
 	
 	
 	$(".at-menu").on("click",".at-background-image-button", function(){
@@ -255,6 +297,18 @@
 					});
 				};
 				reader.onerror = function (error) {console.log("오류:", error);};
+				
+				$.ajax({
+					url:"updateactivity/background.do",
+					method:"post",
+					data:{
+						activityNo:$activity.activityNo,
+						value:"url(../image/cards/bf4bg2.jpg)"
+					},
+					success:function(d){
+						console.log(d);
+					}
+				});
 			}
 		}
 	});
@@ -267,6 +321,17 @@
 			"background":$(this).val(),
 			"background-size":"cover"
 		});
+		$.ajax({
+			url:"updateactivity/background.do",
+			method:"post",
+			data:{
+				activityNo:$activity.activityNo,
+				value:$(this).val()
+			},
+			success:function(d){
+				console.log(d);
+			}
+		});
 	});
 	
 	$prevBackground = "";
@@ -275,21 +340,31 @@
 		$prevBackground = "";
 	});
 	
-	$(".at-menu").on("keydown",".at-activity-name-input",function(e){
-		if(e.keyCode == 13){$(".at-activity-name-button").trigger("click");}
-	});
-	$(".at-menu").on("click",".at-activity-name-button", function(){
-		$(".at-activity-name").text($(".at-activity-name-input").val());
-	});
-	$(".at-menu").on("click",".at-activity-perm-button", function(){
-		$(".at-activity-perm").text($(this).text());
+	$(".at-menu").on("change",".at-askagain", function(){
+		let $askagain="";
+		if($(this)[0].checked){$askagain="Y"}
+		else{$askagain="N"}
 		
-	});
+		$.ajax({
+			url:"updateactivity/askagain.do",
+			method:"post",
+			data:{
+				activityNo:$activity.activityNo,
+				value:$askagain
+			},
+			success:function(d){
+				console.log(d);
+			}
+		});
+	})
 	
 	$(".at-menu").on("click",".mtt",function(){
 		$(".at-menu-header-button.at-back-icon").toggleClass("hide",200)
 		modal("테스트",1);
 	});
+	
+	
+	
 	
 	///보드
 	//추가블록
@@ -337,7 +412,7 @@
 				u.draggable.remove();
 			}
 			
-			if($(".at-delblock-dialog")[0].checked){
+			if($(".at-askagain")[0].checked){
 				modal("삭제?",0,$delblock);
 				return;
 			}
@@ -363,8 +438,8 @@
 		addClasses: false,
 		accept:".at-list-item",
 		drop: function(e,u){
-			console.log("반응")
-			$(this).append(u.draggable.css({"left":0,"top":0}));
+			$(this).append(u.draggable.css({"left":0,"top":0,"position":"relative"}));
+			
 		}
 	});
 	
