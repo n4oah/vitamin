@@ -1,7 +1,13 @@
 package kr.co.vitamin.repository.vo;
 
 public class InfiniteScrollAccount {
+	private static final Integer LAST_COUNT = 5;
+	
 	private Integer accountNo, lastSeqNo, lastCount;
+	
+	public InfiniteScrollAccount() {
+		this.lastCount = LAST_COUNT;
+	}
 
 	public Integer getAccountNo() {
 		return accountNo;

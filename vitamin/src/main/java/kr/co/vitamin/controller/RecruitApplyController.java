@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 
 import kr.co.vitamin.repository.vo.CompanyApply;
+import kr.co.vitamin.repository.vo.InfiniteScrollAccount;
+import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.RecruitApplyService;
 
@@ -35,5 +37,15 @@ public class RecruitApplyController {
 	public String getData(HttpSession session) throws Exception {
 		Member memberVO = (Member)session.getAttribute("user");
 		return new Gson().toJson(recruitApplyService.getRecruitSorceData(memberVO));
+	}
+	
+	@ResponseBody
+	@RequestMapping("/recruitResumeList.do")
+	public void recruitResumeList(HttpSession session) throws Exception {
+		Company companyVO = (Company)session.getAttribute("user");
+		
+		InfiniteScrollAccount infiniteScrollAccount = new InfiniteScrollAccount();
+		infiniteScrollAccount.setAccountNo(companyVO.getCompanyNo());
+		
 	}
 }

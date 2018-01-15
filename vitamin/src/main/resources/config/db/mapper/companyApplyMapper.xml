@@ -29,8 +29,15 @@
 		WHERE member_no = #{memberNo} AND recruit_no = #{recruitNo} LIMIT 1
 	</select>
 	
+	<!-- refix -->
 	<select id="selectRecruitList" parameterType="infiniteScrollAccount" resultMap="companyApplyMap">
 		SELECT * FROM vi_company_apply
 		WHERE member_no = #{accountNo} ORDER BY comapply_no ASC LIMIT 0, #{lastCount}
 	</select>
+	
+	<select id="selectRecruitResumeList" parameterType="infiniteScrollAccount" resultMap="companyApplyMap">
+		SELECT * FROM vi_company_apply AS main, (SELECT recruit_no FROM vi_recruit_write WHERE company_no = #{accountNo}) AS sub
+		WHERE sub.recruit_no = main.recruit_no ORDER BY comapply_no ASC LIMIT 0, #{lastCount}
+	</select>
+	<!-- refix -->
 </mapper>

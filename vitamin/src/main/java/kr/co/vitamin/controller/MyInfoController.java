@@ -48,8 +48,8 @@ public class MyInfoController {
 		model.addAttribute("address", addressService.selectAddress(address));
 	}
 	
-	@RequestMapping("/emailAuthSend.do")
 	@ResponseBody
+	@RequestMapping("/emailAuthSend.do")
 	public void emailAuthSend(HttpSession session, EmailChangeAuth changeAuth) throws Exception {
 		Random random = new Random();
 		String randomAuth = (random.nextInt(999999) + 1) + "";
@@ -62,8 +62,8 @@ public class MyInfoController {
 		emailAuthService.insertEmailChangeAuth(changeAuth);
 	}
 	
-	@RequestMapping("/emailAuth.do")
 	@ResponseBody
+	@RequestMapping("/emailAuth.do")
 	public String emailAuth(HttpSession session, EmailChangeAuth changeAuth) throws Exception {
 		changeAuth.setAccountNo(((Account)session.getAttribute("user")).getAccountNo());
 		changeAuth = emailAuthService.getEmailChangeAuth(changeAuth);
@@ -75,8 +75,8 @@ public class MyInfoController {
 		return result;
 	}
 	
-	@RequestMapping("/myInfoModify.do")
 	@ResponseBody
+	@RequestMapping("/myInfoModify.do")
 	public void myInfoModify(HttpSession session, AccountInfo accountInfo, @RequestParam("profileImg")MultipartFile profileImg) throws Exception {
 		Account user = ((Account)session.getAttribute("user"));
 		
@@ -123,6 +123,4 @@ public class MyInfoController {
 		}
 		return profileNo;
 	}
-	
-	
 }

@@ -8,4 +8,5 @@ public interface CompanyApplyMapper {
 	public CompanyApply selectCompanyApply(Integer comapplyNo) throws Exception;
 	public CompanyApply selectOverlapApply(CompanyApply companyApply) throws Exception;
 	public CompanyApply selectRecruitList(InfiniteScrollAccount infiniteScrollAccount) throws Exception;
+	public CompanyApply selectRecruitResumeList(InfiniteScrollAccount infiniteScrollAccount) throws Exception;
 }
