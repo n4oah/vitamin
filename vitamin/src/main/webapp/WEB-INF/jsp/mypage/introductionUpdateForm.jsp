@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>자기소개서 작성</title>
+<title>자기소개서 수정</title>
 <%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/basic.css">
@@ -52,28 +52,28 @@
 </head>
 <body>
 	 <%@ include file="/WEB-INF/jsp/include/header.jsp"%>
-	<form class="form-horizontal" action="${pageContext.request.contextPath}/mypage/introductionSave.do?memberNo=${user.memberNo}" method="post">
+	<form class="form-horizontal" action="${pageContext.request.contextPath}/mypage/introductionUpdate.do?introductionNo=${introduction.introductionNo}" method="post">
 		<div id="wrapper" style="margin-top: 0px;">
 			<section class="container infocontainer" style="margin-bottom: 100px;">
 				<div class="row">
 					<div class="top">
 						<div class="top_title">
-							<h2>자기소개서 작성</h2>
+							<h2>자기소개서 수정</h2>
 						</div>
 					</div>
 
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">자기소개서 제목</h4>
-						<input type="text" class="form-control" name="introductionTitle" placeholder="자기소개서 제목을 입력해주세요">
+						<input type="text" class="form-control" name="introductionTitle" placeholder="자기소개서 제목을 입력해주세요"
+						value="${introduction.introductionTitle}">
 					</div>
 
 					<div class="edit_content">
 						<div class="introduction">
 							<div class="horizontal_table table_wrap">
-								<h4 class="table_title">자기소개서 작성</h4>
+								<h4 class="table_title">자기소개서 수정</h4>
 								<br>
-								<span style="float: right;font-weight: bold">5분자동저장</span> 
-								<input type="checkbox" onclick="save()" value="2" style="float: right"> 
+								<c:forEach var="introductionCate" items="${iclist}">
 								<table class="table">
 									<tbody>
 										<tr>
@@ -83,8 +83,8 @@
 													<tbody>
 														<tr>
 															<td>
-																<span class="intro1">자기소개</span>
-																<input type="hidden" class="intro1" name="introductionCateTemp" value="자기소개"/>
+																<span>${introductionCate.introductionCate}</span>
+																<input type="hidden" name="introductionCateTemp" value="${introductionCate.introductionCate}">
 															</td>
 														</tr>
 														<tr>
@@ -97,7 +97,8 @@
 											</div>
 											</th>
 											<td>
-												<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"></textarea>
+												<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"
+												>${introductionCate.introductionContent}</textarea>
 											</td>
 										</tr>
 										<tr>
@@ -105,103 +106,11 @@
 										</tr>
 									</tbody>
 							    </table>
-							    <table class="table">
-									<tbody>
-										<tr>
-											<th>
-											<div class="center">
-												<table>
-													<tbody>
-														<tr>
-															<td>
-																<span class="intro2">성격의 장단점</span>
-																<input type="hidden" class="intro2"name="introductionCateTemp" value="성격의 장단점"/>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<input type="button" class="btn-success btn-sm change" id="secondself" value="변경"/>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-												</div>
-											</th>
-											<td>
-											<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"></textarea>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" class="semi-space"></td>
-										</tr>
-									</tbody>
-							    </table>
-							    <table class="table">
-									<tbody>
-										<tr>
-											<th>
-											<div class="center">
-												<table>
-													<tbody>
-														<tr>
-															<td>
-																<span class="intro3">지원동기 및 입사후 포부</span>
-																<input type="hidden" class="intro3"name="introductionCateTemp" value="지원동기 및 입사후 포부"/>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<input type="button" class="btn-success btn-sm change" id="throdself" value="변경"/>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-												</div>
-											</th>
-											<td>
-												<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"></textarea>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" class="semi-space"></td>
-										</tr>
-									</tbody>
-							    </table>
-							    <table class="table">
-									<tbody>
-										<tr>
-											<th>
-											<div class="center">
-												<table>
-													<tbody>
-														<tr>
-															<td>
-																<span class="intro4">직무관련경험</span>
-																<input type="hidden" class="intro4" name="introductionCateTemp" value="직무관련경험"/>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<input type="button" class="btn-success btn-sm change" id="forthself" value="변경"/>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-												</div>
-											</th>
-											<td>
-											<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"></textarea>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" class="semi-space"></td>
-										</tr>
-									</tbody>
-								</table>
+								</c:forEach>
 							</div>
 							<div class="btn_panel">
 								<input type="button" class="btn-info btn-lg" value="미리보기"style="float: center"/>
-								<button style="float: center" class="btn-warning btn-lg">작성완료</button>
+								<button style="float: center" class="btn-warning btn-lg">수정완료</button>
 							</div>
 						</div>
 					</div>
@@ -233,9 +142,6 @@ $(".introduction").on("click", ".save", function () {
 	siblingTr.prepend($("<span>").addClass(intro.prop("class").split(" ")[0]).text(intro.val()));
 	$(this).removeClass("save").addClass("change").val("변경").text("변경");
 });
-
-
-
 
 
 /* <span class="intro3">지원동기 및 입사후 포부</span> */

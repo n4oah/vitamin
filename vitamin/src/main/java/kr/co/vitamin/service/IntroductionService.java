@@ -21,4 +21,10 @@ public interface IntroductionService {
 
 	public int selectIntroductionCount(Integer memberNo) throws Exception;
 
+	public void updateIntroduction(Introduction introduction)throws Exception;
+
+	public void updateIntroductionCate(IntroductionCate introductionCate)throws Exception;
+
+	public Integer[] selectIntroductionCateNo(Integer introductionNo)throws Exception;
+
 }

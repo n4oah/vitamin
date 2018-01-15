@@ -26,4 +26,10 @@ public interface IntroductionMapper {
 	public void deleteIntroductionCate(Integer introductionNo)throws Exception;
 
 	public int selectIntroductionCount(Integer memberNo)throws Exception;
+
+	public void updateIntroduction(Introduction introduction)throws Exception;
+
+	public void updateIntroductionCate(IntroductionCate introductionCate)throws Exception;
+
+	public Integer[] selectIntroductionCateNo(Integer introductionNo)throws Exception;
 }

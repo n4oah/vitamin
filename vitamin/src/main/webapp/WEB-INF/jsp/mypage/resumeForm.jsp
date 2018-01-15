@@ -165,7 +165,7 @@
 									<tr>
 										<th>성별</th>
 										<td>
-											<input class="float-control" type="text" readonly="readonly"  value="${user.gender}"style="width:20%">
+											<input class="float-control" type="text" readonly="readonly"  value="${user.genderName}"style="width:20%">
 										<!-- 
 											<select class="selectpicker">
 													<option class="fa">성별</option>

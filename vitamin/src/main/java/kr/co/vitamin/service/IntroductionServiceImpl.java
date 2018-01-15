@@ -59,4 +59,21 @@ public class IntroductionServiceImpl implements IntroductionService{
 		return mapper.selectIntroductionCount(memberNo);
 	}
 
+	@Override
+	public void updateIntroduction(Introduction introduction) throws Exception {
+		mapper.updateIntroduction(introduction);
+		
+	}
+
+	@Override
+	public void updateIntroductionCate(IntroductionCate introductionCate) throws Exception {
+		mapper.updateIntroductionCate(introductionCate);
+		
+	}
+
+	@Override
+	public Integer[] selectIntroductionCateNo(Integer introductionNo) throws Exception {
+		return mapper.selectIntroductionCateNo(introductionNo);
+	}
+	
 }

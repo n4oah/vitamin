@@ -59,7 +59,19 @@
 		select count(*) from vi_introduction where member_no = #{memberNo}
 	</select>
 	
+	<update id="updateIntroduction" parameterType="introduction">
+		update vi_introduction set introduction_title = #{introductionTitle} where introduction_no= #{introductionNo}
+
+	</update>
 	
+	<update id="updateIntroductionCate" parameterType="introductionCate">
+		update vi_introduction_cate set introduction_cate=#{introductionCate}, introduction_content=#{introductionContent}
+		where introduction_no=#{introductionNo} and introduction_cate_no = #{introductionCateNo}
+	</update>
+	
+	<select id="selectIntroductionCateNo" parameterType="int" resultType="int">
+		select introduction_cate_no from vi_introduction_cate where introduction_no= #{introductionNo}
+	</select>
 	
 	<select id="selectNextAutoIncrementIntroduction" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
