@@ -64,7 +64,6 @@ public class PeoplesSearchController {
 	@ResponseBody
 	@RequestMapping("/peoplesSearchList.do")
 	public Map<String, Object> peoplesSearchList(PeopleSearch peopleSearch) throws Exception {
-		System.out.println(peopleSearch.getlastNo());
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", peoplesSearchService.peoplesSearch(peopleSearch));
 		map.put("listSize", peoplesSearchService.peoplesSearchSize(peopleSearch));		

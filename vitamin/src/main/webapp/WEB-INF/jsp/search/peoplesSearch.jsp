@@ -77,7 +77,7 @@
 		         			 <i class="fa fa-chevron-down"></i>
 		        		</span>
 		        		
-		        			<ul class="dropdown-menu" data-civa="start">
+		        			<ul class="dropdown-menu" data-mir="start">
 		        				<li>전체</li>
 		          				<c:forEach begin="20" end="60" var="i">
 		          				<li>${i }세 이상</li>
@@ -95,7 +95,7 @@
 		         			 <i class="fa fa-chevron-down"></i>
 		        		</span>
 		        		
-		        			<ul class="dropdown-menu" data-civa="end">
+		        			<ul class="dropdown-menu" data-mir="end">
 		        				<li>전체</li>
 		          				<c:forEach begin="20" end="60" var="i">
 		          				<li>${i }세 이하</li>
@@ -132,10 +132,12 @@
 					<span style="margin-left: 8%;">
 						<Strong class="army_title">군필</Strong>
 				
-						<label><input type="checkbox" value="0" name="army"> <font>미필</font></label>
+						<label><input type="checkbox" value="0" name="army"> <font>비대상</font></label>
 						<label><input type="checkbox" value="1" name="army"> <font>군필</font></label>
-						<label><input type="checkbox" value="2" name="army"> <font>면제</font></label>
-						<label><input type="checkbox" value="3" name="army"> <font>군필 무관</font></label>
+						<label><input type="checkbox" value="2" name="army"> <font>미필</font></label>
+						<label><input type="checkbox" value="3" name="army"> <font>면제</font></label>
+						<label><input type="checkbox" value="4" name="army"> <font>복무중</font></label>
+						<label><input type="checkbox" value="5" name="army"> <font>군필 무관</font></label>
 					</span>
 					
 					<span style="margin-left: 8%;">
@@ -214,7 +216,7 @@
 					<div class="genderHope">
 						<div>
 							희망 성별:
-							<font class="gender" data-civa="3">성별무관</font>
+							<font class="gender" data-mir="3">성별무관</font>
 							<span class="removeGender">X</span>
 						</div>
 					</div>
@@ -222,7 +224,7 @@
 					<div class="marryHope">
 						<div>
 							혼인 유무:
-							<font class="marry" data-civa="3">혼인 무관</font>
+							<font class="marry" data-mir="3">혼인 무관</font>
 							<span class="removeMarry">X</span>
 						</div>
 					</div>
@@ -348,9 +350,9 @@ var careerEnd;
    	}
    	
    	if (ui.value == ui.values[0])
-   		$(".careerStart").text(val1 ? val1 : ui.values[0]+"년 이상").attr("data-civa", ui.values[0]);
+   		$(".careerStart").text(val1 ? val1 : ui.values[0]+"년 이상").attr("data-mir", ui.values[0]);
    	if (ui.value == ui.values[1])
-   		$(".careerEnd").text(val2 ? val2 : ui.values[1]+"년 이하").attr("data-civa", ui.values[1]);
+   		$(".careerEnd").text(val2 ? val2 : ui.values[1]+"년 이하").attr("data-mir", ui.values[1]);
    });
    
    var chk = true;
@@ -415,18 +417,18 @@ $(".search_wrapper").on("click", ".area > :checkbox", function () {
 			checked.prop({"checked": false});
 			$(this).parent().parent().find(":checked").each(function (i, e) {
 				$("<span>")
-					.append($("<font>").attr("data-civa", $(this).val()).text($(this).next().text()))
+					.append($("<font>").attr("data-mir", $(this).val()).text($(this).next().text()))
 					.append($("<span>").addClass("removeAddr").text("X"))
 				.appendTo(".addrList");
 			});
 		}
 		
-		$("[data-civa='"+value+"'], [data-civa='"+value+"'] + span").remove();
+		$("[data-mir='"+value+"'], [data-mir='"+value+"'] + span").remove();
 		
-		$("font[data-civa='"+fValue+"'], font[data-civa='"+fValue+"'] + span").remove();
+		$("font[data-mir='"+fValue+"'], font[data-mir='"+fValue+"'] + span").remove();
 	} else {
 		$("<span>")
-			.append($("<font>").attr("data-civa", value).text($(this).next().text()))
+			.append($("<font>").attr("data-mir", value).text($(this).next().text()))
 			.append($("<span>").addClass("removeAddr").text("X"))
 		.appendTo(".addrList");
 		
@@ -448,18 +450,18 @@ $(".search_wrapper").on("click", ".checked", function () {
 		
 		$(this).parent().parent().find(":checkbox").each(function (i, e) {
 			var eValue = $(this).val();
-			$("[data-civa='"+eValue+"'], [data-civa='"+eValue+"'] + span").remove();
+			$("[data-mir='"+eValue+"'], [data-mir='"+eValue+"'] + span").remove();
 		});
 		
 		
 		$("<span>")
-			.append($("<font>").attr({"data-civa": value, "data-city": true}).text($(this).next().text()))
+			.append($("<font>").attr({"data-mir": value, "data-city": true}).text($(this).next().text()))
 			.append($("<span>").addClass("removeAddr").text("X"))
 		.appendTo(".addrList");
 	} else {
 		//$(this).parent().parent().find(":checkbox").parent().removeClass("checked");
 		
-		$("font[data-civa='"+value+"'], font[data-civa='"+value+"'] + span").remove();
+		$("font[data-mir='"+value+"'], font[data-mir='"+value+"'] + span").remove();
 	}
 });
 
@@ -474,17 +476,17 @@ $(".bootCheck").click(function () {
 
 $(".bootCheck:not(.allCheck)").on("change", function () {
 	if ($(this).is(":checked")) {
-		$("<font>").addClass("sch").text($(this).parent().find("span").text()).attr("data-civa", $(this).val()).appendTo(".schList");
+		$("<font>").addClass("sch").text($(this).parent().find("span").text()).attr("data-mir", $(this).val()).appendTo(".schList");
 		$("<span>").addClass("removeSch").text("X").appendTo(".schList");				
 	} else {
-		var civa = $("font.sch[data-civa='"+$(this).val()+"']");
+		var civa = $("font.sch[data-mir='"+$(this).val()+"']");
 		civa.next().remove();
 		civa.remove();
 	}
 });
 
 $(".schList, .addrList").on("click", ".removeSch, .removeAddr", function (e) {
-	$("[value='"+$(this).prev().attr("data-civa")+"']").trigger("click");
+	$("[value='"+$(this).prev().attr("data-mir")+"']").trigger("click");
 });	
 
 $(".allCheck").click(function () {
@@ -494,15 +496,15 @@ $(".allCheck").click(function () {
 		$(".bootCheck:not(.allCheck)").each(function (i, e) {
 			var input = $(e);
 			
-			if ($("font.sch[data-civa='"+input.val()+"']").length <= 0) {
-				$("<font>").addClass("sch").text(input.parent().find("span").text()).attr("data-civa", input.val()).appendTo(".schList");
+			if ($("font.sch[data-mir='"+input.val()+"']").length <= 0) {
+				$("<font>").addClass("sch").text(input.parent().find("span").text()).attr("data-mir", input.val()).appendTo(".schList");
 				$("<span>").addClass("removeSch").text("X").appendTo(".schList");						
 			}
 			
 		});
 	} else {
 		$(".bootCheck:not(.allCheck)").each(function (i, e) {
-			var civa = $("font.sch[data-civa='"+$(this).val()+"']");
+			var civa = $("font.sch[data-mir='"+$(this).val()+"']");
 			civa.next().remove();
 			civa.remove();
 		})
@@ -545,7 +547,7 @@ $('span.dropdown').click(function () {
         var text = $(this).text()
         var val = parseInt(text);
         
-        switch ($(this).parent().attr("data-civa")) {
+        switch ($(this).parent().attr("data-mir")) {
 	        case "start" :
 	        	$(".ageStart").text(val ? text : "전체");
 				break;
@@ -580,7 +582,7 @@ $('span.dropdown').click(function () {
    
    function selectChange(str) {
     $("input[name='"+str+"']").on("change", function () {
-    	$("."+str+"").text($(this).next().text()).attr("data-civa", $(this).val());
+    	$("."+str+"").text($(this).next().text()).attr("data-mir", $(this).val());
     });
     
     $(".remove"+str.charAt(0).toUpperCase()+str.slice(1)).click(function () {
@@ -597,25 +599,25 @@ $('span.dropdown').click(function () {
    	var str = $(this).next().text();
 
    	if ($(this).is(":checked")) {
-   		if ($("input[name='army'][value=3]").not(this).length != 0 && $("input[name='army'][value=3]").is(":checked")) {
-    		$("input[name='army'][value=3]").attr("checked", false);
-    		$(".army[data-civa=3]").next().remove();
-    		$("font.army[data-civa=3]").remove();
+   		if ($("input[name='army'][value=5]").not(this).length != 0 && $("input[name='army'][value=5]").is(":checked")) {
+    		$("input[name='army'][value=5]").attr("checked", false);
+    		$(".army[data-mir=5]").next().remove();
+    		$("font.army[data-mir=5]").remove();
     	}
    		
-   		$(".armyHope > div:first-child").append($("<font>").addClass("army").attr("data-civa", val).text(str));
+   		$(".armyHope > div:first-child").append($("<font>").addClass("army").attr("data-mir", val).text(str));
    		$(".armyHope > div:first-child").append($("<span>").addClass("removeArmy").text("X"));	    		    		
    	} else {
-   		$(".army[data-civa="+val+"]").next().remove();
-   		$("font.army[data-civa="+val+"]").remove();	    		
+   		$(".army[data-mir="+val+"]").next().remove();
+   		$("font.army[data-mir="+val+"]").remove();	    		
    	}
    });
    
    $(".armyHope").on("click", ".removeArmy", function () {
-   	$("input[name='army'][value="+$(this).prev().attr("data-civa")+"]").trigger("click");
+   	$("input[name='army'][value="+$(this).prev().attr("data-mir")+"]").trigger("click");
    });
    
-   $("input[name='army'][value=3]").on("change", function () {
+   $("input[name='army'][value=5]").on("change", function () {
    	if ($(this).is(":checked")) {
    		$("input[name='army']").not(this).each(function (i, data) {
    			if ($(data).is(":checked"))
@@ -660,9 +662,9 @@ $('span.dropdown').click(function () {
    		alert("정확한 자격증 정보를 입력해주세요.");
    		return;
    	}
-	var civa = $("font.lic[data-civa='"+license.no+"']");
+	var civa = $("font.lic[data-mir='"+license.no+"']");
    	if (civa.length < 1) {
-		$("<font>").addClass("lic").text(license.label).attr("data-civa", license.no).appendTo(".licenseList");
+		$("<font>").addClass("lic").text(license.label).attr("data-mir", license.no).appendTo(".licenseList");
 		$("<span>").addClass("removeLic").text("X").appendTo(".licenseList");				
 	} else {
 		alert("이미 존재하는 자격증입니다.");
@@ -683,6 +685,8 @@ $('span.dropdown').click(function () {
    var submitChk = false;
    var lastNo;
    
+	var sdf = new simpleDateFormat("yyyy-MM-dd");
+	
    var submit = function (e, scroll) {
    	if (!scroll) submitChk = true;
    	var parameterData = "?";
@@ -692,25 +696,25 @@ $('span.dropdown').click(function () {
    	if (cs) parameterData += "&careerStart="+cs;	    	
    	if (ce && ce != 20) parameterData += "&careerEnd="+ce;	    	
    	$(".lic").each(function (i, data) {
-   		parameterData += "&licenseCode="+$(data).attr("data-civa");
+   		parameterData += "&licenseCode="+$(data).attr("data-mir");
    		parameterData += "&licenseName="+$(data).text();
    	});
    	$(".sch").each(function (i, data) {
-   		parameterData += "&schoolCode="+$(data).attr("data-civa");
+   		parameterData += "&schoolCode="+$(data).attr("data-mir");
    	});
    	$(".addrList font").each(function (i, data) {
-   		parameterData += "&"+($(data).attr("data-city") ? "cityCode" : "areaCode")+"="+$(data).attr("data-civa");
+   		parameterData += "&"+($(data).attr("data-city") ? "cityCode" : "areaCode")+"="+$(data).attr("data-mir");
    	});	    	
    	var as = parseInt($(".ageStart").text());
    	var ae = parseInt($(".ageEnd").text());	    	
    	if (as) parameterData += "&ageStart="+as;	    	
    	if (ae) parameterData += "&ageEnd="+ae;	    	
-   	var gender = $(".gender").attr("data-civa");
+   	var gender = $(".gender").attr("data-mir");
    	if (gender != 3) parameterData += "&gender="+gender;
-   	var marry = $(".marry").attr("data-civa");
+   	var marry = $(".marry").attr("data-mir");
    	if (marry != 3) parameterData += "&marry="+marry;
-   	$(".army:not([data-civa=3])").each(function (i, data) {
-   		parameterData += "&army="+$(data).attr("data-civa");
+   	$(".army:not([data-mir=5])").each(function (i, data) {
+   		parameterData += "&army="+$(data).attr("data-mir");
    	});
    	if ($(".jobState").is(":checked")) parameterData += "&jobState=1";
    	if (scroll && lastNo) parameterData += "&lastNo="+lastNo;
@@ -734,29 +738,35 @@ $('span.dropdown').click(function () {
 				
 				tr.append($("<td>").addClass("recruit_nm")
 					.append($("<a>").addClass("str_tit nameAjax")
-							.attr({"title": human.name, "data-civa": human.memberNo})
+							.attr({"title": human.name, "data-mir": human.memberNo})
 						.append($("<span>").text(human.name+"("+human.age+"세)")))
 					.append($("<div>").addClass("icon")));
 				
 				tr.append($("<td>").addClass("notification_info")
 					.append($("<div>").addClass("job_tit")
 						.append($("<a>").addClass("str_tit resumeTitle").attr({"title": human.title,
-							"data-civa": human.resumeNo})
+							"data-mir": human.resumeNo})
 							.append($("<span>").text(human.title)))
 						.append($("<p>").addClass("job_sector")
-							.append($("<span>").text(human.armyServiceState)))));
+							.append($("<span>").text("등록일\t"+sdf.format(new Date(human.regDate)))))));
 				
 				var army;
 				
 				switch (human.armyServiceState) {
 					case 0 :
-						army = "미필";
+						army = "비대상";
 						break;
 					case 1 :
 						army = "군필";
 						break;
 					case 2 :
+						army = "미필";
+						break;
+					case 3 :
 						army = "면제";
+						break;
+					case 4 :
+						army = "복무중";
 						break;
 				}
 				
@@ -772,7 +782,6 @@ $('span.dropdown').click(function () {
 					.append($('<p>').addClass('employment_typeAjax').text(human.cityName))
 					.append($('<p>').addClass('work_placeAjax').text(human.areaName)));
 					
-				var sdf = new simpleDateFormat("yyyy-MM-dd");
 					
 				tr.append($('<td>').addClass('support_infoAjax')
 					.append($('<p>').addClass('recruit_date_startAjax').css("padding-left", "2px").text(sdf.format(new Date(human.regDate)))));
@@ -795,9 +804,9 @@ $('span.dropdown').click(function () {
    });
    
    $('tbody').on("click", ".resumeTitle", function (event) {
-	console.log(path+"/search/resumeInfo.do?resumeNo="+$(this).attr("data-civa"))
+	console.log(path+"/search/resumeInfo.do?resumeNo="+$(this).attr("data-mir"))
 	$("#myModal").modal("show");
-	$(".modal-body").load(path+"/search/resumeInfo.do?resumeNo="+$(this).attr("data-civa"));
+	$(".modal-body").load(path+"/search/resumeInfo.do?resumeNo="+$(this).attr("data-mir"));
 });
    
    $(".iframe").draggable();
