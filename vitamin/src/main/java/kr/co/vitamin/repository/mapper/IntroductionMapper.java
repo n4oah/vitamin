@@ -16,4 +16,12 @@ public interface IntroductionMapper {
 	public void insertIntroductionCate(IntroductionCate introductionCate) throws Exception;
 
 	public void insertIntroduction(Introduction introduction) throws Exception;
+
+	public Introduction selectIntroduction(Integer introductionNo)throws Exception;
+
+	public List<IntroductionCate> selectIntroductionCate(Integer introductionNo)throws Exception;
+
+	public void deleteIntroduction(Integer introductionNo)throws Exception;
+
+	public void deleteIntroductionCate(Integer introductionNo)throws Exception;
 }

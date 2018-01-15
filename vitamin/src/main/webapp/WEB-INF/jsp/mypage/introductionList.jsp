@@ -13,7 +13,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/resume.css">
 		<script src="${pageContext.request.contextPath}/js/resumeList.js"></script>
 		<style type="text/css">
-		.resumeTitle{
+		.introductionTitle{
 			cursor: pointer;
 		}
 		img.deleteimg{
@@ -136,9 +136,9 @@
 	
 	
 	
-	 $('.resumeTitle').click(function(event){
+	 $('.introductionTitle').click(function(event){
 		$("#myModal").modal("show");
-		$(".modal-body").load("${pageContext.request.contextPath}/mypage/resumeInfo.do?resumeNo="+$(this).attr("attr"));
+		$(".modal-body").load("${pageContext.request.contextPath}/mypage/introductionDetail.do?introductionNo="+$(this).attr("attr"));
 	});
 	 
 	
@@ -149,7 +149,7 @@
 			location.href="${pageContext.request.contextPath}/mypage/introductionForm.do";
 		});
 		
-		$( function() {
+	/* 	$( function() {
 		    $( ".selectable" ).selectable({
 		      stop: function() {
 		        $( ".ui-selected", this ).each(function() {
@@ -159,10 +159,9 @@
 		        	url:"${pageContext.request.contextPath}/mypage/openState.do?resumeNo="+$(this).attr("attr")+"&&openState="+state,
 		        	success:function(data){
 		        		
-		        		/* $(this).addClass("ui-selected"); */
-		        		/* location.href="${pageContext.request.contextPath}/mypage/resumeList.do"; */
+		        		
 		        		console.dir($(spanThis))
-// 		        		$(this).addClass("ui-selected");
+ 		        		$(this).addClass("ui-selected");
 		        		var attrNo = $(spanThis).attr("attr")
 		        		$("span[attr].ui-widget-content").each(function () {
 		        			if (attrNo != $(this).attr("attr")) {
@@ -185,7 +184,7 @@
 		   
 		    
 		    
-		  });
+		  }); */
 		
 		
 		

@@ -83,13 +83,13 @@
 													<tbody>
 														<tr>
 															<td>
-																<span>자기소개</span>
-																<input type="hidden" class="self" name="introductionCateTemp" value="자기소개"/>
+																<span class="intro1">자기소개</span>
+																<input type="hidden" class="intro1" name="introductionCateTemp" value="자기소개"/>
 															</td>
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm self" id="firstself" value="변경"/>
+																<input type="button" class="btn-success btn-sm intro1" id="firstself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -114,13 +114,13 @@
 													<tbody>
 														<tr>
 															<td>
-																<span>성격의 장단점</span>
-																<input type="hidden" class="personality"name="introductionCateTemp" value="성격의 장단점"/>
+																<span class="intro2">성격의 장단점</span>
+																<input type="hidden" class="intro2"name="introductionCateTemp" value="성격의 장단점"/>
 															</td>
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm personality" id="secondself" value="변경"/>
+																<input type="button" class="btn-success btn-sm intro2" id="secondself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -145,13 +145,13 @@
 													<tbody>
 														<tr>
 															<td>
-																<span>지원동기 및 입사후 포부</span>
-																<input type="hidden" class="ambition"name="introductionCateTemp" value="지원동기 및 입사후 포부"/>
+																<span class="intro3">지원동기 및 입사후 포부</span>
+																<input type="hidden" class="intro3"name="introductionCateTemp" value="지원동기 및 입사후 포부"/>
 															</td>
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm ambition" id="throdself" value="변경"/>
+																<input type="button" class="btn-success btn-sm intro3" id="throdself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -176,13 +176,13 @@
 													<tbody>
 														<tr>
 															<td>
-																<span>직무관련경험</span>
-																<input type="hidden" class="experience" name="introductionCateTemp" value="직무관련경험"/>
+																<span class="intro4">직무관련경험</span>
+																<input type="hidden" class="intro4" name="introductionCateTemp" value="직무관련경험"/>
 															</td>
 														</tr>
 														<tr>
 															<td>
-																<input type="button" class="btn-success btn-sm experience" id="forthself" value="변경"/>
+																<input type="button" class="btn-success btn-sm intro4" id="forthself" value="변경"/>
 															</td>
 														</tr>
 													</tbody>
@@ -211,7 +211,6 @@
 	</form>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp"%>
 <script>
-
 
 
 /* function save() { 

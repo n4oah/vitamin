@@ -31,7 +31,7 @@
 </head>
 <body>
 	<%-- <%@ include file="/WEB-INF/jsp/include/header.jsp"%> --%>
-	<form class="form-horizontal" action="${pageContext.request.contextPath}/mypage/introductionSave.do?memberNo=${user.memberNo}" method="post">
+	<form class="form-horizontal" action="${pageContext.request.contextPath}/mypage/introductionDetail.do?introductionNo=${introduction.introductionNo}" method="post">
 		<div id="wrapper" style="margin-top: 0px;">
 			<section class="container infocontainer" style="margin-bottom: 100px;">
 				<div class="row">
@@ -42,7 +42,7 @@
 					</div>
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">자기소개서 제목</h4>
-						<p></p>
+						<p>${introduction.introductionTitle}</p>
 						<!-- <input type="text" class="form-control" name="introductionTitle" placeholder="자기소개서 제목을 입력해주세요"> -->
 					</div>
 
@@ -51,6 +51,7 @@
 							<div class="horizontal_table table_wrap">
 								<h4 class="table_title">자기소개서 작성</h4>
 								<br>
+								<c:forEach var="introductionCate" items="${iclist}">
 								<table class="table">
 									<tbody>
 										<tr>
@@ -60,8 +61,7 @@
 													<tbody>
 														<tr>
 															<td>
-																<span>자기소개</span>
-																<input type="hidden" class="self" name="introductionCateTemp" value="자기소개"/>
+																<span>${introductionCate.introductionCate}</span>
 															</td>
 														</tr>
 													</tbody>
@@ -70,7 +70,7 @@
 											</th>
 											<td>
 												<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"
-												readonly="readonly"></textarea>
+												readonly="readonly">${introductionCate.introductionContent}</textarea>
 											</td>
 										</tr>
 										<tr>
@@ -78,106 +78,7 @@
 										</tr>
 									</tbody>
 							    </table>
-							    <table class="table">
-									<tbody>
-										<tr>
-											<th>
-											<div class="center">
-												<table>
-													<tbody>
-														<tr>
-															<td>
-																<span>성격의 장단점</span>
-																<input type="hidden" class="personality"name="introductionCateTemp" value="성격의 장단점"/>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<input type="button" class="btn-success btn-sm personality" id="secondself" value="변경"/>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-												</div>
-											</th>
-											<td>
-											<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"
-											readonly="readonly"></textarea>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" class="semi-space"></td>
-										</tr>
-									</tbody>
-							    </table>
-							    <table class="table">
-									<tbody>
-										<tr>
-											<th>
-											<div class="center">
-												<table>
-													<tbody>
-														<tr>
-															<td>
-																<span>지원동기 및 입사후 포부</span>
-																<input type="hidden" class="ambition"name="introductionCateTemp" value="지원동기 및 입사후 포부"/>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<input type="button" class="btn-success btn-sm ambition" id="throdself" value="변경"/>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-												</div>
-											</th>
-											<td>
-												<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"
-												readonly="readonly"></textarea>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" class="semi-space"></td>
-										</tr>
-									</tbody>
-							    </table>
-							    <table class="table">
-									<tbody>
-										<tr>
-											<th>
-											<div class="center">
-												<table>
-													<tbody>
-														<tr>
-															<td>
-																<span>직무관련경험</span>
-																<input type="hidden" class="experience" name="introductionCateTemp" value="직무관련경험"/>
-															</td>
-														</tr>
-														<tr>
-															<td>
-																<input type="button" class="btn-success btn-sm experience" id="forthself" value="변경"/>
-															</td>
-														</tr>
-													</tbody>
-												</table>
-												</div>
-											</th>
-											<td>
-											<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"
-											readonly="readonly"></textarea>
-											</td>
-										</tr>
-										<tr>
-											<td colspan="2" class="semi-space"></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<div class="btn_panel">
-								<input type="button" class="btn-info btn-lg" value="미리보기"style="float: center"/>
-								<button style="float: center" class="btn-warning btn-lg">작성완료</button>
+								</c:forEach>
 							</div>
 						</div>
 					</div>

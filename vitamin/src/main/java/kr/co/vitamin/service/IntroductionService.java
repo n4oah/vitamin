@@ -13,4 +13,10 @@ public interface IntroductionService {
 
 	public void insertIntroductionCate(IntroductionCate introductionCate) throws Exception;
 
+	public Introduction selectIntroduction(Integer introductionNo)throws Exception;
+
+	public List<IntroductionCate> selectIntroductionCate(Integer introductionNo)throws Exception;
+
+	public void deleteIntroduction(Integer introductionNo)throws Exception;
+
 }
