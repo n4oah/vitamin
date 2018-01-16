@@ -137,13 +137,45 @@
 	
 	<select id="selectSearchConditionCount" resultType="int">
 	
-	select count(*)
+	  select count(*)
+    from
+    
+    (select *
         from
-        <!-- recruit -->
-        (select * from vi_recruit_write
-        where recruiting_state = 1 and recruit_date_end > current_date() 
-	   		
-	   		<if test="careerState != -1">
+        
+        (select recruit_sub.*
+        from
+    
+         (
+            select * 
+               from vi_recruit_write
+            
+               
+            join (select form_service_name, form_service_type from vi_form_service) form_service
+            on vi_recruit_write.form_service = form_service.form_service_type
+         
+            join (select graduate_state, level from vi_school_level) school
+            on vi_recruit_write.school_level = school.level
+         
+            join (select address_no as ano, city_code, area_code from vi_address) address
+            on vi_recruit_write.address_no = address.ano
+         
+            join (SELECT company_no as cno, account_no, license_number, company_name, boss_name, company_type, buildup_date, business_no, business_content, tel_number, homepage, employee_count, logo_no
+					from vi_company) company
+
+            on vi_recruit_write.company_no = company.cno
+            
+            join (select sub_name, city_code as cc from vi_city_code) city
+            on address.city_code = city.cc
+          
+      
+            join (select area_code as ac, name from vi_area_code) area
+            on address.area_code = area.ac
+               
+         ) recruit_sub) recruit
+          where recruiting_state = 1 and recruit_date_end > current_date() 
+      
+          <if test="careerState != -1">
 		   		<if test="careerState != null">
 		   			and career_state = #{careerState}
 		   		</if>
@@ -222,59 +254,63 @@
 				and gender = #{gender} 
 				
 			</if>
-			 
-			
-		order by recruit_no desc
-        
-        ) recruit
-        
-        
-		
-		<!-- form_service -->
-		 join (select form_service_name, form_service_type from vi_form_service) form_service
-			on recruit.form_service = form_service.form_service_type
-		
-		<!-- school -->
-		 join (select graduate_state, level as school_level from vi_school_level) school
-			on recruit.school_level = school.school_level
-		 
-		<!-- address -->
-		 join (select address_no, city_code, area_code from vi_address) address
-			on recruit.address_no = address.address_no
-        
-        <!-- city -->
-		 join (select sub_name, city_code from vi_city_code) city
-		 	on address.city_code = city.city_code
-         
-        <!-- area -->
-         join (select area_code, name from vi_area_code) area
-		 	on address.area_code = area.area_code
-		
-		<!-- company -->
-		 join vi_company
-	  	on recruit.company_no = vi_company.company_no  	
-		 	
-		 <if test="areaCode != null">
-	  		where area.area_code in 
+            
+             <if test="areaCode != null">
+	  		and recruit.area_code in 
 	   			<foreach item="aCode" index="index" collection="areaCode" 
 	   				open="(" separator="," close=")">
 	   				#{aCode}
 	   			</foreach>
 	   		</if>
-		 
+         order by recruit_no desc ) recruit
 	
 	</select>
 	
 	
 	
 	<select id="selectSearchCondition" parameterType="searchRecruit" resultMap="selectRecruitMap">
-		select *
+	   select *
+   from
+   
+   (select @rownum:= @rownum + 1 as rownum,recruit.*
+    from
+    
+    (select *
+        from
+        
+        (select recruit_sub.*
         from
     
-        (select @rownum:= @rownum + 1 as rownum , vi_recruit_write.* from vi_recruit_write, (select @rownum := 0) R
-        where recruiting_state = 1 and recruit_date_end > current_date() 
-	   		
-	   		<if test="careerState != -1">
+         (
+            select * 
+               from vi_recruit_write
+            
+               
+            join (select form_service_name, form_service_type from vi_form_service) form_service
+            on vi_recruit_write.form_service = form_service.form_service_type
+         
+            join (select graduate_state, level from vi_school_level) school
+            on vi_recruit_write.school_level = school.level
+         
+            join (select address_no as ano, city_code, area_code from vi_address) address
+            on vi_recruit_write.address_no = address.ano
+         
+            join (SELECT company_no as cno, account_no, license_number, company_name, boss_name, company_type, buildup_date, business_no, business_content, tel_number, homepage, employee_count, logo_no
+					from vi_company) company
+
+            on vi_recruit_write.company_no = company.cno
+            
+            join (select sub_name, city_code as cc from vi_city_code) city
+            on address.city_code = city.cc
+          
+      
+            join (select area_code as ac, name from vi_area_code) area
+            on address.area_code = area.ac
+               
+         ) recruit_sub) recruit
+          where recruiting_state = 1 and recruit_date_end > current_date() 
+         
+         <if test="careerState != -1">
 		   		<if test="careerState != null">
 		   			and career_state = #{careerState}
 		   		</if>
@@ -353,46 +389,20 @@
 				and gender = #{gender} 
 				
 			</if>
-			 
-			
-		order by recruit_no desc
-        
-        ) recruit
-        
-        
-		
-		<!-- form_service -->
-		 join (select form_service_name, form_service_type from vi_form_service) form_service
-			on recruit.form_service = form_service.form_service_type
-		
-		<!-- school -->
-		 join (select graduate_state, level as school_level from vi_school_level) school
-			on recruit.school_level = school.school_level
-		 
-		<!-- address -->
-		 join (select address_no, city_code, area_code from vi_address) address
-			on recruit.address_no = address.address_no
-        
-        <!-- city -->
-		 join (select sub_name, city_code from vi_city_code) city
-		 	on address.city_code = city.city_code
-         
-        <!-- area -->
-         join (select area_code, name from vi_area_code) area
-		 	on address.area_code = area.area_code
-		
-		<!-- company -->
-		 join vi_company
-	  	on recruit.company_no = vi_company.company_no  	
-		 	
-        where recruit.rownum between #{begin} and #{end}x
-         
-		 <if test="areaCode != null">
-	  		and area.area_code in 
+            
+             <if test="areaCode != null">
+	  		and recruit.area_code in 
 	   			<foreach item="aCode" index="index" collection="areaCode" 
 	   				open="(" separator="," close=")">
 	   				#{aCode}
 	   			</foreach>
 	   		</if>
+         
+         
+         order by recruit_no desc ) recruit,  (select @rownum := 0) R) recruit_write
+         
+        where rownum between #{begin} and #{end}
+         
+            
 	</select>
 </mapper>
