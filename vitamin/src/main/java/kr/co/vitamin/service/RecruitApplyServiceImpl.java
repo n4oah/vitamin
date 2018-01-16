@@ -49,4 +49,9 @@ public class RecruitApplyServiceImpl implements RecruitApplyService {
 	public List<CompanyApply> getRecruitApplyListOfCompany(InfiniteScrollAccount infiniteScrollAccount) throws Exception {
 		return companyApplyMapper.selectRecruitResumeList(infiniteScrollAccount);
 	}
+
+	@Override
+	public void updateCompanyApplyState(CompanyApply companyApply) throws Exception {
+		companyApplyMapper.updateCompanyApplyState(companyApply);
+	}
 }

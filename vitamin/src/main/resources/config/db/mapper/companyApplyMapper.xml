@@ -54,5 +54,13 @@
 			sub2.member_no = main.member_no 
 			ORDER BY comapply_no ASC LIMIT 0, #{lastCount}
 	</select>
+	
+	<update id="updateCompanyApplyState" parameterType="companyApply">
+		UPDATE vi_company_apply SET state = #{state}
+		WHERE
+			recruit_no = (SELECT recruit_no FROM vi_recruit_write WHERE
+				company_no = #{memberNo} AND recruit_no = (SELECT * FROM (SELECT recruit_no FROM vi_company_apply WHERE comapply_no = #{comapplyNo}) as b) LIMIT 1)
+		LIMIT 1;
+	</update>
 	<!-- refix -->
 </mapper>

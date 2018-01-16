@@ -192,10 +192,3 @@ $(function () {
 		console.log('baab')
 	});*/
 });
-
-
-
-function getContextPath() {
-    var offset = location.href.indexOf(location.host) + location.host.length;
-    return (location.href.substring(offset, location.href.indexOf('/', offset + 1)));
-}

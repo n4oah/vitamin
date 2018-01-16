@@ -11,4 +11,5 @@ public interface CompanyApplyMapper {
 	public CompanyApply selectOverlapApply(CompanyApply companyApply) throws Exception;
 	public CompanyApply selectRecruitList(InfiniteScrollAccount infiniteScrollAccount) throws Exception;
 	public List<CompanyApply> selectRecruitResumeList(InfiniteScrollAccount infiniteScrollAccount) throws Exception;
+	public void updateCompanyApplyState(CompanyApply companyApply);
 }

@@ -53,4 +53,14 @@ public class RecruitApplyController {
 		
 		model.addAttribute("recruitResumeList", recruitResumeList);
 	}
+	
+	@ResponseBody
+	@RequestMapping("companyApplyState.do")
+	public boolean companyApplyState(HttpSession session, CompanyApply companyApply) throws Exception {
+		Company company = (Company)session.getAttribute("user");
+		companyApply.setMemberNo(company.getCompanyNo());
+		
+		recruitApplyService.updateCompanyApplyState(companyApply);
+		return false;
+	}
 }

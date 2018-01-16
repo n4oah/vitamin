@@ -86,3 +86,9 @@ function hideModal(document) {
 	
 	$(document).modal('hide');
 }
+
+function getContextPath() {
+	var offset = location.href.indexOf(location.host) + location.host.length;
+	return (location.href.substring(offset, location.href.indexOf('/', offset + 1)));
+	//return '${pageContext.request.contextPath}';
+}

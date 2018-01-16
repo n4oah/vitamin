@@ -12,4 +12,5 @@ public interface RecruitApplyService {
 	public Map<String, Object> getRecruitSorceData(Member member) throws Exception;
 	public boolean recruitApply(CompanyApply companyApply) throws Exception;
 	public List<CompanyApply> getRecruitApplyListOfCompany(InfiniteScrollAccount infiniteScrollAccount) throws Exception;
+	public void updateCompanyApplyState(CompanyApply companyApply) throws Exception;
 }

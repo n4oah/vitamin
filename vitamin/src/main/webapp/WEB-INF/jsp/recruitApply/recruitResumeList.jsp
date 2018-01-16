@@ -9,6 +9,8 @@
 		<title>이력서 지원 리스트</title>
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruitApply/recruitResumeList.css">
+		<script src="${pageContext.request.contextPath}/js/recruitApply/recruitResumeList.js"></script>
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
@@ -20,7 +22,7 @@
 		                <div class="panel-heading">
 		                    <div class="row">
 		                        <div class="col col-xs-6">
-		                            <h3 class="panel-title">이력서 </h3>
+		                            <h3 class="panel-title">지원된 이력서 </h3>
 		                        </div>
 		                        <!-- <div class="col col-xs-6 text-right">
 		                            <div class="pull-right">
@@ -41,7 +43,7 @@
 		                    </div>
 		                </div>
 		                <div class="panel-body">
-		                    <table id="mytable" class="table table-striped table-bordered table-list">
+		                    <table id="recruit-list-table" class="table table-striped table-bordered table-list">
 		                        <thead>
 			                        <tr>
 			                            <th class="col-md-1"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
@@ -54,22 +56,22 @@
 		                        </thead>
 		                        <tbody>
 		                        	<c:forEach var="recruitResume" items="${recruitResumeList}">
-				                        <tr>
-				                            <td align="center">
-				                                <a class="btn btn-default"><span class="glyphicon glyphicon-pencil"
-				                                                                 aria-hidden="true"></span></a>
-				                                <a class="btn btn-danger"><span class="glyphicon glyphicon-trash"
-				                                                                aria-hidden="true"></span></a>
+				                        <tr class="recruit-data-row" attr="${recruitResume.comapplyNo}">
+				                        	<td>
+												<select class="selectpicker show-tick recruit-state" attr="${recruitResume.state}">
+													<option value="1">지원중</option>
+													<option value="2">합격</option>
+													<option value="3">불합격</option>
+												</select>			                                 
 				                            </td>
-				                            <td>1</td>
-				                            <td>John Doe</td>
-				                            <td>johndoe@example.com</td>
-				                            <td>johndoe@example.com</td>
+				                            <td><a class="recruit-title" attr="${recruitResume.recruitNo}">${recruitResume.recruitTitle}</a></td>
+				                            <td><a class="member-id" attr="${recruitResume.memberNo}">${recruitResume.memberId}</a></td>
+				                            <td><a class="resume-name" attr="${recruitResume.resumeNo}">${recruitResume.resumeName}</a></td>
+				                            <td><a class="introduction-name" attr="${recruitResume.introductionNo}">${recruitResume.introductionName}</a></td>
 				                        </tr>
 			                        </c:forEach>
 		                        </tbody>
 		                    </table>
-		
 		                </div>
 		                <div class="panel-footer">
 		                    <div class="row">
@@ -110,6 +112,27 @@
 			</div>
 		</section>
 	</div>
+	
+	<div class="modal fade" id="myModal" role="dialog">
+		<div class="modal-dialog modal-lg">
+	
+			<!-- Modal content-->
+			<div class="modal-content">
+				<!--      <div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal">&times;</button>
+			  <h4 class="modal-title">이력서</h4>
+			</div> -->
+				<div class="modal-body">
+	
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+		
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
 </body>
 </html>
