@@ -39,6 +39,7 @@
 									<span class="at-confirm-icon"></span>
 								</a>
 							</div>
+							<div class="at-menu-name-description"></div>
 						</div>
 						<div class="at-menu-item at-menu-perm">
 							<div class="at-menu-item-label">공개상태 설정</div>
@@ -47,6 +48,7 @@
 								<div class="at-button at-activity-perm-button">지원기업공개</div>
 								<div class="at-button at-activity-perm-button">비공개</div>
 							</div>
+							<div class="at-menu-perm-description"></div>
 						</div>
 						<div class="at-menu-item at-menu-background">
 							<div class="at-menu-item-label">배경화면 설정</div>
@@ -59,13 +61,14 @@
 									<span class="at-button at-background-color-button">단색</span>
 									<input type="color" class="at-background-color-input" style="display:none;">
 								</div>
-								<div class="at-button at-background-revert">되돌려</div>
+								<div class="at-button at-background-apply">적용하기</div>
+								<div class="at-button at-background-revert">되돌리기</div>
 								
 						</div>
 						<div class="at-menu-item at-menu-askagain">
 							추가, 삭제시 다시 묻기<input type="checkbox" class="at-askagain" checked>
 						</div>
-						<div class="at-menu-item mtt">아</div>
+						<div class="at-menu-item mtt">&nbsp;</div>
 					</div>
 				</div>
 			</div>
