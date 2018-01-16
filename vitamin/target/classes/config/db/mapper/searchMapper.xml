@@ -385,7 +385,7 @@
 		 join vi_company
 	  	on recruit.company_no = vi_company.company_no  	
 		 	
-        where recruit.rownum between #{begin} and #{end}
+        where recruit.rownum between #{begin} and #{end}x
          
 		 <if test="areaCode != null">
 	  		and area.area_code in 
