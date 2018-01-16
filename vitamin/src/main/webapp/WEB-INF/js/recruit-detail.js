@@ -170,6 +170,8 @@ $(function () {
 			data: data,
 			url: url,
 			success: function(chk) {
+				waitingDialog.hide();
+
 				chk = (chk == 'true');
 				
 				if(chk == false) {
@@ -178,14 +180,20 @@ $(function () {
 					alert('공고 지원이 완료되었습니다.');
 				}
 				
-				waitingDialog.hide();
 				hideModal(modal);
 			}
 		});
 
 		event.preventDefault();
 	});
+	/*
+	$('#apply-modal').on('hidden.bs.modal', function (event) {
+		hideModal($(this));
+		console.log('baab')
+	});*/
 });
+
+
 
 function getContextPath() {
     var offset = location.href.indexOf(location.host) + location.host.length;

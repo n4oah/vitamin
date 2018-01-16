@@ -9,6 +9,10 @@
 		<result column="recruit_no" property="recruitNo" />
 		<result column="resume_no" property="resumeNo" />
 		<result column="introduction_no" property="introductionNo" />
+		<result column="member_id" property="memberId" />
+		<result column="recruit_title" property="recruitTitle" />
+		<result column="resume_name" property="resumeName" />
+		<result column="introduction_name" property="introductionName" />
 		<result column="state" property="state" />
 	</resultMap>
 	
@@ -36,8 +40,19 @@
 	</select>
 	
 	<select id="selectRecruitResumeList" parameterType="infiniteScrollAccount" resultMap="companyApplyMap">
-		SELECT * FROM vi_company_apply AS main, (SELECT recruit_no FROM vi_recruit_write WHERE company_no = #{accountNo}) AS sub
-		WHERE sub.recruit_no = main.recruit_no ORDER BY comapply_no ASC LIMIT 0, #{lastCount}
+		SELECT main.*, sub2.id AS member_id, sub3.title AS recruit_title, sub4.title AS resume_name, sub5.introduction_title AS introduction_name FROM vi_company_apply AS main,
+			(SELECT recruit_no FROM vi_recruit_write WHERE company_no = #{accountNo}) AS sub1,
+			(SELECT at1.id, bt2.member_no FROM vi_account as at1 INNER JOIN vi_member as bt2 ON bt2.account_no = at1.account_no) AS sub2,
+			(SELECT * FROM vi_recruit_write) AS sub3,
+			(SELECT * FROM vi_resume) AS sub4,
+			(SELECT * FROM vi_introduction) AS sub5
+		WHERE
+			sub1.recruit_no = main.recruit_no AND 
+			sub3.recruit_no = main.recruit_no AND 
+			sub4.resume_no = main.resume_no AND
+			main.introduction_no = sub5.introduction_no AND 
+			sub2.member_no = main.member_no 
+			ORDER BY comapply_no ASC LIMIT 0, #{lastCount}
 	</select>
 	<!-- refix -->
 </mapper>
