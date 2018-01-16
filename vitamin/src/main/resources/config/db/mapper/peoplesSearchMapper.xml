@@ -56,6 +56,12 @@
 		<result column="recruit_no" property="recruitNo" />
 	</resultMap>
 	
+	<resultMap type="calendarRecruit" id="calendarRecruitMap2">
+		<result column="start_date" property="start" />
+		<result column="end_date" property="end" />
+		<result column="schedule_title" property="title" />
+	</resultMap>
+	
 	<!-- 쿼리 -->
 	<select id="cityList" resultMap="cityMap">
 		select * from vi_city_code
@@ -348,6 +354,11 @@
 		on bookmark.company_no = vi_company.company_no
 		inner join vi_recruit_write
 		on bookmark.company_no = vi_recruit_write.company_no
+	</select>
+	
+	<select id="selectMyCalendar" parameterType="int" resultMap="calendarRecruitMap2">
+		select * from vi_my_schedule
+		where member_no = #{memberNo}
 	</select>
 	
 	<insert id="insertSchedule" parameterType="schedule">

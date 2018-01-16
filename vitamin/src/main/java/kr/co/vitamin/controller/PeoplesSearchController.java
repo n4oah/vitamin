@@ -119,9 +119,13 @@ public class PeoplesSearchController {
 	
 	@ResponseBody
 	@RequestMapping("/calendarData.do")
-	public List<CalendarRecruit> calendarData(HttpSession session) throws Exception {
+	public Map<String, Object> calendarData(HttpSession session) throws Exception {
 		Member member = (Member)session.getAttribute("user");
-		return peoplesSearchService.selectRecruitCalendar(member.getMemberNo());
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("my", peoplesSearchService.selectMyCalendar(member.getMemberNo()));
+		map.put("recruit", peoplesSearchService.selectRecruitCalendar(member.getMemberNo()));
+		return map;
 	}
 	
 	@ResponseBody
@@ -130,6 +134,7 @@ public class PeoplesSearchController {
 		Member member = (Member)session.getAttribute("user");
 		schedule.setMemberNo(member.getMemberNo());
 		System.out.println(schedule);
+		peoplesSearchService.insertSchedule(schedule);
 	}
 	
 	@RequestMapping("/resumeInfo.do")

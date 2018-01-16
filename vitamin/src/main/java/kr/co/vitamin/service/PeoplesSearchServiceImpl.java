@@ -11,6 +11,7 @@ import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.PeopleSearch;
 import kr.co.vitamin.repository.vo.Peoples;
+import kr.co.vitamin.repository.vo.Schedule;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 
 @Service
@@ -52,5 +53,15 @@ public class PeoplesSearchServiceImpl implements PeoplesSearchService {
 	@Override
 	public List<CalendarRecruit> selectRecruitCalendar(Integer memberNo) throws Exception {
 		return peoplesSearchMapper.selectRecruitCalendar(memberNo);
+	}
+	
+	@Override
+	public void insertSchedule(Schedule schedule) throws Exception {
+		peoplesSearchMapper.insertSchedule(schedule);
+	}
+	
+	@Override
+	public List<CalendarRecruit> selectMyCalendar(Integer memberNo) throws Exception {
+		return peoplesSearchMapper.selectMyCalendar(memberNo);
 	}
 }

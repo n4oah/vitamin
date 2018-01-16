@@ -15,20 +15,31 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/fullcalendar/fullcalendar.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/fullcalendar/locale-all.js"></script>
 <script src="../js/simpledateformat.js"></script>
+<style type="text/css">
+body {
+	overflow: 
+}
+.fc-event-container {
+	height: 45px;
+}
+
+.fc-day-grid-event {
+	height: 41px;
+}
+
+.fc-title {
+	font-size: 26px;
+}
+</style>
 </head>
 <body>
 	<input type="text" name="scheduleTitle">
 	<input type="date" name="startDate">
 	<input type="date" name="endDate">
 	<button type="button">sasasa</button>
-	<div style="display: flex; height: 600px;">
-		<div class="c" style="flex: 1 1; display: inline-block; margin-right: 5px;"></div>
-	</div>
 	<div class="d" style="width: 100%; display: inline-block;"></div>
 </body>
 <script type="text/javascript">
-$.mCalendar(".c", "2018-01-01", "2018-01-30");
-
 var path = "${pageContext.request.contextPath}";
 
 function getRandomColor() {
@@ -41,38 +52,57 @@ function getRandomColor() {
 }
 
 let sdf = new simpleDateFormat("yyyy-MM-dd");
-$.ajax({
-	url: path+"/search/calendarData.do",
-	type: "post",
-	dataType: "json",
-	success: function (data) {
-		var calendarData = [];
-		var companySet = new Set();
-		
-		
-		data.forEach(function (recruit, index) {
-			var end = sdf.format(new Date(recruit.end));
-			calendarData.push(
-				{title: recruit.title+"("+recruit.recruitTitle+")",
-				start: sdf.format(new Date(recruit.start)),
-				end: end.substring(0, end.length-1)+(parseInt(end.substring(end.length-1))+1),
-				className: "com"+recruit.companyNo,
-				url: path+"/recruit/recruitDetail.do?no="+recruit.recruitNo
-				});
-			companySet.add(recruit.companyNo)
-		});
-		
-		$('.d').fullCalendar({
-			schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-			events: calendarData
-		});
-		
-		for (let item of companySet) {
-			var color = getRandomColor();
-			$(".com"+item).css({"background-color": color, "border-color": color});
+function calendarMake(insert) {
+	$.ajax({
+		url: path+"/search/calendarData.do",
+		type: "post",
+		dataType: "json",
+		success: function (data) {
+			$('.d').removeClass("fc fc-unthemed fc-ltr");
+			var calendarData = [];
+			
+			data.my.forEach(function (my, index) {
+				var end = sdf.format(new Date(my.end));
+				calendarData.push(
+					{title: my.title,
+					start: sdf.format(new Date(my.start)),
+					end: end.substring(0, end.length-1)+(parseInt(end.substring(end.length-1))+1),
+					});
+			});
+			
+			var companySet = new Set();
+			
+			data.recruit.forEach(function (recruit, index) {
+				var end = sdf.format(new Date(recruit.end));
+				calendarData.push(
+					{title: recruit.title+"("+recruit.recruitTitle+")",
+					start: sdf.format(new Date(recruit.start)),
+					end: end.substring(0, end.length-1)+(parseInt(end.substring(end.length-1))+1),
+					className: "com"+recruit.companyNo,
+					url: path+"/recruit/recruitDetail.do?no="+recruit.recruitNo
+					});
+				companySet.add(recruit.companyNo)
+			});
+			
+			if (!insert) {
+				$('.d').fullCalendar({
+					schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+					events: calendarData
+				});				
+			} else {
+				/* $('.d').fullCalendar('removeEvents'); */
+				$('.d').fullCalendar("renderEvents", calendarData, true);				
+			}
+			
+			for (let item of companySet) {
+				var color = getRandomColor();
+				$(".com"+item).css({"background-color": color, "border-color": color});
+			}
 		}
-	}
-});
+	});	
+}
+
+calendarMake();
 
 $("button").click(function () {
 	$.ajax({
@@ -80,7 +110,7 @@ $("button").click(function () {
 		data: $("<form>").append($("input").clone()).serialize(),
 		type: "post",
 		success: function () {
-			
+			calendarMake(true);
 		}
 	});
 });

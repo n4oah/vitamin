@@ -7,6 +7,7 @@ import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.PeopleSearch;
 import kr.co.vitamin.repository.vo.Peoples;
+import kr.co.vitamin.repository.vo.Schedule;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 
 public interface PeoplesSearchService {
@@ -17,4 +18,6 @@ public interface PeoplesSearchService {
 	public List<Peoples> peoplesSearch(PeopleSearch peopleSearch) throws Exception;
 	public Integer peoplesSearchSize(PeopleSearch peopleSearch) throws Exception;
 	public List<CalendarRecruit> selectRecruitCalendar(Integer memberNo) throws Exception;
+	public void insertSchedule(Schedule schedule) throws Exception;
+	public List<CalendarRecruit> selectMyCalendar(Integer memberNo) throws Exception;
 }
