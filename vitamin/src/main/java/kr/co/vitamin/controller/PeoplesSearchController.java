@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.ArmyService;
+import kr.co.vitamin.repository.vo.CalendarRecruit;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.Hope;
@@ -111,6 +112,13 @@ public class PeoplesSearchController {
 	
 	@RequestMapping("/calendar.do")
 	public void calendar() throws Exception {
+	}
+	
+	@ResponseBody
+	@RequestMapping("/calendarData.do")
+	public List<CalendarRecruit> calendarData(HttpSession session) throws Exception {
+		Member member = (Member)session.getAttribute("user");
+		return peoplesSearchService.selectRecruitCalendar(member.getMemberNo());
 	}
 	
 	@RequestMapping("/resumeInfo.do")

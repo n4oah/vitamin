@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.vitamin.repository.vo.Recruit;
 import kr.co.vitamin.repository.vo.Review;
 import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.repository.vo.account.Member;
@@ -26,14 +27,20 @@ public class CompanyController {
 		if (no == null) return;
 		Review review = new Review();
 		review.setCompanyNo(no);
-		Member member = (Member)session.getAttribute("user");
-		review.setMemberNo(member.getMemberNo());
+		Object obj = session.getAttribute("user");
+		
+		try {
+			Member member = (Member)obj;
+			review.setMemberNo(member.getMemberNo());
+		} catch (Exception e) {}
 		Company com = companyService.companyDetail(review);
 		System.out.println(com);
 		model.addAttribute("com", com);
+		System.out.println(com.getRecruitList());
 
 		review.setCompanyNo(no);
 		model.addAttribute("commentList", companyService.commentDetail(review));
+		model.addAttribute("recruitList", companyService.recruitDetail(no));
 	}
 	
 	@ResponseBody

@@ -130,15 +130,18 @@
 		on company.company_no = bookmark.company_no
 		left join vi_file
 		on company.logo_no = vi_file.file_no
-		left join
-        (select vi_recruit_write.*, vi_city_code.sub_name, vi_area_code.name from vi_recruit_write
+	</select>
+	
+	<select id="recruitDetail" parameterType="int" resultMap="recruitMap">
+		select * from
+		(select * from vi_recruit_write
+		where company_no = #{companyNo}) recruit
         inner join vi_address
-		on vi_recruit_write.address_no = vi_address.address_no
+		on recruit.address_no = vi_address.address_no
         inner join vi_city_code
 		on vi_address.city_code = vi_city_code.city_code
         inner join vi_area_code
-		on vi_address.area_code = vi_area_code.area_code) recruit
-		on company.company_no = recruit.company_no
+		on vi_address.area_code = vi_area_code.area_code
 	</select>
 	
 	<select id="recruitList" parameterType="int" resultMap="recruitMap">

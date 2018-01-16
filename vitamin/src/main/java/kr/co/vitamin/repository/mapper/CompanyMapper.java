@@ -28,4 +28,5 @@ public interface CompanyMapper {
 	public Integer bookmarkChk(Review review) throws Exception;
 	public void bookmarkInsert(Review review) throws Exception;
 	public void bookmarkRemove(Review review) throws Exception;
+	public List<Recruit> recruitDetail(Integer no) throws Exception;
 }

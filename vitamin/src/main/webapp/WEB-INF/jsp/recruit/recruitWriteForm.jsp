@@ -372,7 +372,7 @@
 								<tr>
 									<th>담당자</th>
 									<td>
-										<input type="text" value="담당자이름" name="master">
+										<input type="text" value="${company.bossName }" name="master">
 									</td>
 								</tr>
 								
@@ -381,7 +381,7 @@
 									<td>
 										<!-- <input type="text" name="phoneNumber" maxlength="13" placeholder="ex)010-1111-1111" style="width:50%; margin-right:1%">
 										 -->
-										 <input type="text" name="phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+82 (ddd) dddd-dddd" style="width:30%; margin-right:1%; float:left;">
+										 <input type="text" name="phoneNumber" class="form-control bfh-phone" maxlength="19" data-format="+82 (ddd) dddd-dddd" value="${company.telNumber}" style="width:30%; margin-right:1%; float:left;">
 											<input type="checkbox" id="check">
 											<label for="check" class="loadcheck" id="loadcheck">
 											  <span class="entypo-cancel">&#10008;</span>
@@ -706,9 +706,11 @@
 		$('.welfare').append($(".welfare_content:first-child").clone().find("input").removeAttr("value").end());
 	});
 	
+	$("#check").prop("checked", true);
+	
 	$("input[name='phoneNumber']").keyup(function () {
 		if(/^[+82]{3} [(0-9)]{5} [0-9]{4}-[0-9]{4,}$/.test($(this).val())) {
-			$("#check").prop("checked", "true");
+			$("#check").prop("checked", true);
 		} else {
 			$("#check").removeAttr("checked");
 		}

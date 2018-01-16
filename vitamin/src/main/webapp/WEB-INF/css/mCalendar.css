@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
-div.mCalendar {
+div.mCalendar * {
     font-family: 'Raleway','Open Sans','helvetica','sans-serif';
 }
 
@@ -8,7 +8,8 @@ div.mCalendar {
     display: flex;
     flex-direction: column;
     width: 100%; height: 100%;
-    border: 1px solid black;
+    border: 0.1rem solid #dbdbdb;
+    border-radius: 2px;
 }
 
 div.mCalendar > div {
@@ -16,6 +17,7 @@ div.mCalendar > div {
 }
 
 div.mCalendar div.title {
+	margin-top: 10px;
     height: 45px;
 }
 
