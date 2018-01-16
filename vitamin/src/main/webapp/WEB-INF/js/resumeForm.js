@@ -138,7 +138,7 @@ $(function() {
     	maxDate: 0
     	});
     
-    $("#prevCompanyStart").datepicker({
+    $(".prevCompanyStart").datepicker({
     	changeYear: true,
     	yearRange:"1918:2018",
     	changeMonth: true,
@@ -148,7 +148,7 @@ $(function() {
     	maxDate: 0
     	});
     
-    $("#prevCompanyEnd").datepicker({
+    $(".prevCompanyEnd").datepicker({
     	changeYear: true,
     	yearRange:"1918:2018",
     	changeMonth: true,

@@ -214,7 +214,7 @@
 									<tr>
 										<th>병역대상</th>
 										<td>
-											<select class="float-control" id="armyServiceState" name="armyServiceState"style="width: 10%">
+											<select class="float-control" id="armyServiceState" name="armyServiceState">
 													<option value="" class="fa">병역대상 선택</option>
 													<option value="0" class="fa">비대상</option>
 													<option value="1" class="fa">군필</option>
@@ -305,14 +305,11 @@
 											<td>
 												<input type="text" class="float-control university" name="schoolTitle" id="univname" placeholder="학교이름">
 												<strong> -- </strong>
-												
 												<select class="float-control university" name="schoolLevelNoTmp">
 													<option class="fa" value="2">대학교졸업</option>
 													<option class="fa" value="3">대학원석사졸업</option>
 													<option class="fa" value="4">대학원박사졸업</option>
 												</select>
-												 
-												
 											</td>
 										</tr>
 										<tr>
@@ -342,7 +339,7 @@
 							</div> -->
 						</div>
 						
-						<div class="career">
+						
 							<div class="horizontal_table table_wrap">
 								<h4 class="table_title">경력사항</h4>
 								<br>
@@ -376,6 +373,7 @@
 									id="detail"> <span> 기간별 상세경력</span> <input type="radio"
 									name="career" id="career_st"> <span> 경력기술서</span>
 							</div> -->
+							<div class="career">
 							<div class="horizontal_table table_wrap careerStatement">
 								<table class="table">
 									<tbody>
@@ -386,10 +384,10 @@
 												<option class="fa" value="">근무여부</option>
 												<option class="fa" value="0">퇴사</option>
 												<option class="fa" value="1">재직중</option>
-											</select> <input class="float-control" type="date" name="prevCompanyStart" id="prevCompanyStart"
+											</select> <input class="float-control prevCompanyStart" type="date" name="prevCompanyStart"
 												style="width: 150px" placeholder="입사일"> 
 												<span>~</span>
-												<input class="float-control" type="date" name="prevCompanyEnd" id="prevCompanyEnd"
+												<input class="float-control prevCompanyEnd" type="date" name="prevCompanyEnd"
 												style="width: 150px" placeholder="퇴사일"></td>
 										</tr>
 										<tr>
@@ -437,7 +435,7 @@
 										</tr>
 										<tr>
 											<th>퇴사사유</th>
-											<td><select class="float-control" name="prevCompanyReason" id="prevComanyReason">
+											<td><select class="float-control prevComanyReason" name="prevCompanyReason" >
 													<option class="fa" value="퇴사사유">퇴사사유</option>
 													<option class="fa" value="업직종 전환">업직종 전환</option>
 													<option class="fa" value="근무조건">근무조건</option>
@@ -448,35 +446,29 @@
 													<option class="fa" value="유학">유학</option>
 													<option class="fa" value="개인사정">개인사정</option>
 													<option class="fa" value="직접입력">직접입력</option>
-											</select> <input type="text" class="float-control" id="inputprevCompanyReason"name="prevCompanyReason" disabled="disabled" style="width:50%">
+											</select> <input type="text" class="float-control inputprevCompanyReason" name="prevCompanyReason" disabled="disabled" style="width:50%">
 											</td>
 										</tr>
 									</tbody>
 								</table>
-								<div>
-									<b>근무기간 총 합계는?</b> <span>근무기간 나오기</span>
-								</div>
 								<br>
 								<table class="table">
 									<tbody>
 										<tr>
 											<th>경력기술서</th>
 											<td style="padding:0px" >
-												<textarea class="textarea-control" name="prevCompanyCareerDescribe" rows="10"
+												<textarea class="textarea-control prevCompanyCareerDescribe" name="prevCompanyCareerDescribe" rows="10"
 													cols="80%"></textarea>
 											</td>
 										</tr>
 									</tbody>
 								</table>
-								<!-- <div>
-									<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
-								</div> -->
-							</div>
+								</div>
 						</div>
-						<div class="certification">
 							<div class="horizontal_table table_wrap">
 								<h4 class="table_title">자격증</h4>
 								<br>
+								<div class="certification">
 								<table class="table">
 									<tbody>
 										<tr>
@@ -496,15 +488,14 @@
 										<tr>
 											<th>자격증</th>
 											<td>
-											
-												<input type="text" class="float-control" name="certificationTitle" id="certification" style="width: 50%">
+												<input type="text" class="float-control certificationTitle" name="certificationTitle"style="width: 50%">
 											
 											</td>
 										</tr>
 										<tr>
 											<th>발행처</th>
 											<td>
-												<input type="text" class="float-control" name="certificationOffice" id="licensingDepartment"style="width: 50%">
+												<input type="text" class="float-control licensingDepartment" name="certificationOffice" style="width: 50%">
 											</td>
 										</tr>
 										<tr>
@@ -524,7 +515,11 @@
 									<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
 								</div> -->
 							</div>
-							
+							<div class="addCertification">
+							</div>
+							<div class="deleteCertication">
+								<input type="button" style="float: right" class="add btn-danger btn-xs" value="추가"/>
+							</div>
 						</div>
 						
 
@@ -599,19 +594,13 @@
 					
 					<div class="btn_panel">
 						<button style="float: right" class="intermediate_save btn-primary">저장</button>
-						<%-- <a href="${pageContext.request.contextPath}/mypage/intermediateSave.do" class="disabled_btn apply_btn"  onclick="validation()">등록</a> --%>
 					</div> 
 					
-					<!-- <div>
-						<a href="#" class="pull-right default_btn btn">목록</a>
-					</div> -->
+					
 				</form>
 				</div>
 			</section>
 		</div>
-		
-		  <!-- Trigger the modal with a button -->
-  <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
 
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -726,21 +715,22 @@ $(document).ready(function(){
 		 $('#careerYears').attr("disabled","disabled");
 		 $('#emmonth').attr("disabled","disabled");
 		 $('.careerStatement').hide();
+		 
 	 });
 	 
 	 $('#direct_input').click(function(){
 			if($("#direct_input").prop('checked')==true){
 				$('#careerYears').removeAttr("disabled","disabled");
 				$('#emmonth').removeAttr("disabled","disabled");
-				$('#prevCompanyStart').attr("disabled","disabled");
-				$('#prevCompanyEnd').attr("disabled","disabled");
-				$('#prevCompanyStart').val("");
-				$('#prevCompanyEnd').val("");
+				$('.prevCompanyStart').attr("disabled","disabled");
+				$('.prevCompanyEnd').attr("disabled","disabled");
+				$('.prevCompanyStart').val("");
+				$('.prevCompanyEnd').val("");
 			}else{
 				$('#careerYears').attr("disabled","disabled");
 				$('#emmonth').attr("disabled","disabled");
-				$('#prevCompanyStart').removeAttr("disabled","disabled");
-				$('#prevCompanyEnd').removeAttr("disabled","disabled");
+				$('.prevCompanyStart').removeAttr("disabled","disabled");
+				$('.prevCompanyEnd').removeAttr("disabled","disabled");
 			}
 	 });
 	 
@@ -752,10 +742,10 @@ $(document).ready(function(){
 	 
 	 
 	 $("#prevComanyReason").on("change",function(){
-		  if($("#prevComanyReason").val()=="직접입력"){
-			 $("#inputprevCompanyReason").removeAttr("disabled","disabled");
+		  if($(".prevComanyReason").val()=="직접입력"){
+			 $(".inputprevCompanyReason").removeAttr("disabled","disabled");
 		 }else{
-			 $("#inputprevCompanyReason").attr("disabled","disabled");
+			 $(".inputprevCompanyReason").attr("disabled","disabled");
 		 } 
 	 });
 	 
@@ -775,7 +765,7 @@ $(document).ready(function(){
 	});
 	
 	
-	 $( "#certification" ).autocomplete({
+	 /* $( ".certificationTitle" ).autocomplete({
 	        source : function( request, response ) {
 	             $.ajax({
 	                    type: 'post',
@@ -807,7 +797,7 @@ $(document).ready(function(){
 	            	 }
 	             });
 	        }
-	    });
+	    }); */
 	
 	$( "#major" ).autocomplete({
         source : function( request, response ) {
@@ -837,39 +827,109 @@ $(document).ready(function(){
 	
 	
 	
-	 $('#prevCompanyEnd').change(function(){
+	 $('.prevCompanyEnd').change(function(){
 		 
-		 var workStart = new Date($("#prevCompanyStart").val());
+		 var workStart = new Date($(".prevCompanyStart").val());
 		 var workEnd= new Date($(this).val());
-		 var year= 1000*60*60*24*30*12;
-		 console.log(workStart);
-		 console.log(workEnd);
+		 var year= 1000*60*60*24*365;
+		 var workTerm = (workEnd-workStart)/year;
+		 var getYear = workEnd.getFullYear()-workStart.getFullYear();
+		 var getMonth = workEnd.getMonth()-workStart.getMonth();
+		 var getDate = workEnd.getDate()-workStart.getDate();
+		 
+		 var year= 1000*60*60*24*365;
 		 var workTerm = (workEnd-workStart)/year;
 		 if(!isNaN(workStart)){
-			 
-			 $('#careerYears').val(Math.floor(workTerm));
+			 if(getMonth =='0' && getDate=='0'){
+				$('#careerYears').val(getYear);
+			}else if(getMonth !='0' || getDate !='0'){
+				getYear = getYear-1;
+				$('#careerYears').val(getYear);
+			}
 		 }
 		
 	 });
 	 
-	$('#prevCompanyStart').change(function(){
+	$('.prevCompanyStart').change(function(){
 		 
 		 var workStart = new Date($(this).val());
-		 var workEnd = new Date($("#prevCompanyEnd").val());
-		 var year= 1000*60*60*24*30*12;
-		 console.log(workStart);
-		 console.log(workEnd);
+		 var workEnd = new Date($(".prevCompanyEnd").val());
+		 var getYear = workEnd.getFullYear()-workStart.getFullYear();
+		 var getMonth = workEnd.getMonth()-workStart.getMonth();
+		 var getDate = workEnd.getDate()-workStart.getDate();
+		 
+		 var year= 1000*60*60*24*365;
 		 var workTerm = (workEnd-workStart)/year;
 		 if(!isNaN(workEnd)){
-				 
-				$('#careerYears').val(Math.floor(workTerm));
+			if(getMonth =='0' && getDate=='0'){
+				$('#careerYears').val(getYear);
+			}else if(getMonth !='0' || getDate !='0'){
+				getYear = getYear-1;
+				$('#careerYears').val(getYear);
+			}
 		 }
 	
 	 });
-	
-	
 	 
-}); 
+});
+
+$('.add').live("click",function(){
+	$('.addCertification').append($('.certification').html());
+});
+$('.add').one("click",function(){
+	$('.deleteCertication').append($("<input>").prop({"type":"button", "class":"btn-danger delete btn-xs","value":"삭제"}).css("float","right"));
+});
+$('.delete').click(function(){
+	$('')
+});
+
+$('.certificationTitle').live("click",function(){
+	var $this = $(this);
+	$( this ).autocomplete({
+	    source : function( request, response ) {
+	         $.ajax({
+	                type: 'post',
+	                url: "${pageContext.request.contextPath}/mypage/certificationSelect.do",
+	                dataType: "json",
+	                data: { "name" : request.term },
+	                success: function(data) {
+	                
+	                    //서버에서 json 데이터 response 후 목록에 뿌려주기 위함
+	                      response(
+	                         $.map(data, function(item) {
+	                            return {
+	                                label: item.name,
+	                                value: item.name,
+	                                no: item.licensingDepartmentNo
+	                            }
+	                        })
+	                        )
+	                	}
+	                });
+	           },
+	    minLength: 2,
+	    select: function( event, ui ) {
+	         $.ajax({
+	        	 url:"${pageContext.request.contextPath}/mypage/licensingDepartment.do?licensingDepartmentNo="+ui.item.no,
+	        	 dataType:"json",
+	        	 success: function(data){
+	        		 console.log(data.name);
+	        		 console.log($this);
+	        		 $this.parents("tr").next().find("input").val(data.name);
+	        	 }
+	         });
+	    }
+	});
+});
+
+
+
+
+
+
+
+
+
 
 
 </script>
