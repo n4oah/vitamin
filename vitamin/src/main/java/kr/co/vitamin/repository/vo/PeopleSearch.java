@@ -6,8 +6,15 @@ public class PeopleSearch {
 	private List<Integer> cityCode, areaCode, licenseCode, schoolCode, army;
 	private List<String> licenseName;
 	private Integer careerStart, careerEnd, ageStart, ageEnd, gender, marry, jobState, page = 1, lastNo;
+	private String orderBy = "resume_no desc";
 	
 	
+	public String getOrderBy() {
+		return orderBy;
+	}
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
+	}
 	public Integer getPage() {
 		System.out.println((page-1)*10);
 		return (page-1)*10;

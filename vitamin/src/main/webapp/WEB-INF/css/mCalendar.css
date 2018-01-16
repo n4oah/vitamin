@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 
-div.mCalendar * {
+div.mCalendar, div.mCalendar * {
     font-family: 'Raleway','Open Sans','helvetica','sans-serif';
+    font-size: 100%;
 }
 
 div.mCalendar {
@@ -36,6 +37,7 @@ div.mCalendar div.year {
 }
 
 div.mCalendar div.week, div.mCalendar div.weekTitle {
+    height: 2.5em;
     display: flex;
     align-items: center;
 }
@@ -47,11 +49,12 @@ div.mCalendar div.weekTitle {
 }
 
 div.mCalendar div.day {
-    height: 50px;
+    width: 2.2em;
+    /* height: 2.2em; */
+    height: 70%;
     display: flex;
     flex: 1 1;
     text-align: center;
-    line-height:  50px;
     align-items: center;
 }
 
@@ -72,10 +75,10 @@ div.mCalendar div.day.select {
 div.mCalendar div.day.select  {
     /* border: 1px solid black;
     border-radius: 100%; */
-    width: 2.2em;
-    height: 2.2em;
+    /* height: 70%; */
     background: #a1bbc5;
     line-height: 2.0em;
+    line-height: 70%;
 }
 
 /* div.mCalendar div.day.start > div, div.mCalendar div.day.end > div {

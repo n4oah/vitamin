@@ -3,9 +3,29 @@ package kr.co.vitamin.repository.vo;
 import java.util.Date;
 
 public class CalendarRecruit {
-	private String title;
+	private String title, recruitTitle;
 	private Date start, end;
+	private Integer companyNo, recruitNo;
 	
+	
+	public Integer getRecruitNo() {
+		return recruitNo;
+	}
+	public void setRecruitNo(Integer recruitNo) {
+		this.recruitNo = recruitNo;
+	}
+	public String getRecruitTitle() {
+		return recruitTitle;
+	}
+	public void setRecruitTitle(String recruitTitle) {
+		this.recruitTitle = recruitTitle;
+	}
+	public Integer getCompanyNo() {
+		return companyNo;
+	}
+	public void setCompanyNo(Integer companyNo) {
+		this.companyNo = companyNo;
+	}
 	public String getTitle() {
 		return title;
 	}

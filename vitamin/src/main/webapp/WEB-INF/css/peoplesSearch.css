@@ -616,3 +616,12 @@ a {
 .army_title, .salary_title, .job_title {
 	width: auto;
 }
+.up {
+	color: red;	
+}
+.down {
+	color: blue;
+}
+.up, .down {
+	cursor: pointer;
+}
