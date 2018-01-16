@@ -1,9 +1,12 @@
 package kr.co.vitamin.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -39,13 +42,15 @@ public class RecruitApplyController {
 		return new Gson().toJson(recruitApplyService.getRecruitSorceData(memberVO));
 	}
 	
-	@ResponseBody
 	@RequestMapping("/recruitResumeList.do")
-	public void recruitResumeList(HttpSession session) throws Exception {
+	public void recruitResumeList(HttpSession session, Model model) throws Exception {
 		Company companyVO = (Company)session.getAttribute("user");
 		
 		InfiniteScrollAccount infiniteScrollAccount = new InfiniteScrollAccount();
 		infiniteScrollAccount.setAccountNo(companyVO.getCompanyNo());
 		
+		List<CompanyApply> recruitResumeList = recruitApplyService.getRecruitApplyListOfCompany(infiniteScrollAccount);
+		
+		model.addAttribute("recruitResumeList", recruitResumeList);
 	}
 }
