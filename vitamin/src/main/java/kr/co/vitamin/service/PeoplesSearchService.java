@@ -2,6 +2,7 @@ package kr.co.vitamin.service;
 
 import java.util.List;
 
+import kr.co.vitamin.repository.vo.CalendarRecruit;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.PeopleSearch;
@@ -15,4 +16,5 @@ public interface PeoplesSearchService {
 	public List<Certificate> licenseList(String name) throws Exception;
 	public List<Peoples> peoplesSearch(PeopleSearch peopleSearch) throws Exception;
 	public Integer peoplesSearchSize(PeopleSearch peopleSearch) throws Exception;
+	public List<CalendarRecruit> selectRecruitCalendar(Integer memberNo) throws Exception;
 }

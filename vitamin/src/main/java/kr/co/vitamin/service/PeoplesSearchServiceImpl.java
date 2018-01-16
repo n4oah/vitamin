@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.vitamin.repository.mapper.PeoplesSearchMapper;
+import kr.co.vitamin.repository.vo.CalendarRecruit;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.PeopleSearch;
@@ -46,5 +47,10 @@ public class PeoplesSearchServiceImpl implements PeoplesSearchService {
 	@Override
 	public Integer peoplesSearchSize(PeopleSearch peopleSearch) throws Exception {
 		return peoplesSearchMapper.peoplesSearchSize(peopleSearch);
+	}
+	
+	@Override
+	public List<CalendarRecruit> selectRecruitCalendar(Integer memberNo) throws Exception {
+		return peoplesSearchMapper.selectRecruitCalendar(memberNo);
 	}
 }

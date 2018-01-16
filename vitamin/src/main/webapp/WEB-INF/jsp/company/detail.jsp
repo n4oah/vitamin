@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 	<head>
@@ -223,11 +224,10 @@ display: inline-block;
 		<span>그래프 3</span>
 	</div>
 </div>
-
-<c:if test="${com.recruitList[0].company != null }">
+<c:if test="${fn:length(recruitList) > 0}">
 <div class="recruitList">
 	<div class="prev"><img src="https://i.imgur.com/oLfh9Tj.png"></div>
-	<c:forEach items="${com.recruitList }" var="recruit" varStatus="i">
+	<c:forEach items="${recruitList }" var="recruit" varStatus="i">
 		<div class="recruit" 
 		<c:if test="${i.index >= 3 }">
 			style="display: none;"

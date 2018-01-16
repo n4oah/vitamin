@@ -86,4 +86,9 @@ public class CompanyServiceImpl implements CompanyService {
 	public void bookmarkRemove(Review review) throws Exception {
 		companyMapper.bookmarkRemove(review);
 	}
+	
+	@Override
+	public List<Recruit> recruitDetail(Integer no) throws Exception {
+		return companyMapper.recruitDetail(no);
+	}
 }

@@ -47,6 +47,12 @@
 		<collection resultMap="certificateMap" javaType="java.util.ArrayList" property="certificate" />
 	</resultMap>	
 	
+	<resultMap type="calendarRecruit" id="calendarRecruitMap">
+		<result column="company_name" property="title" />
+		<result column="recruit_date_start" property="start" />
+		<result column="recruit_date_end" property="end" />
+	</resultMap>
+	
 	<!-- 쿼리 -->
 	<select id="cityList" resultMap="cityMap">
 		select * from vi_city_code
@@ -327,6 +333,14 @@
 		on address.area_code = area.area_code
 		
 		order by resume.resume_no desc
+	</select>
+	
+	<select id="selectRecruitCalendar" parameterType="int" resultMap="calendarRecruitMap">
+		select * from (select * from vi_bookmark where member_no = #{memberNo}) bookmark
+		inner join vi_company
+		on bookmark.company_no = vi_company.company_no
+		inner join vi_recruit_write
+		on bookmark.company_no = vi_recruit_write.company_no
 	</select>
 	
 </mapper>
