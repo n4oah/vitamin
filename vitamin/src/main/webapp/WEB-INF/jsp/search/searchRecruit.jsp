@@ -779,7 +779,7 @@
 						
 						tr.append($("<td>").addClass("company_nm")
 							.append($("<a>").addClass("str_tit company_name")
-									.attr("title", recruit.company.companyName)
+									.attr({"title": recruit.company.companyName, "href": "${pageContext.request.contextPath}/company/detail.do?no=" + recruit.companyNo})
 								.append($("<span>").text(recruit.company.companyName)))
 							.append($("<div>").addClass("icon")));
 						
@@ -853,6 +853,7 @@
 				}
 			});
 		};	
+		
 		
 	</script>
 </body>

@@ -277,6 +277,13 @@
 .calendar.is-calendar-large .calendar-event.is-danger {
   background-color: #ff3860;
   color: #fff;
+}
+.calendar_wrapper {
+	display: flex;
+}
+.mc {
+	flex: 1 1;
+	margin: 2%;
 }		
 		</style>
 	</head>
@@ -524,8 +531,9 @@
 							</tbody>
 						</table>
 						
-						<div>
-							<div class="calendar"></div>
+						<div class="calendar_wrapper">
+							<!-- <div class="calendar"></div> -->
+							<div class="mc"></div>
 						</div>
 						<!--/.table-->
 					</div>
@@ -640,6 +648,7 @@
 
 
 	<script>
+	$.mCalendar(".mc", "${recruit.recruitDateStringStart }", "${recruit.recruitDateStringEnd }");
 		$('label.file_label').click(function () {
 			console.log('asdgsadg');
 			//$('a#file').on('click');
