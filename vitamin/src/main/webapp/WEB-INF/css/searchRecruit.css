@@ -452,3 +452,8 @@ span.dropdown .dropdown-menu li:active {
 div.center-block {
 	text-align: center;
 }
+
+
+.pagination>li>a {
+	cursor: pointer;
+}

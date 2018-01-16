@@ -68,6 +68,9 @@
 									<li><a href="${pageContext.request.contextPath}/">즐겨찾기 기업</a></li>
 									<li><a href="${pageContext.request.contextPath}/cards/cards.do">트롤로</a></li>
 								</c:if>
+								<c:if test="${user.memberType == 2}">
+						       		<li><a href="${pageContext.request.contextPath}/recruitApply/recruitResumeList.do"> 이력서 목록</a></li>
+						        </c:if>
 							</ul>
 						</div>
 					</nav>
@@ -137,13 +140,6 @@
 						       		<li>
 							            <a href="#my-apply-resu" role="tab" data-toggle="tab">
 							                <h4 class="reviews text-capitalize">내가 지원한 공고</h4>
-							            </a>
-							        </li>
-						        </c:if>
-						        <c:if test="${user.memberType == 2}">
-						       		<li>
-							            <a href="#apply-list" role="tab" data-toggle="tab">
-							                <h4 class="reviews text-capitalize">지원목록</h4>
 							            </a>
 							        </li>
 						        </c:if>

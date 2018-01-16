@@ -262,12 +262,12 @@
 					
 					<thead>
 				    	<tr>
-			                <th class="col-md-1">이름</th>
-					        <th class="col-md-3">이력서 제목</th>
-					        <th class="col-md-1">군필</th>
-					        <th class="col-md-1">경력/학력</th>
-					        <th class="col-md-1">지역</th>
-					        <th class="col-md-1">생년월일</th>
+			                <th class="col-md-1">이름 <span class="up">▲</span><span class="down">▼</span></th>
+					        <th class="col-md-3">이력서 제목 <span class="up">▲</span><span class="down">▼</span></th>
+					        <th class="col-md-1">군필 <span class="up">▲</span><span class="down">▼</span></th>
+					        <th class="col-md-1">경력/학력 <span class="up">▲</span><span class="down">▼</span></th>
+					        <th class="col-md-1">지역 <span class="up">▲</span><span class="down">▼</span></th>
+					        <th class="col-md-1">생년월일 <span class="up">▲</span><span class="down">▼</span></th>
 				    	</tr>
 			   		 </thead>
 			   		 
@@ -684,46 +684,52 @@ $('span.dropdown').click(function () {
    
    var submitChk = false;
    var lastNo;
+   var parameterDataGlobal;
    
 	var sdf = new simpleDateFormat("yyyy-MM-dd");
 	
-   var submit = function (e, scroll) {
+   var submit = function (e, scroll, order, orderBy) {
    	if (!scroll) submitChk = true;
-   	var parameterData = "?";
-   	
-   	var cs = parseInt($(".careerList font:eq(0)").text());
-   	var ce = parseInt($(".careerList font:eq(1)").text());
-   	if (cs) parameterData += "&careerStart="+cs;	    	
-   	if (ce && ce != 20) parameterData += "&careerEnd="+ce;	    	
-   	$(".lic").each(function (i, data) {
-   		parameterData += "&licenseCode="+$(data).attr("data-mir");
-   		parameterData += "&licenseName="+$(data).text();
-   	});
-   	$(".sch").each(function (i, data) {
-   		parameterData += "&schoolCode="+$(data).attr("data-mir");
-   	});
-   	$(".addrList font").each(function (i, data) {
-   		parameterData += "&"+($(data).attr("data-city") ? "cityCode" : "areaCode")+"="+$(data).attr("data-mir");
-   	});	    	
-   	var as = parseInt($(".ageStart").text());
-   	var ae = parseInt($(".ageEnd").text());	    	
-   	if (as) parameterData += "&ageStart="+as;	    	
-   	if (ae) parameterData += "&ageEnd="+ae;	    	
-   	var gender = $(".gender").attr("data-mir");
-   	if (gender != 3) parameterData += "&gender="+gender;
-   	var marry = $(".marry").attr("data-mir");
-   	if (marry != 3) parameterData += "&marry="+marry;
-   	$(".army:not([data-mir=5])").each(function (i, data) {
-   		parameterData += "&army="+$(data).attr("data-mir");
-   	});
-   	if ($(".jobState").is(":checked")) parameterData += "&jobState=1";
-   	if (scroll && lastNo) parameterData += "&lastNo="+lastNo;
-   	console.log(parameterData);
+   	if (scroll && lastNo) parameterDataGlobal += "&lastNo="+lastNo;
+   	else {
+	   	var parameterData = "?";
+	   	
+	   	var cs = parseInt($(".careerList font:eq(0)").text());
+	   	var ce = parseInt($(".careerList font:eq(1)").text());
+	   	if (cs) parameterData += "&careerStart="+cs;	    	
+	   	if (ce && ce != 20) parameterData += "&careerEnd="+ce;	    	
+	   	$(".lic").each(function (i, data) {
+	   		parameterData += "&licenseCode="+$(data).attr("data-mir");
+	   		parameterData += "&licenseName="+$(data).text();
+	   	});
+	   	$(".sch").each(function (i, data) {
+	   		parameterData += "&schoolCode="+$(data).attr("data-mir");
+	   	});
+	   	$(".addrList font").each(function (i, data) {
+	   		parameterData += "&"+($(data).attr("data-city") ? "cityCode" : "areaCode")+"="+$(data).attr("data-mir");
+	   	});	    	
+	   	var as = parseInt($(".ageStart").text());
+	   	var ae = parseInt($(".ageEnd").text());	    	
+	   	if (as) parameterData += "&ageStart="+as;	    	
+	   	if (ae) parameterData += "&ageEnd="+ae;	    	
+	   	var gender = $(".gender").attr("data-mir");
+	   	if (gender != 3) parameterData += "&gender="+gender;
+	   	var marry = $(".marry").attr("data-mir");
+	   	if (marry != 3) parameterData += "&marry="+marry;
+	   	$(".army:not([data-mir=5])").each(function (i, data) {
+	   		parameterData += "&army="+$(data).attr("data-mir");
+	   	});
+	   	if ($(".jobState").is(":checked")) parameterData += "&jobState=1";
+	   	if (order) parameterData += "&orderBy="+orderBy;
+	   	
+	   	parameterDataGlobal = parameterData;
+   	}
+   	console.log(parameterDataGlobal);
    	
    	$.ajax({
    		type: "POST",
    		url: path+"/search/peoplesSearchList.do",
-   		data: parameterData,
+   		data: parameterDataGlobal,
    		dataType: "JSON",
    		success: function (data) {
    			console.log(data)
@@ -801,6 +807,10 @@ $('span.dropdown').click(function () {
    	if (submitChk && $(this).scrollTop() == $(document).height() - $(window).height()) {
    		submit(e, true);
    	}
+   });
+   
+   $(".up").click(function (e) {
+	   submit(e, false, true);
    });
    
    $('tbody').on("click", ".resumeTitle", function (event) {

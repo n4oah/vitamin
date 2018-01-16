@@ -27,6 +27,7 @@ import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.File;
 import kr.co.vitamin.service.AddressService;
+import kr.co.vitamin.service.CompanyService;
 import kr.co.vitamin.service.FileService;
 import kr.co.vitamin.service.FormServiceService;
 import kr.co.vitamin.service.RecruitService;
@@ -54,11 +55,19 @@ public class RecruitController {
 	@Autowired
 	private RecruitService recruitService;
 	
+	@Autowired
+	private CompanyService companyService;
+	
 	@RequestMapping("/recruit/recruitWriteForm.do")
-	public void recruitWriteForm(Model model) throws Exception{
+	public void recruitWriteForm(Model model, HttpSession session) throws Exception{
 		List<SchoolLevel> schoolLevelList = schoolLevelService.getSchoolLevels();
 		List<FormService> formServiceList = formServiceService.selectFormService();
 		
+		Company company = (Company)session.getAttribute("user");
+		
+		System.out.println(company);
+		
+		model.addAttribute("company", company);
 		model.addAttribute("schoolLevelList", schoolLevelList);
 		model.addAttribute("formServiceList", formServiceList);
 	}
@@ -66,7 +75,6 @@ public class RecruitController {
 	@RequestMapping(value="/recruit/recruitWrite.do", method=RequestMethod.POST)
 	public String recruitWrtie(Recruit recruit, Welfare welfare, Address address, HttpSession session) throws Exception {
 		Company company = (Company)session.getAttribute("user");
-		
 		
 		String filePath = "C:\\kang\\project\\vitamin\\src\\main\\webapp\\WEB-INF\\resumeFile";
 		int fileNo = -1;
@@ -147,6 +155,7 @@ public class RecruitController {
 		Recruit recruit = recruitService.detailRecruit(no);
 
 		welfareList = welfareService.selectWelfare(no);
+		
 		
 		if(!welfareList.isEmpty())
 			model.addAttribute("welfareList", welfareList);

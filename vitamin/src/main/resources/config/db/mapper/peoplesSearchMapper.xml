@@ -47,6 +47,15 @@
 		<collection resultMap="certificateMap" javaType="java.util.ArrayList" property="certificate" />
 	</resultMap>	
 	
+	<resultMap type="calendarRecruit" id="calendarRecruitMap">
+		<result column="company_name" property="title" />
+		<result column="title" property="recruitTitle" />
+		<result column="recruit_date_start" property="start" />
+		<result column="recruit_date_end" property="end" />
+		<result column="company_no" property="companyNo" />
+		<result column="recruit_no" property="recruitNo" />
+	</resultMap>
+	
 	<!-- 쿼리 -->
 	<select id="cityList" resultMap="cityMap">
 		select * from vi_city_code
@@ -196,7 +205,11 @@
 		inner join (select area_code, name as area_name from vi_area_code) area
 		on address.area_code = area.area_code
 		
-		order by resume.resume_no desc
+		<!-- order by resume.resume_no desc -->
+		
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
 		
 		limit 0, 10
 	</select>
@@ -328,5 +341,18 @@
 		
 		order by resume.resume_no desc
 	</select>
+	
+	<select id="selectRecruitCalendar" parameterType="int" resultMap="calendarRecruitMap">
+		select * from (select * from vi_bookmark where member_no = #{memberNo}) bookmark
+		inner join vi_company
+		on bookmark.company_no = vi_company.company_no
+		inner join vi_recruit_write
+		on bookmark.company_no = vi_recruit_write.company_no
+	</select>
+	
+	<insert id="insertSchedule" parameterType="schedule">
+		insert into vi_my_schedule (member_no, start_date, end_date, schedule_title)
+		values (#{memberNo}, #{startDate}, #{endDate}, #{scheduleTitle})
+	</insert>
 	
 </mapper>

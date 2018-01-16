@@ -1,17 +1,16 @@
 package kr.co.vitamin.repository.vo;
 
 public class ActivityItem {
-	private int item_no;
-	private int list_no;
-	private String item_content;
+	private int itemNo;
+	private int listNo;
+	private String itemContent;
 	
-	public int getItem_no() {return item_no;}
-	public void setItem_no(int item_no) {this.item_no = item_no;}
+	public int getItemNo() {return itemNo;}
+	public void setItemNo(int itemNo) {this.itemNo = itemNo;}
 	
-	public int getList_no() {return list_no;}
-	public void setList_no(int list_no) {this.list_no = list_no;}
+	public int getListNo() {return listNo;}
+	public void setListNo(int listNo) {this.listNo = listNo;}
 	
-	public String getItem_content() {return item_content;}
-	public void setItem_content(String item_content) {this.item_content = item_content;}
-	
+	public String getItemContent() {return itemContent;}
+	public void setItemContent(String itemContent) {this.itemContent = itemContent;}
 }

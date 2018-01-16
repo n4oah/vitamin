@@ -72,9 +72,8 @@
 		</div>
 		<div id="content">
 			<div id="at-board">
-				<div class="at-list-item" style="position:absolute;">테스트테스트박스</div>
-				<div class="at-list-item" style="position:absolute;">테스트테스트박스2</div>
 				<!--
+				<div class="at-list-item" style="position:absolute;">테스트테스트박스</div>
 				<div class="at-board-list">
 					<div class="at-board-list-header">
 						<span class="at-list-name">ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ</span>
@@ -101,23 +100,30 @@
 <script>
 	///TODO
 	/*
-		아이템 불러오기
-		아이템 위치 저장하기
+		리스트
+		-불러오기 O
+		-이동 O
+		-추가 O
+		-삭제 O
+		-수정(이름, 고정, 공개)
+	
+		아이템
+		-불러오기 O
+		-이동 O
+		-추가 
+		-상세
+		-수정
+		-업로드
 		
-		아이템 상세보기
+		기본설정
+		-메뉴구분
+		-이름
+		-공개
+		-배경(사진업로드)
 		
-		리스트에 아이템 추가버튼
+		메모
 		
-		기본설정 사진 업로드하기
-		아이템에 파일 업로드하고 불러오기
-		
-		리스트 설정 추가하기(이름, 고정, 공개)
-		
-		메모 추가하기
-		
-		기본설정 메뉴 완성하기
-		
-		다녀간 기업 조회하기
+		다녀간 기업
 	*/
 
 	///ready
@@ -160,9 +166,10 @@
 		$(".at-askagain").attr("checked",$activity.activityAskagain == "Y");
 		
 		//리스트 불러오기
-		for (var i in $activityList) {
+		for (let i in $activityList) {
 			$("<div>").addClass("at-board-list")
 			.data("listNo",$activityList[i].listNo)
+			.data("listNo"+$activityList[i].listNo,"item 초기화용 데이터")
 			.append(
 				$("<div>").addClass("at-board-list-header")
 				.append(
@@ -171,13 +178,9 @@
 					$("<div>").addClass("at-list-menu at-list-icon")
 				)
 			).append(
-				$("<div>").addClass("at-board-list-content").html('<div>공간</div>').droppable({
-					addClasses: false,
-					accept:".at-list-item",
-					drop: function(e,u){
-						$(this).append(u.draggable.css({"left":0,"top":0,"position":"relative"}));
-					}
-				})
+				$("<div>").addClass("at-board-list-content")
+				.html('<div>공간</div>')
+				.droppable($boardListDroppable)
 			).css({
 				position: "absolute",
 				top: $activityList[i].listTop,
@@ -185,6 +188,16 @@
 			}).appendTo("#at-board");
 		}
 		$(".at-board-list").draggable($boardListDraggable);
+		
+		//아이템 불러오기
+		for (let i in $activityItem){
+			$("<div>").addClass("at-list-item")
+			.data("itemNo",$activityItem[i].itemNo)
+			.data("itemNo"+$activityItem[i].itemNo,"file 초기화용 데이터")
+			.append($("<div>").text($activityItem[i].itemContent))
+			.appendTo($(".at-board-list:data(listNo"+$activityItem[i].listNo+")").find(".at-board-list-content"))
+		}
+		$(".at-list-item").draggable($listItemDraggable);
 		
 		
 	});
@@ -234,6 +247,29 @@
 				}
 			} 
 		};
+	
+	var $boardListDroppable = {
+			addClasses: false,
+			accept:".at-list-item",
+			activate:function(e,u){$(".ui-droppable-active").removeClass("ui-droppable-active")},
+			over:function(e,u){$(".ui-droppable-hover").removeClass("ui-droppable-hover")},
+			drop: function(e,u){
+				$(this).append(u.draggable.css({"left":0,"top":0,"position":"relative"}));
+		
+				$.ajax({
+					url:"updateitem/location.do",
+					method:"post",
+					data:{
+						itemNo:u.draggable.data("itemNo"),
+						listNo:$(this).parent().data("listNo")
+					},
+					success:function(d){
+						console.log(d);
+					}
+				});
+			}
+		}
+	
 	var $listItemDraggable = {
 		addClasses: false,
 		scroll: false,
@@ -246,7 +282,6 @@
 			$(".ui-draggable-dragging").removeClass("ui-draggable-dragging")
 		},
 		stop: function(e,u){
-			
 		}
 	};
 	
@@ -391,7 +426,7 @@
 	
 	
 	///보드
-	//추가블록
+	//추가
 	$(".at-addblock").on("click",function(e){
 		$(this).addClass("takeonme");
 		$(this).removeClass("takeonme",100);
@@ -405,13 +440,9 @@
 					$("<div>").addClass("at-list-menu at-list-icon")
 				)
 			).append(
-				$("<div>").addClass("at-board-list-content").html('<div>공간</div>').droppable({
-					addClasses: false,
-					accept:".at-list-item",
-					drop: function(e,u){
-						$(this).append(u.draggable.css({"left":0,"top":0,"position":"relative"}));
-					}
-				})
+				$("<div>").addClass("at-board-list-content")
+				.html('<div>공간</div>')
+				.droppable($boardListDroppable)
 			)
 			.addClass("at-board-list")
 			.css({
@@ -436,31 +467,44 @@
 				},
 				success: function(d){
 					$newlist.data("listNo",d);
-					console.log($newlist.data("listNo")," 생성됨")
+					console.log($newlist.data("listNo")," 추가됨")
 				}
 			});
 		});
 	});
 	
-	//삭제블록
+	//삭제
 	$(".at-delblock").droppable({
 		addClasses: false,
-		accept: ".at-board-list",
+		accept: ".at-board-list, .at-list-item",
 		over: function(e,u){u.draggable.addClass("faster")},
 		out: function(e,u){u.draggable.removeClass("faster")},
 		drop: function(e,u){
+			
 			let $delblock = function(){
 				$(".at-delblock").addClass("takeonme");
 				$(".at-delblock").removeClass("takeonme",1000);
 				
-				$.ajax({
-					url:"deletelist.do",
-					method:"post",
-					data:{listNo:u.draggable.data("listNo")},
-					success:function(d){
-						console.log(d);
-					}
-				});
+				if(u.draggable.data("listNo")){
+					$.ajax({
+						url:"deletelist.do",
+						method:"post",
+						data:{listNo:u.draggable.data("listNo")},
+						success:function(d){
+							console.log(d);
+						}
+					});
+				}
+				if(u.draggable.data("itemNo")){
+					$.ajax({
+						url:"deleteitem.do",
+						method:"post",
+						data:{itemNo:u.draggable.data("itemNo")},
+						success:function(d){
+							console.log(d);
+						}
+					});
+				}
 				
 				u.draggable.remove();
 			}
@@ -473,13 +517,15 @@
 		}
 	});
 	
-	//아이템
+	///아이템
 	$(".at-list-item").draggable($listItemDraggable);
+	//파일
 	$("#at-board").on('drop',".at-board-list-content",function(e){
 		e.preventDefault();
 		e.stopPropagation();
 		if(e.originalEvent.dataTransfer){
 			console.dir(e.originalEvent.dataTransfer.files);
+			//추가
 			$(this).append(
 				$("<div>").addClass("at-list-item")
 				.text(e.originalEvent.dataTransfer.files[0].name)
@@ -487,13 +533,14 @@
 			);
 		}
 	});
-	$(".at-board-list-content").droppable({
+	//
+	$("html").droppable({
 		addClasses: false,
 		accept:".at-list-item",
-		drop: function(e,u){
-			$(this).append(u.draggable.css({"left":0,"top":0,"position":"relative"}));
-		}
-	});
+		out:function(e,u){u.draggable.css({left:0,top:0})},
+		drop:function(e,u){u.draggable.css({left:0,top:0})}
+	})
+	
 	
 	//리스트 설정
 	$(document).on("click",function(){return;});

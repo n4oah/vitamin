@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.ArmyService;
+import kr.co.vitamin.repository.vo.CalendarRecruit;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.Hope;
@@ -24,6 +25,7 @@ import kr.co.vitamin.repository.vo.PeopleSearch;
 import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
+import kr.co.vitamin.repository.vo.Schedule;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.IntroductionService;
@@ -64,9 +66,11 @@ public class PeoplesSearchController {
 	@ResponseBody
 	@RequestMapping("/peoplesSearchList.do")
 	public Map<String, Object> peoplesSearchList(PeopleSearch peopleSearch) throws Exception {
+		System.out.println(System.currentTimeMillis());
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", peoplesSearchService.peoplesSearch(peopleSearch));
 		map.put("listSize", peoplesSearchService.peoplesSearchSize(peopleSearch));		
+		System.out.println(System.currentTimeMillis());
 		return map;
 	}
 	
@@ -111,6 +115,21 @@ public class PeoplesSearchController {
 	
 	@RequestMapping("/calendar.do")
 	public void calendar() throws Exception {
+	}
+	
+	@ResponseBody
+	@RequestMapping("/calendarData.do")
+	public List<CalendarRecruit> calendarData(HttpSession session) throws Exception {
+		Member member = (Member)session.getAttribute("user");
+		return peoplesSearchService.selectRecruitCalendar(member.getMemberNo());
+	}
+	
+	@ResponseBody
+	@RequestMapping("/insertSchedule.do")
+	public void insertSchedule(Schedule schedule, HttpSession session) throws Exception {
+		Member member = (Member)session.getAttribute("user");
+		schedule.setMemberNo(member.getMemberNo());
+		System.out.println(schedule);
 	}
 	
 	@RequestMapping("/resumeInfo.do")
