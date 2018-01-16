@@ -202,7 +202,7 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	background:rgba(32,32,32,0.5);
 }
 .at-list-item{
-	max-width:250px; height:40px;
+	height:40px;
 	margin:1px 2px;
 	
 	background: rgba(224,224,224,0.2);
@@ -227,8 +227,9 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	animation: gottagofast 0.25s;
 	animation-iteration-count: infinite;
 	z-index: 9999;
-	border:2px solid orange;
+	border:1px solid orange;
 }
+
 .at-gottagofast > .at-board-list-header{border-bottom:1px solid orange;}
 .at-gottagofast.faster{
 	animation: gottagofaster 0.1s;
@@ -322,6 +323,8 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	margin: 3px;
 	border: 1px solid white;
 	border-radius: 5px;
+	
+	
 	
 	line-height:40px;
 	color: white;

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.vitamin.repository.mapper.ActivityItemMapper">
+	
+	<resultMap type="activityItem" id="activityItemMap">
+		<result column="item_no" property="itemNo" />
+		<result column="list_no" property="listNo" />
+		<result column="item_content" property="itemContent" />
+	</resultMap>
+	
+	<select id="selectActivityItemByActivityNo" parameterType="int" resultMap="activityItemMap">
+		select * from vi_activity_item
+		where list_no
+			in (select list_no from vi_activity_list where activity_no = #{activityNo})
+	</select>
+	
+	<insert id="insertActivityItem" parameterType="activityItem">
+		insert into vi_activity_item(list_no, item_content)
+		values(#{list_no},#{item_content})
+	</insert>
+	
+	<update id="updateActivityItemLocation" parameterType="activityItem">
+		update vi_activity_item
+		set list_no = #{listNo}
+		where item_no = #{itemNo}
+	</update>
+	
+	<delete id="deleteActivityItem" parameterType="int">
+		delete from vi_activity_item
+		where item_no = #{itemNo}
+	</delete>
+</mapper>
