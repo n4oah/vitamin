@@ -9,6 +9,7 @@ import kr.co.vitamin.repository.mapper.PeoplesSearchMapper;
 import kr.co.vitamin.repository.vo.CalendarRecruit;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
+import kr.co.vitamin.repository.vo.Machine;
 import kr.co.vitamin.repository.vo.PeopleSearch;
 import kr.co.vitamin.repository.vo.Peoples;
 import kr.co.vitamin.repository.vo.Schedule;
@@ -63,5 +64,10 @@ public class PeoplesSearchServiceImpl implements PeoplesSearchService {
 	@Override
 	public List<CalendarRecruit> selectMyCalendar(Integer memberNo) throws Exception {
 		return peoplesSearchMapper.selectMyCalendar(memberNo);
+	}
+	
+	@Override
+	public List<Machine> selectMachine(Integer memberNo) throws Exception {
+		return peoplesSearchMapper.selectMachine(memberNo);
 	}
 }

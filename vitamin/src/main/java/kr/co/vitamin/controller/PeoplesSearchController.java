@@ -25,6 +25,7 @@ import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.Hope;
 import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.IntroductionCate;
+import kr.co.vitamin.repository.vo.Machine;
 import kr.co.vitamin.repository.vo.PeopleSearch;
 import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
@@ -117,6 +118,13 @@ public class PeoplesSearchController {
 	
 	@RequestMapping("/calendar.do")
 	public void calendar() throws Exception {
+	}
+	
+	@RequestMapping("/machine.do")
+	public void machine(Model model, HttpSession session) throws Exception {
+		Member member = (Member)session.getAttribute("user");
+		System.out.println(member.getAccountNo());
+		model.addAttribute("machine", peoplesSearchService.selectMachine(member.getAccountNo()));
 	}
 	
 	@ResponseBody
