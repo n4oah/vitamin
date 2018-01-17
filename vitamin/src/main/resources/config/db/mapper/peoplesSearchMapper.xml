@@ -60,6 +60,7 @@
 		<result column="start_date" property="start" />
 		<result column="end_date" property="end" />
 		<result column="schedule_title" property="title" />
+		<result column="schedule_no" property="scheduleNo" />
 	</resultMap>
 	
 	<!-- 쿼리 -->
@@ -361,6 +362,16 @@
 		where member_no = #{memberNo}
 	</select>
 	
+	<update id="updateSchedule" parameterType="schedule">
+		update vi_my_schedule set start_date = #{startDate}, end_date = #{endDate}, schedule_title = #{scheduleTitle}
+		where schedule_no = #{scheduleNo}
+	</update>
+	
+	<delete id="removeSchedule" parameterType="schedule">
+		delete from vi_my_schedule
+		where member_no = #{memberNo} and schedule_no = #{scheduleNo}
+	</delete>
+	
 	<insert id="insertSchedule" parameterType="schedule">
 		insert into vi_my_schedule (member_no, start_date, end_date, schedule_title)
 		values (#{memberNo}, #{startDate}, #{endDate}, #{scheduleTitle})
@@ -409,10 +420,11 @@
 	</resultMap>
 	
 	<select id="selectMachine" parameterType="int" resultMap="machineMap">
-		select (100-value*-1) as percent, vi_machine.* FROM vi_machine
-		where member_no = #{memberNo} order by value desc
+		select * from (select (100-value*-1) as percent, vi_machine.* FROM vi_machine
+		where member_no = #{memberNo}) ma
 		inner join vi_recruit_write
-		on vi_machine.recruit_no = vi_recruit_write.recruit_no
+		on ma.recruit_no = vi_recruit_write.recruit_no
+		order by value desc
 	</select>
 	
 </mapper>

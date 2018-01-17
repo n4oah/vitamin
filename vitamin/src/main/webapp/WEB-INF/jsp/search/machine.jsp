@@ -31,32 +31,64 @@
 		<script src="../js/circleChart.min.js"></script>
 <style>
 .ma {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 	display: flex;
+	border: 1px solid #e2e2e2;
+	width: 90%;
+	margin-bottom: 10px;
 }
 .ma > div {
 	flex: 1;
+}
+.ma > div:first-child {
+	flex: 0.5;
 }
 </style>
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 <div id="wrapper" style="margin-top: 0px;">
-<c:forEach items="${machine }" var="m">
-	<div class="ma">
-	private Integer percent, value, recruitNo, memberNo;
-		<div class="circleChart" id="demo" data-percent="${m.percent }"></div>
-		<div>${m.percent }</div>
+<c:choose>
+	<c:when test="${machine[0] != null}">
+		<c:forEach items="${machine }" var="m">
+			<div class="ma">
+				<div>예상 적성도</div>
+				<div class="circleChart" data-percent="${m.percent }"></div>
+				<div><a href="${pageContext.request.contextPath }/recruit/recruitDetail.do?no=${m.recruit.recruitNo}">${m.recruit.title }</a></div>
+				<c:choose>
+					<c:when test="${m.recruit.careerStart != null && m.recruit.careerStart != -1}">
+						<div>경력 ${m.recruit.careerStart }년~${m.recruit.careerEnd }년 차 모집</div>
+					</c:when>
+					<c:otherwise>
+						<div>경력 제한 없음</div>
+					</c:otherwise>
+				</c:choose>
+				<c:choose>
+					<c:when test="${m.recruit.yearPayStart != null && m.recruit.yearPayStart != -1}">
+						<div>연봉 ${m.recruit.yearPayStart }00만원~${m.recruit.yearPayEnd }00만원</div>
+					</c:when>
+					<c:otherwise>
+						<div>경력 제한 없음</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</c:forEach>
+	</c:when>
+	<c:otherwise>
+	<div style="margin-left: auto; margin-right: auto; text-align: center; font-weight: bold;">
+		<div>아직 추천 회사가 없습니다.</div>
+		<div>먼저 입사 지원을 해주세요.</div>
 	</div>
-</c:forEach>
-
-<div class="circleChart" id="demo"></div>
-
+	</c:otherwise>
+</c:choose>
 </div>
 
 <script type="text/javascript">
-$("#demo").each(function (data) {
+$(".circleChart").each(function (data) {
 	var value = $(this).attr("data-percent");
-	$("#demo").circleChart({
+	$(this).circleChart({
 		  color: "#3459eb",
 		  backgroundColor: "#e6e6e6",
 		  background: true,

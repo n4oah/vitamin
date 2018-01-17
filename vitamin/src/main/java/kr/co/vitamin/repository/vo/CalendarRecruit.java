@@ -5,9 +5,15 @@ import java.util.Date;
 public class CalendarRecruit {
 	private String title, recruitTitle;
 	private Date start, end;
-	private Integer companyNo, recruitNo;
+	private Integer companyNo, recruitNo, scheduleNo;
 	
 	
+	public Integer getScheduleNo() {
+		return scheduleNo;
+	}
+	public void setScheduleNo(Integer scheduleNo) {
+		this.scheduleNo = scheduleNo;
+	}
 	public Integer getRecruitNo() {
 		return recruitNo;
 	}

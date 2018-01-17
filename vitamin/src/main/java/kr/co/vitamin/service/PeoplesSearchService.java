@@ -22,4 +22,6 @@ public interface PeoplesSearchService {
 	public void insertSchedule(Schedule schedule) throws Exception;
 	public List<CalendarRecruit> selectMyCalendar(Integer memberNo) throws Exception;
 	public List<Machine> selectMachine(Integer memberNo) throws Exception;
+	public void updateSchedule(Schedule schedule) throws Exception;
+	public void removeSchedule(Schedule schedule) throws Exception;
 }

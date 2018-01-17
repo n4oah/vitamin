@@ -123,7 +123,6 @@ public class PeoplesSearchController {
 	@RequestMapping("/machine.do")
 	public void machine(Model model, HttpSession session) throws Exception {
 		Member member = (Member)session.getAttribute("user");
-		System.out.println(member.getAccountNo());
 		model.addAttribute("machine", peoplesSearchService.selectMachine(member.getAccountNo()));
 	}
 	
@@ -145,6 +144,24 @@ public class PeoplesSearchController {
 		schedule.setMemberNo(member.getMemberNo());
 		System.out.println(schedule);
 		peoplesSearchService.insertSchedule(schedule);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/updateSchedule.do")
+	public void updateSchedule(Schedule schedule, HttpSession session) throws Exception {
+		Member member = (Member)session.getAttribute("user");
+		schedule.setMemberNo(member.getMemberNo());
+		System.out.println(schedule);
+		peoplesSearchService.updateSchedule(schedule);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/removeSchedule.do")
+	public void removeSchedule(Schedule schedule, HttpSession session) throws Exception {
+		Member member = (Member)session.getAttribute("user");
+		schedule.setMemberNo(member.getMemberNo());
+		System.out.println(schedule);
+		peoplesSearchService.removeSchedule(schedule);
 	}
 	
 	@RequestMapping("/resumeInfo.do")

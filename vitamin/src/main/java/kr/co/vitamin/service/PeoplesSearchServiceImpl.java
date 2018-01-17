@@ -70,4 +70,14 @@ public class PeoplesSearchServiceImpl implements PeoplesSearchService {
 	public List<Machine> selectMachine(Integer memberNo) throws Exception {
 		return peoplesSearchMapper.selectMachine(memberNo);
 	}
+	
+	@Override
+	public void updateSchedule(Schedule schedule) throws Exception {
+		peoplesSearchMapper.updateSchedule(schedule);
+	}
+	
+	@Override
+	public void removeSchedule(Schedule schedule) throws Exception {	
+		peoplesSearchMapper.removeSchedule(schedule);
+	}
 }
