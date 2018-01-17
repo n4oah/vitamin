@@ -99,11 +99,13 @@
 											</div>
 											</th>
 											<td>
-												<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%"></textarea>
+												<textarea class="textarea-control col-md-12" name="introductionContentTemp" rows="10" cols="80%" ></textarea>
 											</td>
 										</tr>
 										<tr>
-											<td colspan="2" class="semi-space"></td>
+											<td colspan="2" class="semi-space">
+												<span class="viewByte" style="float: right"></span>
+											</td>
 										</tr>
 									</tbody>
 							    </table>
@@ -213,6 +215,80 @@
 	</form>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp"%>
 <script>
+
+
+var calByte = {
+		getByteLength : function(s) {
+
+			if (s == null || s.length == 0) {
+				return 0;
+			}
+			var size = 0;
+
+			for ( var i = 0; i < s.length; i++) {
+				size += this.charByteSize(s.charAt(i));
+			}
+
+			return size;
+		},
+			
+		cutByteLength : function(s, len) {
+
+			if (s == null || s.length == 0) {
+				return 0;
+			}
+			var size = 0;
+			var rIndex = s.length;
+
+			for ( var i = 0; i < s.length; i++) {
+				size += this.charByteSize(s.charAt(i));
+				if( size == len ) {
+					rIndex = i + 1;
+					break;
+				} else if( size > len ) {
+					rIndex = i;
+					break;
+				}
+			}
+
+			return s.substring(0, rIndex);
+		},
+
+		charByteSize : function(ch) {
+
+			if (ch == null || ch.length == 0) {
+				return 0;
+			}
+
+			var charCode = ch.charCodeAt(0);
+
+			if (charCode <= 0x00007F) {
+				return 1;
+			} else if (charCode <= 0x0007FF) {
+				return 2;
+			} else if (charCode <= 0x00FFFF) {
+				return 2;
+			} else {
+				return 4;
+			}
+		}
+	};
+
+	function viewDisplay(obj) {
+		//$this = obj;
+		var length = obj.value.length;
+		//console.log();
+		//$(this).parents("tbody").next().find("span").val("글자수 :" +length+" / "+calByte.getByteLength( obj.value )+"byte");
+		$(".viewByte").html( "글자수 :" +length+" / "+calByte.getByteLength( obj.value )+"byte");
+	}
+	
+ $('textarea[name="introductionContentTemp"]').on("keydown",function(){
+	 console.log("들어옴")
+	 var length = obj.value.length;
+	 $(".viewByte").html( "글자수 :" +length+" / "+calByte.getByteLength( obj.value )+"byte");
+ });
+	
+	
 var path = "${pageContext.request.contextPath}";
 
 $(".introduction").on("click", ".change", function () {
