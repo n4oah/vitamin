@@ -92,7 +92,7 @@
 							<h2>이력서 작성</h2>
 						</div>
 					</div>
- 					<form action="${pageContext.request.contextPath}/mypage/intermediateSave.do?memberNo=${user.memberNo}" method="post" class="form-horizontal">
+ 					<form name="resumeForm"action="${pageContext.request.contextPath}/mypage/intermediateSave.do?memberNo=${user.memberNo}" method="post" class="form-horizontal">
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">프로필사진</h4>
 							<table class="table">
@@ -110,7 +110,7 @@
 					
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">이력서제목</h4>
-								<input type="text" class="form-control" name="resumeTitle"
+								<input type="text" class="form-control" name="resumeTitle" id="resumeTitle"
 									placeholder="이력서 제목을 입력하세요">
 					</div>
 
@@ -272,6 +272,7 @@
 											<th>전공</th>
 											<td>
 												<select class="float-control highschool" name="major">
+													<option class="fa" value="">전공선택</option>
 													<option class="fa" value="예체능">예체능</option>
 													<option class="fa" value="문과계열">문과계열</option>
 													<option class="fa" value="이과계열">이과계열</option>
@@ -593,7 +594,7 @@
 					</div>
 					
 					<div class="btn_panel">
-						<button style="float: right" class="intermediate_save btn-primary">저장</button>
+						<input type="button" style="float: right" class="intermediate_save btn-primary" onclick="validation()" value="저장"/>
 					</div> 
 					
 					
@@ -870,10 +871,10 @@ $(document).ready(function(){
 		 }
 	
 	 });
-	 
+	
 });
 
-$('.add').live("click",function(){
+/* $('.add').live("click",function(){
 	$('.addCertification').append($('.certification').html());
 });
 $('.add').one("click",function(){
@@ -881,7 +882,7 @@ $('.add').one("click",function(){
 });
 $('.delete').click(function(){
 	$('')
-});
+}); */
 
 $('.certificationTitle').live("click",function(){
 	var $this = $(this);

@@ -48,6 +48,11 @@ public class CardsController {
 		return "test 작동중";
 	}
 	
+	@RequestMapping("/testtest.do")
+	public String testtest() throws Exception {
+		return "cards/cardsviewer";
+	}
+	
 	///액티비티
 	//본인 트롤로
 	@RequestMapping("/cards.do")

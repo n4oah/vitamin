@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>카드</title>
+<title>TROLLO</title>
 <link href="../css/cards.css" rel="stylesheet" type="text/css"/>
 <script src="../js/jquery/jquery-3.2.1.js"></script>
 <script src="../js/jquery/jquery-ui-1.12.1.js"></script>
@@ -74,18 +74,7 @@
 			</div>
 		</div>
 		<div id="content">
-			<div id="at-board">
-				<!--
-				<div class="at-list-item" style="position:absolute;">테스트테스트박스</div>
-				<div class="at-board-list">
-					<div class="at-board-list-header">
-						<span class="at-list-name">ㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱㄱ</span>
-						<div class="at-list-menu at-list-icon"></div>
-					</div>
-					<div class="at-board-list-content"><div>공간</div></div>
-				</div>
-				-->
-			</div>
+			<div id="at-board"></div>
 			<div class="at-board-menulist">
 				<div class="at-board-menu at-addblock"><span class="at-addblock-icon"></span></div>
 				<div class="at-board-menu at-delblock"><span class="at-delblock-icon"></span></div>
@@ -116,7 +105,7 @@
 		-추가 
 		-상세
 		-수정
-		-업로드
+		-업로드 O
 		
 		기본설정
 		-메뉴구분
@@ -184,7 +173,9 @@
 				)
 			).append(
 				$("<div>").addClass("at-board-list-content")
-				.html('<div>공간</div>')
+				.append(
+					$("<div>").addClass("at-list-add").text("추가")
+				)
 				.droppable($boardListDroppable)
 			).css({
 				position: "absolute",
@@ -446,7 +437,9 @@
 				)
 			).append(
 				$("<div>").addClass("at-board-list-content")
-				.html('<div>공간</div>')
+				.append(
+					$("<div>").addClass("at-list-add").text("추가")	
+				)
 				.droppable($boardListDroppable)
 			)
 			.addClass("at-board-list")
@@ -523,12 +516,20 @@
 	});
 	
 	///아이템
-	//jquery index와 droppable을 이용해서 정렬 필요
+	//추가
+	$("#at-board").on("click",".at-list-add", function(e){
+		let $newItem = $("<div>")
+		.append($("<div>").text("아이템"))
+		.addClass("at-list-item")
+		.draggable($listItemDraggable)
+		
+		
+		$newItem.appendTo($(this).parent());
+	});
 	
-	$(".at-list-item").draggable($listItemDraggable);
 	//파일
-	var maxSize = 3*1024*1024; //10MB
-	$("#at-board").on('drop',".at-board-list-content",function(e){
+	var maxSize = 10*1024*1024; //10MB
+	$("#at-board").on("drop",".at-board-list-content",function(e){
 		e.preventDefault();
 		e.stopPropagation();
 		
@@ -579,9 +580,8 @@
 		drop:function(e,u){u.draggable.css({left:0,top:0})}
 	})
 	
+	//정렬(jquery index, droppable)
 	
-	//리스트 설정
-	$(document).on("click",function(){return;});
 	
 	///모달
 	var modalFunc = function(){return;};

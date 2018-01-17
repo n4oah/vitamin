@@ -366,16 +366,53 @@
 		values (#{memberNo}, #{startDate}, #{endDate}, #{scheduleTitle})
 	</insert>
 	
+	<resultMap type="recruit" id="recruitMap">
+		<result column="assigned_task"  property="assignedTask" />
+		<result column="form_service"  property="formService" />
+		<result column="formServiceName"  property="formServiceName" />
+		<result column="recruit_count"  property="recruitCount" />
+		<result column="title"  property="title" />
+		<result column="company_no" property="companyNo" />
+		<result column="career_state"  property="careerState" />
+		<result column="career_end"  property="careerEnd" />
+		<result column="career_start"  property="careerStart" />
+		<result column="school_level"  property="schoolLevel" />
+		<result column="year_pay_start"  property="yearPayStart" />
+		<result column="year_pay_end"  property="yearPayEnd" />
+		<result column="age_count_start"  property="ageCountStart" />
+		<result column="age_count_end"  property="ageCountEnd" />
+		<result column="gender"  property="gender" />
+		<result column="recruit_date_start"  property="recruitDateStart" />
+		<result column="recruit_date_end"  property="recruitDateEnd" />
+		<result column="recruit_form"  property="recruitForm" />
+		<result column="recruit_form_file_no"  property="recruitFormFileNo" />
+		<result column="day_of_week"  property="dayOfWeek" />
+		<result column="master"  property="master" />
+		<result column="phone_number"  property="phoneNumber" />
+		<result column="recruiting_state"  property="recruitingState" />
+		<result column="form_service_name" property="formServiceName" />
+		<result column="sub_name" property="subName" />
+		<result column="name" property="name" />
+		<result column="graduate_state" property="graduateState" />
+		<result column="address_no"  property="addressNo" />
+		<result column="address"  property="address" />
+		<result column="address_main"  property="addressMain" />
+		<result column="recruit_no"  property="recruitNo" />
+	</resultMap>
+	
 	<resultMap type="machine" id="machineMap">
 		<result column="percent" property="percent" />
 		<result column="value" property="value" />
 		<result column="recruit_no" property="recruitNo" />
 		<result column="member_no" property="memberNo" />
+		<collection resultMap="recruitMap" property="recruit" />
 	</resultMap>
 	
 	<select id="selectMachine" parameterType="int" resultMap="machineMap">
 		select (100-value*-1) as percent, vi_machine.* FROM vi_machine
 		where member_no = #{memberNo} order by value desc
+		inner join vi_recruit_write
+		on vi_machine.recruit_no = vi_recruit_write.recruit_no
 	</select>
 	
 </mapper>

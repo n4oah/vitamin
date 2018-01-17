@@ -165,14 +165,24 @@ $(function() {
 
 function validation(){
 	
+	var resumeTitle = $('#resumeTitle').val()
 	var jobstate = $('#jobState').val()
 	var marrystate= $('#marryState').val()
 	var bohonstate= $('#bohonState').val()
 	var supportstate= $('#supportState').val()
 	var armyservicestate= $('#armyServiceState').val()
 	var armyservicereason= $('#armyServiceReason').val()
+	var schoolLevel = $("input[name='schoolLevelNoTmp']").val()
+	var schoolStartDate=$("input[name='schoolStartDate']").val()
+	var schoolEndDate=$("input[name='schoolEndDate']").val()
+	var schoolTitle=$("input[name='schoolTitle']").val()
+	var major=$("input[name='major']").val()
+	var schoolScore=$("input[name='schoolScore']").val()
 	
-	if(jobstate.length<1){
+	
+	if(resumeTitle.length<1){
+		alert("이력서 제목을 설정해주세요");
+	}else if(jobstate.length<1){
 		alert("구직상태를 설정해주세요")
 	}else if(marrystate.length<1){
 		alert("결혼여부를 설정해주세요")
@@ -184,7 +194,25 @@ function validation(){
 		alert("군대 여부를 설정해주세요")
 	}else if(armyservicestate=="3"){
 		if(armyservicereason.length<1){
-			alert("면제사유를 적어주세요")
+			alert("면제사유를 입력해주세요")
 		}
+	}else if(schoolLevel !="0"){
+		if(schoolStartDate.length<1){
+			alert("학교입학날짜를 설정해주세요"+schoolLevel)
+		}else if(schoolEndDate.length<1){
+			alert("학교졸업날짜를 설정해주세요")
+		}else if(schoolTitle.length<1){
+			alert("학교이름을 입력해주세요")
+		}else if(major.length<1){
+			alert("전공을 입력해주세요")
+		}
+	}else if(schoolLevel=="2"){
+		if(schoolScore.length<1){
+			alert("학점을 입력해주세요")
+		}
+	}else{
+		
+		document.resumeForm.submit();
 	}
+	
 }
