@@ -211,7 +211,7 @@ display: inline-block;
 	</div>
 </div>
 
-<div class="chart">
+<!-- <div class="chart">
 	<div class="graphTop">
 		<div class="graph1" name="graph"></div>
 		<div class="graph2" name="graph"></div>
@@ -223,7 +223,7 @@ display: inline-block;
 		<span>그래프 2</span>
 		<span>그래프 3</span>
 	</div>
-</div>
+</div> -->
 <c:if test="${fn:length(recruitList) > 0}">
 <div class="recruitList">
 	<div class="prev"><img src="https://i.imgur.com/oLfh9Tj.png"></div>

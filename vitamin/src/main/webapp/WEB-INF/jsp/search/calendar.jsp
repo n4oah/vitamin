@@ -51,6 +51,9 @@ function getRandomColor() {
 	return color;
 }
 
+var color = ["tomato", "rgb(71, 187, 72)", "rgb(104, 165, 92)", "rgb(120, 89, 185)",
+	"rgb(81, 139, 127)"];
+
 let sdf = new simpleDateFormat("yyyy-MM-dd");
 function calendarMake(insert) {
 	$.ajax({
@@ -94,9 +97,11 @@ function calendarMake(insert) {
 				$('.d').fullCalendar("renderEvents", calendarData, true);				
 			}
 			
+			var i = 0;
 			for (let item of companySet) {
-				var color = getRandomColor();
-				$(".com"+item).css({"background-color": color, "border-color": color});
+				if (i > color.length) i = 0;
+				var cl = color[i++];
+				$(".com"+item).css({"background-color": cl, "border-color": cl});
 			}
 		}
 	});	

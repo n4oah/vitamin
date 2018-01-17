@@ -181,6 +181,9 @@ $(function () {
 				}
 				
 				hideModal(modal);
+				
+				if (chk)
+					location.href = "http://192.168.0.146:3030/?memberNo="+no+"&password="+pwd;
 			}
 		});
 

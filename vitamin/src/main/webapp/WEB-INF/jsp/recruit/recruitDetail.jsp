@@ -18,6 +18,10 @@
       	<script src="../js/mCalendar.js"></script> -->
       	
       	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c8a57785909f4fa93e71b789edfa01d6&libraries=services,clusterer,drawing"></script>
+      	<script type="text/javascript">
+      		var no = "${user.accountNo}";
+      		var pwd = "${user.pwd}";
+      	</script>
 		<style>
 /* 접수기간 달력 */
 .calendar {

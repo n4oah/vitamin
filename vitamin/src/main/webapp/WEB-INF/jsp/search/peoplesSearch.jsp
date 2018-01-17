@@ -242,10 +242,10 @@
 			<!-- end wrapper -->
 		</div>
 		
-		<%-- <div class="iframe">
+		<!-- <div class="iframe">
 			<div class="moveBar">여기를 잡고 움직이세요.</div>
 			<iframe src="http://192.168.0.146:3030/?memberNo=${user.accountNo}&password=${user.pwd}" width="500" height="300" name="iframe"></iframe>
-		</div> --%>
+		</div> -->
 		
 		<div class="recruit_list">
 			<div class="listSize">검색 결과: <font class="listSizeInt">0</font>개</div>
@@ -262,12 +262,21 @@
 					
 					<thead>
 				    	<tr>
-			                <th class="col-md-1">이름 <span class="up">▲</span><span class="down">▼</span></th>
-					        <th class="col-md-3">이력서 제목 <span class="up">▲</span><span class="down">▼</span></th>
-					        <th class="col-md-1">군필 <span class="up">▲</span><span class="down">▼</span></th>
-					        <th class="col-md-1">경력/학력 <span class="up">▲</span><span class="down">▼</span></th>
-					        <th class="col-md-1">지역 <span class="up">▲</span><span class="down">▼</span></th>
-					        <th class="col-md-1">생년월일 <span class="up">▲</span><span class="down">▼</span></th>
+			                <th class="col-md-1">
+			                	이름 <span class="member_name_asc">↑</span><span class="member_name_desc">↓</span>
+			                	나이
+		                	</th>
+					        <th class="col-md-2">
+					        	이력서 제목 <span class="title_asc">↑</span><span class="title_desc">↓</span>
+					        	등록일 <span class="resume.reg_date_asc">↑</span><span class="resume.reg_date_desc">↓</span>
+				        	</th>
+					        <th class="col-md-1">군필 <span class="army.army_service_no_asc">↑</span><span class="army.army_service_no_desc">↓</span></th>
+					        <th class="col-md-1">
+					        	경력 <span class="career_years_asc">↑</span><span class="career_years_desc">↓</span>
+					        	학력 <span class="vi_school_level.school_level_no_asc">↑</span><span class="vi_school_level.school_level_no_desc">↓</span>
+					        </th>
+					        <th class="col-md-1">지역</th>
+					        <th class="col-md-1">생년월일</th>
 				    	</tr>
 			   		 </thead>
 			   		 
@@ -685,13 +694,26 @@ $('span.dropdown').click(function () {
    var submitChk = false;
    var lastNo;
    var parameterDataGlobal;
+   var parameterDataGlobalAppend;
+   var orderChk = false;
+   var page = 0;
+   var orderByGlobal;
+   function getPage() {
+	   page += 1;
+	   return page;
+   }
    
 	var sdf = new simpleDateFormat("yyyy-MM-dd");
 	
    var submit = function (e, scroll, order, orderBy) {
-   	if (!scroll) submitChk = true;
-   	if (scroll && lastNo) parameterDataGlobal += "&lastNo="+lastNo;
+   	if (!scroll && !order) submitChk = true;
+   	if (scroll && lastNo && !orderChk) parameterDataGlobalAppend = parameterDataGlobal+"&lastNo="+lastNo;
+   	else if (scroll && orderChk) parameterDataGlobalAppend = parameterDataGlobal+"&page="+getPage()+"&orderBy="+orderByGlobal;
+   	else if (order && orderBy) parameterDataGlobalAppend = parameterDataGlobal+"&orderBy="+orderBy;
    	else {
+   		orderChk = false;
+   		parameterDataGlobalAppend = null;
+   		page = 0;
 	   	var parameterData = "?";
 	   	
 	   	var cs = parseInt($(".careerList font:eq(0)").text());
@@ -725,11 +747,12 @@ $('span.dropdown').click(function () {
 	   	parameterDataGlobal = parameterData;
    	}
    	console.log(parameterDataGlobal);
+   	console.log(parameterDataGlobalAppend);
    	
    	$.ajax({
    		type: "POST",
    		url: path+"/search/peoplesSearchList.do",
-   		data: parameterDataGlobal,
+   		data: parameterDataGlobalAppend ? parameterDataGlobalAppend : parameterDataGlobal,
    		dataType: "JSON",
    		success: function (data) {
    			console.log(data)
@@ -808,9 +831,19 @@ $('span.dropdown').click(function () {
    		submit(e, true);
    	}
    });
-   
-   $(".up").click(function (e) {
-	   submit(e, false, true);
+   $("[class$='_asc']").click(function (e) {
+	   if (submitChk) {
+		   orderChk = true;
+		   orderByGlobal = $(this).attr("class").replace("_asc", "");
+		   submit(e, false, true, $(this).attr("class").replace("_asc", ""));		   
+	   }
+   });
+   $("[class$='_desc']").click(function (e) {
+	   if (submitChk) {
+		   orderChk = true;
+		   orderByGlobal = $(this).attr("class").replace("_desc", "");
+		   submit(e, false, true, $(this).attr("class").replace("_desc", ""));		   
+	   }
    });
    
    $('tbody').on("click", ".resumeTitle", function (event) {

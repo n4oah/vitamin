@@ -616,12 +616,12 @@ a {
 .army_title, .salary_title, .job_title {
 	width: auto;
 }
-.up {
+[class$='asc'] {
 	color: red;	
 }
-.down {
+[class$='desc'] {
 	color: blue;
 }
-.up, .down {
+[class$='asc'], [class$='desc'] {
 	cursor: pointer;
 }
