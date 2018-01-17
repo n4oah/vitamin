@@ -5,7 +5,7 @@ import java.util.List;
 public class PeopleSearch {
 	private List<Integer> cityCode, areaCode, licenseCode, schoolCode, army;
 	private List<String> licenseName;
-	private Integer careerStart, careerEnd, ageStart, ageEnd, gender, marry, jobState, page = 1, lastNo;
+	private Integer careerStart, careerEnd, ageStart, ageEnd, gender, marry, jobState, page, lastNo;
 	private String orderBy = "resume_no desc";
 	
 	
@@ -16,8 +16,9 @@ public class PeopleSearch {
 		this.orderBy = orderBy;
 	}
 	public Integer getPage() {
-		System.out.println((page-1)*10);
-		return (page-1)*10;
+		System.out.println(page);
+		if (page == null) return 0;
+		else return (page-1)*10;
 	}
 	public void setPage(Integer page) {
 		this.page = page;

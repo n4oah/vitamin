@@ -1,5 +1,9 @@
 package kr.co.vitamin.controller;
 
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,11 +70,9 @@ public class PeoplesSearchController {
 	@ResponseBody
 	@RequestMapping("/peoplesSearchList.do")
 	public Map<String, Object> peoplesSearchList(PeopleSearch peopleSearch) throws Exception {
-		System.out.println(System.currentTimeMillis());
 		Map<String, Object> map = new HashMap<>();
 		map.put("list", peoplesSearchService.peoplesSearch(peopleSearch));
 		map.put("listSize", peoplesSearchService.peoplesSearchSize(peopleSearch));		
-		System.out.println(System.currentTimeMillis());
 		return map;
 	}
 	

@@ -146,11 +146,11 @@
 			<if test="gender != null">
 				<choose>
 					<when test="gender == 1">
-						gender = 'm'
+						and gender = 'm'
 					</when>
 					
 					<when test="gender == 2">
-						gender = 'w'
+						and gender = 'w'
 					</when>
 				</choose>
 			</if>
@@ -217,7 +217,7 @@
 			order by ${orderBy}
 		</if>
 		
-		limit 0, 10
+		limit #{page}, 10
 	</select>
 	
 	
@@ -365,5 +365,17 @@
 		insert into vi_my_schedule (member_no, start_date, end_date, schedule_title)
 		values (#{memberNo}, #{startDate}, #{endDate}, #{scheduleTitle})
 	</insert>
+	
+	<resultMap type="machine" id="machineMap">
+		<result column="percent" property="percent" />
+		<result column="value" property="value" />
+		<result column="recruit_no" property="recruitNo" />
+		<result column="member_no" property="memberNo" />
+	</resultMap>
+	
+	<select id="selectMachine" parameterType="int" resultMap="machineMap">
+		select (100-value*-1) as percent, vi_machine.* FROM vi_machine
+		where member_no = #{memberNo} order by value desc
+	</select>
 	
 </mapper>
