@@ -136,7 +136,9 @@
 											</td>
 										</tr>
 										<tr>
-											<td colspan="2" class="semi-space"></td>
+											<td colspan="2" class="semi-space">
+												<span class="viewByte" style="float: right"></span>
+											</td>
 										</tr>
 									</tbody>
 							    </table>
@@ -167,7 +169,9 @@
 											</td>
 										</tr>
 										<tr>
-											<td colspan="2" class="semi-space"></td>
+											<td colspan="2" class="semi-space">
+												<span class="viewByte" style="float: right"></span>
+											</td>
 										</tr>
 									</tbody>
 							    </table>
@@ -198,7 +202,9 @@
 											</td>
 										</tr>
 										<tr>
-											<td colspan="2" class="semi-space"></td>
+											<td colspan="2" class="semi-space">
+												<span class="viewByte" style="float: right"></span>
+											</td>
 										</tr>
 									</tbody>
 								</table>
@@ -274,18 +280,27 @@ var calByte = {
 		}
 	};
 
-	function viewDisplay(obj) {
+	/* function viewDisplay(obj) {
 		//$this = obj;
 		var length = obj.value.length;
 		//console.log();
 		//$(this).parents("tbody").next().find("span").val("글자수 :" +length+" / "+calByte.getByteLength( obj.value )+"byte");
 		$(".viewByte").html( "글자수 :" +length+" / "+calByte.getByteLength( obj.value )+"byte");
 	}
-	
+	 */
  $('textarea[name="introductionContentTemp"]').on("keydown",function(){
-	 var length = obj.value.length;
-	 $(".viewByte").html( "글자수 :" +length+" / "+calByte.getByteLength( obj.value )+"byte");
+	 var val = $(this).val();
+	 var length = val.length;
+	 $(this).parents("tr").next().find("span").html("글자수 :" +length+" / "+calByte.getByteLength( val )+"byte");
+	 //$(".viewByte").html( "글자수 :" +length+" / "+calByte.getByteLength( val )+"byte");
  });
+	 
+  $('textarea[name="introductionContentTemp"]').on("keyup",function(){
+	 var val = $(this).val();
+	 var length = val.length;
+	 $(this).parents("tr").next().find("span").html("글자수 :" +length+" / "+calByte.getByteLength( val )+"byte");
+	 //$(".viewByte").html( "글자수 :" +length+" / "+calByte.getByteLength( val )+"byte");
+ }); 
 	
 	
 var path = "${pageContext.request.contextPath}";
