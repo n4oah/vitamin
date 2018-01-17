@@ -55,7 +55,7 @@ $(function() {
         }
 
         var param = $('#letter-form').serialize();
-
+        console.log(param);
         $.ajax({
             url: $('#letter-form').attr('action'),
             dataType: "json",

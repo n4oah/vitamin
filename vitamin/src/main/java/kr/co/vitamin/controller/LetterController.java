@@ -37,6 +37,7 @@ public class LetterController {
 	@RequestMapping("/send.do")
 	public boolean send(HttpSession session, Letter letterVO, Account account) throws Exception {
 		System.out.println(letterVO.toString());
+		System.out.println(account.getId());
 		letterVO.setSendAccountNo(((Account)session.getAttribute("user")).getAccountNo());
 		
 		return letterService.sendLetter(letterVO, account);

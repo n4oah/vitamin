@@ -166,7 +166,7 @@
 								                <h4 class="modal-title" id="myModalLabel">쪽지</h4>
 								            </div>
 								            <div class="modal-body">
-								                <form id="letter-form" role="form" method="post" action="${pageContext.request.contextPath}/letter/send.do">
+								                <form id="letter-form-read" role="form" method="post" action="${pageContext.request.contextPath}/letter/send.do">
 								                    <h3 name="title" style="text-align: center; font-weight: bold;"></h3>
 								    				<div class="form-group">
 														<input type="text" class="form-control" name="id" readonly="readonly">
