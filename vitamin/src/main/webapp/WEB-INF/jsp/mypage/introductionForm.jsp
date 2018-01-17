@@ -283,7 +283,6 @@ var calByte = {
 	}
 	
  $('textarea[name="introductionContentTemp"]').on("keydown",function(){
-	 console.log("들어옴")
 	 var length = obj.value.length;
 	 $(".viewByte").html( "글자수 :" +length+" / "+calByte.getByteLength( obj.value )+"byte");
  });
