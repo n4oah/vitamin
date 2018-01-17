@@ -41,7 +41,6 @@ public class FileUpload {
 	
 	private kr.co.vitamin.repository.vo.File makeFile() throws Exception {
 		DEFAULT_ROOT = servletContext.getRealPath("/upload");
-		System.out.println(DEFAULT_ROOT);
 		
 		if(multiFile.isEmpty())
 			return null;

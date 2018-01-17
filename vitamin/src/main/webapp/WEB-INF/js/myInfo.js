@@ -230,13 +230,29 @@ $(function() {
         modal.modal('show');
         event.preventDefault();
     });
+
+    $('#largeModal').on('hidden.bs.modal', function () {
+        $('#largeModal').find('input').each(function(event) {
+            $(this).val('');
+        });
+        $('#largeModal').find('textarea').each(function(event) {
+            $(this).val('');
+        });
+    });
+
+    let funcMap = new Map();
+    funcMap.set('recvList', recvList);
+    funcMap.set('sendList', sendList);
+    //funcMap.set('myRecuritList', myRecuritList);
+    //funcMap.set('favoriteCompanyList', favoriteCompanyList);
     
-    recvList();
-    sendList();
+    for(let func of funcMap.values()) {
+        func();
+    }
 });
 
-function recvList(lastRecvNo = -1) {
-    let url = '/vitamin/letter/recvLetterList.do';
+function recvList(lastRecvNo = -1, blankObj) {
+    let url = getContextPath() + '/letter/recvLetterList.do';
     let data = {'lastLetterNo': lastRecvNo};
     
     $.ajax({
@@ -247,6 +263,12 @@ function recvList(lastRecvNo = -1) {
             let parent = $('div#letter-recv ul.media-list');
 
             let letterList = JSON.parse(dataList);
+
+            if(blankObj != undefined) {
+                $(blankObj).children().each(function() {
+                    $(this).remove();
+                });
+            }
 
             for(let data of letterList) {
                 html = '';
@@ -267,8 +289,8 @@ function recvList(lastRecvNo = -1) {
     });
 }
 
-function sendList(lastSendNo = -1) {
-    let url = '/vitamin/letter/sendLetterList.do';
+function sendList(lastSendNo = -1, blankChk = false) {
+    let url = getContextPath() + '/letter/sendLetterList.do';
     let data = {'lastLetterNo': lastSendNo};
     
     $.ajax({
@@ -299,13 +321,29 @@ function sendList(lastSendNo = -1) {
     });
 }
 
+function myRecuritList() {
+    let url = getContextPath() + '/mypage/myRecuritList.do';
+}
+
+function favoriteCompanyList() {
+
+}
+
+function myRecuritForm() {
+
+}
+
+function favoriteCompanyForm() {
+    
+}
+
 function letterForm(profileNo, id, letterNo, name, title, date) {
     let html = '';
 
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     let day = date.getDate();
-
+    
     html += `<li class="media" attr="${letterNo}">`;
     html += `   <a id="profile-img-full" class="pull-left">`;
     html += `       <img class="media-object img-circle" src="/vitamin/common/fileDown.do?fileNo=${profileNo}" alt="profile">`;

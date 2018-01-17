@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -55,21 +56,20 @@
 									class="icon-bar"></span>
 							</button>
 							
-							<span class="aa profile-image"></span>
+							<span class="aa profile-image" attr="${sessionScope.user.accountNo}"></span>
 							<span class="site-name"><b><c:out value="${userName}"></c:out></b></span>
 							<span class="site-description"><c:out value="${memberType}"></c:out></span>
 						</div>
 						<div class="collapse navbar-collapse" id="mainNav">
 							<ul class="nav main-menu navbar-nav">
-								<li><a href="#"><i class="fa fa-home"></i> HOME</a></li>
 								<c:if test="${user.memberType == 1}">
 									<li><a href="${pageContext.request.contextPath}/mypage/resumeList.do">이력서 목록</a></li>
 									<li><a href="${pageContext.request.contextPath}/mypage/introductionList.do">자기소개서 목록</a></li>
-									<li><a href="${pageContext.request.contextPath}/">즐겨찾기 기업</a></li>
 									<li><a href="${pageContext.request.contextPath}/cards/cards.do">트롤로</a></li>
 								</c:if>
 								<c:if test="${user.memberType == 2}">
-						       		<li><a href="${pageContext.request.contextPath}/recruitApply/recruitResumeList.do"> 이력서 목록</a></li>
+									<li><a href="${pageContext.request.contextPath}/company/detail.do"><i class="fa fa-home"></i> HOME</a></li>
+						       		<li><a href="${pageContext.request.contextPath}/recruitApply/recruitResumeList.do">지원 이력서 목록</a></li>
 						        </c:if>
 							</ul>
 						</div>
@@ -136,12 +136,17 @@
 						                <h4 class="reviews text-capitalize">일정표</h4>
 						            </a>
 						        </li>
-						        <c:if test="${user.memberType == 1}">
-						       		<li>
-							            <a href="#my-apply-resu" role="tab" data-toggle="tab">
-							                <h4 class="reviews text-capitalize">내가 지원한 공고</h4>
-							            </a>
-							        </li>
+						        <c:if test="${sessionScope.user.memberType == 1}">
+						        <li>
+						            <a href="#myRecurit" role="tab" data-toggle="tab">
+						                <h4 class="reviews text-capitalize">내가 지원한 공고</h4>
+						            </a>
+						        </li>
+						        <li>
+						            <a href="#favoriteCompany" role="tab" data-toggle="tab">
+						                <h4 class="reviews text-capitalize">즐겨찾기 기업</h4>
+						            </a>
+						        </li>
 						        </c:if>
 						        <li>
 						            <a href="#account-setting" role="tab" data-toggle="tab">
@@ -186,7 +191,13 @@
 								        </div>
 								    </div>
 								</div>
-						        <div class="tab-pane" id="diary">
+						         <div class="tab-pane" id="diary">
+						        
+						        </div>
+						        <div class="tab-pane" id="myRecurit">
+						        
+						        </div>
+						        <div class="tab-pane" id="favoriteCompany">
 						        
 						        </div>
 						        <div class="tab-pane" id="account-setting">
@@ -205,7 +216,7 @@
 						                	<c:set var="user" value="${sessionScope.user}"></c:set>
 						                    <label for="avatar" class="col-sm-2 control-label"><c:out value="${profileImgName}"></c:out></label>
 						                    <div class="col-sm-10">
-						                        <div class="custom-input-file profile-image">
+						                        <div class="custom-input-file profile-image" attr="${sessionScope.user.accountNo}">
 						                            <label class="uploadPhoto">
 						                                Edit
 														<input type="file" class="change-profile-img" name="profileImg" id="profileImg" accept="image/png, image/jpeg, image/gif, image/jpg">
@@ -276,7 +287,7 @@
 											<label for="sample6_address2" class="col-sm-2 control-label">상세주소</label>
 											<div class="col-sm-10">
 												<input name="address.address2" type="text" class="form-control" value="${address.addressSub}" id="sample6_address2" placeholder="상세주소">
-												<input type="text" name="address.sigunguCode" class="hide" id="sample6_sigunguCode" value="-1"/>
+												<input type="text" name="address.sigunguCode" class="hide" id="sample6_sigunguCode" value="${address.areaCode}"/>
 											</div>
 										</div>
 										<c:choose>

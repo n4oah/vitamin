@@ -123,13 +123,10 @@ public class Address {
 		setAddress(address1 +" "+ address2);
 		setAddressMain(address1);
 		
-		if(!sigunguCode.equals("-1")) {
-			int cityCode = Integer.parseInt(sigunguCode.substring(0, 2));
-			int areaCode = Integer.parseInt(sigunguCode);
-			setCityCode(cityCode);
-			setAreaCode(areaCode);
-		}
-		
+		int cityCode = Integer.parseInt(sigunguCode.substring(0, 2));
+		int areaCode = Integer.parseInt(sigunguCode);
+		setCityCode(cityCode);
+		setAreaCode(areaCode);
 	}
 
 	public String getAddressSub() {

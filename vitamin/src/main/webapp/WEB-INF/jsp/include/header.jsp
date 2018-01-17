@@ -3,60 +3,60 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+<script>
+	$(function() {
+		let tags = $('.profile-image');
+		var url = '${pageContext.request.contextPath}/mypage/myProfile.do';
 
-<c:if test="${!empty sessionScope.user}">
-	<c:if test="${sessionScope.user.memberType == 1}">
-			<c:set var="profileNo" value="-1"></c:set>
-	</c:if>
-	<c:if test="${sessionScope.user.memberType == 2}">
-		<c:set var="profileNo" value="${sessionScope.user.logoNo}"></c:set>
-	</c:if>
-	<script>
-		$(function() {
-			let id = $('.profile-image');
-			let fileNo = '${profileNo}';
-			var url;
+		for(let tag of tags) {
+			let accountNo = $(tag).attr('attr');
+			console.log('accountNo' + accountNo);
 
-			if(fileNo == -1) {
+			if(accountNo != '' || accountNo != null || accountNo != undefined) {
+				let data = {'accountNo': accountNo};
+
 				$.ajax({
-					url: '${pageContext.request.contextPath}/mypage/myProfile.do',
-					success: function(no) {
-						if(no != -1) {
-							fileNo = no;
-
+					url: url,
+					data: data,
+					success: function(fileNo) {
+						if(fileNo != -1) {
 							url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
-							makeProfile(url, id);
+							makeProfile(tag, url);
 						} else {
-							makeProfile(-1, id);
+							makeProfile(tag);
 						}
+					},
+					fail: function() {
+						makeProfile(tag);
 					}
 				})
-			} else {
-				url = '${pageContext.request.contextPath}/common/fileDown.do?fileNo=' + fileNo;
-				makeProfile(url, id);
 			}
-		});
-		function makeProfile(url, id) {
-			for(let tag of id) {
-				if(url == -1) {
-					$(tag).attr('class', 'glyphicon glyphicon-user icon-size ' + $(tag).attr('class'));
-				} else {
-					if(tag.tagName == 'IMG') {
-						$(tag).attr('src', url)
-					} else {
-						$(tag).css('background-image', 'url(' + url + ')');
-					}
+		}
+	});
+	function makeProfile(tag, url = -1) {
+		if(url == -1) {
+			$(tag).attr('class', 'glyphicon glyphicon-user icon-size ' + $(tag).attr('class'));
+		} else {
+			if(tag.tagName == 'IMG') {
+				$(tag).attr('src', url);
+			} else {
+				let clzs = ['glyphicon', 'glyphicon-user', 'icon-size'];
+
+				$(tag).css('background-image', 'url(' + url + ')');
+				$(tag).css('background-size', '100% 100%');
+
+				for(let clz of clzs) {
+					$(tag).removeClass(clz);
 				}
 			}
 		}
-	</script>
-</c:if>
+	}
+</script>
 <script>
 	$(function() {
-		var uri = "${requestScope['javax.servlet.forward.request_uri']}"
-		
-		/* $("ul.nav.navbar-nav.menus li a[href='" + uri + "']").parent('li').attr('class', 'active'); */
+		var uri = "${requestScope['javax.servlet.forward.request_uri']}";
 		var menus = $("ul.nav.navbar-nav.menus li a");
+		
 		for(let menu of menus) {
 			let value = String($(menu).attr('href'));
 			if(value.indexOf(uri) != -1) {
@@ -65,7 +65,6 @@
 				$(menu).parent('li').removeAttr('active');
 			}
 		}
-		console.log("ul.nav.navbar-nav.menus li a[href='" + uri + "']");
 	});
 </script>
 
@@ -125,9 +124,9 @@
 										<div class="navbar-login">
 											<div class="row">
 												<div class="col-lg-4">
-													<p class="text-center">
-														<span class="glyphicon glyphicon-user icon-size profile-image"></span>
-													</p>
+													<!-- <p class="text-center"> -->
+													<img class="glyphicon glyphicon-user icon-size profile-image" style="width:100%; height: 100px;" attr="${sessionScope.user.accountNo}"></img>
+													<!-- </p> -->
 												</div>
 												<div class="col-lg-8">
 													<p class="text-left">

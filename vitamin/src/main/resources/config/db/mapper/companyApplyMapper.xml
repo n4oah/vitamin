@@ -52,7 +52,7 @@
 			sub4.resume_no = main.resume_no AND
 			main.introduction_no = sub5.introduction_no AND 
 			sub2.member_no = main.member_no 
-			ORDER BY comapply_no ASC LIMIT 0, #{lastCount}
+			ORDER BY comapply_no DESC LIMIT 0, #{lastCount}
 	</select>
 	
 	<update id="updateCompanyApplyState" parameterType="companyApply">

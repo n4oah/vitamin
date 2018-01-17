@@ -1,5 +1,6 @@
 package kr.co.vitamin.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -15,15 +16,19 @@ import org.springframework.web.multipart.MultipartFile;
 import kr.co.vitamin.common.EmailSender;
 import kr.co.vitamin.common.FileUpload;
 import kr.co.vitamin.repository.vo.Address;
+import kr.co.vitamin.repository.vo.CompanyApply;
 import kr.co.vitamin.repository.vo.EmailChangeAuth;
 import kr.co.vitamin.repository.vo.File;
+import kr.co.vitamin.repository.vo.InfiniteScrollAccount;
 import kr.co.vitamin.repository.vo.Letter;
+import kr.co.vitamin.repository.vo.Recruit;
 import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.repository.vo.account.AccountInfo;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.AccountService;
 import kr.co.vitamin.service.AddressService;
 import kr.co.vitamin.service.EmailAuthService;
+import kr.co.vitamin.service.RecruitApplyService;
 
 @Controller
 @RequestMapping("/mypage")
@@ -34,6 +39,8 @@ public class MyInfoController {
 	AddressService addressService;
 	@Autowired
 	AccountService accountService;
+	@Autowired
+	RecruitApplyService recruitApplyService;
 	@Autowired
 	EmailSender emailSend;
 	@Autowired
@@ -73,9 +80,8 @@ public class MyInfoController {
 		return result;
 	}
 	
-	@ResponseBody
 	@RequestMapping("/myInfoModify.do")
-	public void myInfoModify(HttpSession session, AccountInfo accountInfo, @RequestParam("profileImg")MultipartFile profileImg) throws Exception {
+	public String myInfoModify(HttpSession session, AccountInfo accountInfo, @RequestParam("profileImg")MultipartFile profileImg) throws Exception {
 		Account user = ((Account)session.getAttribute("user"));
 		
 		accountInfo.setAccountNo(user.getAccountNo());
@@ -89,36 +95,53 @@ public class MyInfoController {
 		accountVO.setMemberType(user.getMemberType());
 		accountVO.setEmail(accountInfo.getEmail());
 		accountVO.setAddressNo(user.getAddressNo());
+		
 		if(accountInfo.getPwd().length() > 4) {
 			accountVO.setShaPwd(accountInfo.getPwd());			
 		}
 		
 		Address address = accountInfo.getAddress();
-		if(address.getSigunguCode().equals("-1")) {
-			address = null;
-		} else {
-			address.setAddressNo(user.getAddressNo());
-			address.parseData();
-		}
+		address.setAddressNo(user.getAddressNo());
+		address.parseData();
 		
 		File file = fileUpload.makeFile(profileImg, FileUpload.getProfileImage());
 		Account acc = accountService.modifyAccount(accountVO, address, file);
 
 		session.setAttribute("user", acc);
+		
+		return "redirect:/mypage/myInfo.do";
 	}
 	
 	@ResponseBody
 	@RequestMapping("/myProfile.do")
-	public Integer myProfile(HttpSession session) throws Exception {
-		Integer profileNo = -1;
+	public Integer myProfile(Account accountVO) throws Exception {
+		Integer profileNo = accountService.getProfileNo(accountVO);
 		
-		Account member = (Account)session.getAttribute("user");
-		if(member.getMemberType() == 1) {
-			profileNo = accountService.getProfileNo(member);
-			if(profileNo == null) {
-				profileNo = -1;
-			}
-		}
+		if(profileNo == null)
+			profileNo = -1;
+		
 		return profileNo;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/myRecuritList.do")
+	public String myRecuritList(HttpSession session, Integer lastCompanyApplyNo) throws Exception {
+		Member member = (Member)session.getAttribute("user");
+		
+		InfiniteScrollAccount infiniteScrollAccount = new InfiniteScrollAccount();
+		infiniteScrollAccount.setAccountNo(member.getMemberNo());
+		infiniteScrollAccount.setLastSeqNo(lastCompanyApplyNo);
+
+		//List<Recruit> list = recruitApplyService.getMemberRecuritList(infiniteScrollAccount);
+		
+		return null;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/favoriteCompanyList.do")
+	public String favoriteCompanyList(HttpSession session) throws Exception {
+		Member member = (Member)session.getAttribute("user");
+		
+		return null;
 	}
 }

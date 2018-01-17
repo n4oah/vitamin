@@ -130,6 +130,7 @@ public class AccountServiceImpl implements AccountService {
 		memberMapper.updateAccount(accountVO);
 		if(address != null) {
 			address.setAddressNo(accountVO.getAddressNo());
+			System.out.println(address.getAddress());
 			addressMapper.updateAddress(address);
 		}
 		if(file != null) {
@@ -172,7 +173,15 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public Integer getProfileNo(Account accountVO) throws Exception {
-		return memberMapper.selectProfileNo(accountVO);
+		Integer result = null;
+		
+		Account account = memberMapper.selectAccount(accountVO.getAccountNo());
+		if(account.getMemberType() == 1) {
+			result = memberMapper.selectProfileNo(accountVO);			
+		} else if(account.getMemberType() == 2) {
+			result = ((Company)account).getLogoNo();
+		}
+		return result;
 	}
 
 	@Override
