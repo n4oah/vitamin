@@ -201,19 +201,24 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	flex-direction:column;
 	background:rgba(32,32,32,0.5);
 }
-.at-list-item{
-	min-height:40px;
+.at-board-list-content > div {
 	margin:1px 2px;
+	border-radius: 2px;
+	overflow:hidden;
+}
+.at-list-add{
+	height:20px;
+	line-height:20px;
+	text-align:center;
+}
+.at-list-item{
+	flex: 0 1 auto;
+	min-height:40px;
 	
 	background: rgba(224,224,224,0.2);
-	border-radius: 2px;
 	
 	white-space:nowrap;
-	overflow:hidden;
 	text-overflow:clip;
-}
-.at-board-list-content > .at-list-item{
-	flex: 0 1 auto;
 }
 
 .at-list-icon{
@@ -324,8 +329,6 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	margin: 3px;
 	border: 1px solid white;
 	border-radius: 5px;
-	
-	
 	
 	line-height:40px;
 	color: white;
