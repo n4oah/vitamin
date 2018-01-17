@@ -2,7 +2,15 @@ package kr.co.vitamin.repository.vo;
 
 public class Machine {
 	private Integer percent, value, recruitNo, memberNo;
+	private Recruit recruit;
 
+	
+	public Recruit getRecruit() {
+		return recruit;
+	}
+	public void setRecruit(Recruit recruit) {
+		this.recruit = recruit;
+	}
 	public Integer getPercent() {
 		return percent;
 	}
@@ -26,5 +34,10 @@ public class Machine {
 	}
 	public void setMemberNo(Integer memberNo) {
 		this.memberNo = memberNo;
+	}
+	@Override
+	public String toString() {
+		return "Machine [percent=" + percent + ", value=" + value + ", recruitNo=" + recruitNo + ", memberNo="
+				+ memberNo + "]";
 	}
 }
