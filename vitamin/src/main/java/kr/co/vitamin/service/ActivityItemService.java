@@ -2,6 +2,7 @@ package kr.co.vitamin.service;
 
 import java.util.List;
 
+import kr.co.vitamin.repository.vo.ActivityFiles;
 import kr.co.vitamin.repository.vo.ActivityItem;
 
 public interface ActivityItemService {
@@ -12,4 +13,6 @@ public interface ActivityItemService {
 	public void insertItem(ActivityItem activityItem) throws Exception;
 	
 	public void deleteItem(int itemNo) throws Exception;
+	
+	public void insertFile(ActivityFiles activityFiles) throws Exception;
 }

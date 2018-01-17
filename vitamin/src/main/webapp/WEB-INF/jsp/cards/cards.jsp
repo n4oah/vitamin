@@ -136,8 +136,10 @@
 	
 	var $activityList = {};
 	var $activityItem = {};
+	var $activityFile = {};
 	if('${activityList}'){$activityList = JSON.parse('${activityList}');}
 	if('${activityItem}'){$activityItem = JSON.parse('${activityItem}');}
+	if('${activityFile}'){$activityItem = JSON.parse('${activityFile}');}
 	
 	$(document).ready(function() {
 		$(document).on('dragover drop', function(e) {
@@ -470,7 +472,7 @@
 				},
 				success: function(d){
 					$newlist.data("listNo",d);
-					console.log($newlist.data("listNo")," 추가됨")
+					console.log($newlist.data("listNo")," 리스트 추가됨")
 				}
 			});
 		});
@@ -521,22 +523,55 @@
 	});
 	
 	///아이템
+	//jquery index와 droppable을 이용해서 정렬 필요
+	
 	$(".at-list-item").draggable($listItemDraggable);
 	//파일
+	var maxSize = 3*1024*1024; //10MB
 	$("#at-board").on('drop',".at-board-list-content",function(e){
 		e.preventDefault();
 		e.stopPropagation();
-		if(e.originalEvent.dataTransfer){
+		
+		let $this = $(this);
+		if(e.originalEvent.dataTransfer.files){
 			console.dir(e.originalEvent.dataTransfer.files);
-			//추가
-			$(this).append(
-				$("<div>").addClass("at-list-item")
-				.text(e.originalEvent.dataTransfer.files[0].name)
-				.draggable()
-			);
+			let files = e.originalEvent.dataTransfer.files;
+			
+			let $newItem = $("<div>")
+			.append($("<div>").text(files[0].name))
+			.addClass("at-list-item")
+			.draggable($listItemDraggable)
+			
+			let formData = new FormData();
+			for(let i=0; i<files.length; i++){
+				formData.append("file"+i,files[i])
+				//초과하는 파일 포함시
+				if(files[i].size > maxSize){
+					console.log("안돼");
+					return;
+				}
+			}
+			formData.append("listNo",$this.parent().data("listNo"));
+			formData.append("itemContent",files[0].name);
+			
+			$.ajax({
+				url:"uploaditem.do",
+				method:"post",
+				data:formData,
+				processData:false,
+				contentType: false,
+				success: function(d){
+					$newItem.data("itemNo",d);
+					$this.append($newItem);
+				},
+				error: function(jq,ex){
+					console.log(jq.status,"에-러");
+				}
+			})
 		}
 	});
-	//
+	
+	//돌려놓기
 	$("html").droppable({
 		addClasses: false,
 		accept:".at-list-item",
