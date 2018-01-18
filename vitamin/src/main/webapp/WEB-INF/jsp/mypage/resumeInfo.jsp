@@ -46,6 +46,10 @@
 						<h4 class="table_title">이력서제목</h4>
 						<p>${resumeInfo.resumeTitle}</p>
 					</div>
+					<div class="horizontal_table table_wrap">
+						<h4 class="table_title">프로필사진</h4>
+						<img class="profile-image" attr="${member.accountNo}" style="width:70px;height:70px" >
+					</div>
 
 					<div class="edit_content">
 					<div class="base_info">

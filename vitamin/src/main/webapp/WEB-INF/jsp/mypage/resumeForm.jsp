@@ -94,17 +94,15 @@
 					</div>
  					<form name="resumeForm"action="${pageContext.request.contextPath}/mypage/intermediateSave.do?memberNo=${user.memberNo}" method="post" class="form-horizontal">
 					<div class="horizontal_table table_wrap">
-						<h4 class="table_title">프로필사진</h4>
-							<table class="table">
+						<h4 class="table_title">프로필</h4>
+						<img class="profile-image" attr="${user.accountNo}" style="width:70px;height:70px" >
+							<!-- <table class="table">
 								<tbody>
 									<tr>
-										<th class="col-md-2">프로</th>
-										<td class="col-md-2"><img alt="" src="">프로필이미지</td>
-										<td class="col-md-2">홈페이지</td>
-										<td class="col-md-2">홈페이지</td>
+										<td class="col-md-2"></td>
 									</tr>
 								</tbody>
-							</table>
+							</table> -->
 								
 					</div>
 					
