@@ -16,6 +16,7 @@ import kr.co.vitamin.common.PageResult;
 import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.IntroductionCate;
 import kr.co.vitamin.repository.vo.Page;
+import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.IntroductionService;
 
@@ -57,8 +58,20 @@ public class IntroductionController {
 	}
 	
 	@RequestMapping("/introductionDetail.do")
-	public ModelAndView introductionDetail(Integer introductionNo) throws Exception{
+	public ModelAndView introductionDetail(HttpSession session, Integer introductionNo) throws Exception{
 		System.out.println("introductionDetail 들어옴");
+		
+		/*Account account = (Account)session.getAttribute("user");
+		if(account.getMemberType() == 1) {
+			Introduction introduction = new Introduction();
+			introduction.setMemberNo(((Member)account).getMemberNo());
+			introduction.setIntroductionNo(introductionNo);
+			
+			introductionService.viewMemberCheck(introduction);
+		} else {
+			
+		}*/
+		
 		Introduction introduction = introductionService.selectIntroduction(introductionNo);
 		List<IntroductionCate> iclist= introductionService.selectIntroductionCate(introductionNo);
 		ModelAndView mav = new ModelAndView();

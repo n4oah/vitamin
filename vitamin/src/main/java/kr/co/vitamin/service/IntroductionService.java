@@ -29,4 +29,6 @@ public interface IntroductionService {
 
 	public Integer selectNextAutoIncrementIntroduction() throws Exception;
 
+	public boolean viewMemberCheck(Introduction introduction);
+
 }

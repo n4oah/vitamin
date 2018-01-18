@@ -80,6 +80,15 @@
 		</style>
 	</head>
 <body>
+	<noscript style="
+	position: fixed;
+	top: 0; left: 0;right: 0; bottom: 0;
+    background: white;
+    color: black; font-weight: bolder; font-size: 10vh;
+    text-align: center; line-height: 60vh;
+    z-index: 9999;">
+	<p>스크립트 켜라</p>
+	</noscript>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 	
 	<c:set var="actionUrl" value="${pageContext.request.contextPath}/account/signup.do" />

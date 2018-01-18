@@ -102,6 +102,10 @@
 		WHERE member_no=#{memberNo}
 		ORDER BY introduction_reg_date ASC
 	</select>
+	
+	<select id="viewMemberCheck" parameterType="introduction" resultMap="introductionMap">
+		SELECT 
+	</select>
 
 	<select id="selectNextAutoIncrementIntroduction" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">

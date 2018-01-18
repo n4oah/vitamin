@@ -1,6 +1,7 @@
 package kr.co.vitamin.repository.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.IntroductionCate;
@@ -35,4 +36,6 @@ public interface IntroductionMapper {
 	public Integer[] selectIntroductionCateNo(Integer introductionNo)throws Exception;
 	
 	public List<Introduction> selectIntroductionAll(Member member) throws Exception;
+
+	public Integer viewMemberCheck(Introduction introduction);
 }
