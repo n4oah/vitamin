@@ -41,12 +41,6 @@
 		from vi_area_code
 	</select>
 	
-	
-	
-	
-	
-	
-	
 	<resultMap type="recruit" id="selectRecruitMap">
 		<result column="title"  property="title" />
 		<result column="recruit_no"  property="recruitNo" />
@@ -397,12 +391,9 @@
 	   				#{aCode}
 	   			</foreach>
 	   		</if>
-         
-         
+	   		
          order by recruit_no desc ) recruit,  (select @rownum := 0) R) recruit_write
-         
         where rownum between #{begin} and #{end}
-         
-            
+	
 	</select>
 </mapper>

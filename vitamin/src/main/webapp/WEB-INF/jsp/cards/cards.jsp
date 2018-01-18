@@ -567,7 +567,7 @@
 		e.stopPropagation();
 		
 		let $listContent = $(this);
-		if(e.originalEvent.dataTransfer.files){
+		if(e.originalEvent.dataTransfer){
 			console.dir(e.originalEvent.dataTransfer.files);
 			let files = e.originalEvent.dataTransfer.files;
 			
