@@ -4,8 +4,11 @@ import java.beans.PropertyEditorSupport;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.ws.Service;
 
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.Area;
@@ -24,9 +28,11 @@ import kr.co.vitamin.repository.vo.ArmyService;
 import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
+import kr.co.vitamin.repository.vo.CompanyApply;
 import kr.co.vitamin.repository.vo.ConditionSelection;
 import kr.co.vitamin.repository.vo.Hope;
 import kr.co.vitamin.repository.vo.HopeBusiness;
+import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
 import kr.co.vitamin.repository.vo.MajorCate;
 import kr.co.vitamin.repository.vo.PrevCompany;
@@ -35,6 +41,7 @@ import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.School;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.account.Account;
+import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.AddressService;
 import kr.co.vitamin.service.ResumeService;
@@ -67,12 +74,36 @@ public class ResumeController {
 	}
 	
 	@RequestMapping("/resumeInfo.do")
-	public ModelAndView resumeInfo(HttpSession session, Integer resumeNo) throws Exception{
+	public ModelAndView resumeInfo(HttpSession session, HttpServletRequest request, Integer resumeNo, RedirectAttributes redirectAttributes) throws Exception{
 		System.out.println("resumeInfo 들어옴");
 		ModelAndView mav = new ModelAndView();
 		
-		Member user = (Member)session.getAttribute("user");
+		Account user = (Account)session.getAttribute("user");
 		
+		boolean viewChk = false;
+		
+		if(user.getMemberType() == 1) {
+			CompanyApply companyApply = new CompanyApply();
+			companyApply.setMemberNo(((Member)user).getMemberNo());
+			companyApply.setResumeNo(resumeNo);
+			
+			viewChk = resumeService.viewMemberCheck(companyApply);
+		} else if(user.getMemberType() == 2) {
+			Map<String, Integer> map = new HashMap<>();
+			map.put("companyNo", ((Company)user).getCompanyNo());
+			map.put("resumeNo", resumeNo);
+			
+			viewChk = resumeService.viewCompanyCheck(map);
+		}
+		
+		if(viewChk == false) {
+			System.out.println("BB");
+			String referer = request.getHeader("Referer");
+			
+			redirectAttributes.addFlashAttribute("errorMsgFlashAttr", "볼 수 있는 권한이 없습니다.");
+			mav.setViewName(referer);
+			return mav;
+		}
 		
 		ResumeBaseInfo resumeInfo =	resumeService.resumeInfo(resumeNo);
 		Member member = resumeService.baseInfoSelect(resumeNo);

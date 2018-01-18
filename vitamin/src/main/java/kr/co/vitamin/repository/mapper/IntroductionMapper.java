@@ -38,4 +38,6 @@ public interface IntroductionMapper {
 	public List<Introduction> selectIntroductionAll(Member member) throws Exception;
 
 	public Integer viewMemberCheck(Introduction introduction);
+	
+	public Integer viewCompanyCheck(Map<String, Integer> map);
 }

@@ -86,7 +86,11 @@ public class IntroductionServiceImpl implements IntroductionService{
 
 	@Override
 	public boolean viewMemberCheck(Introduction introduction) {
-		mapper.viewMemberCheck(introduction);
-		return false;
+		return mapper.viewMemberCheck(introduction) != null ? true : false;
+	}
+
+	@Override
+	public boolean viewCompanyCheck(Map<String, Integer> map) {
+		return mapper.viewCompanyCheck(map) != null ? true : false;
 	}
 }

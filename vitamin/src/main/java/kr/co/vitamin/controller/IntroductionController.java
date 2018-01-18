@@ -1,7 +1,10 @@
 package kr.co.vitamin.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.vitamin.common.PageResult;
 import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.IntroductionCate;
 import kr.co.vitamin.repository.vo.Page;
 import kr.co.vitamin.repository.vo.account.Account;
+import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.IntroductionService;
 
@@ -58,27 +63,42 @@ public class IntroductionController {
 	}
 	
 	@RequestMapping("/introductionDetail.do")
-	public ModelAndView introductionDetail(HttpSession session, Integer introductionNo) throws Exception{
+	public String introductionDetail(HttpServletRequest request, HttpSession session, Model model,
+								Integer introductionNo, RedirectAttributes redirectAttributes) throws Exception{
 		System.out.println("introductionDetail 들어옴");
 		
-		/*Account account = (Account)session.getAttribute("user");
+		Account account = (Account)session.getAttribute("user");
+		
+		boolean viewChk = false;
+		
 		if(account.getMemberType() == 1) {
 			Introduction introduction = new Introduction();
 			introduction.setMemberNo(((Member)account).getMemberNo());
 			introduction.setIntroductionNo(introductionNo);
 			
-			introductionService.viewMemberCheck(introduction);
-		} else {
+			viewChk = introductionService.viewMemberCheck(introduction);
+		} else if(account.getMemberType() == 2) {
+			Map<String, Integer> map = new HashMap<>();
+			map.put("introductionNo", introductionNo);
+			map.put("companyNo", ((Company)account).getCompanyNo());
+			System.out.println(map);
 			
-		}*/
+			viewChk = introductionService.viewCompanyCheck(map);
+		}
+		
+		if(viewChk == false) {
+			String referer = request.getHeader("Referer");
+			
+			redirectAttributes.addFlashAttribute("errorMsgFlashAttr", "볼 수 있는 권한이 없습니다.");
+			return referer;
+		}
 		
 		Introduction introduction = introductionService.selectIntroduction(introductionNo);
 		List<IntroductionCate> iclist= introductionService.selectIntroductionCate(introductionNo);
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("introduction", introduction);
-		mav.addObject("iclist", iclist);
+		model.addAttribute("introduction", introduction);
+		model.addAttribute("iclist", iclist);
 		
-		return mav;
+		return "/mypage/introductionDetail";
 	}
 	
 	@RequestMapping("/introductionForm.do")

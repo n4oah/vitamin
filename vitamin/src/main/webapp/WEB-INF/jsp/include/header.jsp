@@ -18,6 +18,11 @@
          }
       }
    });
+   
+
+   if('${errorMsgFlashAttr}') {
+	   alert('${errorMsgFlashAttr}');
+   }
 </script>
 
 <c:choose>

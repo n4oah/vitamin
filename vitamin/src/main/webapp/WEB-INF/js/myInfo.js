@@ -353,6 +353,18 @@ function myRecuritList(lastSendNo = -1, blankObj) {
             $("#recruit-list-table .recruit-data-row select.recruit-state").selectpicker('refresh');
         }
     });
+
+    $('.resume-name').click(function(event){
+		$("#myModal").modal("show");
+		$(".modal-body").load(getContextPath() + "/mypage/resumeInfo.do?resumeNo="+$(this).attr("attr"));
+		event.preventDefault();
+    });
+    
+    $('.introduction-name').click(function(event){
+		$("#myModal").modal("show");
+		$(".modal-body").load(getContextPath() + "/mypage/introductionDetail.do?introductionNo="+$(this).attr("attr"));
+		event.preventDefault();
+    });
 }
 
 function myRecuritForm(data) {

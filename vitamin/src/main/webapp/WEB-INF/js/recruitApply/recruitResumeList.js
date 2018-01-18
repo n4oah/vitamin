@@ -37,4 +37,11 @@ $(function() {
 		$(".modal-body").load(getContextPath() + "/mypage/resumeInfo.do?resumeNo="+$(this).attr("attr"));
 		event.preventDefault();
 	});
+	
+	$('.introduction-name').click(function(event){
+		console.log('bbbbbb');
+		$("#myModal").modal("show");
+		$(".modal-body").load(getContextPath() + "/mypage/introductionDetail.do?introductionNo="+$(this).attr("attr"));
+		event.preventDefault();
+    });
 });

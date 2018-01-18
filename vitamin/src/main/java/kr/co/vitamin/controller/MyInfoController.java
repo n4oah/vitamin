@@ -136,7 +136,7 @@ public class MyInfoController {
 		infiniteScrollAccount.setLastSeqNo(lastCompanyApplyNo);
 
 		List<CompanyApply> list = recruitApplyService.getMemberRecuritList(infiniteScrollAccount);
-		System.out.println(list);
+
 		return new Gson().toJson(list);
 	}
 	

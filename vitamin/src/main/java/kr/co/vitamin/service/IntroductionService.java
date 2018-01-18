@@ -1,6 +1,7 @@
 package kr.co.vitamin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.IntroductionCate;
@@ -30,5 +31,7 @@ public interface IntroductionService {
 	public Integer selectNextAutoIncrementIntroduction() throws Exception;
 
 	public boolean viewMemberCheck(Introduction introduction);
+	
+	public boolean viewCompanyCheck(Map<String, Integer> map);
 
 }

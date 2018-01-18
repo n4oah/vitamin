@@ -1,6 +1,7 @@
 package kr.co.vitamin.repository.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.Area;
@@ -8,6 +9,7 @@ import kr.co.vitamin.repository.vo.ArmyService;
 import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
+import kr.co.vitamin.repository.vo.CompanyApply;
 import kr.co.vitamin.repository.vo.Hope;
 import kr.co.vitamin.repository.vo.HopeBusiness;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
@@ -64,4 +66,6 @@ public interface ResumeMapper {
 	public void updateAllOpenState(ResumeBaseInfo resumeBaseInfo) throws Exception;
 	
 	public List<ResumeBaseInfo> selectResumeOpenOne(Member member) throws Exception;
+	public Integer viewMemberCheck(CompanyApply companyApply) throws Exception;
+	public Integer viewCompanyCheck(Map<String, Integer> map) throws Exception;
 }

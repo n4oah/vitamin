@@ -16,6 +16,11 @@
 	<script src='${pageContext.request.contextPath}/js/myInfo.js'></script>
 	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 	<script src="${pageContext.request.contextPath}/js/daum-map-api/daum-address-api.js"></script>
+	<style>
+		.recruit-data-row a:hover {
+			cursor: pointer;
+		}
+	</style>
 </head>
 <body>
 	<c:set var="memberType" value="${sessionScope.user.memberTypeName}"></c:set>

@@ -1,6 +1,7 @@
 package kr.co.vitamin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.Area;
@@ -8,6 +9,7 @@ import kr.co.vitamin.repository.vo.ArmyService;
 import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
+import kr.co.vitamin.repository.vo.CompanyApply;
 import kr.co.vitamin.repository.vo.Hope;
 import kr.co.vitamin.repository.vo.HopeBusiness;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
@@ -47,7 +49,8 @@ public interface ResumeService {
 	public String resumeHopeBusiness(Integer hopeNo)throws Exception;
 	public void deleteResume(Integer resumeNo) throws Exception;
 	public void updateOpenState(ResumeBaseInfo resumeBaseInfo) throws Exception;
-	
+	public boolean viewMemberCheck(CompanyApply companyApply)throws Exception;;
+	public boolean viewCompanyCheck(Map<String, Integer> map)throws Exception;;
 	
 	
 	

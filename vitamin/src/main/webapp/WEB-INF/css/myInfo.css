@@ -192,6 +192,10 @@ div.col-md-12 div.content-wrapper {
     background-size: 120px;
     border-radius: 120px;
 }
+.recruit-data-row a:hover {
+	cursor: pointer;
+}
+
 input[type="file"]{
     z-index: 999;
     line-height: 0;

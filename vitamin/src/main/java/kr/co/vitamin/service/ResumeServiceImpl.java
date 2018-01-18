@@ -1,6 +1,7 @@
 package kr.co.vitamin.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import kr.co.vitamin.repository.vo.ArmyService;
 import kr.co.vitamin.repository.vo.BusinessType;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
+import kr.co.vitamin.repository.vo.CompanyApply;
 import kr.co.vitamin.repository.vo.Hope;
 import kr.co.vitamin.repository.vo.HopeBusiness;
 import kr.co.vitamin.repository.vo.LicensingDepartment;
@@ -205,6 +207,17 @@ public class ResumeServiceImpl implements ResumeService {
 		
 		
 		
+	}
+
+	@Override
+	public boolean viewMemberCheck(CompanyApply companyApply) throws Exception {
+		return mapper.viewMemberCheck(companyApply) != null ? true : false;
+	}
+
+	@Override
+	public boolean viewCompanyCheck(Map<String, Integer> map) throws Exception {
+		System.out.println(mapper.viewCompanyCheck(map));
+		return mapper.viewCompanyCheck(map) != null ? true : false;
 	}
 
 	

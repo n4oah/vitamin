@@ -422,7 +422,21 @@
 		update vi_resume set open_state = 0 where resume_no != #{resumeNo};
 	</update>
 	
+	<select id="viewMemberCheck" parameterType="companyApply" resultType="int">
+		SELECT member_no FROM vi_company_apply
+		WHERE
+			member_no = #{memberNo} AND
+			resume_no = #{resumeNo}
+		LIMIT 1
+	</select>
 	
+	<select id="viewCompanyCheck" parameterType="map" resultType="int">
+		SELECT member_no FROM vi_company_apply as main, (SELECT recruit_no FROM vi_recruit_write WHERE company_no = #{companyNo}) as bb
+		WHERE
+			resume_no = #{resumeNo} AND
+			main.recruit_no = bb.recruit_no
+		LIMIT 1
+	</select>
 
 	
 

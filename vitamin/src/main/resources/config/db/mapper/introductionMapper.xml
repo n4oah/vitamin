@@ -103,8 +103,17 @@
 		ORDER BY introduction_reg_date ASC
 	</select>
 	
-	<select id="viewMemberCheck" parameterType="introduction" resultMap="introductionMap">
-		SELECT 
+	<select id="viewMemberCheck" parameterType="introduction" resultType="int">
+		SELECT member_no FROM vi_introduction
+		WHERE member_no = #{memberNo} AND introduction_no = #{introductionNo}
+	</select>
+	
+	<select id="viewCompanyCheck" parameterType="map" resultType="int">
+		SELECT member_no FROM vi_company_apply as main, (SELECT recruit_no FROM vi_recruit_write WHERE company_no = #{companyNo}) as bb
+		WHERE
+			introduction_no = #{introductionNo} AND
+			main.recruit_no = bb.recruit_no
+		LIMIT 1
 	</select>
 
 	<select id="selectNextAutoIncrementIntroduction" resultType="int">
