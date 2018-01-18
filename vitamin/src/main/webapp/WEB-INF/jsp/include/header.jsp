@@ -47,6 +47,11 @@
                <li>
                   <a href="${pageContext.request.contextPath}/search/searchRecruit.do">채용기업 검색</a>
                </li>
+               <c:if test="${sessionScope.user.memberType == 1}">
+				<li>
+				 <a href="${pageContext.request.contextPath}/search/machine.do">맞춤 추천 공고</a>
+				</li>
+               </c:if>
                <c:if test="${sessionScope.user.memberType == 2}">
                   <li>
                      <a href="${pageContext.request.contextPath}/search/peoplesSearch.do">인재 검색</a>

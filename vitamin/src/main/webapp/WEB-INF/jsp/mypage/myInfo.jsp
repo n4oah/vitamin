@@ -66,6 +66,7 @@
 									<li><a href="${pageContext.request.contextPath}/mypage/resumeList.do">이력서 목록</a></li>
 									<li><a href="${pageContext.request.contextPath}/mypage/introductionList.do">자기소개서 목록</a></li>
 									<li><a href="${pageContext.request.contextPath}/cards/cards.do">트롤로</a></li>
+									<li><a href="${pageContext.request.contextPath}/search/calendar.do">나의 일정</a></li>
 								</c:if>
 								<c:if test="${user.memberType == 2}">
 									<li><a href="${pageContext.request.contextPath}/company/detail.do"><i class="fa fa-home"></i> HOME</a></li>

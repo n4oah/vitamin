@@ -22,15 +22,15 @@ body {
 	overflow: 
 }
 .fc-event-container {
-	height: 45px;
+	height: 21px;
 }
 
 .fc-day-grid-event {
-	height: 41px;
+	height: 16px;
 }
 
 .fc-title {
-	font-size: 26px;
+	font-size: 12px;
 }
 .modal, .modal2 {
 	display: none;
@@ -120,9 +120,18 @@ function calendarMake(insert) {
 				            $(".modal2").dialog({title: event.title});
 				            $(".ui-dialog-title").attr("contenteditable", true);
 				        });
+				    },
+				    eventLimit: true, // for all non-agenda views
+				    views: {
+				        agenda: {
+				            eventLimit: 4 // adjust to 6 only for agendaWeek/agendaDay
+				        }
 				    }
 				});		
 				
+				
+				$("[href*='/vitamin/recruit/recruitDetail.do']").off("click");
+				$(".fc-more-popover [href*='/vitamin/recruit/recruitDetail.do']").css("backgroud-color", "tomato")
 				var button = $(".fc-today-button");
 				button.removeClass("fc-today-button fc-button fc-state-default fc-corner-left fc-corner-right fc-state-disabled");
 				button.addClass("fc-button fc-state-default");
