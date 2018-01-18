@@ -243,11 +243,11 @@
 								<h4 class="table_title">학력사항</h4>
 									<span style="float: right">대학교이상</span>
 									<!-- name="schoolLevelNo" value="2"  --> 
-									<input type="radio"	id="ch_schoolevel1" name="schoolLevelNoTmp" value="2" style="float: right"> <span
+									<input type="radio"	id="ch_schoolevel2" name="schoolLevelNoTmp" value="2" style="float: right"> <span
 									style="float: right">고등학교&nbsp</span> 
-									<input type="radio" id="ch_schoolevel2" name="schoolLevelNoTmp" value="1" style="float: right"> <span
+									<input type="radio" id="ch_schoolevel1" name="schoolLevelNoTmp" value="1" style="float: right"> <span
 									style="float: right">고등학교 미만 졸업/중퇴인 경우 선택&nbsp</span> 
-									<input type="radio" id="ch_schoolevel3" name="schoolLevelNoTmp" value="0" checked="checked"  style="float: right">
+									<input type="radio" id="ch_schoolevel0" name="schoolLevelNoTmp" value="0" checked="checked"  style="float: right">
 							</div>
 							<div class="highschool">
 								<table class="table">
@@ -920,6 +920,7 @@ $('.certificationTitle').live("click",function(){
 	    }
 	});
 });
+
 
 
 

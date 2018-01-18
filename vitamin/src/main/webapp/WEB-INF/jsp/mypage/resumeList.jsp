@@ -113,7 +113,7 @@
 		</section>
 		
 		<div class="modal fade" id="myModal" role="dialog">
-		    <div class="modal-dialog modal-lg">
+		    <div class="modal-dialog" style="width:1280px">
 		
 		      <!-- Modal content-->
 		      <div class="modal-content">
@@ -156,6 +156,8 @@
 	 $('.resumeTitle').click(function(event){
 		$("#myModal").modal("show");
 		$(".modal-body").load("${pageContext.request.contextPath}/mypage/resumeInfo.do?resumeNo="+$(this).attr("attr"));
+		//TROLLO
+		
 	});
 	 
 	

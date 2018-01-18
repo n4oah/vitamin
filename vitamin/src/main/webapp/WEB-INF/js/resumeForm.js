@@ -157,6 +157,8 @@ $(function() {
     	dateFormat: "yy-mm-dd",
     	maxDate: 0
     	});
+    
+    
 	
 	
 	
@@ -172,13 +174,15 @@ function validation(){
 	var supportstate= $('#supportState').val()
 	var armyservicestate= $('#armyServiceState').val()
 	var armyservicereason= $('#armyServiceReason').val()
-	var schoolLevel = $("input[name='schoolLevelNoTmp']").val()
 	var schoolStartDate=$("input[name='schoolStartDate']").val()
 	var schoolEndDate=$("input[name='schoolEndDate']").val()
 	var schoolTitle=$("input[name='schoolTitle']").val()
 	var major=$("input[name='major']").val()
-	var schoolScore=$("input[name='schoolScore']").val()
-	
+	var careerState = $("input[name='careerState']").val()
+	var prevCompanyWorking=$("input[name='prevCompanyWorking']").val()
+	var prevCompanyStart=$("input[name'prevCompanyStart']").val()
+	var prevCompanyEnd=$("input[name'prevCompanyEnd']").val()
+	var prevCompanyName=$("input[name'prevCompanyName']").val()
 	
 	if(resumeTitle.length<1){
 		alert("이력서 제목을 설정해주세요");
@@ -196,19 +200,21 @@ function validation(){
 		if(armyservicereason.length<1){
 			alert("면제사유를 입력해주세요")
 		}
-	}else if(schoolLevel !="0"){
-		if(schoolStartDate.length<1){
-			alert("학교입학날짜를 설정해주세요"+schoolLevel)
-		}else if(schoolEndDate.length<1){
-			alert("학교졸업날짜를 설정해주세요")
-		}else if(schoolTitle.length<1){
-			alert("학교이름을 입력해주세요")
-		}else if(major.length<1){
-			alert("전공을 입력해주세요")
-		}
-	}else if(schoolLevel=="2"){
-		if(schoolScore.length<1){
-			alert("학점을 입력해주세요")
+	}else if(schoolStartDate.length<1){
+		alert("학교입학날짜를 설정해주세요")
+	}else if(schoolEndDate.length<1){
+		alert("학교졸업날짜를 설정해주세요")
+	}else if(schoolTitle.length<1){
+		alert("학교이름을 입력해주세요")
+	}else if(major.length<1){
+		alert("전공을 입력해주세요")
+	}else if(careerState =='2'){
+		if(prevCompanyWorking.length<1){
+			alert("근무여부를 선택해주세요")
+		}else if(prevCompanyStart.length<1){
+			alert("입사날짜를 선택해주세요")
+		}else if(prevCompanyEnd.length<1){
+			alert("퇴사날짜를 선택해주세요")
 		}
 	}else{
 		
