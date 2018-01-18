@@ -5,7 +5,6 @@ import java.util.Map;
 
 import kr.co.vitamin.repository.vo.CompanyApply;
 import kr.co.vitamin.repository.vo.InfiniteScrollAccount;
-import kr.co.vitamin.repository.vo.RecruitApply;
 import kr.co.vitamin.repository.vo.account.Member;
 
 public interface RecruitApplyService {
@@ -13,4 +12,5 @@ public interface RecruitApplyService {
 	public boolean recruitApply(CompanyApply companyApply) throws Exception;
 	public List<CompanyApply> getRecruitApplyListOfCompany(InfiniteScrollAccount infiniteScrollAccount) throws Exception;
 	public void updateCompanyApplyState(CompanyApply companyApply) throws Exception;
+	public List<CompanyApply> getMemberRecuritList(InfiniteScrollAccount infiniteScrollAccount) throws Exception;
 }

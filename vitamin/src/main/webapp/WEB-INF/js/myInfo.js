@@ -243,7 +243,7 @@ $(function() {
     let funcMap = new Map();
     funcMap.set('recvList', recvList);
     funcMap.set('sendList', sendList);
-    //funcMap.set('myRecuritList', myRecuritList);
+    funcMap.set('myRecuritList', myRecuritList);
     //funcMap.set('favoriteCompanyList', favoriteCompanyList);
     
     for(let func of funcMap.values()) {
@@ -289,7 +289,7 @@ function recvList(lastRecvNo = -1, blankObj) {
     });
 }
 
-function sendList(lastSendNo = -1, blankChk = false) {
+function sendList(lastSendNo = -1, blankObj) {
     let url = getContextPath() + '/letter/sendLetterList.do';
     let data = {'lastLetterNo': lastSendNo};
     
@@ -301,6 +301,12 @@ function sendList(lastSendNo = -1, blankChk = false) {
             let parent = $('div#letter-send ul.media-list');
 
             let letterList = JSON.parse(dataList);
+
+            if(blankObj != undefined) {
+                $(blankObj).children().each(function() {
+                    $(this).remove();
+                });
+            }
 
             for(let data of letterList) {
                 html = '';
@@ -321,15 +327,53 @@ function sendList(lastSendNo = -1, blankChk = false) {
     });
 }
 
-function myRecuritList() {
+function myRecuritList(lastSendNo = -1, blankObj) {
     let url = getContextPath() + '/mypage/myRecuritList.do';
+    let parm = {'lastCompanyApplyNo': lastSendNo};
+
+    $.ajax({
+        url: url,
+        data: parm,
+        success: function(data) {
+            data = JSON.parse(data);
+
+            if(blankObj != undefined) {
+                $(blankObj).children().each(function() {
+                    $(this).remove();
+                });
+            }
+
+            let parent = $('#recruit-list-table tbody');
+
+            for(let i = 0; i < data.length; i++) {
+                let html = myRecuritForm(data[i]);
+
+                parent.append(html);
+            }
+            $("#recruit-list-table .recruit-data-row select.recruit-state").selectpicker('refresh');
+        }
+    });
+}
+
+function myRecuritForm(data) {
+    let state = ['지원중', '합격', '불합격'];
+    let stateName = state[data['state'] - 1];
+
+    html = ''
+    html += `<tr class="recruit-data-row" atrr="${data['comapplyNo']}">`
+    html += `   <td>`
+    html += `       <select class="selectpicker show-tick recruit-state">`
+    html += `           <option>${stateName}</option>`
+    html += `       </select>`
+    html += `   </td>`
+    html += `   <td><a class="recruit-title" attr="${data['recruitNo']}">${data['recruitTitle']}</a></td>`
+    html += `   <td><a class="resume-name" attr="${data['resumeNo']}">${data['resumeName']}</a></td>`
+    html += `   <td><a class="introduction-name" attr="${data['introductionNo']}">${data['introductionName']}</a></td>`
+    html += `</tr>`
+    return html;
 }
 
 function favoriteCompanyList() {
-
-}
-
-function myRecuritForm() {
 
 }
 

@@ -130,7 +130,6 @@ public class AccountServiceImpl implements AccountService {
 		memberMapper.updateAccount(accountVO);
 		if(address != null) {
 			address.setAddressNo(accountVO.getAddressNo());
-			System.out.println(address.getAddress());
 			addressMapper.updateAddress(address);
 		}
 		if(file != null) {

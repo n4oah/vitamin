@@ -36,6 +36,9 @@
 	function makeProfile(tag, url = -1) {
 		if(url == -1) {
 			$(tag).attr('class', 'glyphicon glyphicon-user icon-size ' + $(tag).attr('class'));
+			if(tag.tagName == 'IMG') {
+				$(tag).css('display', 'none');
+			}
 		} else {
 			if(tag.tagName == 'IMG') {
 				$(tag).attr('src', url);

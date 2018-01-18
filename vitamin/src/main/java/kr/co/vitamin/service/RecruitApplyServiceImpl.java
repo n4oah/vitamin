@@ -1,5 +1,7 @@
 package kr.co.vitamin.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,10 +11,13 @@ import org.springframework.stereotype.Service;
 
 import kr.co.vitamin.repository.mapper.CompanyApplyMapper;
 import kr.co.vitamin.repository.mapper.IntroductionMapper;
+import kr.co.vitamin.repository.mapper.RecruitMapper;
 import kr.co.vitamin.repository.mapper.ResumeMapper;
 import kr.co.vitamin.repository.vo.CompanyApply;
 import kr.co.vitamin.repository.vo.InfiniteScrollAccount;
 import kr.co.vitamin.repository.vo.Introduction;
+import kr.co.vitamin.repository.vo.Recruit;
+import kr.co.vitamin.repository.vo.RecruitApply;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.account.Member;
 
@@ -24,6 +29,8 @@ public class RecruitApplyServiceImpl implements RecruitApplyService {
 	ResumeMapper resumeMapper;
 	@Autowired
 	CompanyApplyMapper companyApplyMapper;
+	@Autowired
+	RecruitMapper recruitMapper;
 	
 	@Override
 	public Map<String, Object> getRecruitSorceData(Member member) throws Exception {
@@ -53,5 +60,10 @@ public class RecruitApplyServiceImpl implements RecruitApplyService {
 	@Override
 	public void updateCompanyApplyState(CompanyApply companyApply) throws Exception {
 		companyApplyMapper.updateCompanyApplyState(companyApply);
+	}
+
+	@Override
+	public List<CompanyApply> getMemberRecuritList(InfiniteScrollAccount infiniteScrollAccount) throws Exception {
+		return companyApplyMapper.selectRecruitList(infiniteScrollAccount);
 	}
 }

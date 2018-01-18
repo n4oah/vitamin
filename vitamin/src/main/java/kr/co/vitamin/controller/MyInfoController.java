@@ -1,6 +1,7 @@
 package kr.co.vitamin.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.google.gson.Gson;
 
 import kr.co.vitamin.common.EmailSender;
 import kr.co.vitamin.common.FileUpload;
@@ -132,9 +135,9 @@ public class MyInfoController {
 		infiniteScrollAccount.setAccountNo(member.getMemberNo());
 		infiniteScrollAccount.setLastSeqNo(lastCompanyApplyNo);
 
-		//List<Recruit> list = recruitApplyService.getMemberRecuritList(infiniteScrollAccount);
-		
-		return null;
+		List<CompanyApply> list = recruitApplyService.getMemberRecuritList(infiniteScrollAccount);
+		System.out.println(list);
+		return new Gson().toJson(list);
 	}
 	
 	@ResponseBody

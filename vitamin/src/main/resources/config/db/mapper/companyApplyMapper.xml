@@ -35,8 +35,26 @@
 	
 	<!-- refix -->
 	<select id="selectRecruitList" parameterType="infiniteScrollAccount" resultMap="companyApplyMap">
-		SELECT * FROM vi_company_apply
-		WHERE member_no = #{accountNo} ORDER BY comapply_no ASC LIMIT 0, #{lastCount}
+		<![CDATA[
+		SELECT main.*, sub3.title AS recruit_title, sub4.title AS resume_name, sub5.introduction_title AS introduction_name
+		FROM
+			vi_company_apply AS main,
+			(SELECT * FROM vi_recruit_write) AS sub3,
+			(SELECT * FROM vi_resume) AS sub4,
+			(SELECT * FROM vi_introduction) AS sub5
+		WHERE
+			main.member_no = #{accountNo} AND
+			main.comapply_no >= #{lastSeqNo} AND
+			sub3.recruit_no = main.recruit_no AND 
+			sub4.resume_no = main.resume_no AND
+			main.introduction_no = sub5.introduction_no
+			ORDER BY comapply_no DESC LIMIT 0, #{lastCount}
+		]]>
+		<!-- SELECT * FROM vi_company_apply as main, vi_recruit_write as oo
+		WHERE member_no = #{accountNo} AND 
+		comapply_no >= #{lastSeqNo} AND
+		oo.recruit_no = main.recruit_no
+		ORDER BY comapply_no ASC LIMIT 0, #{lastCount} -->
 	</select>
 	
 	<select id="selectRecruitResumeList" parameterType="infiniteScrollAccount" resultMap="companyApplyMap">

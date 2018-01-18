@@ -195,7 +195,43 @@
 						        
 						        </div>
 						        <div class="tab-pane" id="myRecurit">
-						        
+									<div class="panel panel-default panel-table">
+										<div class="panel-heading">
+											<div class="row">
+												<div class="col col-xs-6">
+													<h3 class="panel-title">지원한 이력서 </h3>
+												</div>
+											</div>
+										</div>
+										<div class="panel-body">
+											<table id="recruit-list-table" class="table table-striped table-bordered table-list">
+												<thead>
+													<tr>
+														<th class="col-md-1"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+														</th>
+														<th class="col-md-2">공고</th>
+														<th class="col-md-2">이력서</th>
+														<th class="col-md-2">자기소개서</th>
+													</tr>
+												</thead>
+												<tbody>
+													<!-- <tr id="recruit-data" class="recruit-data-row">
+														<td>
+															<select class="selectpicker show-tick recruit-state">
+															</select>			                                 
+														</td>
+														<td><a class="recruit-title"></a></td>
+														<td><a class="resume-name"></a></td>
+														<td><a class="introduction-name"></a></td>
+													</tr>
+												</tbody> -->
+											</table>
+										</div>
+										<div class="panel-footer">
+											<div class="row">
+											</div>
+										</div>
+									</div>
 						        </div>
 						        <div class="tab-pane" id="favoriteCompany">
 						        
