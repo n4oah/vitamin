@@ -4,8 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import org.apache.tomcat.jni.Local;
-
 public class Member extends Account {
 	private Integer memberNo;
 	private String name, phoneNumber;
