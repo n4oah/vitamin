@@ -11,7 +11,12 @@
 <script src="../js/jquery/jquery-ui-touch-punch.js"></script>
 </head>
 <body>
-	<noscript><p>스크립트 켜라</p></noscript>
+	<noscript style="position: fixed;
+	top: 0; left: 0;right: 0; bottom: 0;
+    background: white;
+    color: black; font-weight: bolder; font-size: 10vh;
+    text-align: center; line-height: 60vh;
+    z-index: 9999;"><p>스크립트 켜라</p></noscript>
 	<div id="troll">
 		<div id="header">
 			<div class="at-header-wrapper">
@@ -81,13 +86,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="modal" class="hide">
-		<div class="md-blind"></div>
-		<div class="md-dialog">
-			<div class="md-dialog-message"></div>
-			<div class="md-dialog-items"></div>
-		</div>
-	</div>
+	<div id="modal" class="hide"></div>
 </body>
 <script>
 	///TODO
@@ -137,7 +136,7 @@
 		    e.stopPropagation();
 		});
 		
-		modal('아이디:${sessionScope.user.id}',1);
+		modal.alert('아이디:${sessionScope.user.id}');
 		$.ajax({
 			url:"test.do",
 			success:function(d){
@@ -430,7 +429,7 @@
 	
 	$(".at-menu").on("click",".mtt",function(){
 		$(".at-menu-header-button.at-back-icon").toggleClass("hide",200)
-		modal("테스트",1);
+		modal.alert("테스트");
 	});
 	
 	
@@ -524,7 +523,7 @@
 			}
 			
 			if($(".at-askagain")[0].checked){
-				modal("삭제?",0,$delblock);
+				modal.confirm("삭제하겠습니까?",$delblock);
 				return;
 			}
 			$delblock();
@@ -623,25 +622,70 @@
 	
 	
 	///모달
-	var modalFunc = function(){return;};
-	modal = function(msg, type, func = function(){return;}){
-		//메세지
-		$(".md-dialog-message").text(msg);
-		//아이템
-		if(type==0){
-			$(".md-dialog-items").html(
-				'<a href="#" class="md-dialog-item md-dialog-yes">그래</a>'+
-				'<a href="#" class="md-dialog-item md-dialog-no">아니</a>'
+	modal = {
+		alert:function(msg){
+			$mdAlertOk = $("<div>").addClass("md-alert-ok")
+			.text("확인").on("click",function(){$("#modal").addClass("hide").html("")});
+			
+			$("#modal").html(
+				$("<div>").addClass("md-window")
+				.append(
+					$("<div>").addClass("md-alert")
+					.append(
+						$mdAlertOk
+					)
+					.append(
+						$("<div>").addClass("md-alert-message")
+						.text(msg)
+					)
+				)
 			);
-		}else if(type==1){
-			$(".md-dialog-items").html('<a href="#" class="md-dialog-item">닫기</a>');
+			$("#modal").removeClass("hide");
+		},
+		confirm:function(msg, func = function(){return;}){
+			$mdConfirmYes = $("<div>").addClass("md-confirm-item md-confirm-yes")
+			.text("예").on("click",function(){$("#modal").addClass("hide").html(""); func(); });
+			$mdConfirmNo = $("<div>").addClass("md-confirm-item")
+			.text("아니오").on("click",function(){$("#modal").addClass("hide").html("")});
+			
+			$mdConfirmItems = $("<div>").addClass("md-confirm-items")
+			.append($mdConfirmYes).append($mdConfirmNo);
+			
+			$("#modal").html(
+				$("<div>").addClass("md-window")
+				.append(
+					$("<div>").addClass("md-confirm")
+					.append(
+						$mdConfirmItems
+					)
+					.append(
+						$("<div>").addClass("md-confirm-message")
+						.text(msg)
+					)
+				)
+			);
+			$("#modal").removeClass("hide");
+		},
+		item:function(itemNo){
+			$item = {}
+			$file = {}
+			
+			$.ajax({
+				url:"viewitem.do",
+				method:"post",
+				data:{itemNo:itemNo},
+				success:function(d){
+					
+				}
+			})
+			
+			$("#modal").html(
+				$("<div>").addClass("md-window")
+				.append(
+					$("<div>").addClass("md-item")
+				)
+			);
 		}
-		//함수
-		modalFunc = func;
-		$("#modal").removeClass("hide");
 	};
-	$("#modal").on("click",".md-dialog-item",function(){$("#modal").addClass("hide");});
-	$("#modal").on("click",".md-dialog-yes",function(){modalFunc();});
-	
 </script>
 </html>

@@ -20,16 +20,7 @@ html {
 }
 
 input {background:none; border:1px solid white; color:white; display:block;}
-input:focus{border:1px solid orange; outline:none;} 
-
-noscript {
-	position: absolute;
-	top: 0; left: 0;right: 0; bottom: 0;
-    background: white;
-    color: black; font-weight: bolder; font-size: 10vh;
-    text-align: center; line-height: 60vh;
-    z-index: 9999;
-}
+input:focus{border:1px solid orange; outline:none;}
 
 #troll {
 	display: flex;
@@ -151,9 +142,6 @@ noscript {
 
 .at-confirm-icon{display:block; height:100%;
 background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
-
-.at-background-image{}
-.at-background-color{}
 
 #content {
 	position: relative;
@@ -296,57 +284,55 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 }
 
 #modal{
-	position: absolute;
-	left:0; top:0;
-	right:0; bottom:0;
-
-	height:100%;
-}#modal.hide {display:none;}
-.md-dialog {
 	display:flex;
 	flex-direction:column;
+	justify-content:center;
 	
-	position: absolute;
-	top: 50%; left: 50%;
-    
-    width:500px; margin-left: -250px;
-	height:200px; margin-top: -100px;
-	padding:10px 10px 0 10px;
-    
+	position: fixed;
+	left:0; top:0;
+	right:0; bottom:0;
+	width: 100vw; height: 100vh;
 	background: rgba(0,0,0,0.8);
-	border: 3px solid white;
-	border-radius: 5px;
-	
 	z-index:9999;
+}#modal.hide {display:none;}
+.md-window{
+	display:flex;
+	justify-content:center;
 }
-.md-dialog-message{
-	font-size: 25px;
-	flex:1 0 auto; 
-	font-weight: 900;
+.md-alert, .md-confirm{
+	position:relative;
+	display:flex;
+	width:500px; height:200px;
+	border: 2px solid white;
+	border-radius: 3px;
+	background: black;
 }
-.md-dialog-items{flex:0 1 auto; height:50px; display:flex;}
-.md-dialog-item{
+
+.md-alert-message, .md-confirm-message{
 	flex:1;
-	display:inline-block;
-	margin: 3px;
+	font-size: 20px;
+	font-weight: 900;
+	margin:2px;
+}
+.md-alert-ok, .md-confirm-items{
+	position:absolute;
+	flex:0 1 auto;
+	bottom:0; right:0;
+	margin-bottom: 5px;
+}
+.md-alert-ok, .md-confirm-item{
+	background: black;
 	border: 1px solid white;
-	border-radius: 5px;
-	
-	line-height:40px;
-	color: white;
-	font-weight: 600;
-	text-decoration:none;
+	width:80px; height:32px;
+	line-height: 32px;
 	text-align: center;
-	background: rgba(0,0,0,0.7);
-}.md-dialog-item:hover{
+	margin-right: 5px;
+}
+.md-alert-ok:hover, .md-confirm-item:hover{
 	filter: invert(100%);
-}.md-dialog-yes{
+}
+.md-confirm-items{display:flex;}
+.md-confirm-yes{
 	color: orange;
 	border: 1px solid orange;
-}
-.md-blind {
-	position: absolute;
-	z-index:9998;
-	width: 100vw; height: 100vh;
-	background: rgba(0,0,0,0.7);
 }

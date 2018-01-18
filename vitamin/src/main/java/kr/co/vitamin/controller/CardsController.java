@@ -156,6 +156,12 @@ public class CardsController {
 	
 	///아이템
 	@ResponseBody
+	@PostMapping("/detailitem.do")
+	public void detailItem(int ItemNo) throws Exception{
+		
+	}
+	
+	@ResponseBody
 	@PostMapping("/additem.do")
 	public int addItem(ActivityItem activityItem) throws Exception{
 		ActivityItemService.insertItem(activityItem);
