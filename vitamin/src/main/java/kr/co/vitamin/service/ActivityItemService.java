@@ -14,5 +14,7 @@ public interface ActivityItemService {
 	
 	public void deleteItem(int itemNo) throws Exception;
 	
+	public List<ActivityFiles> selectFileByActivityNo(int activityNo) throws Exception;
+	
 	public void insertFile(ActivityFiles activityFiles) throws Exception;
 }

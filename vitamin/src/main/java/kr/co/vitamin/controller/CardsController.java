@@ -73,6 +73,7 @@ public class CardsController {
 		model.addAttribute("activity",gson.toJson(activity));
 		model.addAttribute("activityList",gson.toJson(ActivityListService.selectListByActivityNo(activity.getActivityNo())));
 		model.addAttribute("activityItem",gson.toJson(ActivityItemService.selectItemByActivityNo(activity.getActivityNo())));
+		model.addAttribute("activityFiles",gson.toJson(ActivityItemService.selectFileByActivityNo(activity.getActivityNo())));
 	}
 	
 	//다른 계정의 트롤로

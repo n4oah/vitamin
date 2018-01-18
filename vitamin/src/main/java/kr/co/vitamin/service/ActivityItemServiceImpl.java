@@ -38,6 +38,11 @@ public class ActivityItemServiceImpl implements ActivityItemService {
 	}
 
 	@Override
+	public List<ActivityFiles> selectFileByActivityNo(int activityNo) throws Exception {
+		return activityFilesMapper.selectActivityFilesByActivityNo(activityNo);
+	}
+
+	@Override
 	public void insertFile(ActivityFiles activityFiles) throws Exception {
 		activityFilesMapper.insertActivityFiles(activityFiles);
 	}
