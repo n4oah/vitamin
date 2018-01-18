@@ -102,7 +102,8 @@
 		아이템
 		-불러오기 O
 		-이동 O
-		-추가 
+		-추가 O
+		-삭제 O
 		-상세
 		-수정
 		-업로드 O
@@ -125,10 +126,10 @@
 	
 	var $activityList = {};
 	var $activityItem = {};
-	var $activityFile = {};
+	var $activityFiles = {};
 	if('${activityList}'){$activityList = JSON.parse('${activityList}');}
 	if('${activityItem}'){$activityItem = JSON.parse('${activityItem}');}
-	if('${activityFile}'){$activityItem = JSON.parse('${activityFile}');}
+	if('${activityFiles}'){$activityFiles = JSON.parse('${activityFiles}');}
 	
 	$(document).ready(function() {
 		$(document).on('dragover drop', function(e) {
@@ -189,12 +190,26 @@
 		for (let i in $activityItem){
 			$("<div>").addClass("at-list-item")
 			.data("itemNo",$activityItem[i].itemNo)
-			.data("itemNo"+$activityItem[i].itemNo,"file 초기화용 데이터")
-			.append($("<div>").text($activityItem[i].itemContent))
+			.data("itemNo"+$activityItem[i].itemNo,"files 초기화용 데이터")
+			.append(
+				$("<div>").addClass("at-item-content").text($activityItem[i].itemContent)
+				.data("fileCount",0)
+			).append(
+				$("<div>").addClass("at-item-status")
+			)
 			.appendTo($(".at-board-list:data(listNo"+$activityItem[i].listNo+")").find(".at-board-list-content"))
 		}
 		$(".at-list-item").draggable($listItemDraggable);
 		
+		//파일 불러오기
+		for (let i in $activityFiles){
+			let $item = $(".at-list-item:data(itemNo"+$activityFiles[i].itemNo+")");
+			let $itemContent = $item.children(".at-item-content");
+			let $itemStatus = $item.children(".at-item-status");
+			
+			$itemContent.data("fileCount",$itemContent.data("fileCount")+1);
+			$itemStatus.text("파일"+$itemContent.data("fileCount")+"개")
+		}
 		
 	});
 	
@@ -421,7 +436,7 @@
 	
 	
 	
-	///보드
+	///리스트
 	//추가
 	$(".at-addblock").on("click",function(e){
 		$(this).addClass("takeonme");
@@ -465,6 +480,7 @@
 				},
 				success: function(d){
 					$newlist.data("listNo",d);
+					$newlist.data("listNo"+d,"item 초기화용 데이터");
 					console.log($newlist.data("listNo")," 리스트 추가됨")
 				}
 			});
@@ -518,13 +534,30 @@
 	///아이템
 	//추가
 	$("#at-board").on("click",".at-list-add", function(e){
+		$listContent = $(this).parents(".at-board-list-content");
+		
 		let $newItem = $("<div>")
-		.append($("<div>").text("아이템"))
-		.addClass("at-list-item")
+		.append(
+			$("<div>").addClass("at-item-content").text("아이템")
+		).append(
+			$("<div>").addClass("at-item-status")
+		).addClass("at-list-item")
 		.draggable($listItemDraggable)
 		
+		$.ajax({
+			url:"additem.do",
+			method:"post",
+			data:{
+				listNo: $listContent.parent().data("listNo"),
+				itemContent: "아이템"
+			},
+			success:function(d){
+				$newItem.data("itemNo",d);
+				$newItem.data("itemNo"+d,"files 초기화용 데이터")
+				$listContent.append($newItem);
+			}
+		});
 		
-		$newItem.appendTo($(this).parent());
 	});
 	
 	//파일
@@ -533,13 +566,18 @@
 		e.preventDefault();
 		e.stopPropagation();
 		
-		let $this = $(this);
-		if(e.originalEvent.dataTransfer.files){
+		let $listContent = $(this);
+		if(e.originalEvent.dataTransfer){
 			console.dir(e.originalEvent.dataTransfer.files);
 			let files = e.originalEvent.dataTransfer.files;
 			
 			let $newItem = $("<div>")
-			.append($("<div>").text(files[0].name))
+			.append(
+				$("<div>").addClass("at-item-content").text(files[0].name)
+			).append(
+				$("<div>").addClass("at-item-status").text("파일"+files.length+"개")
+				.data("fileCount",files.length)
+			)
 			.addClass("at-list-item")
 			.draggable($listItemDraggable)
 			
@@ -552,7 +590,7 @@
 					return;
 				}
 			}
-			formData.append("listNo",$this.parent().data("listNo"));
+			formData.append("listNo",$listContent.parent().data("listNo"));
 			formData.append("itemContent",files[0].name);
 			
 			$.ajax({
@@ -563,7 +601,8 @@
 				contentType: false,
 				success: function(d){
 					$newItem.data("itemNo",d);
-					$this.append($newItem);
+					$newItem.data("itemNo"+d,"files 초기화용 데이터")
+					$listContent.append($newItem);
 				},
 				error: function(jq,ex){
 					console.log(jq.status,"에-러");

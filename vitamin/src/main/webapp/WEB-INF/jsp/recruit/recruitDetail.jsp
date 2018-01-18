@@ -564,7 +564,19 @@
 									<td class="welfare">
 										<c:if test="${welfareList != null }">
 											<c:forEach items="${welfareList }" var="wel">
-												<div>${wel.welfareTitle } | ${wel.welfareContent }</div>
+											
+											
+											
+										<%-- 	<div class="welfare">
+												<div class="welfare_content">
+													<input type="text" value="${wel.welfareTitle }"  readonly name="welfareTitleList"  class="dateofbirth" style="width:17.6%; margin-bottom:1%">
+													<strong>:</strong>
+													<input type="text" value="${wel.welfareContent }"  readonly name="welfareContentList"class="dateofbirth" style="width:80%; margin-left:10px">
+												</div>
+											</div> --%>
+											
+											
+											<div>${wel.welfareTitle }:  ${wel.welfareContent }</div>
 											</c:forEach>
 										</c:if>
 									</td>

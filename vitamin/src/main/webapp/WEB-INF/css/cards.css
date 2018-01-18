@@ -203,18 +203,20 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 }
 .at-board-list-content > div {
 	margin:1px 2px;
-	border-radius: 2px;
+	
 	overflow:hidden;
 }
 .at-list-add{
 	height:20px;
 	line-height:20px;
 	text-align:center;
+	border:1px solid white;
 }
 .at-list-item{
 	flex: 0 1 auto;
 	min-height:40px;
 	
+	border-radius: 2px;
 	background: rgba(224,224,224,0.2);
 	
 	white-space:nowrap;
