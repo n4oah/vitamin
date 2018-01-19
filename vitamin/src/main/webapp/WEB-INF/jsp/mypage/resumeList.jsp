@@ -185,7 +185,6 @@
 		        		
 		        		/* $(this).addClass("ui-selected"); */
 		        		/* location.href="${pageContext.request.contextPath}/mypage/resumeList.do"; */
-		        		console.dir($(spanThis))
 // 		        		$(this).addClass("ui-selected");
 		        		var attrNo = $(spanThis).attr("attr")
 		        		$("span[attr].ui-widget-content").each(function () {

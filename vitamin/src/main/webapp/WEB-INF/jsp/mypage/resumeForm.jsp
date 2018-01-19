@@ -136,7 +136,7 @@
 										<th>주소</th>
 										<td><input type="text" class="float-control" id="postcode"
 											style="width: 20%" value="${address.postCode}"placeholder="우편번호"
-											onclick="sample6_execDaumPostcode()" readonly="readonly"> 
+											readonly="readonly"> 
 											<input type="text" class="float-control" id="address"
 											style="width: 80%" value="${address.address }" placeholder="주소" readonly="readonly">
 											
