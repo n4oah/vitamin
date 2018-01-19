@@ -121,7 +121,7 @@ $(function () {
 		waitingDialog.show();
 
 		if(checked == false) {
-			let url = getContextPath() + '/recruitApply/getData.do';
+			let url = path+'/recruitApply/getData.do';
 			$.ajax({
 				url: url,
 				success: function(data) {
@@ -160,7 +160,7 @@ $(function () {
 
 	$('#apply-modal-form').submit(function(event) {
 		let data = $(this).serialize();
-		let url = getContextPath() + '/recruitApply/apply.do';
+		let url = path+'/recruitApply/apply.do';
 
 		let modal = $('#apply-modal');
 
@@ -183,7 +183,7 @@ $(function () {
 				hideModal(modal);
 				
 				if (chk)
-					location.href = "http://192.168.0.146:3030/?memberNo="+no+"&password="+pwd;
+					location.href = "http://192.168.0.146:3030/?memberNo="+no+"&password="+pwd+"&mno="+mno;
 			}
 		});
 

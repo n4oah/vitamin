@@ -202,6 +202,7 @@ public class AccountController {
 		else {
 			if(memVo.getEmailTokenStatus() == 2) {
 				session.setAttribute("user", memVo);
+				session.setAttribute("user2", memberVO);
 				
 				if(autoSignin == 1) {
 					HttpServletRequest req = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();

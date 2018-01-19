@@ -1,9 +1,5 @@
 package kr.co.vitamin.controller;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,13 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.vitamin.repository.vo.Address;
 import kr.co.vitamin.repository.vo.ArmyService;
-import kr.co.vitamin.repository.vo.CalendarRecruit;
 import kr.co.vitamin.repository.vo.Certificate;
 import kr.co.vitamin.repository.vo.City;
 import kr.co.vitamin.repository.vo.Hope;
 import kr.co.vitamin.repository.vo.Introduction;
 import kr.co.vitamin.repository.vo.IntroductionCate;
-import kr.co.vitamin.repository.vo.Machine;
 import kr.co.vitamin.repository.vo.PeopleSearch;
 import kr.co.vitamin.repository.vo.PrevCompany;
 import kr.co.vitamin.repository.vo.ResumeBaseInfo;
