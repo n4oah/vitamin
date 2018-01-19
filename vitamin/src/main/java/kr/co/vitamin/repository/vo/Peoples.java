@@ -7,9 +7,15 @@ public class Peoples {
 	private String title, name, gender, graduateState, cityName, areaName, armyServiceReason; 
 	private Integer memberNo, resumeNo, age, careerState, careerYears, jobState, armyServiceState;
 	private List<Certificate> certificate;
-	private Date regDate;
+	private Date regDate, birthDate;
 	
 	
+	public Date getBirthDate() {
+		return birthDate;
+	}
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
+	}
 	public String getArmyServiceReason() {
 		return armyServiceReason;
 	}

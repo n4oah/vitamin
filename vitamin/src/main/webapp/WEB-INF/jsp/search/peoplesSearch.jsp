@@ -813,7 +813,7 @@ $('span.dropdown').click(function () {
 					
 					
 				tr.append($('<td>').addClass('support_infoAjax')
-					.append($('<p>').addClass('recruit_date_startAjax').css("padding-left", "2px").text(sdf.format(new Date(human.regDate)))));
+					.append($('<p>').addClass('recruit_date_startAjax').css("padding-left", "2px").text(sdf.format(new Date(human.birthDate)))));
 					
 				$("tbody").append(tr);
 			});

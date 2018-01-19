@@ -625,3 +625,6 @@ a {
 [class$='asc'], [class$='desc'] {
 	cursor: pointer;
 }
+.dropdown-toggle strong {
+	width: auto;
+}

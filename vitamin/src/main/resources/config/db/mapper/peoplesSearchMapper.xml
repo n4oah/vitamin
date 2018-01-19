@@ -44,6 +44,7 @@
 		<result column="army_service_state" property="armyServiceState" />
 		<result column="army_service_reason" property="armyServiceReason" />
 		<result column="reg_date" property="regDate" />
+		<result column="birth_date" property="birthDate" />
 		<collection resultMap="certificateMap" javaType="java.util.ArrayList" property="certificate" />
 	</resultMap>	
 	
