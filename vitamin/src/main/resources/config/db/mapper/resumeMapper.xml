@@ -423,11 +423,7 @@
 	</update>
 	
 	<select id="viewMemberCheck" parameterType="companyApply" resultType="int">
-		SELECT member_no FROM vi_company_apply
-		WHERE
-			member_no = #{memberNo} AND
-			resume_no = #{resumeNo}
-		LIMIT 1
+		select * from vi_resume WHERE member_no = #{memberNo} AND resume_no = #{resumeNo} LIMIT 1
 	</select>
 	
 	<select id="viewCompanyCheck" parameterType="map" resultType="int">

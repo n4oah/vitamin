@@ -87,6 +87,8 @@ public class ResumeController {
 			companyApply.setMemberNo(((Member)user).getMemberNo());
 			companyApply.setResumeNo(resumeNo);
 			
+			System.out.println(companyApply);
+			
 			viewChk = resumeService.viewMemberCheck(companyApply);
 		} else if(user.getMemberType() == 2) {
 			Map<String, Integer> map = new HashMap<>();

@@ -354,16 +354,23 @@ function myRecuritList(lastSendNo = -1, blankObj) {
         }
     });
 
-    $('.resume-name').click(function(event){
+    $('#recruit-list-table').on('click', '.resume-name', function(event) {
+    	console.log('asdf');
 		$("#myModal").modal("show");
 		$(".modal-body").load(getContextPath() + "/mypage/resumeInfo.do?resumeNo="+$(this).attr("attr"));
 		event.preventDefault();
     });
     
-    $('.introduction-name').click(function(event){
+    $('#recruit-list-table').on('click', '.introduction-name', function(event) {
 		$("#myModal").modal("show");
 		$(".modal-body").load(getContextPath() + "/mypage/introductionDetail.do?introductionNo="+$(this).attr("attr"));
 		event.preventDefault();
+    });
+    
+    $('#recruit-list-table').on('click', '.recruit-title', function(event) {
+    	let recruitNo = $(this).attr('attr');
+    	location.href = getContextPath() + '/recruit/recruitDetail.do?no=' + recruitNo;
+    	event.preventDefault();
     });
 }
 
