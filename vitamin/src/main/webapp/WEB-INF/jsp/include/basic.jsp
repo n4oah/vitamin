@@ -20,4 +20,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/i18n/defaults-*.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/loadingBar/loadingBar.js"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/loadingBar/loadingBar.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/sweetalert2.min.css" />
 <script src="${pageContext.request.contextPath}/js/profile.js"></script>
+<script src="${pageContext.request.contextPath}/js/sweetalert2.min.js"></script>
