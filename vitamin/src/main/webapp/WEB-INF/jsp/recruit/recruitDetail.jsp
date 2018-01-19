@@ -19,8 +19,11 @@
       	
       	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c8a57785909f4fa93e71b789edfa01d6&libraries=services,clusterer,drawing"></script>
       	<script type="text/javascript">
-      		var no = "${user.accountNo}";
-      		var pwd = "${user.pwd}";
+      		var path = '${pageContext.request.contextPath}';
+      		var pwd = '${sessionScope.user2.pwd }';
+      		var id = '${sessionScope.user2.id }';
+      		var no = '${sessionScope.user.accountNo }';
+      		var mno = '${sessionScope.user.memberNo }';
       	</script>
 		<style>
 /* 접수기간 달력 */
