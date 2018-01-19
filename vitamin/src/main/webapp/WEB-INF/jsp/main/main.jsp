@@ -86,22 +86,24 @@
 	    <h3>채용정보</h3>
 	    <br>
 	    <div class="row">
-	        <div class="col-sm-4">
-	            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-	            <p>Current Project</p>
-	        </div>
-	        <div class="col-sm-4">
-	            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-	            <p>Project 2</p>
-	        </div>
-	        <div class="col-sm-4">
-	            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-	            <p>Project 2</p>
-	        </div>
-	        <div class="col-sm-4">
-	            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-	            <p>Project 2</p>
-	        </div>
+	    	<c:forEach var="recruit" items="${recruitList}">
+		        <div class="col-sm-4">
+		            <img class="profile-image company-logo" attr="${recruit.companyNo}" style="width:100%" alt="Image">
+		            <p>${recruit.title}</p>
+		        </div>
+		        <!-- <div class="col-sm-4">
+		            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+		            <p>Project 2</p>
+		        </div>
+		        <div class="col-sm-4">
+		            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+		            <p>Project 2</p>
+		        </div>
+		        <div class="col-sm-4">
+		            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+		            <p>Project 2</p>
+		        </div> -->
+	        </c:forEach>
 	    </div>
 	</div>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>

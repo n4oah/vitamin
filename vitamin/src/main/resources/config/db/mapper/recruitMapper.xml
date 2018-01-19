@@ -122,4 +122,8 @@
 			#{recruitingState}
 		)
 	</insert>
+	
+	<select id="selectNewRecruitList" resultMap="detailRecruitMap">
+		SELECT * FROM vi_recruit_write ORDER BY recruit_no DESC LIMIT 6
+	</select>
 </mapper>

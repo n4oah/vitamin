@@ -63,9 +63,6 @@
 			<bean class="kr.co.vitamin.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
-	
-	<!-- <mvc:view-controller path="/index.jsp" view-name="main.do" /> -->
-	<mvc:view-controller path="/main.do" view-name="main/main" />
 </beans>
 
     

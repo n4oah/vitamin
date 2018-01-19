@@ -27,4 +27,9 @@ public class RecruitServiceImpl implements RecruitService {
 	public int selectRecruitNo() throws Exception {
 		return recruitMapper.selectRecruitNo();
 	}
+	
+	@Override
+	public List<Recruit> getNewRecruitList() throws Exception {
+		return recruitMapper.selectNewRecruitList();
+	}
 }

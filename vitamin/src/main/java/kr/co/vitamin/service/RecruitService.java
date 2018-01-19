@@ -8,4 +8,5 @@ public interface RecruitService {
 	public void insertRecruit(Recruit recruit) throws Exception;
 	public Recruit detailRecruit(int no) throws Exception;
 	public int selectRecruitNo() throws Exception;
+	public List<Recruit> getNewRecruitList() throws Exception;
 }
