@@ -328,7 +328,7 @@
 	        						</td>
 	        						
 	        						<td class="company_nm">
-	        							<a class="str_tit" href="${pageContext.request.contextPath }/company/detail.do?no=${rlist.companyNo}">
+	        							<a class="str_tit" href="${pageContext.request.contextPath }/company/detail.do?no=${rlist.companyNo}" target="_blank">
 	        								<span class="company_name">${rlist.company.companyName }</span></a>                         
 	        							<div class="icon"></div>
 	    							</td>
@@ -779,7 +779,8 @@
 						
 						tr.append($("<td>").addClass("company_nm")
 							.append($("<a>").addClass("str_tit company_name")
-									.attr({"title": recruit.company.companyName, "href": "${pageContext.request.contextPath}/company/detail.do?no=" + recruit.companyNo})
+									.attr({"title": recruit.company.companyName, "href": "${pageContext.request.contextPath}/company/detail.do?no=" + recruit.companyNo,
+											"target": "_blank"})
 								.append($("<span>").text(recruit.company.companyName)))
 							.append($("<div>").addClass("icon")));
 						
