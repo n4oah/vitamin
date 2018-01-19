@@ -266,7 +266,7 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	float:left;
 	position: relative;
 	
-	min-width: 50px; min-height: 50px;
+	min-width: 75px; min-height: 75px;
 	width: 5vw; height:5vw;
 	margin: 1vw 0.5vw;
 	
@@ -312,15 +312,15 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	flex:1;
 	font-size: 20px;
 	font-weight: 900;
-	margin:2px;
+	margin:5px;
 }
-.md-alert-ok, .md-confirm-items{
+.md-alert-ok, .md-confirm-buttons{
 	position:absolute;
 	flex:0 1 auto;
 	bottom:0; right:0;
 	margin-bottom: 5px;
 }
-.md-alert-ok, .md-confirm-item{
+.md-alert-ok, .md-confirm-button{
 	background: black;
 	border: 1px solid white;
 	width:80px; height:32px;
@@ -328,11 +328,24 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	text-align: center;
 	margin-right: 5px;
 }
-.md-alert-ok:hover, .md-confirm-item:hover{
+.md-alert-ok:hover, .md-confirm-button:hover{
 	filter: invert(100%);
 }
-.md-confirm-items{display:flex;}
+.md-confirm-buttons{display:flex;}
 .md-confirm-yes{
 	color: orange;
 	border: 1px solid orange;
+}
+.md-item{
+	position:relative;
+	display:flex;
+	flex-direction:column;
+}
+.md-item-close{
+	position:absolute;
+	top:0; right:0;
+	margin: 5px;
+}
+.md-item-content{
+	margin-top:20px;
 }

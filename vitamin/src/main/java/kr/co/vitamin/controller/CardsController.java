@@ -1,8 +1,10 @@
 package kr.co.vitamin.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -157,8 +159,12 @@ public class CardsController {
 	///아이템
 	@ResponseBody
 	@PostMapping("/detailitem.do")
-	public void detailItem(int ItemNo) throws Exception{
+	public Map<String,Object> detailItem(Model model,int itemNo) throws Exception{
+		Map<String,Object> scribblenauts = new HashMap<String,Object>();
 		
+		scribblenauts.put("item", ActivityItemService.selectItemByItemNo(itemNo));
+		scribblenauts.put("files",ActivityItemService.selectFileByItemNo(itemNo));
+		return scribblenauts;
 	}
 	
 	@ResponseBody

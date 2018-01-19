@@ -576,7 +576,11 @@
 											</div> --%>
 											
 											
-											<div>${wel.welfareTitle }:  ${wel.welfareContent }</div>
+											<div>
+												<span style="width: 6.5%; display: inline-block;">${wel.welfareTitle }</span> |
+												 <span>${wel.welfareContent }</span>  
+											
+											</div>
 											</c:forEach>
 										</c:if>
 									</td>

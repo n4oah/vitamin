@@ -103,15 +103,11 @@
 		-이동 O
 		-추가 O
 		-삭제 O
-		-상세
+		-상세 O
 		-수정
 		-업로드 O
 		
 		기본설정
-		-메뉴구분
-		-이름
-		-공개
-		-배경(사진업로드)
 		
 		메모
 		
@@ -136,7 +132,6 @@
 		    e.stopPropagation();
 		});
 		
-		modal.alert('아이디:${sessionScope.user.id}');
 		$.ajax({
 			url:"test.do",
 			success:function(d){
@@ -209,7 +204,6 @@
 			$itemContent.data("fileCount",$itemContent.data("fileCount")+1);
 			$itemStatus.text("파일"+$itemContent.data("fileCount")+"개")
 		}
-		
 	});
 	
 	var $boardListDraggable = {
@@ -618,13 +612,17 @@
 		drop:function(e,u){u.draggable.css({left:0,top:0})}
 	})
 	
-	//정렬(jquery index, droppable)
+	//상세보기
+	$("#at-board").on("click",".at-list-item",function(){
+		modal.item($(this).data("itemNo"));
+	});
 	
+	//정렬(jquery index, droppable)
 	
 	///모달
 	modal = {
 		alert:function(msg){
-			$mdAlertOk = $("<div>").addClass("md-alert-ok")
+			let $mdAlertOk = $("<div>").addClass("md-alert-ok")
 			.text("확인").on("click",function(){$("#modal").addClass("hide").html("")});
 			
 			$("#modal").html(
@@ -643,12 +641,12 @@
 			$("#modal").removeClass("hide");
 		},
 		confirm:function(msg, func = function(){return;}){
-			$mdConfirmYes = $("<div>").addClass("md-confirm-item md-confirm-yes")
+			let $mdConfirmYes = $("<div>").addClass("md-confirm-button md-confirm-yes")
 			.text("예").on("click",function(){$("#modal").addClass("hide").html(""); func(); });
-			$mdConfirmNo = $("<div>").addClass("md-confirm-item")
+			let $mdConfirmNo = $("<div>").addClass("md-confirm-button")
 			.text("아니오").on("click",function(){$("#modal").addClass("hide").html("")});
 			
-			$mdConfirmItems = $("<div>").addClass("md-confirm-items")
+			let $mdConfirmItems = $("<div>").addClass("md-confirm-buttons")
 			.append($mdConfirmYes).append($mdConfirmNo);
 			
 			$("#modal").html(
@@ -667,24 +665,54 @@
 			$("#modal").removeClass("hide");
 		},
 		item:function(itemNo){
-			$item = {}
-			$file = {}
-			
 			$.ajax({
-				url:"viewitem.do",
+				url:"detailitem.do",
 				method:"post",
 				data:{itemNo:itemNo},
 				success:function(d){
+					let $data = JSON.parse(d);
 					
+					let $item = $data.item;
+					let $files = $data.files;
+					
+					if(!$item){return;}
+					let $mdItemClose = $("<div>").addClass("md-item-close").text("X")
+					.on("click",function(){$("#modal").addClass("hide").html("");});
+					let $mdItemContent = $("<div>").addClass("md-item-content")
+					.text($item.itemContent);
+					let $mdItemFiles = $("<div>").addClass("md-item-files");
+					
+					if($files){
+						for(i in $files){
+							let $file = $files[i];
+							$mdItemFiles.append(
+								$("<div>").addClass("md-item-file")
+								.append(
+									$("<a>")
+									.attr("download",$file.atFileOrigin)
+									.attr("href",
+										"${pageContext.request.contextPath}/upload"+
+										$file.atFilePath +"/"+ $file.atFileName
+									)
+									.text($file.atFileOrigin)
+								)
+							)
+							console.dir($file)
+						}
+					}
+					
+					$("#modal").html(
+						$("<div>").addClass("md-window")
+						.append(
+							$("<div>").addClass("md-item")
+							.append($mdItemClose)
+							.append($mdItemContent)
+							.append($mdItemFiles)
+						)
+					);
+					$("#modal").removeClass("hide");
 				}
-			})
-			
-			$("#modal").html(
-				$("<div>").addClass("md-window")
-				.append(
-					$("<div>").addClass("md-item")
-				)
-			);
+			});
 		}
 	};
 </script>

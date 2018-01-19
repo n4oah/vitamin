@@ -16,6 +16,11 @@
 		order by item_no 
 	</select>
 	
+	<select id="selectActivityItemByItemNo" parameterType="int" resultMap="activityItemMap">
+		select * from vi_activity_item
+		where item_no = #{itemNo}
+	</select>
+	
 	<insert id="insertActivityItem" useGeneratedKeys="true" keyProperty="itemNo" parameterType="activityItem">
 		insert into vi_activity_item(list_no, item_content)
 		values(#{listNo},#{itemContent})

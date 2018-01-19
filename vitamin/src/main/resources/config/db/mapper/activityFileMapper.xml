@@ -30,8 +30,13 @@
 		where item_no = #{itemNo} 
 	</select>
 	
-	<insert id="insertActivityFiles">
+	<insert id="insertActivityFiles" parameterType="activityFiles">
 		insert into vi_activity_files(item_no, at_file_name, at_file_origin, at_file_path)
 		values(#{itemNo},#{atFileName},#{atFileOrigin},#{atFilePath})
 	</insert>
+	
+	<delete id="deleteActivityFiles" parameterType="int">
+		delete from vi_activity_files
+		where at_file_no = #{atFileNo}
+	</delete>
 </mapper>
