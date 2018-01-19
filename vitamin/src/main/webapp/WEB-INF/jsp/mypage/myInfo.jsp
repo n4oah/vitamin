@@ -35,10 +35,13 @@
 							data-ride="carousel">
 							<div class="carousel-inner" role="listbox">
 								<div class="item active">
-									<img src="${pageContext.request.contextPath}/image/mypage/logos.png" />
+									<img src="${pageContext.request.contextPath}/image/mypage/init_mypage3.jpg" />
 								</div>
 								<div class="item">
-									<img src="http://placehold.it/1200x400/20BFA9/ffffff&text=CLEAN %26 SMART" />
+									<img src="${pageContext.request.contextPath}/image/mypage/init_mypage2.jpg" />
+								</div>
+								<div class="item">
+									<img src="${pageContext.request.contextPath}/image/mypage/init_mypage1.jpg" />
 								</div>
 							</div>
 							<a class="left carousel-control"
