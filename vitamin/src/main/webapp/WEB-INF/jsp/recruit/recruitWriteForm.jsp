@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Insert title here</title>
+		<title>채용공고 글쓰기</title>
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruitWrite.css">
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
@@ -32,7 +32,7 @@
 			 	<div class="write_title  form-group">
 					<span class="ex_label col-md-1 title">제목</span>
 					<div class="col-md-10">
-						<input type="text" class="form-control" name="title"  value="테스트제목">
+						<input type="text" class="form-control" name="title"  placeholder="공고제목">
 					</div>
 			 	</div>
 			 </div>

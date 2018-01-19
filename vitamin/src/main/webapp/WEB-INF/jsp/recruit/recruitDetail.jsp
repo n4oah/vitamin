@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Insert title here</title>
+		<title>채용공고 상세</title>
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 		 
@@ -302,7 +302,7 @@
 				<div class="row">
 			      <div class="col-xs-12 col-md-8 col-lg-9">
 			        <h3 class="recruit_title">${recruit.title }</h3>
-			        <h3>로고</h3>
+			        <!-- <h3>로고</h3> -->
 			      </div> 
 			      <div class="col-xs-12 col-md-4 col-lg-3">
 			        <div class="top_right_wrap">

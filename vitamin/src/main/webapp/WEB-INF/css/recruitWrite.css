@@ -52,6 +52,7 @@ input[type="checkbox"], input[type="radio"] {
 
 span.title {
 	width: 100px;
+	margin-top: 6px;
 	margin-right: 2%;
 	text-align:left;
 }
