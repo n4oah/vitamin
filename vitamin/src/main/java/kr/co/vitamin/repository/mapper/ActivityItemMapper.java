@@ -13,5 +13,7 @@ public interface ActivityItemMapper {
 	
 	public void updateActivityItemLocation(ActivityItem activityItem) throws Exception;
 	
+	public void updateActivityItemContent(ActivityItem activityItem) throws Exception;
+	
 	public void deleteActivityItem(int itemNo) throws Exception;
 }

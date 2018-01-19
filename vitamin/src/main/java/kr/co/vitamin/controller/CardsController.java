@@ -175,10 +175,19 @@ public class CardsController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/updateitem/location.do")
-	public String updateItemLocation(ActivityItem activityItem) throws Exception {
-		ActivityItemService.updateItemLocation(activityItem);
-		return "아이템 위치 저장됨";
+	@PostMapping("/updateitem/{column}.do")
+	public String updateItemLocation(@PathVariable String column,ActivityItem activityItem) throws Exception {
+		
+		switch(column) {
+			case "location":
+				ActivityItemService.updateItemLocation(activityItem);
+				return "아이템 위치 저장됨";
+			case "content":
+				ActivityItemService.updateItemContent(activityItem);
+				return "아이템 내용 저장됨";
+		}
+		
+		return null;
 	}
 	
 	@ResponseBody

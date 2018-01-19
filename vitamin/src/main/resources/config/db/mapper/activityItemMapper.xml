@@ -32,6 +32,12 @@
 		where item_no = #{itemNo}
 	</update>
 	
+	<update id="updateActivityItemContent" parameterType="activityItem">
+		update vi_activity_item
+		set item_content = #{itemContent}
+		where item_no = #{itemNo}
+	</update>
+	
 	<delete id="deleteActivityItem" parameterType="int">
 		delete from vi_activity_item
 		where item_no = #{itemNo}

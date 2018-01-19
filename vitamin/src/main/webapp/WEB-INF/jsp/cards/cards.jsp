@@ -554,7 +554,7 @@
 	});
 	
 	//파일
-	var maxSize = 10*1024*1024; //10MB
+	var maxSize = 15*1024*1024; //15MB
 	$("#at-board").on("drop",".at-board-list-content",function(e){
 		e.preventDefault();
 		e.stopPropagation();
@@ -613,7 +613,7 @@
 	})
 	
 	//상세보기
-	$("#at-board").on("click",".at-list-item",function(){
+	$("#at-board").on("click",".at-list-item",function(e){
 		modal.item($(this).data("itemNo"));
 	});
 	
@@ -676,13 +676,57 @@
 					let $files = $data.files;
 					
 					if(!$item){return;}
+					
 					let $mdItemClose = $("<div>").addClass("md-item-close").text("X")
 					.on("click",function(){$("#modal").addClass("hide").html("");});
+					
 					let $mdItemContent = $("<div>").addClass("md-item-content")
-					.text($item.itemContent);
+					.append($("<span>").text($item.itemContent));
+					let $mdItemContentEdit = $("<div>").addClass("md-item-content-edit")
+					.on("click",function(){
+						$mdItemContentInput
+						.text($mdItemContent.children("span").text())
+						.removeClass("hide");
+						$mdItemContentButtons.removeClass("hide");
+						$(this).addClass("hide");
+					});
+					let $mdItemContentInput = $("<div>").addClass("md-item-content-input hide")
+					.attr("contenteditable","true");
+					
+					let $mdItemContentButtons = $("<div>").addClass("md-item-content-buttons hide")
+					let $mdItemContentCancle = $("<div>").addClass("md-item-content-button").text("취소")
+					.on("click",function(){
+						$mdItemContentInput.addClass("hide");
+						$mdItemContentButtons.addClass("hide");
+						$mdItemContentEdit.removeClass("hide");
+						$mdItemContentInput.text("");
+					})
+					let $mdItemContentSave = $("<div>").addClass("md-item-content-button md-item-save").text("저장")
+					.on("click",function(){
+						$.ajax({
+							url:"updateitem/content.do",
+							method:"post",
+							data:{
+								itemNo:itemNo,
+								itemContent:$mdItemContentInput.text()
+							},
+							success: function(d){
+								console.log(d);
+								$mdItemContent.children("span").text($mdItemContentInput.text());
+								$(".at-list-item:data(itemNo"+itemNo+")")
+								.children(".at-item-content")
+								.text($mdItemContentInput.text());
+							},
+							complete: function(){
+								$mdItemContentCancle.trigger("click");
+							}
+						});
+					})
+					
 					let $mdItemFiles = $("<div>").addClass("md-item-files");
 					
-					if($files){
+					if($files.length != 0){
+						$mdItemFiles.text("첨부파일");
 						for(i in $files){
 							let $file = $files[i];
 							$mdItemFiles.append(
@@ -699,14 +743,23 @@
 							)
 							console.dir($file)
 						}
-					}
+					} 
 					
 					$("#modal").html(
 						$("<div>").addClass("md-window")
 						.append(
 							$("<div>").addClass("md-item")
 							.append($mdItemClose)
-							.append($mdItemContent)
+							.append(
+								$mdItemContent
+								.append($mdItemContentEdit)
+								.append($mdItemContentInput)
+							)
+							.append(
+								$mdItemContentButtons
+								.append($mdItemContentSave)
+								.append($mdItemContentCancle)
+							)
 							.append($mdItemFiles)
 						)
 					);

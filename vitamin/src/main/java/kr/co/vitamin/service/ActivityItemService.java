@@ -12,6 +12,8 @@ public interface ActivityItemService {
 	
 	public void updateItemLocation(ActivityItem activityItem) throws Exception;
 	
+	public void updateItemContent(ActivityItem activityItem) throws Exception;
+	
 	public void insertItem(ActivityItem activityItem) throws Exception;
 	
 	public void deleteItem(int itemNo) throws Exception;

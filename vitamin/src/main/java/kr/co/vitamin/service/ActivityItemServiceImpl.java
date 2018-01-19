@@ -33,6 +33,11 @@ public class ActivityItemServiceImpl implements ActivityItemService {
 	}
 
 	@Override
+	public void updateItemContent(ActivityItem activityItem) throws Exception {
+		activityItemMapper.updateActivityItemContent(activityItem);
+	}
+
+	@Override
 	public void insertItem(ActivityItem activityItem) throws Exception {
 		activityItemMapper.insertActivityItem(activityItem);
 	}
