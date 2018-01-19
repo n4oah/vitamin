@@ -21,6 +21,11 @@ public class ActivityItemServiceImpl implements ActivityItemService {
 	public List<ActivityItem> selectItemByActivityNo(int activityNo)throws Exception {
 		return activityItemMapper.selectActivityItemByActivityNo(activityNo);
 	}
+	
+	@Override
+	public ActivityItem selectItemByItemNo(int itemNo) throws Exception {
+		return activityItemMapper.selectActivityItemByItemNo(itemNo);
+	}
 
 	@Override
 	public void updateItemLocation(ActivityItem activityItem) throws Exception {
@@ -41,9 +46,21 @@ public class ActivityItemServiceImpl implements ActivityItemService {
 	public List<ActivityFiles> selectFileByActivityNo(int activityNo) throws Exception {
 		return activityFilesMapper.selectActivityFilesByActivityNo(activityNo);
 	}
+	
+	@Override
+	public List<ActivityFiles> selectFileByItemNo(int itemNo) throws Exception {
+		return activityFilesMapper.selectActivityFilesByItemNo(itemNo);
+	}
 
 	@Override
 	public void insertFile(ActivityFiles activityFiles) throws Exception {
 		activityFilesMapper.insertActivityFiles(activityFiles);
 	}
+
+	@Override
+	public void deleteFile(int atFileNo) throws Exception {
+		activityFilesMapper.deleteActivityFiles(atFileNo);
+	}
+	
+	
 }

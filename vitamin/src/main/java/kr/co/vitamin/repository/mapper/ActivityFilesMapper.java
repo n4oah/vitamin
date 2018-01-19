@@ -8,4 +8,5 @@ public interface ActivityFilesMapper {
 	public List<ActivityFiles> selectActivityFilesByActivityNo(int activityNo) throws Exception;
 	public List<ActivityFiles> selectActivityFilesByItemNo(int itemNo) throws Exception;
 	public void insertActivityFiles(ActivityFiles activityFiles) throws Exception;
+	public void deleteActivityFiles(int atFileNo) throws Exception;
 }
