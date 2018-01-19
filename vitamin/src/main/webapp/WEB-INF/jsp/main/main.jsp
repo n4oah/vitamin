@@ -9,13 +9,100 @@
 		<title>Insert title here</title>
 		<script src="${pageContext.request.contextPath}/js/test/converter.js"></script>
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
+		
+		<style>
+		    /* Remove the navbar's default margin-bottom and rounded borders */ 
+		    .navbar {
+		      margin-bottom: 0;
+		      border-radius: 0;
+		    }
+		    
+		    /* Add a gray background color and some padding to the footer */
+		    footer {
+		      background-color: #f2f2f2;
+		      padding: 25px;
+		    }
+		    
+		  .carousel-inner img {
+		      width: 100%; /* Set width to 100% */
+		      margin: auto;
+		      min-height:200px;
+		  }
+		  
+		  .carousel-inner item {
+		  	width: 100%;
+		  	height: 100%;
+		  }
+		  
+		  .carousel-inner item img {
+		  	background-size: 100 100;
+		  }
+		
+		  /* Hide the carousel text when the screen is less than 600 pixels wide */
+		  @media (max-width: 600px) {
+		    .carousel-caption {
+		      display: none; 
+		    }
+		  }
+	  </style>
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
-	<div id="wrapper" style="margin-top: 0px;">
-		<section class="container">
-			
-		</section>
+
+	<div id="myCarousel" class="carousel slide" data-ride="carousel">
+	    <!-- Indicators -->
+	    <ol class="carousel-indicators">
+	        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+	        <li data-target="#myCarousel" data-slide-to="1"></li>
+	    </ol>
+		
+	    <!-- Wrapper for slides -->
+	    <div class="carousel-inner" role="listbox" style="height: 100%; width: 100%;">
+	        <div class="item active">
+	            <img src="${pageContext.request.contextPath}/image/main/logo1.jpg" alt="Image">
+	        </div>
+	
+	        <div class="item">
+	            <img src="${pageContext.request.contextPath}/image/main/logo2.png" alt="Image">
+	            <!-- <div class="carousel-caption">
+	                <h3>More Sell $</h3>
+	                <p>Lorem ipsum...</p>
+	            </div> -->
+	        </div>
+	    </div>
+	
+	    <!-- Left and right controls -->
+	    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+	        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+	        <span class="sr-only">Previous</span>
+	    </a>
+	    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+	        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+	        <span class="sr-only">Next</span>
+	    </a>
+	</div>
+	
+	<div class="container text-center">
+	    <h3>채용정보</h3>
+	    <br>
+	    <div class="row">
+	        <div class="col-sm-4">
+	            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+	            <p>Current Project</p>
+	        </div>
+	        <div class="col-sm-4">
+	            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+	            <p>Project 2</p>
+	        </div>
+	        <div class="col-sm-4">
+	            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+	            <p>Project 2</p>
+	        </div>
+	        <div class="col-sm-4">
+	            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+	            <p>Project 2</p>
+	        </div>
+	    </div>
 	</div>
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
 </body>

@@ -117,6 +117,11 @@
                         </ul>
                      </li>
                   </c:when>
+                  <c:otherwise>
+                  	<li>
+                 		<a href="${pageContext.request.contextPath}/account/signinForm.do">로그인</a>
+               		</li>
+                  </c:otherwise>
                </c:choose>
             </ul>
          </div>

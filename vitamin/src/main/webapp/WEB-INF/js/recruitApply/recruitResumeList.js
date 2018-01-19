@@ -44,4 +44,10 @@ $(function() {
 		$(".modal-body").load(getContextPath() + "/mypage/introductionDetail.do?introductionNo="+$(this).attr("attr"));
 		event.preventDefault();
     });
+	
+	$('#recruit-list-table').on('click', '.recruit-title', function(event) {
+    	let recruitNo = $(this).attr('attr');
+    	location.href = getContextPath() + '/recruit/recruitDetail.do?no=' + recruitNo;
+    	event.preventDefault();
+    });
 });

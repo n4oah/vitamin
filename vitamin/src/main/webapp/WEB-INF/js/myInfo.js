@@ -50,12 +50,13 @@ $(function() {
             if(ptn[i].matches() == false) {
                 alert(ptn[i].msg);
                 ptn[i].id.focus();
+                waitingDialog.hide();
                 return;
             }
         }
 
         var param = $('#letter-form').serialize();
-        console.log(param);
+
         $.ajax({
             url: $('#letter-form').attr('action'),
             dataType: "json",
