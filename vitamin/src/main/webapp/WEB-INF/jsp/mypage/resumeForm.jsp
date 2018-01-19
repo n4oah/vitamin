@@ -17,12 +17,15 @@
 <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/resume.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/sweetalert2.min.css">
 <!-- <link rel="stylesheet"
 	href="path/to/font-awesome/css/font-awesome.min.css"> -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- <script src="https://use.fontawesome.com/942e94bfdb.js"></script> -->
 <%-- <script src="${pageContext.request.contextPath}/js/resumeInfo.js"></script> --%>
 <script src="${pageContext.request.contextPath}/js/resumeForm.js"></script>
+<script src="${pageContext.request.contextPath}/js/sweetalert2.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=316e409a59e29fd51e1dcbf1e4769f1c&libraries=services"></script>
@@ -412,7 +415,7 @@
 											<th>직급(직책)</th>
 											<td><input class="float-control" type="text"
 												id="position" name="prevCompanyPosition"style="width: 60%"> 
-												<input class="float-control" type="text" name="prevCompanyYears" id="career_year"
+												<input class="float-control" type="text" name="prevCompanyYears" id="career_year" maxlength="2"
 												style="width: 10%"> <span>년차</span></td>
 										</tr>
 										<tr>
@@ -514,11 +517,11 @@
 									<button style="float: right" class="intermediate_save btn-primary">중간저장</button>
 								</div> -->
 							</div>
-							<div class="addCertification">
+							<!-- <div class="addCertification">
 							</div>
 							<div class="deleteCertication">
 								<input type="button" style="float: right" class="add btn-danger btn-xs" value="추가"/>
-							</div>
+							</div> -->
 						</div>
 						
 
@@ -580,7 +583,7 @@
 										<tr>
 											<th>희망 직종</th>
 											<td>
-												<input type="text" id="hope_bussiness" class="float-control" readonly="readonly" style="width:80%">
+												<input type="text" id="hope_bussiness" name="hopeBusinessType" class="float-control" readonly="readonly" style="width:80%">
 												<input type="text" name="businessNo" id="hope_bussiness_no" style="display:none;" readonly="readonly">
 											</td>
 										</tr>
@@ -668,12 +671,12 @@ $(document).ready(function(){
 	 $('.university').attr("disabled","disabled");
 	 $('.careerStatement').hide();
 	 
-	 $('#ch_schoolevel3').click(function(){
+	 $('#ch_schoolevel0').click(function(){
 		 $('.highschool').hide();
 		 $('.university').hide();
 	 });
 	 
-	 $('#ch_schoolevel2').click(function(){
+	 $('#ch_schoolevel1').click(function(){
 
 		 $('.highschool').removeAttr("disabled","disabled");
 		 $('.university').attr("disabled","disabled");
@@ -681,7 +684,7 @@ $(document).ready(function(){
 		 $('.highschool').show();
 	 });
 	 
-	 $('#ch_schoolevel1').click(function(){
+	 $('#ch_schoolevel2').click(function(){
 		 $('.highschool').attr("disabled","disabled");
 		 $('.university').removeAttr("disabled","disabled");
 		 $('.highschool').hide();
@@ -839,14 +842,18 @@ $(document).ready(function(){
 		 var year= 1000*60*60*24*365;
 		 var workTerm = (workEnd-workStart)/year;
 		 if(!isNaN(workStart)){
-			 if(getMonth =='0' && getDate=='0'){
+			 if(getMonth == 0 && getDate ==0){
 				$('#careerYears').val(getYear);
-			}else if(getMonth !='0' || getDate !='0'){
+				$('#career_year').val(getYear+1);
+			}else if(getMonth <0 || getDate <0){
 				getYear = getYear-1;
 				$('#careerYears').val(getYear);
+				$('#career_year').val(getYear+1);
+			}else{
+				$('#careerYears').val(getYear);
+				$('#career_year').val(getYear+1);
 			}
 		 }
-		
 	 });
 	 
 	$('.prevCompanyStart').change(function(){
@@ -860,14 +867,18 @@ $(document).ready(function(){
 		 var year= 1000*60*60*24*365;
 		 var workTerm = (workEnd-workStart)/year;
 		 if(!isNaN(workEnd)){
-			if(getMonth =='0' && getDate=='0'){
+			if(getMonth ==0 && getDate==0){
 				$('#careerYears').val(getYear);
-			}else if(getMonth !='0' || getDate !='0'){
+				$('#career_year').val(getYear+1);
+			}else if(getMonth <0 || getDate <0){
 				getYear = getYear-1;
 				$('#careerYears').val(getYear);
+				$('#career_year').val(getYear+1);
+			}else{
+				$('#careerYears').val(getYear);
+				$('#career_year').val(getYear+1);
 			}
 		 }
-	
 	 });
 	
 });

@@ -16,9 +16,12 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/resume.css">
 <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/sweetalert2.min.css">
+<link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
 <script src="https://use.fontawesome.com/942e94bfdb.js"></script>
 <script src="${pageContext.request.contextPath}/js/resumeInfo.js"></script>
+<script src="${pageContext.request.contextPath}/js/sweetalert2.min.js"></script>
 <style type="text/css">
 
 	.infocontainer{
@@ -76,7 +79,7 @@
 									<span style="float: right;font-weight: bold">5분자동저장</span> 
 									<input type="checkbox" class="5minSave" value="2" style="float: right">
 								</label> 
-								<table class="table">
+								<table class="table introduce">
 									<tbody>
 										<tr>
 											<th>
@@ -210,7 +213,6 @@
 								</table>
 							</div>
 							<div class="btn_panel">
-								<input type="button" class="btn-info btn-lg" value="미리보기"style="float: center"/>
 								<button style="float: center" class="btn-warning btn-lg">작성완료</button>
 							</div>
 						</div>
@@ -356,6 +358,8 @@ $(".5minSave").on("change", function () {
 		clearInterval(interval);
 	}
 });
+
+
 
 
 /* <span class="intro3">지원동기 및 입사후 포부</span> */
