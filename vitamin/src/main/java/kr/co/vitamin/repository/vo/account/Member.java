@@ -6,7 +6,7 @@ import java.util.Locale;
 
 public class Member extends Account {
 	private Integer memberNo;
-	private String name, phoneNumber;
+	private String name, phoneNumber, apiLoggin;
 	private Date birthDate;
 	private Character gender;
 
@@ -63,6 +63,14 @@ public class Member extends Account {
 		return age;
 	}
 
+	public String getApiLoggin() {
+		return apiLoggin;
+	}
+
+	public void setApiLoggin(String apiLoggin) {
+		this.apiLoggin = apiLoggin;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -73,7 +81,7 @@ public class Member extends Account {
 
 	@Override
 	public String toString() {
-		return "Member [memberNo=" + memberNo + ", name=" + name + ", phoneNumber=" + phoneNumber + ", birthDate="
-				+ birthDate + ", gender=" + gender + "]";
+		return "Member [memberNo=" + memberNo + ", name=" + name + ", phoneNumber=" + phoneNumber + ", apiLoggin="
+				+ apiLoggin + ", birthDate=" + birthDate + ", gender=" + gender + "]";
 	}
 }

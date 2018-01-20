@@ -14,6 +14,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/signinForm.css">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<script src="${pageContext.request.contextPath}/js/signinForm.js"></script>
+		<script src="${pageContext.request.contextPath}/js/common/googleLogin.js"></script>		
 		<script>
 			if('${errorMsg}') {
 				alert('${errorMsg}');
@@ -74,8 +75,8 @@
 					<div class="col-md-6">
 						<div class="form-group signup-btn-wrapper">
 							<input type="button" class="btn btn-primary btn-lg col-md-12" src="${pageContext.request.contextPath}/account/signupForm.do" value="회원가입">
-							<input type="button" class="btn btn-primary btn-lg col-md-12" src="" value="네이버로 로그인">
-							<input type="button" class="btn btn-primary btn-lg col-md-12" src="" value="구글로 로그인">
+							<!-- <input type="button" class="btn btn-primary btn-lg col-md-12" value="네이버로 로그인"> -->
+							<input type="button" class="btn btn-primary btn-lg col-md-12 google-login-btn" value="구글로 로그인">
 						</div>
 					</div>
 				</div>

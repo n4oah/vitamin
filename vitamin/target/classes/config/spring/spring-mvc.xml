@@ -63,6 +63,8 @@
 			<mvc:exclude-mapping path="/search/searchRecruit.do" />
 			<mvc:exclude-mapping path="/search/searchWork.do" />
 			<mvc:exclude-mapping path="/company/detail.do" />
+			<mvc:exclude-mapping path="/account/googleLoginCallBack.do" />
+			<mvc:exclude-mapping path="/account/googleLogin.do" />
 			<mvc:exclude-mapping path="/css/**" />
 			<mvc:exclude-mapping path="/js/**" />
 			<mvc:exclude-mapping path="/image/**" />

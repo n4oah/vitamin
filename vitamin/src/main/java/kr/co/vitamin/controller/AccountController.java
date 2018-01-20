@@ -23,6 +23,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpRequest;
+import org.springframework.social.connect.Connection;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.api.impl.GoogleTemplate;
+import org.springframework.social.google.api.plus.Person;
+import org.springframework.social.google.api.plus.PlusOperations;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -67,6 +77,10 @@ public class AccountController {
 	private ResumeService resumeService;
 	@Autowired
 	private EmailSender email;
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
 	
 	@RequestMapping("/signupForm.do")
 	public void signupForm(Model model) throws Exception {
@@ -260,6 +274,39 @@ public class AccountController {
 		}
 		session.invalidate();
 		return "redirect:" + referer;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/googleLogin.do")
+	public String googleLogin() {
+		OAuth2Operations oAuth2Operations = googleConnectionFactory.getOAuthOperations();
+		String url = oAuth2Operations.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
+		System.out.println("/account/googleLogin.do" + url);
+		return url;
+	}
+	
+	@RequestMapping("/googleLoginCallBack.do")
+	public String googleLoginCallBack(String code) {
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		AccessGrant accessGrant = oauthOperations.exchangeForAccess(code, googleOAuth2Parameters.getRedirectUri(), null);
+		String accessToken = accessGrant.getAccessToken();
+		Long expireTime = accessGrant.getExpireTime();
+		
+		if(expireTime != null && expireTime < System.currentTimeMillis()) {
+			accessToken = accessGrant.getRefreshToken();
+			System.out.printf("accessToken is expired. refresh token = {}", accessToken);
+		}
+		
+		Connection<Google> connection = googleConnectionFactory.createConnection(accessGrant);
+		Google google = connection == null ? new GoogleTemplate(accessToken) : connection.getApi();
+		
+		PlusOperations plusOperations = google.plusOperations();
+		Person profile = plusOperations.getGoogleProfile();
+		
+		Member member = new Member();
+		member.setApiLoggin("GOOGLE");
+		
+		return null;
 	}
 	
 	@InitBinder
