@@ -146,11 +146,11 @@
 						                <h4 class="reviews text-capitalize">내가 지원한 공고</h4>
 						            </a>
 						        </li>
-						        <li>
+						        <!-- <li>
 						            <a href="#favoriteCompany" role="tab" data-toggle="tab">
 						                <h4 class="reviews text-capitalize">즐겨찾기 기업</h4>
 						            </a>
-						        </li>
+						        </li> -->
 						        </c:if>
 						        <li>
 						            <a href="#account-setting" role="tab" data-toggle="tab">
@@ -234,9 +234,35 @@
 										</div>
 									</div>
 						        </div>
-						        <div class="tab-pane" id="favoriteCompany">
-						        
-						        </div>
+						        <!-- <div class="tab-pane" id="favoriteCompany">
+							        <div class="panel panel-default panel-table">
+										<div class="panel-heading">
+											<div class="row">
+												<div class="col col-xs-6">
+													<h3 class="panel-title">즐겨찾는 공고 </h3>
+												</div>
+											</div>
+										</div>
+										<div class="panel-body">
+											<table id="recruit-list-table" class="table table-striped table-bordered table-list">
+												<thead>
+													<tr>
+														<th class="col-md-1"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+														</th>
+														<th class="col-md-2">공고</th>
+														<th class="col-md-2">이력서</th>
+														<th class="col-md-2">자기소개서</th>
+													</tr>
+												</thead>
+												<tbody>
+											</table>
+										</div>
+										<div class="panel-footer">
+											<div class="row">
+											</div>
+										</div>
+									</div>
+						        </div> -->
 						        <div class="tab-pane" id="account-setting">
 						            <form action="${pageContext.request.contextPath}/mypage/myInfoModify.do" method="post" enctype="multipart/form-data" class="form-horizontal" id="myInfoModify" role="form">
 						                <div class="form-group">

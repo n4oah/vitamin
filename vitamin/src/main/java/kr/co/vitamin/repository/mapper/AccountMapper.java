@@ -18,5 +18,5 @@ public interface AccountMapper {
 	public Account selectAccountOfNo(Account account) throws Exception;
 	public Integer selectProfileNo(Account account) throws Exception;
 	public Account selectAccount(Integer accountNo) throws Exception;
-	public Account selectAccountOfMemberOrCompanyNo(Account accountVO) throws Exception;;
+	public Account selectAccountOfMemberOrCompanyNo(Account accountVO) throws Exception;
 }

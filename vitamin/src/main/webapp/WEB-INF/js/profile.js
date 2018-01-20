@@ -51,6 +51,7 @@ function makeProfile(tag, url = -1) {
 			$(tag).attr('src', src);
 		} else {
 			$(tag).css('background-image', 'url(' + src + ')');
+			$(tag).css('background-size', '100% 100%');
 		}
 	} else {
 		if(tag.tagName == 'IMG') {

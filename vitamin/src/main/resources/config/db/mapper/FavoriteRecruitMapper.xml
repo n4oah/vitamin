@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.vitamin.repository.mapper.FavoriteRecruitMapper">
+	<resultMap type="account" id="accountMap">
+		<result column="favorite_recruit_no" property="favoriteRecruitNo" />
+		<result column="recruit_no" property="recruitNo" />
+		<result column="member_no" property="memberNo" />
+	</resultMap>
+	
+	<insert id="insertFavoriteRecruit" parameterType="favoriteRecruit">
+		INSERT INTO vi_favorite_recruit
+		(recruit_no, member_no)
+		VALUES
+		(#{recruitNo}, #{memberNo})
+	</insert>
+	
+	<insert id="deleteFavoriteRecruit" parameterType="favoriteRecruit">
+		DELETE FROM vi_favorite_recruit
+		WHERE recruit_no = #{recruitNo} AND member_no = #{memberNo}
+	</insert>
+	
+	<select id="selectFavoriteRecruit" parameterType="favoriteRecruit">
+		SELECT * FROM vi_favorite_recruit
+		WHERE recruit_no = #{recruitNo} AND member_no = #{memberNo}
+	</select>
+</mapper>

@@ -394,11 +394,9 @@ function myRecuritForm(data) {
 }
 
 function favoriteCompanyList() {
-
 }
 
 function favoriteCompanyForm() {
-    
 }
 
 function letterForm(profileNo, id, letterNo, name, title, date) {
