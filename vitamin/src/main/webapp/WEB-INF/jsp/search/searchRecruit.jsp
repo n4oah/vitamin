@@ -13,6 +13,7 @@
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 		 
 		<script src="https://use.fontawesome.com/942e94bfdb.js"></script>
+		<script src="${pageContext.request.contextPath}/js/common/favorite-recruit.js"></script>
 		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 		<script src="../js/simpledateformat.js"></script>
 	</head>
