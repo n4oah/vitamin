@@ -318,7 +318,7 @@
 				   		<c:forEach items="${recruitList }" var="rlist">
 								<tr class="outstand_point point_line">
 	           						<td>
-	           							<img src="https://i.imgur.com/Z4wlC9v.png" class="star favorite-recruit">
+	           							<img src="https://i.imgur.com/Z4wlC9v.png" class="star favorite-recruit" attr="${rlist.recruitNo}">
 	           							<!-- 즐겨 찾기 한 회사면 class가 star_checked -->
 	        						</td>
 	        						
