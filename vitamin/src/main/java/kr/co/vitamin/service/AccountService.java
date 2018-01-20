@@ -18,5 +18,6 @@ public interface AccountService {
 	public void logout(AutoSignin autoSignin) throws Exception;
 	public Account modifyAccount(Account accountVO, Address address, File file) throws Exception;
 	public Integer getProfileNo(Account accountVO) throws Exception;
-	public Account getAccount(Integer accountNo) throws Exception;
+	public Account getAccount(Integer accountNo) throws Exception; 
+	public Account getAccountOfMemberOrCompanyNo(Account accountVO) throws Exception;
 }

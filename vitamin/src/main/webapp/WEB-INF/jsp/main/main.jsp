@@ -7,7 +7,6 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>Insert title here</title>
-		<script src="${pageContext.request.contextPath}/js/test/converter.js"></script>
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
 		
 		<style>
@@ -37,6 +36,11 @@
 		  .carousel-inner item img {
 		  	background-size: 100 100;
 		  }
+		  
+		  div.col-sm-4 > img.profile-image.company-logo {
+			width: 100%;
+			height: 200px;
+			}
 		
 		  /* Hide the carousel text when the screen is less than 600 pixels wide */
 		  @media (max-width: 600px) {
@@ -87,22 +91,12 @@
 	    <br>
 	    <div class="row">
 	    	<c:forEach var="recruit" items="${recruitList}">
-		        <div class="col-sm-4">
-		            <img class="profile-image company-logo" attr="${recruit.companyNo}" style="width:100%" alt="Image">
-		            <p>${recruit.title}</p>
-		        </div>
-		        <!-- <div class="col-sm-4">
-		            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-		            <p>Project 2</p>
-		        </div>
-		        <div class="col-sm-4">
-		            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-		            <p>Project 2</p>
-		        </div>
-		        <div class="col-sm-4">
-		            <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-		            <p>Project 2</p>
-		        </div> -->
+	    		<a href="${pageContext.request.contextPath}/recruit/recruitDetail.do?no=${recruit.recruitNo}">
+			        <div class="col-sm-4">
+			            <img class="profile-image company-logo" attr="${recruit.companyNo}" alt="Image">
+			            <p>${recruit.title}</p>
+			        </div>
+		        </a>
 	        </c:forEach>
 	    </div>
 	</div>

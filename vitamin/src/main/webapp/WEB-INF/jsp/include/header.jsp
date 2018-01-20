@@ -87,7 +87,7 @@
                                  <div class="row">
                                     <div class="col-lg-4">
                                        <!-- <p class="text-center"> -->
-                                       <img class="glyphicon glyphicon-user icon-size profile-image" style="width:100%; height: 100px;" attr="${sessionScope.user.accountNo}"></img>
+                                       <img class="profile-image" style="width:100%; height: 100px;" attr="${sessionScope.user.accountNo}"></img>
                                        <!-- </p> -->
                                     </div>
                                     <div class="col-lg-8">

@@ -21,8 +21,6 @@
 	<div id="wrapper" style="margin-top: 0px;">
 		<section class="container">
 			<div class="row">
-			
-			
 				<div class="search_wrapper">
 					<div class="row" style="margin: 0px">
 						<div class="city_wrapper">
@@ -265,10 +263,6 @@
 							<span>
 								<label><input type="checkbox" name="ageNone" class="age_none"> 나이무관</label>
 							</span>
-							
-							
-							
-							
 						</div>
 						
 						<div>

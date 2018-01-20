@@ -1,15 +1,19 @@
-
 $(function() {
 	let tags = $('.profile-image');
 	var url = getContextPath() + '/mypage/myProfile.do';
 
 	for(let tag of tags) {
 		let accountNo = $(tag).attr('attr');
-		console.log('accountNo' + accountNo);
 
 		if(accountNo != '' || accountNo != null || accountNo != undefined) {
-			let data = {'accountNo': accountNo};
-
+			var data = {'accountNo': accountNo};
+			
+			if($(tag).hasClass('company-logo')) {
+				data = {'memberType': 2, 'no': accountNo};
+			} else if($(tag).hasClass('member-profile')) {
+				data = {'memberType': 1, 'no': accountNo};
+			}
+				
 			$.ajax({
 				url: url,
 				data: data,
@@ -29,20 +33,31 @@ $(function() {
 	}
 });
 function makeProfile(tag, url = -1) {
+	let type = 1;
+	if($(tag).hasClass('company-logo')) {
+		type = 2;
+	} else if($(tag).hasClass('member-profile')) {
+		type = 1;
+	}
+	
+	if(type == 1) {
+		src = getContextPath() + '/image/profile/profile-img.png';
+	} else if(type == 2) {
+		src = getContextPath() + '/image/profile/logo-image.jpg';
+	}
+	
 	if(url == -1) {
-		$(tag).attr('class', 'glyphicon glyphicon-user icon-size ' + $(tag).attr('class'));
+		if(tag.tagName == 'IMG') {
+			$(tag).attr('src', src);
+		} else {
+			$(tag).css('background-image', 'url(' + src + ')');
+		}
 	} else {
 		if(tag.tagName == 'IMG') {
 			$(tag).attr('src', url);
 		} else {
-			let clzs = ['glyphicon', 'glyphicon-user', 'icon-size'];
-
 			$(tag).css('background-image', 'url(' + url + ')');
 			$(tag).css('background-size', '100% 100%');
-
-			for(let clz of clzs) {
-				$(tag).removeClass(clz);
-			}
 		}
 	}
 }

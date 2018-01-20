@@ -160,6 +160,30 @@
 	     WHERE (a.account_no = #{accountNo})
 	</select>
 	
+	<select id="selectAccountOfMemberOrCompanyNo" parameterType="account" resultMap="accountMap">
+		SELECT account.*, member.*
+		FROM
+			vi_account AS account,
+			<choose>
+				<when test="memberType == 1">
+			 		vi_member AS member
+			 	</when>
+			 	<when test="memberType == 2">
+			 		vi_company AS member
+			 	</when>
+			</choose> 
+		WHERE
+			<choose>
+				<when test="memberType == 1">
+			 		member.member_no = #{memberNo}
+			 	</when>
+			 	<when test="memberType == 2">
+			 		member.company_no = #{companyNo}
+			 	</when>
+			</choose> 
+			AND member.account_no = account.account_no
+	</select>
+	
 	<select id="selectNextAutoIncrement" resultType="int">
 		<include refid="CommonMapper.getNextAutoIncrement">
 			<property name="tableName" value="vi_account"/>

@@ -57,6 +57,12 @@
 			<mvc:exclude-mapping path="/account/idOverlapChk.do" />
 			<mvc:exclude-mapping path="/account/certify.do" />
 			<mvc:exclude-mapping path="/main.do" />
+			<mvc:exclude-mapping path="/mypage/myProfile.do" />
+			<mvc:exclude-mapping path="/common/fileDown.do" />
+			<mvc:exclude-mapping path="/recruit/recruitDetail.do" />
+			<mvc:exclude-mapping path="/search/searchRecruit.do" />
+			<mvc:exclude-mapping path="/search/searchWork.do" />
+			<mvc:exclude-mapping path="/company/detail.do" />
 			<mvc:exclude-mapping path="/css/**" />
 			<mvc:exclude-mapping path="/js/**" />
 			<mvc:exclude-mapping path="/image/**" />

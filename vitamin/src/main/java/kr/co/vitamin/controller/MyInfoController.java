@@ -27,6 +27,7 @@ import kr.co.vitamin.repository.vo.Letter;
 import kr.co.vitamin.repository.vo.Recruit;
 import kr.co.vitamin.repository.vo.account.Account;
 import kr.co.vitamin.repository.vo.account.AccountInfo;
+import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.AccountService;
 import kr.co.vitamin.service.AddressService;
@@ -117,7 +118,21 @@ public class MyInfoController {
 	
 	@ResponseBody
 	@RequestMapping("/myProfile.do")
-	public Integer myProfile(Account accountVO) throws Exception {
+	public Integer myProfile(Account accountVO, Integer no) throws Exception {
+		if(accountVO.getMemberType() != null) {
+			if(accountVO.getMemberType() == 1) {
+				Member member = new Member();
+				member.setMemberType(accountVO.getMemberType());
+				member.setMemberNo(no);
+				accountVO = accountService.getAccountOfMemberOrCompanyNo(member);
+			} else if(accountVO.getMemberType() == 2) {
+				Company company = new Company();
+				company.setMemberType(accountVO.getMemberType());
+				company.setCompanyNo(no);
+				accountVO = accountService.getAccountOfMemberOrCompanyNo(company);
+			}
+		}
+		
 		Integer profileNo = accountService.getProfileNo(accountVO);
 		
 		if(profileNo == null)
