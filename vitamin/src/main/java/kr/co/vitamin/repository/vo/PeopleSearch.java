@@ -6,7 +6,7 @@ public class PeopleSearch {
 	private List<Integer> cityCode, areaCode, licenseCode, schoolCode, army;
 	private List<String> licenseName;
 	private Integer careerStart, careerEnd, ageStart, ageEnd, gender, marry, jobState, page, lastNo;
-	private String orderBy = "resume_no desc";
+	private String orderBy = "resume.resume_no desc";
 	
 	
 	public String getOrderBy() {

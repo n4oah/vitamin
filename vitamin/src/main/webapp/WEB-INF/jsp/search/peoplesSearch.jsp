@@ -708,7 +708,7 @@ $('span.dropdown').click(function () {
    var submit = function (e, scroll, order, orderBy) {
    	if (!scroll && !order) submitChk = true;
    	if (scroll && lastNo && !orderChk) parameterDataGlobalAppend = parameterDataGlobal+"&lastNo="+lastNo;
-   	else if (scroll && orderChk) parameterDataGlobalAppend = parameterDataGlobal+"&page="+getPage()+"&orderBy="+orderByGlobal;
+   	else if (scroll && orderChk) parameterDataGlobalAppend = parameterDataGlobal+"&orderBy="+orderByGlobal+"&lastNo="+lastNo;
    	else if (order && orderBy) parameterDataGlobalAppend = parameterDataGlobal+"&orderBy="+orderBy;
    	else {
    		orderChk = false;
@@ -834,15 +834,15 @@ $('span.dropdown').click(function () {
    $("[class$='_asc']").click(function (e) {
 	   if (submitChk) {
 		   orderChk = true;
-		   orderByGlobal = $(this).attr("class").replace("_asc", "");
-		   submit(e, false, true, $(this).attr("class").replace("_asc", ""));		   
+		   orderByGlobal = $(this).attr("class").replace("_asc", " asc");
+		   submit(e, false, true, $(this).attr("class").replace("_asc", " asc"));		   
 	   }
    });
    $("[class$='_desc']").click(function (e) {
 	   if (submitChk) {
 		   orderChk = true;
-		   orderByGlobal = $(this).attr("class").replace("_desc", "");
-		   submit(e, false, true, $(this).attr("class").replace("_desc", ""));		   
+		   orderByGlobal = $(this).attr("class").replace("_desc", " desc");
+		   submit(e, false, true, $(this).attr("class").replace("_desc", " desc"));		   
 	   }
    });
    
