@@ -96,7 +96,7 @@
 			open_state = 0
 			<!-- open_state = 1 -->
 			
-			<if test="lastNo != null">
+			<if test="lastNo != null and orderBy == 'resume.resume_no desc'">
 				and resume_no &lt; #{lastNo}
 			</if>
 			
@@ -148,6 +148,8 @@
 		<!-- 회원 -->
 		inner join (select vi_member.*, date_format(now(), '%Y')-date_format(birth_date, '%Y')+1 as age, name as member_name from vi_member
 		<where>
+			<if test="orderBy == 'member_name asc'">
+			</if>
 			<if test="gender != null">
 				<choose>
 					<when test="gender == 1">
@@ -161,15 +163,15 @@
 			</if>
 			<choose>
 				<when test="ageStart != null and ageEnd != null">
-					and date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 between #{ageStart} and #{ageEnd}
+					and date_format(now(), '%Y')-date_format(birth_date, '%Y')+1 between #{ageStart} and #{ageEnd}
 				</when>
 				
 				<when test="ageStart != null">
-					and date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 &gt;= #{ageStart}
+					and date_format(now(), '%Y')-date_format(birth_date, '%Y')+1 &gt;= #{ageStart}
 				</when>
 				
 				<when test="ageEnd != null">
-					and date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 &lt;= #{ageEnd}
+					and date_format(now(), '%Y')-date_format(birth_date, '%Y')+1 &lt;= #{ageEnd}
 				</when>
 			</choose>
 		</where>) member
@@ -295,15 +297,15 @@
 			</if>
 			<choose>
 				<when test="ageStart != null and ageEnd != null">
-					and date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 between #{ageStart} and #{ageEnd}
+					and date_format(now(), '%Y')-date_format(birth_date, '%Y')+1 between #{ageStart} and #{ageEnd}
 				</when>
 				
 				<when test="ageStart != null">
-					and date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 &gt;= #{ageStart}
+					and date_format(now(), '%Y')-date_format(birth_date, '%Y')+1 &gt;= #{ageStart}
 				</when>
 				
 				<when test="ageEnd != null">
-					and date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 &lt;= #{ageEnd}
+					and date_format(now(), '%Y')-date_format(birth_date, '%Y')+1 &lt;= #{ageEnd}
 				</when>
 			</choose>
 		</where>) member
