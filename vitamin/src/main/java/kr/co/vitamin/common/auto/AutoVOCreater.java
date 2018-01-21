@@ -36,8 +36,7 @@ public class AutoVOCreater extends HttpServlet {
 	private String mapperLocations;
 	private String mapperName;
 
-	// ---------------------------- web.xml servlet read
-	// -----------------------------//
+	// ---------------------------- web.xml servlet read -----------------------------//
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		try {
@@ -51,8 +50,7 @@ public class AutoVOCreater extends HttpServlet {
 		}
 	}
 
-	// ----------------------------- all class files read
-	// ---------------------------//
+	// ----------------------------- all class files read ---------------------------//
 	public void make() throws Exception {
 		String classExt = ".class";
 
@@ -95,8 +93,7 @@ public class AutoVOCreater extends HttpServlet {
 		makeVOXML(list);
 	}
 
-	// -------------------------- class file annotation check
-	// -----------------------------//
+	// -------------------------- class file annotation check -----------------------------//
 	private void makeVOXML(List<Class<?>> list) throws Exception {
 		Set<String> clzType = new HashSet<>();
 		clzType.add("String");
@@ -203,17 +200,6 @@ public class AutoVOCreater extends HttpServlet {
 				}
 			}
 		}
-		System.out.println("---------------------");
-		for(Map.Entry<String, DiscriminatorMap> entry : discriminatorMaps.entrySet()) {
-		    String key = entry.getKey();
-		    DiscriminatorMap value = entry.getValue();
-		    
-		    System.out.println(key);
-		    System.out.println(value);
-		    
-		    System.out.println();
-		}
-		System.out.println("---------------------");
 		makeVOXML2(resultMaps);
 	}
 
@@ -307,8 +293,6 @@ public class AutoVOCreater extends HttpServlet {
 		StreamResult resultzz = new StreamResult(new FileOutputStream(file + "/" + mapperName));
 
 		transformer.transform(source, resultzz);
-
-		System.out.println(file.getAbsolutePath());
 	}
 
 	public String getMapperName() {
