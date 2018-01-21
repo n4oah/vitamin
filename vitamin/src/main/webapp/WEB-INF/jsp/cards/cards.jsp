@@ -66,12 +66,13 @@
 									<span class="at-button at-background-color-button">단색</span>
 									<input type="color" class="at-background-color-input" style="display:none;">
 								</div>
+								<!--
 								<div class="at-button at-background-apply">적용하기</div>
 								<div class="at-button at-background-revert">되돌리기</div>
-								
+								-->
 						</div>
 						<div class="at-menu-item at-menu-askagain">
-							추가, 삭제시 다시 묻기<input type="checkbox" class="at-askagain" checked>
+							<span>리스트 또는 아이템 삭제시 다시 묻기</span><input type="checkbox" class="at-askagain">
 						</div>
 						<div class="at-menu-item mtt">&nbsp;</div>
 					</div>
@@ -96,7 +97,7 @@
 		-이동 O
 		-추가 O
 		-삭제 O
-		-수정(이름, 고정, 공개)
+		-수정(이름, 고정, 공개) O
 	
 		아이템
 		-불러오기 O
@@ -104,17 +105,11 @@
 		-추가 O
 		-삭제 O
 		-상세 O
-		-내용수정 O
+		-내용수정 O -- input 크기 문제
 		-파일수정
 		-업로드 O
 		
-		기본설정
-		
-		메모
-		
-		기업 페이지
-		
-		다녀간 기업
+		기본설정,메모,기업 페이지,다녀간 기업, waitme
 	*/
 
 	///ready
@@ -142,6 +137,9 @@
 			}
 		});
 		
+		//도움말
+		if('${tutorial}'){modal.tutorial();}
+		
 		//설정 불러오기
 		$("html").css({
 			"background":$activity.activityBackground,
@@ -159,6 +157,8 @@
 		
 		//리스트 불러오기
 		for (let i in $activityList) {
+			
+			$newList = 
 			$("<div>").addClass("at-board-list")
 			.data("listNo",$activityList[i].listNo)
 			.data("listNo"+$activityList[i].listNo,"item 초기화용 데이터")
@@ -167,21 +167,29 @@
 				.append(
 					$("<span>").addClass("at-list-name").text($activityList[i].listName)
 				).append(
-					$("<div>").addClass("at-list-menu at-list-icon")
+					$("<div>").addClass("at-list-menu")
 				)
 			).append(
 				$("<div>").addClass("at-board-list-content")
 				.append(
-					$("<div>").addClass("at-list-add").text("추가")
+					$("<div>").addClass("at-list-add")
+					.append(
+						$("<span>").addClass("at-addblock-icon")
+					)
 				)
 				.droppable($boardListDroppable)
 			).css({
 				position: "absolute",
 				top: $activityList[i].listTop,
 				left: $activityList[i].listLeft
-			}).appendTo("#at-board");
+			}).draggable($boardListDraggable);
+			
+			if($activityList[i].listFix == "Y"){
+				$newList.draggable("disable");
+			}
+			
+			$newList.appendTo("#at-board");
 		}
-		$(".at-board-list").draggable($boardListDraggable);
 		
 		//아이템 불러오기
 		for (let i in $activityItem){
@@ -218,7 +226,11 @@
 				"ui-draggable-dragging": "at-gottagofast"
 			},
 			create:function(e,u){$(".ui-draggable-handle").removeClass("ui-draggable-handle")},
-			start:function(e,u){$(".ui-draggable-dragging").removeClass("ui-draggable-dragging")},
+			start:function(e,u){
+				$(".ui-draggable-dragging").removeClass("ui-draggable-dragging");
+				$(".takeonme").removeClass("takeonme");
+				$(".at-list-menu-buttons").remove();
+			},
 			stop: function(e,u){
 				let $listTop = $(this).position().top;
 				let $listLeft = $(this).position().left;
@@ -316,6 +328,12 @@
 		if(e.keyCode == 13){$(".at-activity-name-button").trigger("click");}
 	});
 	$(".at-menu").on("click",".at-activity-name-button", function(){
+		
+		if($(".at-activity-name-input").val().length < 5 || $(".at-activity-name-input").val().length > 25){
+			modal.alert("활동명은 5자 이상 25자 이하로 작성해주세요.");
+			return;
+		}
+		
 		$(".at-activity-name").text($(".at-activity-name-input").val());
 		$.ajax({
 			url:"updateactivity/name.do",
@@ -329,6 +347,7 @@
 			}
 		});
 	});
+	
 	$(".at-menu").on("click",".at-activity-perm-button", function(){
 		$(".at-activity-perm").text($(this).text());
 		$.ajax({
@@ -344,19 +363,23 @@
 		});
 	});
 	
-	
 	$(".at-menu").on("click",".at-background-image-button", function(){
 		$(".at-background-image-input").trigger("click");
 	});
 	$(".at-menu").on("change",".at-background-image-input", function(){
 		let file = this.files[0]
+		
+		if(file.size > maxSize){
+			modal.alert("파일의 용량이 너무 큽니다.(15MB까지 업로드 가능)");
+			return;
+		}
+		
 		if(file){
 			if(file.type.startsWith("image")){
 				
 				let reader = new FileReader();
 				reader.readAsDataURL(file);
 				reader.onload = function () {
-					$prevBackground = $("html").css("background");
 					$("html").css({
 						"background":"url("+reader.result+")",
 						"background-size":"cover"
@@ -364,13 +387,16 @@
 				};
 				reader.onerror = function (error) {console.log("오류:", error);};
 				
+				let formData = new FormData();
+				formData.append("file",file);
+				formData.append("activityNo",$activity.activityNo);
+				
 				$.ajax({
-					url:"updateactivity/background.do",
+					url:"uploadactivity/background.do",
 					method:"post",
-					data:{
-						activityNo:$activity.activityNo,
-						value:"url(../image/cards/bf4bg2.jpg)"
-					},
+					data:formData,
+					processData:false,
+					contentType: false,
 					success:function(d){
 						console.log(d);
 					}
@@ -378,11 +404,11 @@
 			}
 		}
 	});
+	
 	$(".at-menu").on("click",".at-background-color-button", function(){
 		$(".at-background-color-input").trigger("click");
 	});
 	$(".at-menu").on("change",".at-background-color-input",function(){
-		$prevBackground = $("html").css("background");
 		$("html").css({
 			"background":$(this).val(),
 			"background-size":"cover"
@@ -398,12 +424,6 @@
 				console.log(d);
 			}
 		});
-	});
-	
-	$prevBackground = "";
-	$(".at-menu").on("click",".at-background-revert", function(){
-		if($prevBackground){$("html").css({"background":$prevBackground});}
-		$prevBackground = "";
 	});
 	
 	$(".at-menu").on("change",".at-askagain", function(){
@@ -437,19 +457,21 @@
 	$(".at-addblock").on("click",function(e){
 		$(this).addClass("takeonme");
 		$(this).removeClass("takeonme",100);
-		
 		let $newlist = $("<div>")
 			.append(
 				$("<div>").addClass("at-board-list-header")
 				.append(
-					$("<span>").addClass("at-list-name").text("박스")
+					$("<span>").addClass("at-list-name").text("새 리스트")
 				).append(
-					$("<div>").addClass("at-list-menu at-list-icon")
+					$("<div>").addClass("at-list-menu")
 				)
 			).append(
 				$("<div>").addClass("at-board-list-content")
 				.append(
-					$("<div>").addClass("at-list-add").text("추가")	
+					$("<div>").addClass("at-list-add")
+					.append(
+						$("<span>").addClass("at-addblock-icon")
+					)
 				)
 				.droppable($boardListDroppable)
 			)
@@ -469,7 +491,7 @@
 				url:"addlist.do",
 				method:"post",
 				data:{
-					listName:"박스",
+					listName:"새 리스트",
 					activityNo:$activity.activityNo,
 					listLeft:parseInt($(this).position().left,10),
 					listTop:parseInt($(this).position().top,10)
@@ -527,9 +549,92 @@
 		}
 	});
 	
+	//설정
+	$("#at-board").on("click",".at-list-menu:not(.takeonme)", function(e){
+		$(".takeonme").removeClass("takeonme");
+		$(".at-list-menu-buttons").remove();
+		
+		let $this = $(this);
+		
+		$.ajax({
+			url:"getlist.do",
+			method:"post",
+			data:{listNo:$(this).parents(".at-board-list").data("listNo")},
+			success:function(d){
+				let $list = JSON.parse(d);
+				
+				let $fix = $("<div>").addClass("at-list-menu-button")
+				.data("value",$list.listFix)
+				.append($("<div>").addClass("at-fix-icon"))
+				.on("click",function(){
+					if($(this).data("value") == "Y"){
+						$(this).data("value","N");
+						$(this).removeClass("on")
+						$(this).parents(".at-board-list").draggable("enable");
+					}
+					else{
+						$(this).data("value","Y");
+						$(this).addClass("on");
+						$(this).parents(".at-board-list").draggable("disable");
+					}
+					
+					$.ajax({
+						url:"updatelist/fix.do",
+						method:"post",
+						data:{
+							listNo:$this.parents(".at-board-list").data("listNo"),
+							listFix:$(this).data("value")
+						},
+						success:function(d){
+							console.log(d);
+						}
+					});
+				});
+				
+				let $perm = $("<div>").addClass("at-list-menu-button")
+				.data("value",$list.listPerm)
+				.append($("<div>").addClass("at-perm-icon"))
+				.on("click",function(){
+					if($(this).data("value") == "Y"){$(this).data("value","N"); $(this).removeClass("on");}
+					else{$(this).data("value","Y"); $(this).addClass("on");}
+					
+					$.ajax({
+						url:"updatelist/perm.do",
+						method:"post",
+						data:{
+							listNo:$this.parents(".at-board-list").data("listNo"),
+							listPerm:$(this).data("value")
+						},
+						success:function(d){
+							console.log(d);
+						}
+					});
+				});
+				
+				if($list.listFix == "Y"){$fix.addClass("on");}
+				if($list.listPerm == "Y"){$perm.addClass("on");}
+				
+				$this.addClass("takeonme");
+				$this.parents(".at-board-list-header").append(
+					$("<div>").addClass("at-list-menu-buttons")
+					.append($fix)
+					.append($perm)
+				);
+			}
+		});
+	});
+	
+	$("#at-board").on("click",".at-list-menu.takeonme", function(e){
+		$(this).removeClass("takeonme");
+		$(".at-list-menu-buttons").remove();
+	});
+	
 	///아이템
 	//추가
 	$("#at-board").on("click",".at-list-add", function(e){
+		$(this).addClass("takeonme");
+		$(this).removeClass("takeonme",200);
+		
 		$listContent = $(this).parents(".at-board-list-content");
 		
 		let $newItem = $("<div>")
@@ -582,7 +687,7 @@
 				formData.append("file"+i,files[i])
 				//초과하는 파일 포함시
 				if(files[i].size > maxSize){
-					console.log("안돼");
+					modal.alert("일부 파일의 용량이 너무 큽니다.(15MB까지 업로드 가능)");
 					return;
 				}
 			}
@@ -620,10 +725,9 @@
 		modal.item($(this).data("itemNo"));
 	});
 	
-	//정렬(jquery index, droppable)
-	
 	///모달
 	modal = {
+		//얼럿
 		alert:function(msg){
 			let $mdAlertOk = $("<div>").addClass("md-alert-ok")
 			.text("확인").on("click",function(){$("#modal").addClass("hide").html("")});
@@ -643,6 +747,7 @@
 			);
 			$("#modal").removeClass("hide");
 		},
+		//컨펌
 		confirm:function(msg, func = function(){return;}){
 			let $mdConfirmYes = $("<div>").addClass("md-confirm-button md-confirm-yes")
 			.text("예").on("click",function(){$("#modal").addClass("hide").html(""); func(); });
@@ -667,6 +772,7 @@
 			);
 			$("#modal").removeClass("hide");
 		},
+		//아이템 상세보기
 		item:function(itemNo){
 			$.ajax({
 				url:"detailitem.do",
@@ -744,7 +850,7 @@
 									.text($file.atFileOrigin)
 								)
 							)
-							console.dir($file)
+							console.dir($file);
 						}
 					} 
 					
@@ -769,6 +875,10 @@
 					$("#modal").removeClass("hide");
 				}
 			});
+		},
+		//도움말
+		tutorial:function(){
+			modal.alert("도움말 기능");
 		}
 	};
 </script>
