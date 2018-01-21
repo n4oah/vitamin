@@ -310,7 +310,7 @@
 			      <div class="col-xs-12 col-md-4 col-lg-3">
 			        <div class="top_right_wrap">
 			          <p>접수마감일 : <span>${recruit.recruitDateStringEnd }</span> </p>
-			          <a href="#" class="disabled_btn apply_btn" attr="${recruit.recruitNo}">지원</a>
+			          <a href="" class="disabled_btn apply_btn" attr="${recruit.recruitNo}">지원</a>
 			        </div>  <!--/.top_right_wrap -->
 			      </div> <!--/.col-xs-12.col-md-3-->
 			    </div>
