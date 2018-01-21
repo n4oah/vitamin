@@ -17,6 +17,11 @@ public class ActivityListServiceImpl implements ActivityListService {
 	public List<ActivityList> selectListByActivityNo(int activityNo) throws Exception {
 		return activityListMapper.selectActivityListByActivityNo(activityNo);
 	}
+	
+	@Override
+	public ActivityList selectListByListNo(int listNo) throws Exception {
+		return activityListMapper.selectActivityListByListNo(listNo);
+	}
 
 	@Override
 	public void insertList(ActivityList activityList) throws Exception {
@@ -26,6 +31,14 @@ public class ActivityListServiceImpl implements ActivityListService {
 	@Override
 	public void updateListLocation(ActivityList activityList) throws Exception {
 		activityListMapper.updateActivityListLocation(activityList);
+	}
+	@Override
+	public void updateListPerm(ActivityList activityList) throws Exception {
+		activityListMapper.updateActivityListPerm(activityList);
+	}
+	@Override
+	public void updateListFix(ActivityList activityList) throws Exception {
+		activityListMapper.updateActivityListFix(activityList);
 	}
 
 	@Override
