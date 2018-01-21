@@ -86,9 +86,12 @@
 	</select>
 	
 	<select id="peoplesSearch" parameterType="peopleSearch" resultMap="peoplesMap">
+<!-- <if test="orderBy != null">
+	select * from (
+</if> -->
 		select * from 
 		<!-- 이력서 -->
-		(select * from vi_resume
+		(select vi_resume.*, resume_no as rno from vi_resume
 		<where>
 			open_state = 0
 			<!-- open_state = 1 -->
@@ -143,7 +146,7 @@
 		on resume.army_service_no = army.army_service_no
 		
 		<!-- 회원 -->
-		inner join (select vi_member.*, date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 as age, name as member_name from vi_member
+		inner join (select vi_member.*, date_format(now(), '%Y')-date_format(birth_date, '%Y')+1 as age, name as member_name from vi_member
 		<where>
 			<if test="gender != null">
 				<choose>
@@ -198,7 +201,7 @@
 			</if>
 			
 			<if test="areaCode != null">
-				area_code in
+				or area_code in
 				<foreach collection="areaCode" item="area" open="(" separator="," close=")">
 					#{area}
 				</foreach>
@@ -277,16 +280,16 @@
 		on resume.army_service_no = army.army_service_no
 		
 		<!-- 회원 -->
-		inner join (select vi_member.*, date_format(birth_date, '%Y')-date_format(now(), '%Y')+1 as age, name as member_name from vi_member
+		inner join (select * from vi_member
 		<where>
 			<if test="gender != null">
 				<choose>
 					<when test="gender == 1">
-						gender = 'm'
+						and gender = 'm'
 					</when>
 					
 					<when test="gender == 2">
-						gender = 'w'
+						and gender = 'w'
 					</when>
 				</choose>
 			</if>
@@ -332,7 +335,7 @@
 			</if>
 			
 			<if test="areaCode != null">
-				area_code in
+				or area_code in
 				<foreach collection="areaCode" item="area" open="(" separator="," close=")">
 					#{area}
 				</foreach>
@@ -344,10 +347,8 @@
 		inner join (select * from vi_city_code) city
 		on address.city_code = city.city_code
 		<!-- 시/군/구 -->
-		inner join (select area_code, name as area_name from vi_area_code) area
+		inner join (select * from vi_area_code) area
 		on address.area_code = area.area_code
-		
-		order by resume.resume_no desc
 	</select>
 	
 	<select id="selectRecruitCalendar" parameterType="int" resultMap="calendarRecruitMap">

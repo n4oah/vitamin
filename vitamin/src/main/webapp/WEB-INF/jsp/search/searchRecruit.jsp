@@ -419,7 +419,7 @@
 	    							
 	    							<td class="support_submit">
 	    								<p class="support_type">
-	        								<button class="sri_btn_xs" title="클릭하면 입사지원할 수 있는 창이 뜹니다." onclick="try{quickApplyForm('32503885','','t_category=area_recruit&amp;t_content=general', ''); return false;} catch (e) {}; return false;" onmousedown="try{n_trackEvent('apply','list','quick_apply');}catch(e){}">
+	        								<button class="sri_btn_xs" title="클릭하면 입사지원할 수 있는 창이 뜹니다.">
 	        									<span class="sri_btn_immediately">즉시지원</span>
 	        								</button>
 	        							</p>
@@ -849,6 +849,11 @@
 				}
 			});
 		};	
+		
+		
+		$(".recruit_table > tbody").on("click", ".sri_btn_immediately", function () {
+			
+		});
 		
 		
 	</script>

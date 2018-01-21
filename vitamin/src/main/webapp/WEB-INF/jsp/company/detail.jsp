@@ -176,11 +176,13 @@ display: inline-block;
 	</c:if>
 	<span class="title">${com.companyName}</span>
 	
-	<img class="bookmark
-	<c:if test="${com.bookmarkNo != null }">
-	checked
+	<c:if test="${sessionScope.user.memberType == 1}">
+		<img class="bookmark
+		<c:if test="${com.bookmarkNo != null }">
+		checked
+		</c:if>
+		" alt="즐겨찾기" src="https://i.imgur.com/K3hpPeQ.png">
 	</c:if>
-	" alt="즐겨찾기" src="https://i.imgur.com/K3hpPeQ.png">
 </div>
 
 <div class="sum">
@@ -291,6 +293,8 @@ display: inline-block;
 	</div>
 </div>
 
+
+<c:if test="${sessionScope.user.memberType == 1}">
 <div class="comment">
 	<div class="commentTitle">회사 후기</div>
 	<c:if test="${user ne null}">
@@ -339,6 +343,7 @@ display: inline-block;
   		<a>더보기</a>
   	</div>
 </div>
+</c:if>
 
 <script type="text/javascript">
 	var path = "${pageContext.request.contextPath}";
