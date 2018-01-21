@@ -144,7 +144,13 @@ public class MyInfoController {
 	@ResponseBody
 	@RequestMapping("/myRecuritList.do")
 	public String myRecuritList(HttpSession session, Integer lastCompanyApplyNo) throws Exception {
-		Member member = (Member)session.getAttribute("user");
+		/* 임시스레기 */
+		Member member = null;
+		try{
+			member = (Member)session.getAttribute("user");
+		} catch (Exception e) {
+			return null;
+		}
 		
 		InfiniteScrollAccount infiniteScrollAccount = new InfiniteScrollAccount();
 		infiniteScrollAccount.setAccountNo(member.getMemberNo());

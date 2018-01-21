@@ -18,67 +18,11 @@ class Letter {
     }
 }
 
-$(document).ready(function() {
-	var max = 500;
-    $('#characterLeft').text(max + '자 남음');
-    $('#message').keydown(function () {
-        var len = $(this).val().length;
-        if (len >= max) {
-            $('#characterLeft').text('더 이상 글을 쓸 수 없습니다.');
-            $('#characterLeft').addClass('red');
-            $('#btnSubmit').addClass('disabled');            
-        } 
-        else {
-            var ch = max - len;
-            $('#characterLeft').text(ch + '자 남음');
-            $('#btnSubmit').removeClass('disabled');
-            $('#characterLeft').removeClass('red');            
-        }
-    });
-});
-
 $(function() {
-    var ptn = new Array();
+    /*var ptn = new Array();
     ptn.push(new Pattern($('#id'), /^[a-z0-9]{4,12}$/, '아이디는 4~12자 소문자 영문과 숫자를 조합해서만 사용 가능합니다.'));
     ptn.push(new Pattern($('#title'), /^\w{1,50}$/, '제목은 1~50자 사이로 적을 수 있습니다.'));
-    ptn.push(new Pattern($('#content'), /^\w{1,500}$/, '내용은 1~500자 사이로 적을 수 있습니다.'));
-
-    $('#letter-submit').on('click', function(event) {
-    	waitingDialog.show();
-    	
-        for(let i = 0; i < ptn.length; i++) {
-            if(ptn[i].matches() == false) {
-                swal("ERROR!", ptn[i].msg, "error");
-                ptn[i].id.focus();
-                waitingDialog.hide();
-                return;
-            }
-        }
-
-        var param = $('#letter-form').serialize();
-
-        $.ajax({
-            url: $('#letter-form').attr('action'),
-            dataType: "json",
-            data: param,
-            success: function(chk) {
-            	if(chk == true) {
-            		swal("SUCCESS", '쪽지를 성공적으로 보냈습니다.', "success");
-            	} else if(chk == false) {
-            		swal("error", '존재하지 않는 아이디 입니다.', "error");
-            	}
-                waitingDialog.hide();
-                $('#largeModal').modal('hide');
-            },
-        	fail: function() {
-        		//alert('서버 에러');
-        		waitingDialog.hide();
-        		$('#largeModal').modal('hide');
-        	}
-        });
-
-        event.preventDefault();
-    });
+    ptn.push(new Pattern($('#content'), /^\w{1,500}$/, '내용은 1~500자 사이로 적을 수 있습니다.'));*/
 
     var $changeForm = $('#email-change-input');
     var $authForm = $('#email-change-auth');
@@ -91,7 +35,7 @@ $(function() {
         $('#email-change-modal').modal('show');
 
         var status = $authForm.css('display');
-        console.log(status);
+        
         if(status == 'block') {
             $('changeEmail').text('');
             $('authToken').text('');
@@ -137,7 +81,6 @@ $(function() {
                 if(email == 'undefined') {
                     swal("ERROR!", '인증번호가 틀렷습니다.', "error");
                 } else {
-                    console.log(email);
                     $('#email').val(email);
                 }
                 $('#email-change-modal').modal('hide');
