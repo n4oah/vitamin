@@ -179,18 +179,7 @@ function validation(){
 	var schoolTitle=$("input[name='schoolTitle']").val()
 	var major=$("input[name='major']").val()
 	var careerState = $("input[name='careerState']").val()
-	/*var prevCompanyWorking=$("select[name='prevCompanyWorking']").val()
-	var prevCompanyStart=$("input[name='prevCompanyStart']").val()
-	var prevCompanyEnd=$("input[name='prevCompanyEnd']").val()
-	var prevCompanyName=$("input[name='prevCompanyName']").val()
-	var prevCompanyDepartment=$("input[name='prevCompanyDepartment']").val()
-	var prevCompanyArea=$("select[name='prevCompanyArea']").val()
-	var prevCompanyPosition=$("input[name='prevCompanyPosition']").val()
-	var prevCompanySalary=$("input[name='prevCompanySalary']").val()
-	var prevCompanyType=$("input[name='prevCompanyType']").val()
-	var prevCompanyCharge=$("textarea[name='prevCompanyCharge']").val()
-	var prevCompanyReason=$("select[name='prevCompanyReason']").val()
-	var prevCompanyCareerDescribe=$("textarea[name='prevCompanyCareerDescribe']").val()*/
+	
 	var certificationTitle=$("input[name='certificationTitle']").val()
 	var certificationDivision=$("select[name='certificationDivision']").val()
 	var hopeWork=$("select[name='hopeWork']").val()
@@ -210,44 +199,8 @@ function validation(){
 		swal("고용지원금대상여부를 설정해주세요")
 	}else if(armyservicestate.length<1){
 		swal("군대 여부를 설정해주세요")
-	}else if(armyservicestate=="3"){
-		if(armyservicereason.length<1){
-			swal("면제사유를 입력해주세요")
-		}
-	/*}else if(schoolStartDate.length<1){
-		swal("학교입학날짜를 설정해주세요")
-	}else if(schoolEndDate.length<1){
-		swal("학교졸업날짜를 설정해주세요")
-	}else if(schoolTitle.length<1){
-		swal("학교이름을 입력해주세요")
-	}else if(major.length<1){
-		swal("전공을 입력해주세요")*/
-	/*}else if(careerState =='1'){
-		if(prevCompanyWorking.length<1){
-			swal("근무여부를 선택해주세요")
-		}else if(prevCompanyStart.length<1){
-			swal("입사날짜를 선택해주세요")
-		}else if(prevCompanyEnd.length<1){
-			swal("퇴사날짜를 선택해주세요")
-		}else if(prevCompanyName.length<1){
-			swal("회사명을 입력해주세요")
-		}else if(prevCompanyDepartment.length<1){
-			swal("근무부서를 입력해주세요")
-		}else if(prevCompanyArea.length<1){
-			swal("근무지역을 선택해주세요")
-		}else if(prevCompanyPosition.length<1){
-			swal("직급을 입력해주세요")
-		}else if(prevCompanySalary.length<1){
-			swal("연봉을 입력해주세요")
-		}else if(prevCompanyType.length<1){
-			swal("직종을 입력해주세요")
-		}else if(prevCompanyCharge.length<1){
-			swal("담당업무를 입력해주세요")
-		}else if(prevCompanyReason.length<1){
-			swal("퇴사사유를 입력해주세요")
-		}else if(prevCompanyCareerDescribe.length<1){
-			swal("경력기술서를 입력해주세요")
-		}*/
+	}else if(armyservicestate=="3" && armyservicereason.length<1){
+		swal("면제사유를 입력해주세요")
 	}else if(certificationTitle.length<1){
 		swal("자격증을 선택해주세요")
 	}else if(certificationDivision.length<1){
