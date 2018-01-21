@@ -381,12 +381,6 @@
 								<table class="table">
 									<tbody>
 										<tr>
-											<th>항목선택</th>
-											<td>
-												<p>${certificate.certificate}</p>
-											</td>
-										</tr>
-										<tr>
 											<th>자격증</th>
 											<td><!-- <input type="text" class="float-control"
 												placeholder="1개의 입력란에 하나의 자격증만 입력해주세요" style="width: 50%"> -->
