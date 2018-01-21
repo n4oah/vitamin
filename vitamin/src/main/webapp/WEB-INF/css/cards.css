@@ -410,3 +410,12 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 .md-item-files{
 	
 }
+.md-item-file-download{
+	display:block;
+	border:1px solid white;
+	color:white;
+	text-decoration:none;
+}
+.md-item-file-download:hover{
+	border:1px solid orange;
+}

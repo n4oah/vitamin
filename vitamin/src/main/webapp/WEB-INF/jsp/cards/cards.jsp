@@ -841,13 +841,18 @@
 							$mdItemFiles.append(
 								$("<div>").addClass("md-item-file")
 								.append(
+									$("<div>").addClass("md-item-file-name")
+									.text($file.atFileOrigin)
+								)
+								.append(
 									$("<a>")
+									.addClass("md-item-file-download")
 									.attr("download",$file.atFileOrigin)
 									.attr("href",
 										"${pageContext.request.contextPath}/upload"+
 										$file.atFilePath +"/"+ $file.atFileName
 									)
-									.text($file.atFileOrigin)
+									.text("다운로드")
 								)
 							)
 							console.dir($file);
@@ -876,9 +881,9 @@
 				}
 			});
 		},
-		//도움말
+		//ㄷㅇㅁ
 		tutorial:function(){
-			modal.alert("도움말 기능");
+			modal.alert("");
 		}
 	};
 </script>
