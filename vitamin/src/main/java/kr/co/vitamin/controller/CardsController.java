@@ -164,9 +164,12 @@ public class CardsController {
 			file.transferTo(new File(context+path,fileName));
 			
 			activity.setMemberNo(Integer.parseInt(request.getParameter("activityNo")));
-			activity.setActivityBackground("url(/vitamin"+context+path+"/"+fileName+")");
+			activity.setActivityBackground("url(/vitamin/upload/cards/background/"+fileName+")");
 			
 			ActivityService.updateActivityBackground(activity);
+			
+			System.out.println("url(/vitamin/upload/cards/background/"+fileName+")");
+			System.out.println("들어옴");
 		}
 		
 		return null;
