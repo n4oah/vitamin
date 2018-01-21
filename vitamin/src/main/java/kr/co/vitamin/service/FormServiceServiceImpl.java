@@ -19,4 +19,10 @@ public class FormServiceServiceImpl implements FormServiceService{
 		
 		return formServiceMapper.selectFormService();
 	}
+	
+	@Override
+	public List<Integer> bookmarkList(Integer memberNo) throws Exception {
+		// TODO Auto-generated method stub
+		return formServiceMapper.bookmarkList(memberNo);
+	}
 }

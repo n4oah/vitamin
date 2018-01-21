@@ -26,6 +26,7 @@ import kr.co.vitamin.repository.vo.ResumeBaseInfo;
 import kr.co.vitamin.repository.vo.ResumeCertification;
 import kr.co.vitamin.repository.vo.Schedule;
 import kr.co.vitamin.repository.vo.SchoolLevel;
+import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.IntroductionService;
 import kr.co.vitamin.service.PeoplesSearchService;
@@ -162,7 +163,7 @@ public class PeoplesSearchController {
 	public ModelAndView resumeInfo(HttpSession session, Integer resumeNo) throws Exception{
 		ModelAndView mav = new ModelAndView();
 		
-		Member user = (Member)session.getAttribute("user");
+		Company user = (Company)session.getAttribute("user");
 
 		ResumeBaseInfo resumeInfo =	resumeService.resumeInfo(resumeNo);
 		Member member = resumeService.baseInfoSelect(resumeNo);

@@ -1,4 +1,4 @@
-$(function() {
+/*$(function() {
 	$('.favorite-recruit').click(function() {
 		let check = $(this).hasClass('star');
 		let recruitNo = $(this).attr('attr');
@@ -14,4 +14,4 @@ $(function() {
 			}
 		});
 	});
-});
+});*/

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,7 @@ import kr.co.vitamin.repository.vo.Recruit;
 import kr.co.vitamin.repository.vo.SchoolLevel;
 import kr.co.vitamin.repository.vo.SearchRecruit;
 import kr.co.vitamin.repository.vo.Welfare;
+import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.FormServiceService;
 import kr.co.vitamin.service.SchoolLevelService;
 import kr.co.vitamin.service.SearchService;
@@ -42,7 +45,7 @@ public class SearchRecruitController {
 	
 	@RequestMapping("/searchRecruit.do")
 	public void searchRecruit(Model model,
-			@RequestParam(name="pageNo", defaultValue="1") int pageNo) throws Exception {
+			@RequestParam(name="pageNo", defaultValue="1") int pageNo, HttpSession session) throws Exception {
 		List<City> cityList = searchService.selectCity();
 		List<Area> areaList = searchService.selectArea();
 		
@@ -59,11 +62,6 @@ public class SearchRecruitController {
 		
 		List<SchoolLevel> schoolLevelList = schoolLevelService.getSchoolLevels();
 		List<FormService> formServiceList = formServiceService.selectFormService();
-		
-	
-		
-		
-	
 		model.addAttribute("pageResult", pageResult);
 		model.addAttribute("schoolLevelList", schoolLevelList);
 		model.addAttribute("formServiceList", formServiceList);
@@ -71,6 +69,15 @@ public class SearchRecruitController {
 		model.addAttribute("recruitList", recruitList);
 		model.addAttribute("cityList",cityList);
 		model.addAttribute("areaList",areaList);
+		
+		try {
+			Member m = (Member)session.getAttribute("user");
+			List<Integer> bookmarkList = formServiceService.bookmarkList(m.getMemberNo());
+			System.out.println(bookmarkList);
+			model.addAttribute("bookmarkList", bookmarkList);			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	
 	@ResponseBody

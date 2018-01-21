@@ -39,6 +39,7 @@ public class RecruitApplyController {
 	@RequestMapping("/getData.do")
 	public String getData(HttpSession session) throws Exception {
 		Member memberVO = (Member)session.getAttribute("user");
+		System.out.println(new Gson().toJson(recruitApplyService.getRecruitSorceData(memberVO)));
 		return new Gson().toJson(recruitApplyService.getRecruitSorceData(memberVO));
 	}
 	

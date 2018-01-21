@@ -15,4 +15,10 @@
 			FROM vi_form_service
 		ORDER BY form_service_type ASC
 	</select>
+	
+	<select id="bookmarkList" parameterType="int" resultType="int">
+		select company_no from
+		vi_bookmark
+		where member_no = #{memberNo}
+	</select>
 </mapper>

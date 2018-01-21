@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -9,6 +10,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<title>searchRecruit</title>
 		<%@ include file="/WEB-INF/jsp/include/basic.jsp"%>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/zzz.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/searchRecruit.css">
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
 		 
@@ -284,7 +286,6 @@
 				</div>
 				
 			</form>
-				
 				<div class="recruit_list">
 					<table class="recruit_table table" >
 						<colgroup>
@@ -318,7 +319,13 @@
 				   		<c:forEach items="${recruitList }" var="rlist">
 								<tr class="outstand_point point_line">
 	           						<td>
-	           							<img src="https://i.imgur.com/Z4wlC9v.png" class="star favorite-recruit" attr="${rlist.recruitNo}">
+	           							<img src="https://i.imgur.com/Z4wlC9v.png" class="star favorite-recruit
+	           							<c:forEach items="${bookmarkList }" var="b">
+		           							<c:if test="${rlist.companyNo == b}">
+		           								checked
+		           							</c:if>
+	           							</c:forEach>
+	           							" attr="${rlist.recruitNo}" data-company="${rlist.companyNo }">
 	           							<!-- 즐겨 찾기 한 회사면 class가 star_checked -->
 	        						</td>
 	        						
@@ -487,6 +494,31 @@
 			
 		</section>
 	</div>
+	
+	<div class="modal fade" id="apply-modal" tabindex="-1" role="dialog" aria-labelledby="apply-modal" aria-hidden="true" style="display: none;">
+		<div class="modal-dialog">
+			<div class="apply-modal-container">
+				<h1>공고 지원하기</h1><br/>
+				<form id="apply-modal-form">
+					<div class="form-group">
+						<select class="selectpicker" name="resumeNo">
+							<!-- <optgroup label="공개설정 된 이력서 한 개로만 지원할 수 있습니다." class="modal-resume-blank">
+							</optgroup> -->
+						</select>
+					</div>
+					<div class="form-group">
+						<select class="selectpicker" name="introductionNo">
+							<!-- <optgroup label="자기소개서를 선택해주세요." class="modal-introduction-blank">
+							</optgroup> -->
+						</select>
+					</div>
+					<input type="text" style="display: none;" name="recruitNo">
+					<input type="submit" class="apply-modal-submit" value="지원하기">
+				</form>
+			</div>
+		</div>
+	</div>
+	
 	<%@ include file="/WEB-INF/jsp/include/footer.jsp" %>
 	
 	
@@ -850,12 +882,105 @@
 			});
 		};	
 		
-		
-		$(".recruit_table > tbody").on("click", ".sri_btn_immediately", function () {
+		<c:choose>
+		<c:when test="${sessionScope.user.memberType == 1}">
+			$(".recruit_table > tbody").on("click", ".star", function () {
+				var t = $(this);
+				$.ajax({
+					data: {companyNo: t.data("company")},
+					url: "${pageContext.request.contextPath}/company/bookmark.do",
+					success: function (data) {
+						if (data == 1) {
+							t.addClass("checked");
+							swal("즐겨찾기 공고 추가", "즐겨찾기 공고 추가가 되었습니다.\r\n일정표에서 즐겨찾기 공고 일정을 알 수 있습니다.", "success");
+						} else {
+							t.removeClass("checked");
+							swal("즐겨찾기 공고 제외", "즐겨찾기 공고 제거가 되었습니다.", "error");
+						}
+					}
+				});
+			});
 			
+			
+			$(".recruit_table > tbody").on("click", ".sri_btn_immediately", function (event) {
+				let recruitNo = $(this).parents("tr").find("td:eq(0) > img").attr("attr");
+				let modal = $('#apply-modal');
+
+				let url = getContextPath() + '/recruitApply/getData.do';
+				$.ajax({
+					url: url,
+					success: function(data) {
+						data = JSON.parse(data);
+						console.log(data);
+
+						let introList = data['introductionList'];
+						let resumeList = data['resumeBaseInfoList'];
+
+						if(introList.length <= 0 || resumeList <= 0) {
+							swal('INFO', '자기소개서나 이력서는 최소 한 개 이상씩 등록되 있어야 합니다. (공개설정)', 'info');
+						} else {
+							let introOpt = modal.find('select[name="introductionNo"]');
+							let resumeOpt = modal.find('select[name="resumeNo"]');
+							let recruitInp = modal.find('input[name="recruitNo"]');
+
+							for(let resume of resumeList) {
+								resumeOpt.append($("<option value='"+resume.resumeNo+"'>").text(resume.resumeTitle));								
+							}
+							for(let intro of introList) {
+								introOpt.append($("<option value='"+intro.introductionNo+"'>").text(intro.introductionTitle));								
+							}
+							console.log(recruitInp, recruitNo);
+							recruitInp.val(recruitNo);
+
+							$(".selectpicker").selectpicker('refresh');
+
+							showModal(modal);
+						}
+						checked = true;
+					}
+				});
+				event.preventDefault();
+			});
+	  	</c:when>
+	  	<c:otherwise>
+		  	$(".recruit_table > tbody").on("click", ".star", function () {
+				alert("북마크는 개인 회원만 가능합니다.")
+			});
+			
+			
+			$(".recruit_table > tbody").on("click", ".sri_btn_immediately", function () {
+				alert("지원은 개인 회원만 가능합니다.")				
+			});
+	  	</c:otherwise>
+	  	</c:choose>
+	  	
+	  	$('#apply-modal-form').submit(function(event) {
+			let data = $(this).serialize();
+			let url = getContextPath() + '/recruitApply/apply.do';
+
+			let modal = $('#apply-modal');
+
+			$.ajax({
+				data: data,
+				url: url,
+				success: function(chk) {
+					chk = (chk == 'true');
+					
+					if(chk == false) {
+						swal("공고 지원", '이미 지원한 공고입니다.', "error");
+					} else {
+						swal("공고 지원", '공고 지원이 완료되었습니다.', "success");
+					}
+					
+					hideModal(modal);
+					
+					if (chk)
+						location.href = "http://192.168.0.146:3030/?memberNo="+no+"&password="+pwd+"&mno="+mno;
+				}
+			});
+
+			event.preventDefault();
 		});
-		
-		
 	</script>
 </body>
 </html>

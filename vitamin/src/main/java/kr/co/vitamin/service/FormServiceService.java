@@ -6,4 +6,6 @@ import kr.co.vitamin.repository.vo.FormService;
 
 public interface FormServiceService {
 	public List<FormService> selectFormService() throws Exception;
+
+	public List<Integer> bookmarkList(Integer memberNo) throws Exception;
 }

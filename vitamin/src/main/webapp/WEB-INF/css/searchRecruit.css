@@ -95,12 +95,12 @@ favorite-star[hover] {
 	width: 14px;
 }
 
-.star:hover, .star_checked {
+.star:hover, .star.checked {
 	background-image: url("https://i.imgur.com/2MyBgnc.png");
 	background-size: 14px;
 }
 
-.star_checked:hover {
+.star.checked:hover {
 	background-image: url();
 }
 
