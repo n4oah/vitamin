@@ -403,8 +403,8 @@ class ResultMap {
 }
 
 class DiscriminatorMap {
-	String type, column;
-	List<DiscriminatorCase> discriminatorCase;
+	private String type, column;
+	private List<DiscriminatorCase> discriminatorCase;
 	
 	public DiscriminatorMap() {
 		this.discriminatorCase = new ArrayList<>();
@@ -442,8 +442,8 @@ class DiscriminatorMap {
 }
 
 class DiscriminatorCase {
-	String value;
-	String resultMap;
+	private String value;
+	private String resultMap;
 
 	public String getValue() {
 		return value;

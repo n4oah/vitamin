@@ -162,8 +162,11 @@ public class PeoplesSearchController {
 	@RequestMapping("/resumeInfo.do")
 	public ModelAndView resumeInfo(HttpSession session, Integer resumeNo) throws Exception{
 		ModelAndView mav = new ModelAndView();
+<<<<<<< HEAD
 		
 		Company user = (Company)session.getAttribute("user");
+=======
+>>>>>>> 7033b6fe7422979509c333c3bd073dd2b947c764
 
 		ResumeBaseInfo resumeInfo =	resumeService.resumeInfo(resumeNo);
 		Member member = resumeService.baseInfoSelect(resumeNo);

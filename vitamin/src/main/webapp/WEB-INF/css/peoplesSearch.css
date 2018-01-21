@@ -120,8 +120,12 @@ input[type="radio"] {
 }
 
 
-Strong:not(.text-left >) {
+Strong {
 	display:inline-block; width: 8%;
+}
+
+.text-left > strong {
+	width: auto;
 }
 
 .river strong {

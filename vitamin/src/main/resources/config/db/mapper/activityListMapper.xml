@@ -18,6 +18,11 @@
 		order by list_no
 	</select>
 	
+	<select id="selectActivityListByListNo" parameterType="int" resultMap="activityListMap">
+		select * from vi_activity_list
+		where list_no = #{listNo}
+	</select>
+	
 	<insert id="insertActivityList" useGeneratedKeys="true" keyProperty="listNo" parameterType="activityList">
 		insert into vi_activity_list(list_name, activity_no, list_left, list_top)
 		values (#{listName},#{activityNo},#{listLeft},#{listTop})
@@ -26,6 +31,18 @@
 	<update id="updateActivityListLocation" parameterType="activityList">
 		update vi_activity_list
 		set list_top = #{listTop}, list_left = #{listLeft}
+		where list_no = #{listNo}
+	</update>
+	
+	<update id="updateActivityListPerm" parameterType="activityList">
+		update vi_activity_list
+		set list_perm = #{listPerm}
+		where list_no = #{listNo}
+	</update>
+	
+	<update id="updateActivityListFix" parameterType="activityList">
+		update vi_activity_list
+		set list_fix = #{listFix}
 		where list_no = #{listNo}
 	</update>
 	

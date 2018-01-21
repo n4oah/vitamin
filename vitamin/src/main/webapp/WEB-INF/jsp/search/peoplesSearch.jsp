@@ -125,7 +125,7 @@
 						<Strong class="marry_title">혼인</Strong>
 				
 						<label><input type="radio" value="0" name="marry"> <font>미혼</font></label>
-						<label><input type="radio" value="1" name="marry"> <font>비혼</font></label>
+						<label><input type="radio" value="1" name="marry"> <font>기혼</font></label>
 						<label><input type="radio" value="3" name="marry" checked="checked"> <font>혼인 무관</font></label>
 					</span>
 					

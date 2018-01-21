@@ -77,7 +77,7 @@ input:focus, textarea:focus{border:1px solid orange; outline:none;}
 	z-index:3;
 }.at-menu.hide{left: 100%;}
 
-.at-menubtn{
+.at-menubtn, .at-mypagebtn{
 	float: right;
 	width: 30px; height: 30px;
 	
@@ -87,7 +87,7 @@ input:focus, textarea:focus{border:1px solid orange; outline:none;}
 	color: black;
 	text-align: center;
 	text-decoration: none;
-}.at-menubtn.hide{display:none;}
+}.at-menubtn.hide, .at-mypagebtn.hide{display:none;}
 .at-menu-icon{
 	display: block;
 	width:100%; height: 100%;
@@ -191,32 +191,66 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 }
 .at-board-list-content > div {
 	margin:1px 2px;
-	
 	overflow:hidden;
 }
 .at-list-add{
 	height:20px;
+	
+	border:1px solid white;
+	background:rgba(255,255,255,0.9);
+	
 	line-height:20px;
 	text-align:center;
-	border:1px solid white;
+}.at-list-add.takeonme{border: 1px solid orange; background: rgba(255,165,0,1);}
+.at-list-add:not(.takeonme):hover{background:white;}
+.at-list-add > .at-addblock-icon{
+	background-size:20px;
+	background-position: center;
 }
+
 .at-list-item{
 	flex: 0 1 auto;
 	min-height:40px;
 	
 	border-radius: 2px;
-	background: rgba(224,224,224,0.2);
+	background: rgba(224,224,224,0.3);
 	
 	white-space:nowrap;
 	text-overflow:clip;
 }
+.at-list-item:hover{
+	background: rgba(224,224,224,0.5);
+	transition: background 0.25S;
+}
 
-.at-list-icon{
+.at-list-menu{
 	position:absolute; top:3px; right:3px;
 	width:20px; height:20px;
-	background: url("../image/cards/list.png") no-repeat;
-	background-size: 100%;
+	border:1px solid transparent;
+	background: url("../image/cards/list.png") no-repeat; background-size: 100%;
+}.at-list-menu.takeonme{background: url("../image/cards/list2.png") no-repeat; background-size: 100%;}
+.at-list-menu:hover{border:1px dashed orange;}
+.at-list-menu.takeonme:hover{border:1px dashed white;}
+
+.at-list-menu-buttons{
+	display:flex;
+	flex-direction:column;
+	position:absolute;
+	top:0px; right:-40px;
+	width:40px;
 }
+.at-list-menu-button{
+	flex: 0 1 auto;
+	width:30px; height:30px;
+	margin:2px 5px;
+	border:1px solid white;
+	border-radius:2px;
+	background:white;
+}.at-list-menu-button.on{border:1px solid orange;}
+
+.at-fix-icon, .at-perm-icon{height:100%; width:100%;}
+.at-fix-icon{background: url("../image/cards/pin.png") no-repeat; background-size: 100%;}
+.at-perm-icon{background: url("../image/cards/public.png") no-repeat; background-size: 100%;}
 
 .at-gottagofast{
 	animation: gottagofast 0.25s;
@@ -283,6 +317,7 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	background-position: center;
 }
 
+
 #modal{
 	display:flex;
 	flex-direction:column;
@@ -329,7 +364,7 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	margin-right: 5px;
 }
 .md-item-content-button{
-	width:70px; height:28px; line-height: 28px;
+	width:70px; height:28px; line-height: 28px; margin:3px 2px;
 }
 .md-alert-ok:hover, .md-confirm-button:hover, .md-item-content-button:hover{
 	filter: invert(100%);
@@ -362,7 +397,7 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 }
 .md-item-content-edit, .md-item-content-input{
 	position:absolute;
-	width:100%; height:100%;
+	width:100%; min-height:100%;
 	top:0;
 }
 .md-item-content-input{border:1px solid orange; background:black; margin:-1px;}
@@ -374,4 +409,13 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 
 .md-item-files{
 	
+}
+.md-item-file-download{
+	display:block;
+	border:1px solid white;
+	color:white;
+	text-decoration:none;
+}
+.md-item-file-download:hover{
+	border:1px solid orange;
 }

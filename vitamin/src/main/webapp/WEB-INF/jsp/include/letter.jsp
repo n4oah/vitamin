@@ -33,6 +33,15 @@
 
 			event.preventDefault();
 		});
+		
+		$('#largeModal').on('hidden.bs.modal', function () {
+	        $('#largeModal').find('input').each(function(event) {
+	            $(this).val('');
+	        });
+	        $('#largeModal').find('textarea').each(function(event) {
+	            $(this).val('');
+	        });
+	    });
 	});
 	
 	$(document).ready(function() {
@@ -49,7 +58,7 @@
 	            var ch = max - len;
 	            $('#characterLeft').text(ch + '자 남음');
 	            $('#btnSubmit').removeClass('disabled');
-	            $('#characterLeft').removeClass('red');            
+	            $('#characterLeft').removeClass('red');
 	        }
 	    });
 	});

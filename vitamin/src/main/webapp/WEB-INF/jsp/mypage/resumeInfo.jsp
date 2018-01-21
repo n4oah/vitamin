@@ -13,13 +13,10 @@
 	href="${pageContext.request.contextPath}/css/basic.css">
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/resume.css">
 <link rel="stylesheet"
 	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css">
-<!-- <link rel="stylesheet"
-	href="path/to/font-awesome/css/font-awesome.min.css"> -->
 <script src="https://use.fontawesome.com/942e94bfdb.js"></script>
 <script src="${pageContext.request.contextPath}/js/resumeInfo.js"></script>
 <style type="text/css">

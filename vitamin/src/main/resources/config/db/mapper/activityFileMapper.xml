@@ -23,11 +23,13 @@
 				where activity_no = #{activityNo}
 			)
 		)
+		order by item_no
 	</select>
 	
 	<select id="selectActivityFilesByItemNo" parameterType="int" resultMap="activityFilesMap">
 		select * from vi_activity_files
-		where item_no = #{itemNo} 
+		where item_no = #{itemNo}
+		order by at_file_no
 	</select>
 	
 	<insert id="insertActivityFiles" parameterType="activityFiles">

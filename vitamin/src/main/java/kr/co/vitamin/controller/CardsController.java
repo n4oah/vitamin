@@ -70,7 +70,10 @@ public class CardsController {
 			ActivityService.insertActivity(activity);
 			
 			activity = ActivityService.selectActivityByMemberNo(member.getMemberNo());
+			model.addAttribute("tutorial","정어리");
 		}
+		
+		
 		
 		model.addAttribute("activity",gson.toJson(activity));
 		model.addAttribute("activityList",gson.toJson(ActivityListService.selectListByActivityNo(activity.getActivityNo())));
@@ -134,7 +137,52 @@ public class CardsController {
 		return column+" 변경됨";
 	}
 	
+	@ResponseBody
+	@PostMapping("/uploadactivity/background.do")
+	public String uploadActivityBackground(HttpSession session, MultipartHttpServletRequest request) throws Exception {
+		Activity activity = new Activity();
+		
+		//파일 업로드
+		Iterator<String> files = request.getFileNames();
+				
+		String context = request.getServletContext().getRealPath("/upload");
+		String path = "/cards/background";
+				
+		File dir = new File(context+path);
+		if(!dir.isDirectory()) {
+			dir.mkdirs();
+		}
+		System.out.println(dir.getAbsolutePath());	
+		
+		while(files.hasNext()) {
+			String key = files.next();
+			MultipartFile file = request.getFile(key);
+					
+			String fileOrigin = file.getOriginalFilename();
+			String fileName = UUID.randomUUID()+fileOrigin.substring(fileOrigin.lastIndexOf("."));
+					
+			file.transferTo(new File(context+path,fileName));
+			
+			activity.setMemberNo(Integer.parseInt(request.getParameter("activityNo")));
+			activity.setActivityBackground("url(/vitamin/upload/cards/background/"+fileName+")");
+			
+			ActivityService.updateActivityBackground(activity);
+			
+			System.out.println("url(/vitamin/upload/cards/background/"+fileName+")");
+			System.out.println("들어옴");
+		}
+		
+		return null;
+	}
+	
+	
 	///리스트
+	@ResponseBody
+	@PostMapping("/getlist.do")
+	public String getList(int listNo) throws Exception {
+		return new Gson().toJson(ActivityListService.selectListByListNo(listNo));
+	}
+	
 	@ResponseBody
 	@PostMapping("/addlist.do")
 	public int addList(ActivityList activityList) throws Exception {
@@ -143,10 +191,22 @@ public class CardsController {
 	}
 	
 	@ResponseBody
-	@PostMapping("/updatelist/location.do")
-	public String updateListLocation(ActivityList activityList) throws Exception {
-		ActivityListService.updateListLocation(activityList);
-		return "리스트 위치 저장됨";
+	@PostMapping("/updatelist/{column}.do")
+	public String updateList(@PathVariable String column, ActivityList activityList) throws Exception {
+		
+		switch(column) {
+			case "location":
+				ActivityListService.updateListLocation(activityList);
+				return "리스트 위치 저장됨";
+			case "fix":
+				ActivityListService.updateListFix(activityList);
+				return "리스트 고정상태 저장됨";
+			case "perm":
+				ActivityListService.updateListPerm(activityList);
+				return "리스트 공개상태 저장됨";
+		}
+		
+		return null;
 	}
 	
 	@ResponseBody
@@ -176,7 +236,7 @@ public class CardsController {
 	
 	@ResponseBody
 	@PostMapping("/updateitem/{column}.do")
-	public String updateItemLocation(@PathVariable String column,ActivityItem activityItem) throws Exception {
+	public String updateItem(@PathVariable String column,ActivityItem activityItem) throws Exception {
 		
 		switch(column) {
 			case "location":
