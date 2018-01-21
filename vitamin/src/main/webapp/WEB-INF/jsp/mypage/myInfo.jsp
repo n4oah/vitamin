@@ -433,7 +433,7 @@
 		</div>
 	</div>
 	
-	<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModal" aria-hidden="true" style="display: none;">
 		<div class="modal-dialog modal-lg">
 			<!-- Modal content-->
 			<div class="modal-content">

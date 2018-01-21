@@ -175,15 +175,6 @@ $(function() {
         event.preventDefault();
     });
 
-    $('#largeModal').on('hidden.bs.modal', function () {
-        $('#largeModal').find('input').each(function(event) {
-            $(this).val('');
-        });
-        $('#largeModal').find('textarea').each(function(event) {
-            $(this).val('');
-        });
-    });
-
     let funcMap = new Map();
     funcMap.set('recvList', recvList);
     funcMap.set('sendList', sendList);
@@ -299,17 +290,21 @@ function myRecuritList(lastSendNo = -1, blankObj) {
     });
 
     $('#recruit-list-table').on('click', '.resume-name', function(event) {
-    	console.log('asdf');
-		$("#myModal").modal("show");
-		$(".modal-body").load(getContextPath() + "/mypage/resumeInfo.do?resumeNo="+$(this).attr("attr"));
+    	$(".modal-body").load(getContextPath() + "/mypage/resumeInfo.do?resumeNo="+$(this).attr("attr"), function() {
+    		$("#myModal").modal("show");
+    	});
 		event.preventDefault();
     });
     
     $('#recruit-list-table').on('click', '.introduction-name', function(event) {
-		$("#myModal").modal("show");
-		$(".modal-body").load(getContextPath() + "/mypage/introductionDetail.do?introductionNo="+$(this).attr("attr"));
+    	$(".modal-body").load(getContextPath() + "/mypage/introductionDetail.do?introductionNo="+$(this).attr("attr"), function() {
+    		$("#myModal").modal("show");
+    	});
 		event.preventDefault();
-    });
+    })
+    $('#myModal').on('hidden.bs.modal', function() {
+    	$('html').removeClass('fa-events-icons-ready');
+    })
     
     $('#recruit-list-table').on('click', '.recruit-title', function(event) {
     	let recruitNo = $(this).attr('attr');
