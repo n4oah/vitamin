@@ -4,9 +4,21 @@ import java.util.Date;
 
 import org.springframework.security.core.token.Sha512DigestUtils;
 
+import kr.co.vitamin.common.auto.AutoVO;
+import kr.co.vitamin.common.auto.Discriminator;
+
+@AutoVO
 public class Account {
-	private Integer accountNo, addressNo, emailTokenNo, memberType, emailTokenStatus;
+	@AutoVO(id=true)
+	private Integer accountNo;
+	@AutoVO
+	private Integer addressNo, emailTokenNo, emailTokenStatus;
+	@Discriminator
+	@AutoVO
+	private Integer memberType;
+	@AutoVO
 	private String id, pwd, email;
+	@AutoVO
 	private Date regDate;
 
 	public Integer getAccountNo() {

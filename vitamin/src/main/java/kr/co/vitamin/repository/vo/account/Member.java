@@ -4,10 +4,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import kr.co.vitamin.common.auto.AutoVO;
+import kr.co.vitamin.common.auto.Discriminator;
+
+@AutoVO
+@Discriminator("1")
 public class Member extends Account {
+	@AutoVO(id=true)
 	private Integer memberNo;
+	@AutoVO
 	private String name, phoneNumber, apiLoggin;
+	@AutoVO
 	private Date birthDate;
+	@AutoVO
 	private Character gender;
 
 	public Integer getMemberNo() {

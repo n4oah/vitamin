@@ -121,7 +121,7 @@ $(function () {
 		waitingDialog.show();
 
 		if(checked == false) {
-			let url = path+'/recruitApply/getData.do';
+			let url = getContextPath() + '/recruitApply/getData.do';
 			$.ajax({
 				url: url,
 				success: function(data) {
@@ -160,7 +160,7 @@ $(function () {
 
 	$('#apply-modal-form').submit(function(event) {
 		let data = $(this).serialize();
-		let url = path+'/recruitApply/apply.do';
+		let url = getContextPath() + '/recruitApply/apply.do';
 
 		let modal = $('#apply-modal');
 

@@ -3,18 +3,26 @@ package kr.co.vitamin.repository.vo.account;
 import java.util.Date;
 import java.util.List;
 
-import kr.co.vitamin.repository.vo.Address;
+import kr.co.vitamin.common.auto.AutoVO;
+import kr.co.vitamin.common.auto.Discriminator;
 import kr.co.vitamin.repository.vo.File;
 import kr.co.vitamin.repository.vo.Recruit;
 
-
+@AutoVO
+@Discriminator("2")
 public class Company extends Account {
-	private Integer companyNo, employeeCount, logoNo, businessNo, bookmarkNo;
+	@AutoVO(id=true)
+	private Integer companyNo;
+	@AutoVO
+	private Integer employeeCount, logoNo, businessNo, bookmarkNo;
+	@AutoVO
 	private String licenseNumber, companyName, bossName, companyType, telNumber, homepage, businessContent;
+	@AutoVO
 	private Date buildupDate;
     
     private File file;
     private List<Recruit> recruitList;
+    
 	public List<Recruit> getRecruitList() {
 		return recruitList;
 	}
