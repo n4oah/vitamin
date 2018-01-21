@@ -52,7 +52,7 @@
 		<url-pattern>*.ttf</url-pattern>
 	</servlet-mapping>
 	
-	<!-- <servlet>
+	<servlet>
 		<servlet-name>startupController</servlet-name>
 		<servlet-class>kr.co.vitamin.common.auto.AutoVOCreater</servlet-class>
 		<init-param>
@@ -61,10 +61,14 @@
 		</init-param>
 		<init-param>
 			<param-name>mapperLocations</param-name>
-			<param-value>config-db-mapper-commonMapper.xml</param-value>
+			<param-value>config/db/mapper</param-value>
+		</init-param>
+		<init-param>
+			<param-name>mapperName</param-name>
+			<param-value>valueObjectMapper.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-	</servlet> -->
+	</servlet>
 	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
