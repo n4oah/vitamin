@@ -48,7 +48,7 @@ $(function() {
     	
         for(let i = 0; i < ptn.length; i++) {
             if(ptn[i].matches() == false) {
-                alert(ptn[i].msg);
+                swal("ERROR!", ptn[i].msg, "error");
                 ptn[i].id.focus();
                 waitingDialog.hide();
                 return;
@@ -63,15 +63,15 @@ $(function() {
             data: param,
             success: function(chk) {
             	if(chk == true) {
-            		alert('쪽지를 성공적으로 보냈습니다.');
+            		swal("SUCCESS", '쪽지를 성공적으로 보냈습니다.', "success");
             	} else if(chk == false) {
-            		alert('존재하지 않는 아이디 입니다.');
+            		swal("error", '존재하지 않는 아이디 입니다.', "error");
             	}
                 waitingDialog.hide();
                 $('#largeModal').modal('hide');
             },
         	fail: function() {
-        		alert('서버 에러');
+        		//alert('서버 에러');
         		waitingDialog.hide();
         		$('#largeModal').modal('hide');
         	}
@@ -135,7 +135,7 @@ $(function() {
             data: param,
             success: function(email) {
                 if(email == 'undefined') {
-                    alert('인증번호가 틀렷습니다.');
+                    swal("ERROR!", '인증번호가 틀렷습니다.', "error");
                 } else {
                     console.log(email);
                     $('#email').val(email);

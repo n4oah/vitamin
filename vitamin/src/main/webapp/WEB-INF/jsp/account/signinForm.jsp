@@ -17,7 +17,7 @@
 		<script src="${pageContext.request.contextPath}/js/common/googleLogin.js"></script>		
 		<script>
 			if('${errorMsg}') {
-				alert('${errorMsg}');
+				swal("ERROR!", '${errorMsg}', "error");
 			}
 		</script>
 	</head>

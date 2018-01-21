@@ -281,7 +281,6 @@ public class AccountController {
 	public String googleLogin() {
 		OAuth2Operations oAuth2Operations = googleConnectionFactory.getOAuthOperations();
 		String url = oAuth2Operations.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE, googleOAuth2Parameters);
-		System.out.println("/account/googleLogin.do" + url);
 		return url;
 	}
 	
@@ -305,6 +304,9 @@ public class AccountController {
 		
 		Member member = new Member();
 		member.setApiLoggin("GOOGLE");
+		member.setId(profile.getId());
+		member.setEmail(profile.getId());
+		member.setPwd("-1");
 		
 		return null;
 	}

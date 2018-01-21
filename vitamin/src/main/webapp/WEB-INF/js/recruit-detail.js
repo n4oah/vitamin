@@ -112,49 +112,41 @@ $(function () {
 	
 	
 	//-------------- apply -------------//
-	var checked = false;
-
 	$('.apply_btn').click(function(event) {
 		let recruitNo = $(this).attr('attr');
 		let modal = $('#apply-modal');
 
-		waitingDialog.show();
+		let url = getContextPath() + '/recruitApply/getData.do';
+		$.ajax({
+			url: url,
+			success: function(data) {
+				data = JSON.parse(data);
 
-		if(checked == false) {
-			let url = getContextPath() + '/recruitApply/getData.do';
-			$.ajax({
-				url: url,
-				success: function(data) {
-					waitingDialog.hide();
+				let introList = data['introductionList'];
+				let resumeList = data['resumeBaseInfoList'];
 
-					data = JSON.parse(data);
+				if(introList.length <= 0 || resumeList <= 0) {
+					swal('INFO', '자기소개서나 이력서는 최소 한 개 이상씩 등록되 있어야 합니다. (공개설정)', 'info');
+				} else {
+					let introOpt = modal.find('select[name="introductionNo"]');
+					let resumeOpt = modal.find('select[name="resumeNo"]');
+					let recruitInp = modal.find('input[name="recruitNo"]');
 
-					let introList = data['introductionList'];
-					let resumeList = data['resumeBaseInfoList'];
-
-					if(introList.length <= 0 || resumeList <= 0) {
-						alert('자기소개서나 이력서는 최소 한 개 이상씩 등록되 있어야 합니다. (공개설정)');
-					} else {
-						let introOpt = modal.find('select[name="introductionNo"]');
-						let resumeOpt = modal.find('select[name="resumeNo"]');
-						let recruitInp = modal.find('input[name="recruitNo"]');
-
-						for(let resume of resumeList)
-							resumeOpt.append(`<option value="${resume['resumeNo']}">${resume['resumeTitle']}</option>`);
-						for(let intro of introList) {
-							introOpt.append(`<option value="${intro['introductionNo']}">${intro['introductionTitle']}</option>`);
-						}
-						console.log(recruitInp, recruitNo);
-						recruitInp.val(recruitNo);
-
-						$(".selectpicker").selectpicker('refresh');
-
-						showModal(modal);
+					for(let resume of resumeList)
+						resumeOpt.append(`<option value="${resume['resumeNo']}">${resume['resumeTitle']}</option>`);
+					for(let intro of introList) {
+						introOpt.append(`<option value="${intro['introductionNo']}">${intro['introductionTitle']}</option>`);
 					}
-					checked = true;
+					console.log(recruitInp, recruitNo);
+					recruitInp.val(recruitNo);
+
+					$(".selectpicker").selectpicker('refresh');
+
+					showModal(modal);
 				}
-			});
-		}
+				checked = true;
+			}
+		});
 		event.preventDefault();
 	});
 
@@ -164,20 +156,16 @@ $(function () {
 
 		let modal = $('#apply-modal');
 
-		waitingDialog.show();
-
 		$.ajax({
 			data: data,
 			url: url,
 			success: function(chk) {
-				waitingDialog.hide();
-
 				chk = (chk == 'true');
 				
 				if(chk == false) {
-					alert('이미 지원한 공고입니다.');
+					swal("공고 지원", '이미 지원한 공고입니다.', "error");
 				} else {
-					alert('공고 지원이 완료되었습니다.');
+					swal("공고 지원", '공고 지원이 완료되었습니다.', "success");
 				}
 				
 				hideModal(modal);
