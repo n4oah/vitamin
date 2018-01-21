@@ -49,7 +49,7 @@
 	            var ch = max - len;
 	            $('#characterLeft').text(ch + '자 남음');
 	            $('#btnSubmit').removeClass('disabled');
-	            $('#characterLeft').removeClass('red');            
+	            $('#characterLeft').removeClass('red');
 	        }
 	    });
 	});
