@@ -137,8 +137,7 @@ public class ResumeController {
 		mav.addObject("supportState", supportState);
 		mav.addObject("armyState", armyState);
 		mav.addObject("armyService", armyService);
-		mav.addObject("resumeInfo", resumeInfo);
-		
+		mav.addObject("resumeInfo", resumeInfo);		
 		
 		return mav;
 		

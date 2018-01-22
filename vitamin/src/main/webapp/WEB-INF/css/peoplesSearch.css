@@ -632,3 +632,9 @@ a {
 .dropdown-toggle strong {
 	width: auto;
 }
+.modal-lg {
+	width: 1280px;
+}
+textarea {
+    width: 100%;
+}

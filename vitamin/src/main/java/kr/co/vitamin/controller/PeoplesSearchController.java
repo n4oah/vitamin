@@ -160,7 +160,7 @@ public class PeoplesSearchController {
 	}
 	
 	@RequestMapping("/resumeInfo.do")
-	public ModelAndView resumeInfo(HttpSession session, Integer resumeNo) throws Exception{
+	public ModelAndView resumeInfo(HttpSession session, Integer resumeNo, Integer memberNo) throws Exception{
 		ModelAndView mav = new ModelAndView();
 		
 		Company user = (Company)session.getAttribute("user");
@@ -196,6 +196,8 @@ public class PeoplesSearchController {
 		mav.addObject("armyState", armyState);
 		mav.addObject("armyService", armyService);
 		mav.addObject("resumeInfo", resumeInfo);
+		if (memberNo != null)
+			mav.addObject("memberNo", memberNo);
 		
 		return mav;
 	}

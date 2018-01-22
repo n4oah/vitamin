@@ -18,7 +18,7 @@
 	}
 </style>
 </head>
-<body>
+<body class="trollll">
 	<%-- <%@ include file="/WEB-INF/jsp/include/header.jsp"%> --%>
 	<form class="form-horizontal resumeInfo">
 
@@ -34,6 +34,10 @@
 					<div class="horizontal_table table_wrap">
 						<h4 class="table_title">이력서제목</h4>
 						<p>${resumeInfo.resumeTitle}</p>
+					</div>
+					<div class="horizontal_table table_wrap">
+						<h4 class="table_title">프로필사진</h4>
+						<img class="profile-image" attr="${member.accountNo}" style="width:70px;height:70px" >
 					</div>
 
 					<div class="edit_content">
@@ -97,7 +101,7 @@
 										<th>성별</th>
 										<td>
 											<!-- <input class="float-control" type="text" readonly="readonly" style="width:20%"> -->
-											<p>${member.gender}</p>
+											<p>${member.genderName}</p>
 										<!-- 
 											<select class="selectpicker">
 													<option class="fa">성별</option>
@@ -436,18 +440,12 @@
 				</div>
 			</section>
 		</div>
-
+		<iframe src="/vitamin/cards/cardsviewer.do?memberNo=${memberNo}"
+		width="1245" height="700" frameborder="0" style="border:1px solid black;">
+		</iframe>
 	</form>
 	<%-- <%@ include file="/WEB-INF/jsp/include/footer.jsp"%> --%>
 <script>
-	$Trollo = $("<iframe>")
-	.attr("src","/vitamin/cards/cardsviewer.do?memberNo="+"${memberNo}")
-	.attr("width","1280")
-	.attr("height","720")
-	.attr("frameborder","0")
-	.css({"border":"1px solid black;"});
-	
-	$Trollo.appendTo("body");
 </script>
 </body>
 </html>

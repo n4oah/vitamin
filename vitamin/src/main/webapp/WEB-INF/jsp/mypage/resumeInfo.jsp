@@ -24,6 +24,9 @@
 	.infocontainer{
 		width:80%;
 	}
+	textarea {
+	width: 100%;
+}
 </style>
 </head>
 <body>
@@ -449,6 +452,9 @@
 		</div>
 
 	</form>
+	<iframe src="/vitamin/cards/cardsviewer.do?memberNo=${memberNo}"
+	width="1245" height="700" frameborder="0" style="border:1px solid black;">
+	</iframe>
 	<%-- <%@ include file="/WEB-INF/jsp/include/footer.jsp"%> --%>
 <script>
 	
