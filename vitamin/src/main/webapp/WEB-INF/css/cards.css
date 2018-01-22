@@ -83,18 +83,26 @@ input:focus, textarea:focus{border:1px solid orange; outline:none;}
 	
 	background: rgba(255,255,255,0.7);
 	border-radius: 3px;
+	margin-left:7px;
 	
 	color: black;
 	text-align: center;
 	text-decoration: none;
 }.at-menubtn.hide, .at-mypagebtn.hide{display:none;}
-.at-menu-icon{
+.at-menu-icon, .at-user-icon{
 	display: block;
 	width:100%; height: 100%;
-	background: url("../image/cards/gear.png") no-repeat ;
-	background-size: 100%;
 	background-position: center;
 }
+.at-menu-icon{
+	background: url("../image/cards/gear.png") no-repeat ;
+	background-size: 100%;
+}
+.at-user-icon{
+	background: url("../image/cards/user.png") no-repeat ;
+	background-size: 100%;
+}
+
 .at-menu-header,.at-menu-item{flex: 0 1 auto;}
 .at-menu-content{flex:1;}
 .at-menu-header{background:rgba(0,0,0,0.2);}

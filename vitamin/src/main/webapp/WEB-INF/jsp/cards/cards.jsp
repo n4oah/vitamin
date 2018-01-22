@@ -29,6 +29,9 @@
 				<a class="at-menubtn" href="#">
 					<span class="at-menu-icon"></span>
 				</a>
+				<a class="at-mypagebtn" href="/vitamin/mypage/myInfo.do">
+					<span class="at-user-icon"></span>
+				</a>
 				<div class="at-menu hide">
 					<div class="at-menu-header">
 						<div class="at-menu-header-button at-back-icon hide"></div>
@@ -314,16 +317,18 @@ $(document).on("click",".at-button-group > .at-button", function(){
 })
 //기본설정
 $(".at-menubtn").on("click", function(){
-	$(".at-menu").removeClass("hide",200,"linear")
-	$(".at-menubtn").addClass("hide")
+	$(".at-menu").removeClass("hide",200,"linear");
+	$(".at-mypagebtn").addClass("hide");
+	$(".at-menubtn").addClass("hide");
 });
 $(".at-menu-header-button.at-close-icon").on("click", function(){
-	$(".at-menu").addClass("hide",200,"linear")
-	$(".at-menubtn").removeClass("hide",200)
+	$(".at-menu").addClass("hide",200,"linear");
+	$(".at-mypagebtn").removeClass("hide",200);
+	$(".at-menubtn").removeClass("hide",200);
 });
 $(".at-menu-header-button.at-back-icon").on("click", function(){
-	$(".at-menu-header-title").text("[메뉴]")
-	$(this).addClass("hide",200)
+	$(".at-menu-header-title").text("[메뉴]");
+	$(this).addClass("hide",200);
 });
 
 $(".at-menu").on("keydown",".at-activity-name-input",function(e){
