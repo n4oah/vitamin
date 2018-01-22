@@ -156,8 +156,6 @@
 	 $('.resumeTitle').click(function(event){
 		$("#myModal").modal("show");
 		$(".modal-body").load("${pageContext.request.contextPath}/mypage/resumeInfo.do?resumeNo="+$(this).attr("attr"));
-		//TROLLO
-		
 	});
 	 
 	

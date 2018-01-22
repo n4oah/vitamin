@@ -17,7 +17,12 @@ public class ActivityListServiceImpl implements ActivityListService {
 	public List<ActivityList> selectListByActivityNo(int activityNo) throws Exception {
 		return activityListMapper.selectActivityListByActivityNo(activityNo);
 	}
-	
+	@Override
+	public List<ActivityList> selectListByActivityNoForViewer(int activityNo) throws Exception {
+		return activityListMapper.selectActivityListByActivityNoAndListPerm(activityNo);
+	}
+
+
 	@Override
 	public ActivityList selectListByListNo(int listNo) throws Exception {
 		return activityListMapper.selectActivityListByListNo(listNo);

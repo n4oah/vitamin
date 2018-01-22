@@ -85,7 +85,7 @@ public class CardsController {
 		try {
 			company = (Company)session.getAttribute("user");
 		} catch (Exception e) {
-			System.out.println("넘어가");
+			System.out.println("일반회원으로 접속됨");
 		}
 		activity = ActivityService.selectActivityByMemberNo(memberNo);
 		
@@ -108,7 +108,7 @@ public class CardsController {
 					
 					if(permission){
 						model.addAttribute("activity",gson.toJson(activity));
-						model.addAttribute("activityList",gson.toJson(ActivityListService.selectListByActivityNo(activity.getActivityNo())));
+						model.addAttribute("activityList",gson.toJson(ActivityListService.selectListByActivityNoForViewer(activity.getActivityNo())));
 						model.addAttribute("activityItem",gson.toJson(ActivityItemService.selectItemByActivityNo(activity.getActivityNo())));
 						model.addAttribute("activityFiles",gson.toJson(ActivityItemService.selectFileByActivityNo(activity.getActivityNo())));
 						return "cards/cardsviewer";
@@ -125,7 +125,7 @@ public class CardsController {
 		}
 		//case "A"
 		model.addAttribute("activity",gson.toJson(activity));
-		model.addAttribute("activityList",gson.toJson(ActivityListService.selectListByActivityNo(activity.getActivityNo())));
+		model.addAttribute("activityList",gson.toJson(ActivityListService.selectListByActivityNoForViewer(activity.getActivityNo())));
 		model.addAttribute("activityItem",gson.toJson(ActivityItemService.selectItemByActivityNo(activity.getActivityNo())));
 		model.addAttribute("activityFiles",gson.toJson(ActivityItemService.selectFileByActivityNo(activity.getActivityNo())));
 		
