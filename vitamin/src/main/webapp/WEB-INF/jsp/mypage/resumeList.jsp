@@ -62,7 +62,7 @@
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
 	<div id="wrapper" style="margin-top: 0px;">
-		<section class="container">
+		<section class="container" style="min-height: 620px;">
 			<div class="horizontal_table table_wrap">
 				<h4 class="table_title">이력서 리스트</h4>
 				<input style="float: right" type="button" class="btn-primary"  id="regResume" value="이력서등록">
