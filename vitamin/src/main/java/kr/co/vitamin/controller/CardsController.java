@@ -53,7 +53,7 @@ public class CardsController {
 	}
 	
 	///액티비티
-	//본인 트롤로
+	//멤버 트롤로
 	@RequestMapping("/cards.do")
 	public void cards(Model model, HttpSession session, Activity activity, Member member) throws Exception {
 		Gson gson = new Gson();
@@ -76,17 +76,17 @@ public class CardsController {
 		model.addAttribute("activityFiles",gson.toJson(ActivityItemService.selectFileByActivityNo(activity.getActivityNo())));
 	}
 	
-	//다른 계정의 트롤로
+	//컴퍼니 트롤로 뷰어
 	@RequestMapping("/cardsviewer.do")
 	public String othercards(Model model, HttpSession session, int memberNo, Activity activity, Company company)
 			throws Exception{
+		Gson gson = new Gson();
 		
 		try {
 			company = (Company)session.getAttribute("user");
 		} catch (Exception e) {
 			System.out.println("넘어가");
 		}
-		
 		activity = ActivityService.selectActivityByMemberNo(memberNo);
 		
 		if(activity == null) {
@@ -107,6 +107,10 @@ public class CardsController {
 					if(checkPermission == null) {permission = false;}
 					
 					if(permission){
+						model.addAttribute("activity",gson.toJson(activity));
+						model.addAttribute("activityList",gson.toJson(ActivityListService.selectListByActivityNo(activity.getActivityNo())));
+						model.addAttribute("activityItem",gson.toJson(ActivityItemService.selectItemByActivityNo(activity.getActivityNo())));
+						model.addAttribute("activityFiles",gson.toJson(ActivityItemService.selectFileByActivityNo(activity.getActivityNo())));
 						return "cards/cardsviewer";
 					}else{
 						model.addAttribute("error", "트롤로 페이지 열람 권한이 없습니다.");
@@ -120,6 +124,10 @@ public class CardsController {
 			}
 		}
 		//case "A"
+		model.addAttribute("activity",gson.toJson(activity));
+		model.addAttribute("activityList",gson.toJson(ActivityListService.selectListByActivityNo(activity.getActivityNo())));
+		model.addAttribute("activityItem",gson.toJson(ActivityItemService.selectItemByActivityNo(activity.getActivityNo())));
+		model.addAttribute("activityFiles",gson.toJson(ActivityItemService.selectFileByActivityNo(activity.getActivityNo())));
 		
 		return "cards/cardsviewer";
 	}
