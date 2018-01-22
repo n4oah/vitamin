@@ -6,6 +6,7 @@ import kr.co.vitamin.repository.vo.ActivityList;
 
 public interface ActivityListService {
 	public List<ActivityList> selectListByActivityNo(int activityNo) throws Exception;
+	public List<ActivityList> selectListByActivityNoForViewer(int activityNo) throws Exception;
 	
 	public ActivityList selectListByListNo(int listNo) throws Exception;
 	

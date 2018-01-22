@@ -6,6 +6,7 @@ import kr.co.vitamin.repository.vo.ActivityList;
 
 public interface ActivityListMapper {
 	public List<ActivityList> selectActivityListByActivityNo(int activityNo) throws Exception;
+	public List<ActivityList> selectActivityListByActivityNoAndListPerm(int activityNo) throws Exception;
 	
 	public ActivityList selectActivityListByListNo(int listNo) throws Exception;
 	

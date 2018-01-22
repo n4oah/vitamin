@@ -17,6 +17,11 @@
 		where activity_no = #{activityNo}
 		order by list_no
 	</select>
+	<select id="selectActivityListByActivityNoAndListPerm" parameterType="int" resultMap="activityListMap">
+		select * from vi_activity_list
+		where activity_no = #{activityNo} and list_perm = 'Y'
+		order by list_no
+	</select>
 	
 	<select id="selectActivityListByListNo" parameterType="int" resultMap="activityListMap">
 		select * from vi_activity_list
