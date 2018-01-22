@@ -19,7 +19,7 @@ html {
 	font-family:"맑은 고딕";
 }
 
-input, textarea {background:black; border:1px solid white; color:white; display:block;}
+input, textarea {background:black; border:1px solid white; color:white;}
 input:focus, textarea:focus{border:1px solid orange; outline:none;}
 
 #troll {
@@ -117,9 +117,15 @@ input:focus, textarea:focus{border:1px solid orange; outline:none;}
 	overflow-y: auto;
 	border-top:1px dashed orange;
 }
-.at-menu-content::-webkit-scrollbar {width:10px;}
-.at-menu-content::-webkit-scrollbar-track {border-left:1px solid orange;}
-.at-menu-content::-webkit-scrollbar-thumb {background: orange;}
+.at-menu-content::-webkit-scrollbar,
+.md-item-content-input::-webkit-scrollbar
+{width:10px;}
+.at-menu-content::-webkit-scrollbar-track, 
+.md-item-content-input::-webkit-scrollbar-track
+{border-left:1px solid orange;}
+.at-menu-content::-webkit-scrollbar-thumb,
+.md-item-content-input::-webkit-scrollbar-thumb
+{background: orange;}
 .at-menu-item{margin:2px 3px;}
 .at-menu-item:hover{background:rgba(255,255,255,0.1);}
 .at-menu-item-label{font-weight: bold;}
@@ -184,6 +190,7 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	overflow:hidden;
 	text-overflow:ellipsis;
 }
+
 .at-board-list-content{
 	display:flex;
 	flex-direction:column;
@@ -403,7 +410,10 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 .md-item-close{
 	position:absolute;
 	top:0; right:0;
+	width:20px; height:20px;
 	margin: 5px;
+	background:url("../image/cards/close.png");
+	background-size:100%;
 }
 .md-item-content{
 	position:relative;
@@ -415,7 +425,13 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	width:100%; min-height:100%;
 	top:0;
 }
-.md-item-content-input{border:1px solid orange; background:black; margin:-1px;}
+.md-item-content-input{
+	border:1px solid orange;
+	background:black;
+	margin:-1px;
+	height:100%;
+	overflow:auto;
+}
 .md-item-content-input.hide,
 .md-item-content-buttons.hide,
 .md-item-content-edit.hide{display:none;}
@@ -426,7 +442,7 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	
 }
 .md-item-file-download{
-	display:block;
+	display:inline-block;
 	border:1px solid white;
 	color:white;
 	text-decoration:none;

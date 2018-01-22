@@ -11,6 +11,7 @@ public interface ActivityListService {
 	
 	public void insertList(ActivityList activityList) throws Exception;
 	
+	public void updateListName(ActivityList activityList) throws Exception;
 	public void updateListLocation(ActivityList activityList) throws Exception;
 	public void updateListPerm(ActivityList activityList) throws Exception;
 	public void updateListFix(ActivityList activityList) throws Exception;

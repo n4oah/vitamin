@@ -11,6 +11,7 @@ public interface ActivityListMapper {
 	
 	public void insertActivityList(ActivityList activityList) throws Exception;
 	
+	public void updateActivityListName(ActivityList activityList) throws Exception;
 	public void updateActivityListLocation(ActivityList activityList) throws Exception;
 	public void updateActivityListPerm(ActivityList activityList) throws Exception;
 	public void updateActivityListFix(ActivityList activityList) throws Exception;
