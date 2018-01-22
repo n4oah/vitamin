@@ -21,7 +21,12 @@ public class ActivityItemServiceImpl implements ActivityItemService {
 	public List<ActivityItem> selectItemByActivityNo(int activityNo)throws Exception {
 		return activityItemMapper.selectActivityItemByActivityNo(activityNo);
 	}
-	
+	@Override
+	public List<ActivityItem> selectItemByActivityNoForViewer(int activityNo) throws Exception {
+		return activityItemMapper.selectActivityItemByActivityNoAndListPerm(activityNo);
+	}
+
+
 	@Override
 	public ActivityItem selectItemByItemNo(int itemNo) throws Exception {
 		return activityItemMapper.selectActivityItemByItemNo(itemNo);
@@ -50,6 +55,10 @@ public class ActivityItemServiceImpl implements ActivityItemService {
 	@Override
 	public List<ActivityFiles> selectFileByActivityNo(int activityNo) throws Exception {
 		return activityFilesMapper.selectActivityFilesByActivityNo(activityNo);
+	}
+	@Override
+	public List<ActivityFiles> selectFileByActivityNoForViewer(int activityNo) throws Exception {
+		return activityFilesMapper.selectActivityFilesByActivityNoAndListPerm(activityNo);
 	}
 	
 	@Override

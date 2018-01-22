@@ -7,6 +7,7 @@ import kr.co.vitamin.repository.vo.ActivityItem;
 
 public interface ActivityItemService {
 	public List<ActivityItem> selectItemByActivityNo(int activityNo) throws Exception;
+	public List<ActivityItem> selectItemByActivityNoForViewer(int activityNo) throws Exception;
 	
 	public ActivityItem selectItemByItemNo(int itemNo) throws Exception;
 	
@@ -19,6 +20,7 @@ public interface ActivityItemService {
 	public void deleteItem(int itemNo) throws Exception;
 	
 	public List<ActivityFiles> selectFileByActivityNo(int activityNo) throws Exception;
+	public List<ActivityFiles> selectFileByActivityNoForViewer(int activityNo) throws Exception;
 	
 	public List<ActivityFiles> selectFileByItemNo(int itemNo) throws Exception;
 	

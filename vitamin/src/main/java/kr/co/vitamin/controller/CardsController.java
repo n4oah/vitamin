@@ -109,8 +109,8 @@ public class CardsController {
 					if(permission){
 						model.addAttribute("activity",gson.toJson(activity));
 						model.addAttribute("activityList",gson.toJson(ActivityListService.selectListByActivityNoForViewer(activity.getActivityNo())));
-						model.addAttribute("activityItem",gson.toJson(ActivityItemService.selectItemByActivityNo(activity.getActivityNo())));
-						model.addAttribute("activityFiles",gson.toJson(ActivityItemService.selectFileByActivityNo(activity.getActivityNo())));
+						model.addAttribute("activityItem",gson.toJson(ActivityItemService.selectItemByActivityNoForViewer(activity.getActivityNo())));
+						model.addAttribute("activityFiles",gson.toJson(ActivityItemService.selectFileByActivityNoForViewer(activity.getActivityNo())));
 						return "cards/cardsviewer";
 					}else{
 						model.addAttribute("error", "트롤로 페이지 열람 권한이 없습니다.");
@@ -126,8 +126,8 @@ public class CardsController {
 		//case "A"
 		model.addAttribute("activity",gson.toJson(activity));
 		model.addAttribute("activityList",gson.toJson(ActivityListService.selectListByActivityNoForViewer(activity.getActivityNo())));
-		model.addAttribute("activityItem",gson.toJson(ActivityItemService.selectItemByActivityNo(activity.getActivityNo())));
-		model.addAttribute("activityFiles",gson.toJson(ActivityItemService.selectFileByActivityNo(activity.getActivityNo())));
+		model.addAttribute("activityItem",gson.toJson(ActivityItemService.selectItemByActivityNoForViewer(activity.getActivityNo())));
+		model.addAttribute("activityFiles",gson.toJson(ActivityItemService.selectFileByActivityNoForViewer(activity.getActivityNo())));
 		
 		return "cards/cardsviewer";
 	}

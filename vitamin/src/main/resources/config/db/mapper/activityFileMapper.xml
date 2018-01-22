@@ -26,6 +26,23 @@
 		order by item_no
 	</select>
 	
+	<select id="selectActivityFilesByActivityNoAndListPerm" parameterType="int" resultMap="activityFilesMap">
+		select at_file_no, item_no
+		from vi_activity_files
+		where item_no in (
+			select item_no
+			from vi_activity_item
+			where list_no in (
+				select list_no
+				from vi_activity_list
+				where activity_no = #{activityNo}
+				and list_perm = 'Y'
+			)
+		)
+		order by item_no
+	</select>
+	
+	
 	<select id="selectActivityFilesByItemNo" parameterType="int" resultMap="activityFilesMap">
 		select * from vi_activity_files
 		where item_no = #{itemNo}
