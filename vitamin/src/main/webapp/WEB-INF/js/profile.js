@@ -1,7 +1,7 @@
 $(function() {
 	let tags = $('.profile-image');
 	var url = getContextPath() + '/mypage/myProfile.do';
-
+	//
 	for(let tag of tags) {
 		let accountNo = $(tag).attr('attr');
 
