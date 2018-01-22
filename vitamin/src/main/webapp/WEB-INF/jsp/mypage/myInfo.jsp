@@ -65,8 +65,8 @@
 							</button>
 							
 							<span class="aa profile-image" attr="${sessionScope.user.accountNo}"></span>
-							<span class="site-name" style="color: white;"><b><c:out value="${userName}"></c:out></b></span>
-							<span class="site-description" style="color: white;"><c:out value="${memberType}"></c:out></span>
+							<span class="site-name" style="color: white;text-shadow: black 0px 2px, black 2px 0px, black -2px 0px, black 0px -2px, black -1.4px -1.4px, black 1.4px 1.4px, black 1.4px -1.4px, black -1.4px 1.4px; "><b><c:out value="${userName}"></c:out></b></span>
+							<span class="site-description" style="color: white;text-shadow: black 0px 2px, black 2px 0px, black -2px 0px, black 0px -2px, black -1.4px -1.4px, black 1.4px 1.4px, black 1.4px -1.4px, black -1.4px 1.4px; " ><c:out value="${memberType}"></c:out></span>
 						</div>
 						<div class="collapse navbar-collapse" id="mainNav">
 							<ul class="nav main-menu navbar-nav">
