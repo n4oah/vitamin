@@ -26,6 +26,8 @@ import kr.co.vitamin.repository.vo.Activity;
 import kr.co.vitamin.repository.vo.ActivityFiles;
 import kr.co.vitamin.repository.vo.ActivityItem;
 import kr.co.vitamin.repository.vo.ActivityList;
+import kr.co.vitamin.repository.vo.CompanyApply;
+import kr.co.vitamin.repository.vo.account.Company;
 import kr.co.vitamin.repository.vo.account.Member;
 import kr.co.vitamin.service.ActivityService;
 import kr.co.vitamin.service.ActivityItemService;
@@ -50,11 +52,6 @@ public class CardsController {
 		return "test 작동중";
 	}
 	
-	@RequestMapping("/testtest.do")
-	public String testtest() throws Exception {
-		return "cards/cardsviewer";
-	}
-	
 	///액티비티
 	//본인 트롤로
 	@RequestMapping("/cards.do")
@@ -73,8 +70,6 @@ public class CardsController {
 			model.addAttribute("tutorial","정어리");
 		}
 		
-		
-		
 		model.addAttribute("activity",gson.toJson(activity));
 		model.addAttribute("activityList",gson.toJson(ActivityListService.selectListByActivityNo(activity.getActivityNo())));
 		model.addAttribute("activityItem",gson.toJson(ActivityItemService.selectItemByActivityNo(activity.getActivityNo())));
@@ -82,30 +77,51 @@ public class CardsController {
 	}
 	
 	//다른 계정의 트롤로
-	@RequestMapping("/{memberNo}/cards.do")
-	public String othercards(Model model, @PathVariable int memberNo, Activity activity)throws Exception{
-		//cards viewer jsp로 연결 예정
+	@RequestMapping("/cardsviewer.do")
+	public String othercards(Model model, HttpSession session, int memberNo, Activity activity, Company company)
+			throws Exception{
+		
+		try {
+			company = (Company)session.getAttribute("user");
+		} catch (Exception e) {
+			System.out.println("넘어가");
+		}
 		
 		activity = ActivityService.selectActivityByMemberNo(memberNo);
+		
 		if(activity == null) {
-			model.addAttribute("n", "없어요");
-			return null;
+			model.addAttribute("error", "트롤로 페이지가 없습니다.");
+			model.addAttribute("description", "해당 회원이 존재하지 않거나, 아직 트롤로 페이지를 생성하지 않았습니다.");
+			return "cards/cardserror";
 		}else{
 			String Perm = activity.getActivityPerm();
 			switch(Perm) {
 				case "B":
-					//지원기업일 때, 아닐 때 분기
-					if(true){
-						return null;
+					boolean permission = true;
+					
+					HashMap<String,Integer> accountNo = new HashMap<String,Integer>();
+					accountNo.put("memberNo", memberNo);
+					accountNo.put("companyNo", company.getCompanyNo());
+					
+					Integer checkPermission = ActivityService.checkPermission(accountNo);
+					if(checkPermission == null) {permission = false;}
+					
+					if(permission){
+						return "cards/cardsviewer";
 					}else{
-						return null;
+						model.addAttribute("error", "트롤로 페이지 열람 권한이 없습니다.");
+						model.addAttribute("description", "지원한 기업에게만 공개 설정된 트롤로 페이지입니다.");
+						return "cards/cardserror";
 					}
 				case "C":
-					model.addAttribute("n", "비공개");
-					return null;
+					model.addAttribute("error", "트롤로 페이지 열람 권한이 없습니다.");
+					model.addAttribute("description", "비공개 설정된 트롤로 페이지입니다.");
+					return "cards/cardserror";
 			}
 		}
-		return null;
+		//case "A"
+		
+		return "cards/cardsviewer";
 	}
 	
 	@ResponseBody

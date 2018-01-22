@@ -1,5 +1,7 @@
 package kr.co.vitamin.service;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +38,10 @@ public class ActivityServiceImpl implements ActivityService {
 	@Override
 	public void updateActivityAskagain(Activity activity) throws Exception {
 		activityMapper.updateActivityAskagain(activity);
+	}
+
+	@Override
+	public Integer checkPermission(HashMap<String, Integer> accountNo) throws Exception {
+		return activityMapper.checkPermission(accountNo);
 	}
 }

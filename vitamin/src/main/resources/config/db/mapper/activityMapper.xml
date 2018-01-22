@@ -42,4 +42,16 @@
 		where activity_no = #{activityNo}
 	</update>
 	
+	
+	<select id="checkPermission" parameterType="map" resultType="int">
+		select state from vi_company_apply
+		where member_no = #{memberNo}
+		and recruit_no in(
+			select recruit_no
+			from vi_recruit_write
+			where company_no = #{companyNo}
+		)
+		limit 1
+	</select>
+	
 </mapper>
