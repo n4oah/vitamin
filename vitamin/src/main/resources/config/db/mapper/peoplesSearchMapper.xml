@@ -430,5 +430,4 @@
 		on ma.recruit_no = vi_recruit_write.recruit_no
 		order by value desc
 	</select>
-	
 </mapper>
