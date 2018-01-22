@@ -25,9 +25,9 @@ html, body, #waha{
    	margin:0;
 }
 * {font-family: 'Nanum Gothic', sans-serif, serif;}
-div.top {width: 50vw; border-bottom: 0.3vh solid black}
+div.top {width: 50vw; border-bottom: 0.3vh solid black;}
 div.top > .logo {width: 7.2vh}
-div.top > .title {font-size: 3.5vh; color: #5566ff; font-weight: bold}
+div.top > .title {font-size: 3vh; color: #5566ff; font-weight: bold}
 div.top > .bookmark {float: right; width: 3vh;}
 div.top > .bookmark:hover, div.top > .bookmark.checked {background-image: url("https://i.imgur.com/PRgfqvQ.png"); background-size: 3vh}
 .summary {background-color: pink; width: 65vw; height: 6.8vh 6.8vw; border-radius: 1vw}
@@ -172,17 +172,22 @@ display: inline-block;
 <body>
 <div class="top" id="header">
 	<c:if test="${com.file != null }">
-	<img alt="${com.companyName}" src="${pageContext.request.contextPath}${com.file.filePath }/${com.file.systemName}" class="logo">
+		<img class="profile-image company-logo" attr="${param.no }" class="logo">
 	</c:if>
 	<span class="title">${com.companyName}</span>
 	
-	<c:if test="${sessionScope.user.memberType == 1}">
-		<img class="bookmark
-		<c:if test="${com.bookmarkNo != null }">
-		checked
-		</c:if>
-		" alt="즐겨찾기" src="https://i.imgur.com/K3hpPeQ.png">
-	</c:if>
+	<c:choose>
+		<c:when test="${sessionScope.user.memberType == 1}">
+			<img class="bookmark
+			<c:if test="${com.bookmarkNo != null }">
+			checked
+			</c:if>
+			" alt="즐겨찾기" src="https://i.imgur.com/K3hpPeQ.png">
+		</c:when>
+		<c:otherwise>
+			<span></span>
+		</c:otherwise>
+	</c:choose>
 </div>
 
 <div class="sum">
@@ -284,7 +289,7 @@ display: inline-block;
 	
 	<div>
 		<span class="detailTitle">사업형태</span>
-		<span>광고</span>
+		<span>IT</span>
 	</div>
 	
 	<div>
@@ -379,11 +384,11 @@ display: inline-block;
 		//else $(".summary").css({"margin-left": ""});
 	}
 
-	resize();
+	//resize();
 
-	$(window).resize(function() {
+	/* $(window).resize(function() {
 		resize();
-	});
+	}); */
 
 	$(".bookmark").on("click", function () {
 		$.ajax({

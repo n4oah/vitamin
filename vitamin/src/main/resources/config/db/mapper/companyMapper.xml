@@ -126,8 +126,12 @@
 	
 	<select id="companyDetail" parameterType="review" resultMap="companyMap">
 		select * from (select * from vi_company where company_no = #{companyNo}) company
-		left join (select * from vi_bookmark where member_no = #{memberNo} and company_no = #{companyNo}) bookmark
+		<if test="memberNo != null">
+		left join (select * from vi_bookmark where
+		member_no = #{memberNo} and
+		company_no = #{companyNo}) bookmark
 		on company.company_no = bookmark.company_no
+		</if>
 		left join vi_file
 		on company.logo_no = vi_file.file_no
 	</select>

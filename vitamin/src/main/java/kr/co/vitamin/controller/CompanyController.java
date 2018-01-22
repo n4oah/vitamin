@@ -27,12 +27,12 @@ public class CompanyController {
 		if (no == null) return;
 		Review review = new Review();
 		review.setCompanyNo(no);
-		Object obj = session.getAttribute("user");
 		
 		try {
-			Member member = (Member)obj;
+			Member member = (Member)session.getAttribute("user");
 			review.setMemberNo(member.getMemberNo());
 		} catch (Exception e) {}
+		
 		Company com = companyService.companyDetail(review);
 		System.out.println(com);
 		model.addAttribute("com", com);

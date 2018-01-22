@@ -46,7 +46,7 @@
 							</span>
 							
 							<span>
-								<label><input type="checkbox" name="careerState" class="career_level" value="3">경력</label>
+								<label><input type="checkbox" name="careerState" class="career_level">경력</label>
 							</span>
 					
 							<span class="career_period" style="display:none">

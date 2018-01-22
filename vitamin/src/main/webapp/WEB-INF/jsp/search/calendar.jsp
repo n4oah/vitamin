@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,6 +18,12 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/fullcalendar/fullcalendar.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/fullcalendar/locale-all.js"></script>
 <script src="../js/simpledateformat.js"></script>
+<c:if test="${sessionScope.user.memberType != 1}">
+	<script>
+		alert("개인 회원만 사용 가능합니다.");
+		location.href = "${pageContext.request.contextPath}/main.do"
+	</script>
+</c:if>
 <style type="text/css">
 body {
 	overflow: 
@@ -97,6 +104,7 @@ function calendarMake(insert) {
 			data.recruit.forEach(function (recruit, index) {
 				var end = new Date(recruit.end);
 				end.setDate(end.getDate()+1)
+				
 				calendarData.push(
 					{title: recruit.title+"("+recruit.recruitTitle+")",
 					start: sdf.format(new Date(recruit.start)),
