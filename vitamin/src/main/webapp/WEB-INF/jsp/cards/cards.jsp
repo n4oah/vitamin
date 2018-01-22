@@ -455,6 +455,41 @@
 	
 	
 	///리스트
+	//이름
+	$("#at-board").on("dblclick", ".at-list-name",function(e){
+		$listNameInput = $("<input>").addClass("at-list-name-input")
+		.val($(this).text());
+		
+		$(this).parents(".at-board-list-header").append($listNameInput);
+		$(this).remove();
+	});
+	
+	$("#at-board").on("keydown", ".at-list-name-input",function(e){
+		if(e.keyCode == 13){
+			$listName = $("<span>").addClass("at-list-name").text($(this).val());
+			
+			if($(this).val().length > 20){
+				modal.alert("리스트 이름은 20자 이하로 작성해주세요.");
+				return;
+			}
+			
+			$.ajax({
+				url:"updatelist/name.do",
+				method:"post",
+				data:{
+					listNo:$(this).parents(".at-board-list").data("listNo"),
+					listName:$(this).val()
+				},
+				success:function(d){
+					console.log(d);
+				}
+			});
+			
+			$(this).parents(".at-board-list-header").append($listName);
+			$(this).remove();
+		}
+	});
+	
 	//추가
 	$(".at-addblock").on("click",function(e){
 		$(this).addClass("takeonme");
@@ -788,7 +823,7 @@
 					
 					if(!$item){return;}
 					
-					let $mdItemClose = $("<div>").addClass("md-item-close").text("X")
+					let $mdItemClose = $("<div>").addClass("md-item-close")
 					.on("click",function(){$("#modal").addClass("hide").html("");});
 					
 					let $mdItemContent = $("<div>").addClass("md-item-content")
