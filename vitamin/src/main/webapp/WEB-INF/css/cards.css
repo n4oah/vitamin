@@ -240,6 +240,7 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 	width:40px;
 }
 .at-list-menu-button{
+	position:relative;
 	flex: 0 1 auto;
 	width:30px; height:30px;
 	margin:2px 5px;
@@ -250,7 +251,15 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 
 .at-fix-icon, .at-perm-icon{height:100%; width:100%;}
 .at-fix-icon{background: url("../image/cards/pin.png") no-repeat; background-size: 100%;}
+.at-list-menu-button > .at-fix-icon:hover:after{content:"고정"; }
 .at-perm-icon{background: url("../image/cards/public.png") no-repeat; background-size: 100%;}
+.at-list-menu-button > .at-perm-icon:hover:after{content:"공개";}
+.at-list-menu-button > div:hover:after{
+	position:absolute;
+	left:35px; top:-5px;
+	background:rgba(0,0,0,0.7);
+	border: 1px solid black;
+}
 
 .at-gottagofast{
 	animation: gottagofast 0.25s;
