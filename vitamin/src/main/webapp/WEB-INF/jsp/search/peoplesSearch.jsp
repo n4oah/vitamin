@@ -767,7 +767,8 @@ $('span.dropdown').click(function () {
 				
 				tr.append($("<td>").addClass("recruit_nm")
 					.append($("<a>").addClass("str_tit nameAjax")
-							.attr({"title": human.name, "data-mir": human.memberNo})
+							.attr({"title": human.name, "data-mir": human.memberNo,
+								"href": path+"/cards/cardsviewer.do?memberNo="+human.memberNo})
 						.append($("<span>").text(human.name+"("+human.age+"세)")))
 					.append($("<div>").addClass("icon")));
 				
