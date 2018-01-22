@@ -233,6 +233,7 @@ background: url("../image/cards/confirm.png") no-repeat; background-size: 100%;}
 .at-list-menu.takeonme:hover{border:1px dashed white;}
 
 .at-list-menu-buttons{
+	z-index:9998;
 	display:flex;
 	flex-direction:column;
 	position:absolute;
