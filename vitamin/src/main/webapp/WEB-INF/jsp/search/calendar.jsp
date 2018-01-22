@@ -95,9 +95,8 @@ function calendarMake(insert) {
 			var companySet = new Set();
 			
 			data.recruit.forEach(function (recruit, index) {
-				console.log(new Date(recruit.start));
-				console.log(new Date(recruit.end));
-				var end = new Date(recruit.end)+1;
+				var end = new Date(recruit.end);
+				end.setDate(end.getDate()+1)
 				calendarData.push(
 					{title: recruit.title+"("+recruit.recruitTitle+")",
 					start: sdf.format(new Date(recruit.start)),
