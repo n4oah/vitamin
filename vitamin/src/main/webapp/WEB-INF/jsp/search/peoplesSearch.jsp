@@ -774,8 +774,8 @@ $('span.dropdown').click(function () {
 				
 				tr.append($("<td>").addClass("notification_info")
 					.append($("<div>").addClass("job_tit")
-						.append($("<a>").addClass("str_tit resumeTitle").attr({"title": human.title,
-							"data-mir": human.resumeNo})
+						.append($("<a>").addClass("str_tit resumeTitle").attr("title", human.title)
+							.data({"mir": human.resumeNo, "memberNo": human.memberNo})
 							.append($("<span>").text(human.title)))
 						.append($("<p>").addClass("job_sector")
 							.append($("<span>").text("등록일\t"+sdf.format(new Date(human.regDate)))))));
@@ -850,7 +850,7 @@ $('span.dropdown').click(function () {
    $('tbody').on("click", ".resumeTitle", function (event) {
 	console.log(path+"/search/resumeInfo.do?resumeNo="+$(this).attr("data-mir"))
 	$("#myModal").modal("show");
-	$(".modal-body").load(path+"/search/resumeInfo.do?resumeNo="+$(this).attr("data-mir"));
+	$(".modal-body").load(path+"/search/resumeInfo.do?resumeNo="+$(this).attr("data-mir")+"&memberNo="+$(this).data("memberNo"));
 });
    
    $(".iframe").draggable();
