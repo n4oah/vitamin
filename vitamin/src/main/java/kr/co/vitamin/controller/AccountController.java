@@ -152,8 +152,8 @@ public class AccountController {
 			
 			emailTok.setShaToken(UUID.randomUUID().toString());
 			
-			InetAddress inet = Inet4Address.getLocalHost();
-			String url = "http://" + inet.getHostAddress() + ":" + request.getLocalPort() + request.getContextPath() + "/account/certify.do?token=" + emailTok.getToken();
+			String ip = "init.xyz";
+			String url = "http://" + ip + ":" + request.getLocalPort() + request.getContextPath() + "/account/certify.do?token=" + emailTok.getToken();
 			
 			StringBuffer content = new StringBuffer();
 			content.append("<h3>INIT - 이메일 인증 코드</h3>");
@@ -168,7 +168,7 @@ public class AccountController {
 			accountService.signupMember(accountSignupVO, address, emailTok);
 			
 			redirectAttributes.addFlashAttribute("user", (Account)accountSignupVO);
-			resultUrl = "redirect:/account/signupSuccess.do";
+			resultUrl = "redirect:/account/signinForm.do";
 		} else {
 			redirectAttributes.addFlashAttribute("errorMsg", "");
 			resultUrl = "redirect:/account/signupForm.do";
