@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>TROLLO</title>
 <style>
+	html{background:white;}
 	body{margin:0;}
 	div{text-align: center; font-family: "맑은 고딕";}
 	#A{display:flex; justify-content: center; width:100vw; height:100vh;}
