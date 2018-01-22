@@ -192,6 +192,9 @@ public class CardsController {
 	public String updateList(@PathVariable String column, ActivityList activityList) throws Exception {
 		
 		switch(column) {
+			case "name":
+				ActivityListService.updateListName(activityList);
+				return "리스트 이름 저장됨";
 			case "location":
 				ActivityListService.updateListLocation(activityList);
 				return "리스트 위치 저장됨";

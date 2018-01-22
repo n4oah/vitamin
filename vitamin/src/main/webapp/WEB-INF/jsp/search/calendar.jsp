@@ -95,16 +95,20 @@ function calendarMake(insert) {
 			var companySet = new Set();
 			
 			data.recruit.forEach(function (recruit, index) {
-				var end = sdf.format(new Date(recruit.end));
+				console.log(new Date(recruit.start));
+				console.log(new Date(recruit.end));
+				var end = new Date(recruit.end)+1;
 				calendarData.push(
 					{title: recruit.title+"("+recruit.recruitTitle+")",
 					start: sdf.format(new Date(recruit.start)),
-					end: end.substring(0, end.length-1)+(parseInt(end.substring(end.length-1))+1),
+					end: sdf.format(end),
 					className: "com"+recruit.companyNo,
 					url: path+"/recruit/recruitDetail.do?no="+recruit.recruitNo
 					});
 				companySet.add(recruit.companyNo)
 			});
+			
+			console.log(calendarData)
 			
 			if (!insert) {
 				$('.d').fullCalendar({

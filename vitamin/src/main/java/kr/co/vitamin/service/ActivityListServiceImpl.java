@@ -28,6 +28,12 @@ public class ActivityListServiceImpl implements ActivityListService {
 		activityListMapper.insertActivityList(activityList);
 	}
 
+	
+	
+	@Override
+	public void updateListName(ActivityList activityList) throws Exception {
+		activityListMapper.updateActivityListName(activityList);
+	}
 	@Override
 	public void updateListLocation(ActivityList activityList) throws Exception {
 		activityListMapper.updateActivityListLocation(activityList);

@@ -28,6 +28,12 @@
 		values (#{listName},#{activityNo},#{listLeft},#{listTop})
 	</insert>
 	
+	<update id="updateActivityListName" parameterType="activityList">
+		update vi_activity_list
+		set list_name = #{listName}
+		where list_no = #{listNo}
+	</update>
+	
 	<update id="updateActivityListLocation" parameterType="activityList">
 		update vi_activity_list
 		set list_top = #{listTop}, list_left = #{listLeft}

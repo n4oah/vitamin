@@ -18,6 +18,15 @@
 		<script src="${pageContext.request.contextPath}/js/common/favorite-recruit.js"></script>
 		<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
 		<script src="../js/simpledateformat.js"></script>
+		<c:if test="${sessionScope.user.memberType == 1}">
+	      	<script type="text/javascript">
+	      		var path = '${pageContext.request.contextPath}';
+	      		var pwd = '${sessionScope.user2.pwd }';
+	      		var id = '${sessionScope.user2.id }';
+	      		var no = '${sessionScope.user.accountNo }';
+	      		var mno = '${sessionScope.user.memberNo }';
+	      	</script>
+      	</c:if>
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
@@ -906,7 +915,7 @@
 				let recruitNo = $(this).parents("tr").find("td:eq(0) > img").attr("attr");
 				let modal = $('#apply-modal');
 
-				let url = getContextPath() + '/recruitApply/getData.do';
+				let url = path + '/recruitApply/getData.do';
 				$.ajax({
 					url: url,
 					success: function(data) {
@@ -956,7 +965,7 @@
 	  	
 	  	$('#apply-modal-form').submit(function(event) {
 			let data = $(this).serialize();
-			let url = getContextPath() + '/recruitApply/apply.do';
+			let url = path+'/recruitApply/apply.do';
 
 			let modal = $('#apply-modal');
 
