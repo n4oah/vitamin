@@ -33,7 +33,7 @@ div.top > .bookmark:hover, div.top > .bookmark.checked {background-image: url("h
 .summary {background-color: pink; width: 65vw; height: 6.8vh 6.8vw; border-radius: 1vw}
 .vr {width: 0.2vw; height: 100%; background-color: gray; display: inline-block; position: absolute}
 .sumtitle {display: inline-block; overflow: hidden; margin-top: -0.3vh}
-/* .sumtitle > div:first-child {border-bottom: 0.2vh solid black; width: 100%; padding-bottom: 0.5vw; padding-to: 0.5vw} */
+/* .sumtitle > div:first-child { vborder-bottom: 0.2vh solid black; width: 100%; padding-bottom: 0.5vw; padding-to: 0.5vw} */
 .sumtitle > div:last-child {top: -0.3vh}
 .sumtitle > * {text-align: center; color: black; font-size: 100%; font-weight: bold}
 .chart, .graphTop {height: 18vh; width: 50vw}
