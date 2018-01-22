@@ -11,6 +11,11 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/basic.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/recruitApply/recruitResumeList.css">
 		<script src="${pageContext.request.contextPath}/js/recruitApply/recruitResumeList.js"></script>
+	<style type="text/css">
+		.modal-lg {
+			width: 1280px;
+		}
+	</style>
 	</head>
 <body>
 	<%@ include file="/WEB-INF/jsp/include/header.jsp" %>
@@ -66,7 +71,7 @@
 				                            </td>
 				                            <td><a class="recruit-title" attr="${recruitResume.recruitNo}">${recruitResume.recruitTitle}</a></td>
 				                            <td><a class="member-id" attr="${recruitResume.memberNo}">${recruitResume.memberId}</a></td>
-				                            <td><a class="resume-name" attr="${recruitResume.resumeNo}">${recruitResume.resumeName}</a></td>
+				                            <td><a class="resume-name" attr="${recruitResume.resumeNo}" data-mir="${recruitResume.memberNo }">${recruitResume.resumeName}</a></td>
 				                            <td><a class="introduction-name" attr="${recruitResume.introductionNo}">${recruitResume.introductionName}</a></td>
 				                        </tr>
 			                        </c:forEach>

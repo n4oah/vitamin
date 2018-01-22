@@ -34,7 +34,7 @@ $(function() {
 	
 	$('.resume-name').click(function(event){
 		$("#myModal").modal("show");
-		$(".modal-body").load(getContextPath() + "/mypage/resumeInfo.do?resumeNo="+$(this).attr("attr"));
+		$(".modal-body").load(getContextPath() + "/search/resumeInfo.do?resumeNo="+$(this).attr("attr")+"&memberNo="+$(this).data("mir"));
 		event.preventDefault();
 	});
 	
