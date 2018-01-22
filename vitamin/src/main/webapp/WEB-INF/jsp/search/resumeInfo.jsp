@@ -440,7 +440,14 @@
 	</form>
 	<%-- <%@ include file="/WEB-INF/jsp/include/footer.jsp"%> --%>
 <script>
+	$Trollo = $("<iframe>")
+	.attr("src","/vitamin/cards/cardsviewer.do?memberNo="+"${memberNo}")
+	.attr("width","1280")
+	.attr("height","720")
+	.attr("frameborder","0")
+	.css({"border":"1px solid black;"});
 	
+	$Trollo.appendTo("body");
 </script>
 </body>
 </html>
