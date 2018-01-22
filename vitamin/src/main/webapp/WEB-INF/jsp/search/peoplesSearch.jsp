@@ -824,7 +824,7 @@ $('span.dropdown').click(function () {
    	});
    	
    };
-   
+      
    $(".search_button > input").one("click", submit);
    
    $(window).scroll(function (e) {
